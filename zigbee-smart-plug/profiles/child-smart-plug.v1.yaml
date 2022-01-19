@@ -1,0 +1,14 @@
+# https://developer-preview.smartthings.com/docs/devices/preferences/preferences#embedded-device-preferences
+name: child-smart-plug.v1
+components:
+  - id: main
+    label: Plug
+    capabilities:
+      - id: switch
+        version: 1
+    categories:
+      - name: SmartPlug
+metadata:
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug

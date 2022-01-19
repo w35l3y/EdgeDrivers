@@ -1,0 +1,6 @@
+name: "Zigbee Smart Plug with child devices"
+packageKey: "br.com.wesley.zigbee-smart-plug"
+permissions:
+  zigbee: {}
+  lan: {}
+  discovery: {}

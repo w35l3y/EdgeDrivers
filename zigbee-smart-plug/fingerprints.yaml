@@ -1,0 +1,25 @@
+# 01 0104 010A 01 07 0000 0003 0004 0005 0006 E000 E001 02 0019 000A
+# https://community.smartthings.com/t/edge-fingerprint-problem-for-xiaomi-devices/231811/7
+# https://community.smartthings.com/t/st-edge-deviceid-and-zigbee-profileid-in-edge-drivers-fingerprint/231886/2
+zigbeeManufacturer:
+  - id: "_TZ3000_o005nuxx/TS011F"
+    manufacturer: _TZ3000_o005nuxx
+    model: TS011F
+    deviceProfileName: multi-smart-plug.v5
+    deviceLabel: Zigbee Multi Smart Plug
+    zigbeeProfiles:
+      - 0x0104
+    deviceIdentifiers:
+      - 0x010A
+    clusters:
+      server:
+        - 0x0000
+        - 0x0003
+        - 0x0004
+        - 0x0005
+        - 0x0006
+        - 0xE000
+        - 0xE001
+      client:
+        - 0x0019
+        - 0x000A
