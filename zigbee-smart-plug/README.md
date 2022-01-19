@@ -19,6 +19,13 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 4. Install the driver
    Click on "INSTALL" button of "Zigbee Smart Plug with child devices"
 
+## Screenshots
+
+- ![Dashboard with main and child devices](resources/mainAndChildDevices.jpeg)
+- ![Detail page of the main device with multi-components representing each endpoint](resources/mainDetailPage.jpeg)
+- ![Routine page of one child device](resources/childDeviceRoutine.jpeg)
+- ![Example of working routine on child device](resources/exampleRoutineChildDevice.jpeg)
+
 ## Known issues
 
 - [App does not respect defined label of the components in the device profiles][4]
@@ -47,8 +54,8 @@ Keywords: missing endpoint
 
 Keywords: wrong label
 
-[1]: https://community.smartthings.com/t/st-edge-access-to-envlibrequire-devices/237272/6?u=w35l3y '[ST Edge] Access to \_envlibrequire(“devices”)'
-[2]: https://community.smartthings.com/t/st-edge-does-this-typos-affect-api-functionality-apiv0-hub-release-40-x/237673?u=w35l3y '[ST Edge] Does this typos affect API functionality ? ( APIv0 Hub Release 40.X )'
-[3]: https://community.smartthings.com/t/st-edge-how-to-update-increase-the-number-of-endpoints/237362/2?u=w35l3y '[ST Edge] How to update/increase the number of endpoints?'
-[4]: https://community.smartthings.com/t/st-edge-wrong-labels-in-detail-page-for-custom-drivers/237383?u=w35l3y '[ST Edge] Wrong labels in Detail page for custom drivers'
-[5]: https://developer-preview.smartthings.com/edge-device-drivers/driver.html#Driver.try_create_device 'Driver.try_create_device'
+[1]: https://community.smartthings.com/t/st-edge-access-to-envlibrequire-devices/237272/6?u=w35l3y "[ST Edge] Access to _envlibrequire(“devices”)"
+[2]: https://community.smartthings.com/t/st-edge-does-this-typos-affect-api-functionality-apiv0-hub-release-40-x/237673?u=w35l3y "[ST Edge] Does this typos affect API functionality ? ( APIv0 Hub Release 40.X )"
+[3]: https://community.smartthings.com/t/st-edge-how-to-update-increase-the-number-of-endpoints/237362/2?u=w35l3y "[ST Edge] How to update/increase the number of endpoints?"
+[4]: https://community.smartthings.com/t/st-edge-wrong-labels-in-detail-page-for-custom-drivers/237383?u=w35l3y "[ST Edge] Wrong labels in Detail page for custom drivers"
+[5]: https://developer-preview.smartthings.com/edge-device-drivers/driver.html#Driver.try_create_device "Driver.try_create_device"
