@@ -21,10 +21,7 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 
 ## Screenshots
 
-- ![Dashboard with main and child devices](resources/mainAndChildDevices.jpeg)
-- ![Detail page of the main device with multi-components representing each endpoint](resources/mainDetailPage.jpeg)
-- ![Routine page of one child device](resources/childDeviceRoutine.jpeg)
-- ![Example of working routine on child device](resources/exampleRoutineChildDevice.jpeg)
+<img src="resources/mainAndChildDevices.jpeg" width="100" height="100" title="Dashboard with main and child devices" /> <img src="resources/mainDetailPage.jpeg" width="100" height="100" title="Detail page of the main device with multi-components representing each endpoint" /> <img src="resources/childDeviceRoutine.jpeg" width="100" height="100" title="Routine page of one child device" /> <img src="resources/exampleRoutineChildDevice.jpeg" width="100" height="100" title="Example of working routine on child device" />
 
 ## Known issues
 
