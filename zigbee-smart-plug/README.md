@@ -4,20 +4,20 @@ Due to current limitation in the API 40.x that [child devices can only be of typ
 
 During development, I realized that ["parent_device_id" can't be defined when mixing device types][1]. Otherwise, the child devices wouldn't show up. So the side effect is child devices aren't really associated to its parent.
 
-The other situation that seems related to the device is that there are 5 endpoints, but that API only recognized 4 of them. [This was causing the 5th component to be offline][3].
+The other situation that seems related to the device is that there are 5 endpoints, but the API only recognized 4 of them. [This was causing the 5th component to be offline][3].
 
 I haven't tested usage of the same driver with 2 physical devices at once because I only have one.
 
 ## How to use it
 
-1. Access the invitation link informed in the README of the repository
-   Click on the link or copy and paste it to your browser
+1. Access the invitation link informed in the [README of the repository][6]
+   - Click on the link or copy and paste it to your browser
 2. Accept it
-   Click on "ACCEPT" button
+   - Click on "ACCEPT" button
 3. Enroll to a hub
-   Click on "ENROLL" button of the desired hub
+   - Click on "ENROLL" button of the desired hub
 4. Install the driver
-   Click on "INSTALL" button of "Zigbee Smart Plug with child devices"
+   - Click on "INSTALL" button of "Zigbee Smart Plug with child devices"
 
 ## Screenshots
 
@@ -57,3 +57,4 @@ Keywords: wrong label
 [3]: https://community.smartthings.com/t/st-edge-how-to-update-increase-the-number-of-endpoints/237362/2?u=w35l3y "[ST Edge] How to update/increase the number of endpoints?"
 [4]: https://community.smartthings.com/t/st-edge-wrong-labels-in-detail-page-for-custom-drivers/237383?u=w35l3y "[ST Edge] Wrong labels in Detail page for custom drivers"
 [5]: https://developer-preview.smartthings.com/edge-device-drivers/driver.html#Driver.try_create_device "Driver.try_create_device"
+[6]: https://github.com/w35l3y/EdgeDrivers#readme
