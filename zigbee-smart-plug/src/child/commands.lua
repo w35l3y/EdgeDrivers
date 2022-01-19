@@ -1,6 +1,3 @@
--- local log = require('log')
---local capabilities = require('st.capabilities')
--- local utils = require('st.utils')
 local json = require("dkjson")
 local parent_commands = require("commands")
 

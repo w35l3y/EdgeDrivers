@@ -60,10 +60,8 @@ end
 
 function commands.is_same_device(device, dsaddr, endpoint_id)
   if device.device_network_id ~= nil then
-    -- log.info("[1] dni=" .. device.device_network_id)
     return dsaddr == tonumber(device.device_network_id:sub(1, 4), 16) and ((not device.device_network_id:match(":") and endpoint_id == 1) or endpoint_id == tonumber(device.device_network_id:sub(6), 16))
   else
-    -- log.info("[2] dni=" .. tostring(device:get_short_address()) .. ":" .. tostring(device:get_endpoint_for_component_id("main")))
     return dsaddr == device:get_short_address() and endpoint_id == tonumber(device:get_endpoint_for_component_id("main"))
   end
 end

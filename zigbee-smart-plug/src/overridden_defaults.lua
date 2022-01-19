@@ -7,19 +7,8 @@ local commands = require("commands")
 
 local overridden_defaults = {}
 
---[[
-AUTOMATICO
-
-value={
-  field_name="OnOff", 
-  value=false, 
-}
-< ZigbeeMessageRx || type: 0x00, < AddressHeader || src_addr: 0xC720, src_endpoint: 0x01, dest_addr: 0x0000, dest_endpoint: 0x01, profile: 0x0104, cluster: OnOff >, lqi: 0x6C, rssi: -73, body_length: 0x0007, < ZCLMessageBody || < ZCLHeader || frame_ctrl: 0x18, seqno: 0x6E, ZCLCommandId: 0x0A >, < ReportAttribute || < AttributeRecord || AttributeId: 0x0000, DataType: Boolean, OnOff: false > > > >
---]]
 function overridden_defaults.on_off_attr_handler(driver, device, value, zb_rx)
   log.info("overridden_defaults.on_off_attr_handler")
---  log.info(utils.stringify_table(value, "value", true))
---  log.info(zb_rx:pretty_print())
 
 -- esta linha não pode ser removida pois atualiza o status do device real
   switch_defaults.on_off_attr_handler(driver, device, value, zb_rx)
@@ -36,48 +25,12 @@ function overridden_defaults.on_off_attr_handler(driver, device, value, zb_rx)
       end
     end
   end
-
-  -- log.info(utils.stringify_table(device, "device", true))
 end
 
---[[
-MANUAL
-
-< ZigbeeMessageRx || type: 0x00, < AddressHeader || src_addr: 0xC720, src_endpoint: 0x05, dest_addr: 0x0000, dest_endpoint: 0x01, profile: 0x0104, cluster: OnOff >, lqi: 0x70, rssi: -72, body_length: 0x0005, < ZCLMessageBody || < ZCLHeader || frame_ctrl: 0x08, seqno: 0x6F, ZCLCommandId: 0x0B >, < DefaultResponse || cmd: 0x01, ZclStatus: SUCCESS > > >
-
-< ZigbeeMessageRx || type: 0x00, < AddressHeader || src_addr: 0xC720, src_endpoint: 0x05, dest_addr: 0x0000, dest_endpoint: 0x01, profile: 0x0104, cluster: OnOff >, lqi: 0x68, rssi: -74, body_length: 0x0005, < ZCLMessageBody || < ZCLHeader || frame_ctrl: 0x08, seqno: 0x77, ZCLCommandId: 0x0B >, < DefaultResponse || cmd: 0x00, ZclStatus: SUCCESS > > >
---]]
 function overridden_defaults.default_response_handler(driver, device, zb_rx)
   log.info("overridden_defaults.default_response_handler")
---  log.info(zb_rx:pretty_print())
-
-  -- switch_defaults.default_response_handler(driver, device, zb_rx)
-  -- device:emit_event_for_endpoint(zb_rx.address_header.src_endpoint.value, event)
-
-  -- pcall(signalStrength_handler, device, zb_rx) -- podia, mas só pra não poluir
 end
 
---[[
-MANUAL
-
-command_on={
-  args={}, 
-  capability="switch", 
-  command="on", 
-  component="main_5", 
-  positional_args={}, 
-}
-
-CHILD
-command_on={
-  args={}, 
-  capability="switch", 
-  command="on", 
-  component="main", 
-  positional_args={}, 
-}
-
---]]
 function overridden_defaults.on(driver, device, command)
   log.info("overridden_defaults.on")
   log.info(utils.stringify_table(command, "command_on", true))
@@ -85,17 +38,6 @@ function overridden_defaults.on(driver, device, command)
   switch_defaults.on(driver, device, command)
 end
 
---[[
-MANUAL
-
-command_off={
-  args={}, 
-  capability="switch", 
-  command="off", 
-  component="main_5", 
-  positional_args={}, 
-}
---]]
 function overridden_defaults.off(driver, device, command)
   log.info("overridden_defaults.off")
   log.info(utils.stringify_table(command, "command_off", true))

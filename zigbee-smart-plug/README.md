@@ -24,6 +24,11 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 - App does not respect defined label of the components in the device profiles
 - Removing parent device doesn't revome child devices automatically
 
+## Known limitations
+
+- If you remove one or more child devices by mistake and want them back, you will need to repair the device
+- If you need to repair the device for some reason, you will need to remove each old device/child device one by one
+
 ## Related stuff
 
 [[ST Edge] Access to \_envlibrequire(“devices”)](https://community.smartthings.com/t/st-edge-access-to-envlibrequire-devices/237272/6?u=w35l3y)

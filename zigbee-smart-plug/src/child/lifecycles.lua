@@ -13,8 +13,6 @@ end
 function lifecycle_handler.init(driver, device, event, args)
   log.info("[CHILD] device_init " .. device.device_network_id)
 
-  -- device:online()
-
   commands.mimic_zigbee_device(driver, device)
 end
 
