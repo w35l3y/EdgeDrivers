@@ -27,6 +27,7 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 
 - [App does not respect defined label of the components in the device profiles][4]
 - [Removing parent device doesn't revome child devices automatically][1]
+- App does not respect definition order of the components in the device profiles
 
 ## Known limitations
 
