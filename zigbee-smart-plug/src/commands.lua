@@ -57,7 +57,7 @@ function commands.createChildDevices (driver, device)
     -- https://developer-preview.smartthings.com/edge-device-drivers/driver.html#Driver.try_create_device
     for index=2,getChildCount(device) do
       local merged_metadata = utils.merge({
-        device_network_id = device.device_network_id .. ':' .. getEndpoint(device, index),
+        device_network_id = device.device_network_id .. ':' .. getEndpoint(metadata, index),
         label = "Child Smart Plug " .. index
       }, metadata)
       local newDevice, err, err_msg = driver:try_create_device(merged_metadata)
