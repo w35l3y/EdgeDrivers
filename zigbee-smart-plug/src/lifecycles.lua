@@ -37,10 +37,10 @@ end
 function lifecycle_handler.init(driver, device, event, args)
   log.info("device_init")
 
-  commands.update_endpoints(driver, device)
-
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
+
+  commands.update_endpoints(driver, device)
 
   device:set_field("onOff", "catchall")
 end

@@ -1,0 +1,51 @@
+name: multi-smart-plug.v7
+components:
+  - id: main
+    label: Plug 1
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+  - id: main_2
+    label: Plug 2
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+  - id: main_3
+    label: Plug 3
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+  - id: main_4
+    label: Plug 4
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+  - id: main_7
+    label: USB Plugs
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: SmartPlug
+metadata:
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug

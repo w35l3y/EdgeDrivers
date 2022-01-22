@@ -1,12 +1,15 @@
 local log = require('log')
 local utils = require('st.utils')
-local json = require("dkjson")
+local json = require('dkjson')
 
 local function getChildCount (device)
   return 5
 end
 
 local function getEndpoint (device, index)
+  if index == 5 and device.model == "TS0115" then
+    return "07"
+  end
   return string.format("%02X", index)
 end
 
@@ -14,10 +17,18 @@ local commands = {}
 
 function commands.update_endpoints(driver, device)
   local device_cloud = json.decode(driver.device_api.get_device_info(device.id))
+  
+  device_cloud.model = nil
+  for _, ep in pairs(device_cloud.zigbee_endpoints) do
+    if ep.model ~= nil then
+      device_cloud.model = ep.model
+      break
+    end
+  end
 
   local output = {}
-  for index=5, getChildCount(driver, device) do
-    local e = tonumber(getEndpoint(device, index), 16)
+  for index=5, getChildCount(driver, device_cloud) do
+    local e = tonumber(getEndpoint(device_cloud, index), 16)
     output[tostring(e)] = utils.merge({
       id = e
     }, device_cloud.zigbee_endpoints["2"])

@@ -1,5 +1,7 @@
-local json = require("dkjson")
-local parent_commands = require("commands")
+local log = require('log')
+local utils = require('st.utils')
+local json = require('dkjson')
+local parent_commands = require('commands')
 
 local function component_to_endpoint(device)
   return tonumber(device.device_network_id:sub(6), 16)  -- XXXX:EP
@@ -14,6 +16,24 @@ local function corrected_eps(zigbee_endpoints)
 end
 
 function do_nothing() end
+
+function get_device_details(device)
+  if device.model == "TS0115" then
+    return {
+      device_id = 0x010A,  -- deviceIdentifiers
+      profile_id = 0x0009,  -- zigbeeProfiles
+      client_clusters = {},
+      server_clusters = { 0x000A, 0x0004, 0x0005, 0x0006 }
+    }
+  end
+
+  return {
+    device_id = 0x010A,  -- deviceIdentifiers
+    profile_id = 0x0104,  -- zigbeeProfiles
+    client_clusters = {},
+    server_clusters = { 0x0003, 0x0004, 0x0005, 0x0006, 0xE000, 0xE001 }
+  }
+end
   
 local commands = {}
 
@@ -21,15 +41,11 @@ function commands.mimic_zigbee_device(driver, device)
   local device_cloud = json.decode(driver.device_api.get_device_info(device.id))
   device_cloud.fingerprinted_endpoint_id = component_to_endpoint(device)
   device_cloud.zigbee_endpoints = {
-    [tostring(device_cloud.fingerprinted_endpoint_id)] = {
+    [tostring(device_cloud.fingerprinted_endpoint_id)] = utils.merge({
       id = device_cloud.fingerprinted_endpoint_id,
-      client_clusters = {},
       manufacturer = device_cloud.manufacturer,
-      model = device_cloud.model,
-      device_id = 0x010A,  -- deviceIdentifiers
-      profile_id = 0x0104,  -- zigbeeProfiles
-      server_clusters = { 0x0003, 0x0004, 0x0005, 0x0006, 0xE000, 0xE001 }
-    }
+      model = device_cloud.model
+    }, get_device_details(device_cloud))
   }
   device:load_updated_data(device_cloud)
 
