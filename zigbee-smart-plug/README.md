@@ -38,7 +38,7 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 
 [[ST Edge] Access to \_envlibrequire(“devices”)][1]
 
-**Keywords:** child device, parent device id, api
+**Keywords:** child device, parent device id, api, parent_device_id
 
 [[ST Edge] Does this typos affect API functionality ? ( APIv0 Hub Release 40.X )][2]
 
@@ -46,7 +46,7 @@ I haven't tested usage of the same driver with 2 physical devices at once becaus
 
 [[ST Edge] How to update/increase the number of endpoints?][3]
 
-**Keywords:** missing endpoint, api
+**Keywords:** missing endpoint, api, zigbee_endpoints
 
 [[ST Edge] Wrong labels in Detail page for custom drivers][4]
 
