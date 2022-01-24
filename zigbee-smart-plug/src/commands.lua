@@ -2,7 +2,7 @@ local log = require('log')
 local utils = require('st.utils')
 local json = require('dkjson')
 
-local function getChildCount (device)
+local function getChildCount (driver, device)
   return 5
 end
 
@@ -55,7 +55,7 @@ function commands.createChildDevices (driver, device)
       vendor_provided_label = "Child Smart Plug"
     }
     -- https://developer-preview.smartthings.com/edge-device-drivers/driver.html#Driver.try_create_device
-    for index=2,getChildCount(device) do
+    for index=2,getChildCount(driver, metadata) do
       local merged_metadata = utils.merge({
         device_network_id = device.device_network_id .. ':' .. getEndpoint(metadata, index),
         label = "Child Smart Plug " .. index
