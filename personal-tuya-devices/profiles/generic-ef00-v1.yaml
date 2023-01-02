@@ -6,22 +6,13 @@ components:
     capabilities:
       - id: valleyboard16460.info
         version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
     categories:
       - name: Generic Sensor
 preferences:
-  - name: presentation
-    title: Presentation
-    description: This can't be undone without re-pairing the device
-    required: true
-    preferenceType: enumeration
-    definition:
-      options:
-        generic_ef00_v1: Default
-        normal_multi_dimmer_v2: 2 dimmers
-        normal_multi_switch_v4: 4 switches
-        normal_multi_switch_v6: 6 switches
-        normal_garage_door_v1: Garage Door
-      default: generic_ef00_v1
   - name: switchDatapoints
     title: Datapoints for switches
     description: List of datapoints used for switches (comma-separated)

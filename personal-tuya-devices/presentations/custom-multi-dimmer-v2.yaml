@@ -1,6 +1,6 @@
 # ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-dimmer-v2.yaml -o=personal-tuya-devices/presentations/custom-multi-dimmer-v2.out.yaml
 mnmn: SmartThingsCommunity
-vid: 417c33a0-9b77-3754-88f8-ac7feba6a22f
+vid: 0ad7d052-f6ce-34c0-b4d8-fcfc571d2301
 version: 0.0.1
 type: profile
 dashboard:
@@ -49,6 +49,11 @@ dashboard:
 detailView:
   - component: main
     capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main
+    capability: signalStrength
     version: 1
     values: []
     patch: []
@@ -155,5 +160,5 @@ automation:
       values: []
       patch: []
       exclusion: []
-presentationId: 417c33a0-9b77-3754-88f8-ac7feba6a22f
+presentationId: 0ad7d052-f6ce-34c0-b4d8-fcfc571d2301
 manufacturerName: SmartThingsCommunity

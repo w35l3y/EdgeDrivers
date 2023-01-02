@@ -1,8 +1,10 @@
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v6.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v6.out.yaml
+# currently, dashboard doesn't work with 6 switches ( https://community.smartthings.com/t/arrayindexoutofboundsexception-when-creating-device-presentation-for-6-switches/254926?u=w35l3y )
 mnmn: SmartThingsCommunity
-vid: 3f246fec-5c7f-3763-bbcb-b12d913c469f
+vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf
 version: 0.0.1
 type: profile
-dashboard: # currently, doesn't work with 6 switches ( https://community.smartthings.com/t/arrayindexoutofboundsexception-when-creating-device-presentation-for-6-switches/254926?u=w35l3y )
+dashboard:
   states:
     - component: main
       capability: switch
@@ -74,6 +76,11 @@ dashboard: # currently, doesn't work with 6 switches ( https://community.smartth
 detailView:
   - component: main
     capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main
+    capability: signalStrength
     version: 1
     values: []
     patch: []
@@ -194,5 +201,5 @@ automation:
       values: []
       patch: []
       exclusion: []
-presentationId: 3f246fec-5c7f-3763-bbcb-b12d913c469f
+presentationId: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf
 manufacturerName: SmartThingsCommunity

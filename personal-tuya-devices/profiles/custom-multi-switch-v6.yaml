@@ -6,6 +6,8 @@ components:
     capabilities:
       - id: switch
         version: 1
+      - id: signalStrength
+        version: 1
       - id: refresh
         version: 1
     categories:
@@ -116,7 +118,7 @@ metadata:
   ocfDeviceType: oic.d.switch
   deviceTypeId: Switch
   mnmn: SmartThingsCommunity
-  vid: 3f246fec-5c7f-3763-bbcb-b12d913c469f
+  vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf
 owner:
   ownerType: USER
   ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

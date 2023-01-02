@@ -16,9 +16,7 @@ return {
   },
   lifecycle_handlers = {
     added = function (driver, device, ...)
-      --if device.zigbee_endpoints ~= nil then
-        device:emit_component_event({id="main"}, info.value(tostring(myutils.info(device))))
-      --end
+      device:emit_event(info.value(tostring(myutils.info(device))))
     end,
   },
 }

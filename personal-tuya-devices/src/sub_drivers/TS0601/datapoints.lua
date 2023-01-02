@@ -29,12 +29,12 @@ return {
   },
   ["_TZE200_e3oitdyu"] = {  -- 2 dimmers
     [1] = tuyaEF00_defaults.switch,
-    [2] = tuyaEF00_defaults.switchLevel,
-    [3] = tuyaEF00_defaults.switchLevel,
+    [2] = tuyaEF00_defaults.dimmer,
+    [3] = tuyaEF00_defaults.dimmer,
     [4] = tuyaEF00_defaults.enum,
     [7] = tuyaEF00_defaults.switch,
-    [8] = tuyaEF00_defaults.switchLevel,
-    [9] = tuyaEF00_defaults.switchLevel,
+    [8] = tuyaEF00_defaults.dimmer,
+    [9] = tuyaEF00_defaults.dimmer,
     [10] = tuyaEF00_defaults.enum,
   },
 }

@@ -1,11 +1,10 @@
 local log = require "log"
---local utils = require "st.utils"
+local utils = require "st.utils"
 
 -- https://community.smartthings.com/t/st-edge-change-driver-tool-in-the-st-app/230956/23?u=w35l3y
 local base_device = require "st.device"
 local device_management = require "st.zigbee.device_management"
 local myutils = require "utils"
-local utils = require "st.utils"
 
 -- set_component_to_endpoint_fn
 -- get_endpoint_for_component_id
@@ -56,17 +55,20 @@ function lifecycles.infoChanged(driver, device, event, args)
     local normalized_id = utils.snake_case(id)
     local match, _length, component, dpid = string.find(normalized_id, "^child_(main(%x+))$")
     if match ~= nil and value and args.old_st_store.preferences[id] ~= value then
-      driver:try_create_device({
-        type = "EDGE_CHILD",
-        device_network_id = nil,
-        parent_assigned_child_key = dpid,
-        label = "Child Switch " .. tonumber(dpid, 16),
-        profile = "child-switch-v1",
-        parent_device_id = device.id,
-        manufacturer = driver.NAME,
-        model = "child-switch-v1",
-        vendor_provided_label = "Child Switch " .. tonumber(dpid, 16),
-      })
+      local created = device:get_child_by_parent_assigned_key(dpid)
+      if not created then
+        driver:try_create_device({
+          type = "EDGE_CHILD",
+          device_network_id = nil,
+          parent_assigned_child_key = dpid,
+          label = "Child Switch " .. tonumber(dpid, 16),
+          profile = "child-switch-v1",
+          parent_device_id = device.id,
+          manufacturer = driver.NAME,
+          model = "child-switch-v1",
+          vendor_provided_label = "Child Switch " .. tonumber(dpid, 16),
+        })
+      end
     end
   end
 end

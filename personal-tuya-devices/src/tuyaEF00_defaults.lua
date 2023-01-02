@@ -9,8 +9,6 @@ local generic_body = require "st.zigbee.generic_body"
 
 local myutils = require "utils"
 
-local defaults = {}
-
 local function to_number (value)
   if type(value) == "boolean" then
     return value and 1 or 0
@@ -22,54 +20,85 @@ local function to_number (value)
   return value
 end
 
-function defaults.switch(value)
-  local attr = capabilities.switch.switch
-  return value and attr.on() or attr.off()
-end
+local default_generic = {
+  to_zigbee = function (self, value) return value end,
+  from_zigbee = function (self, value) return value end,
+  create_event = function (self, value)
+    return self.capability ~= nil and self.attribute ~= nil and capabilities[self.capability][self.attribute](self:from_zigbee(value)) or nil
+  end,
+}
 
-function defaults.switchLevel(value)
-  return capabilities.switchLevel.level(math.floor(to_number(value) / 10))
-end
+local defaults = {
+  switch = {
+    capability = "switch",
+    attribute = "switch",
+    from_zigbee = function (self, value) return value and "on" or "off" end,
+  },
+  switchLevel = {
+    capability = "switchLevel",
+    attribute = "level",
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
+  contactSensor = {
+    capability = "contactSensor",
+    attribute = "contact",
+    from_zigbee = function (self, value) return value and "open" or "closed" end,
+  },
+  doorControl = {
+    capability = "doorControl",
+    attribute = "door",
+    from_zigbee = function (self, value) return value and "open" or "closed" end,
+  },
+  motionSensor = {
+    capability = "motionSensor",
+    attribute = "motion",
+    from_zigbee = function (self, value) return value and "active" or "inactive" end,
+  },
+  presenceSensor = {
+    capability = "presenceSensor",
+    attribute = "presence",
+    from_zigbee = function (self, value) return value and "present" or "not present" end,
+  },
+  waterSensor = {
+    capability = "waterSensor",
+    attribute = "water",
+    from_zigbee = function (self, value) return value and "wet" or "dry" end,
+  },
+  value = {
+    capability = "valleyboard16460.datapointValue",
+    attribute = "value",
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
+  string = {
+    capability = "valleyboard16460.datapointString",
+    attribute = "value",
+    from_zigbee = function (self, value) return tostring(value) end,
+  },
+  enum = {
+    capability = "valleyboard16460.datapointEnum",
+    attribute = "value",
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
+  bitmap = {
+    capability = "valleyboard16460.datapointBitmap",
+    attribute = "value",
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
+  raw = {
+    capability = "valleyboard16460.datapointRaw",
+    attribute = "value",
+  },
 
-function defaults.contactSensor(value)
-  return capabilities.contactSensor.contact(value and "open" or "closed")
+  dimmer = {
+    to_zigbee = function (self, value) return 10 * value end,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / 10) end,
+  },
+}
+for k,v in pairs(defaults) do
+  setmetatable(v, {__index=default_generic})
 end
-
-function defaults.doorControl(value)
-  return capabilities.doorControl.door(value and "open" or "closed")
-end
-
-function defaults.motionSensor(value) -- untested
-  return capabilities.motionSensor.motion(value and "active" or "inactive")
-end
-
-function defaults.presenceSensor(value) -- untested
-  return capabilities.presenceSensor.presence(value and "present" or "not present")
-end
-
-function defaults.waterSensor(value) -- untested
-  return capabilities.waterSensor.water(value and "wet" or "dry")
-end
-
-function defaults.value(value)
-  return capabilities["valleyboard16460.datapointValue"].value(to_number(value))
-end
-
-function defaults.string(value)
-  return capabilities["valleyboard16460.datapointString"].value(tostring(value))
-end
-
-function defaults.enum(value)
-  return capabilities["valleyboard16460.datapointEnum"].value(to_number(value))
-end
-
-function defaults.bitmap(value)
-  return capabilities["valleyboard16460.datapointBitmap"].value(to_number(value))
-end
-
-function defaults.raw(value)
-  return capabilities["valleyboard16460.datapointRaw"].value(value)
-end
+defaults.generic = default_generic
+setmetatable(defaults.dimmer, {__index=defaults.switchLevel})
 
 local map_to_fn = {
   [tuya_types.DatapointSegmentType.BOOLEAN] = defaults.switch,
@@ -86,8 +115,8 @@ function defaults.command_data_report_handler(datapoints)
     local dpid = zb_rx.body.zcl_body.data.dpid.value
     local value = zb_rx.body.zcl_body.data.value.value
     local _type = zb_rx.body.zcl_body.data.type.value
-    local event_fn = datapoints[dpid] or map_to_fn[_type]
-    local event = (event_fn or function () end)(value)
+    local event_dp = datapoints[dpid] or map_to_fn[_type] or defaults.generic
+    local event = event_dp:create_event(value)
 
     --log.info("device.preferences.presentation", device.preferences.presentation)
     if event ~= nil then
@@ -106,11 +135,11 @@ function defaults.command_data_report_handler(datapoints)
         log.warn("Unexpected component for datapoint", dpid, value)
         --device:emit_event(event)
       end
-      if event_fn == defaults.switch and not myutils.is_normal(device) then
+      if event_dp.create_event == defaults.switch.create_event and not myutils.is_normal(device) then
         local switchAll = true
-        for dpid,v in pairs(datapoints) do
-          if v == defaults.switch then
-            local val,sta = device:get_latest_state(device:get_component_id_for_endpoint(dpid), event.capability.ID, event.attribute.NAME)
+        for dpid, v in pairs(datapoints) do
+          if v.create_event == defaults.switch.create_event then
+            local val, sta = device:get_latest_state(device:get_component_id_for_endpoint(dpid), event.capability.ID, event.attribute.NAME)
             if val ~= event.value.value then
               switchAll = false
               break
@@ -131,66 +160,56 @@ function defaults.command_data_report_handler(datapoints)
   end
 end
 
-local function send_command(datapoints, device, command, value)
-  --log.info("send_command parent_assigned_child_key", device.parent_assigned_child_key)
+local function send_command(datapoints, device, command, value_fn)
   if device.parent_assigned_child_key == nil then
-    --log.info("send_command component", command.component, myutils.is_normal(device))
     if command.component ~= "main" or myutils.is_normal(device) then
-      device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, command.component, value))
+      device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, command.component, value_fn(datapoints[device:get_endpoint_for_component_id(command.component)] or defaults.generic)))
     else
-      for dpid, v in pairs(datapoints) do
-        if v == defaults.switch then
-          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, string.format("main%02X", dpid), value))
+      for dpid, def in pairs(datapoints) do
+        if def.create_event == defaults.switch.create_event then
+          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, string.format("main%02X", dpid), value_fn(def)))
         end
       end
     end
   else
     -- este comando abaixo delega pro get_parent_device()
-    device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device:get_parent_device(), "main" .. device.parent_assigned_child_key, value))
+    device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device:get_parent_device(), "main" .. device.parent_assigned_child_key, value_fn(datapoints[tonumber(device.parent_assigned_child_key, 16)] or defaults.generic)))
   end
 end
 
 function defaults.command_true_handler(datapoints)
   return function (driver, device, command)
-    send_command(datapoints, device, command, data_types.Boolean(true))
+    send_command(datapoints, device, command, function () return data_types.Boolean(true) end)
   end
 end
 
 function defaults.command_false_handler(datapoints)
   return function (driver, device, command)
-    send_command(datapoints, device, command, data_types.Boolean(false))
+    send_command(datapoints, device, command, function () return data_types.Boolean(false) end)
   end
 end
 
 function defaults.command_switchLevel_handler(datapoints)
   return function (driver, device, command)
-    --log.info(utils.stringify_table(command, "command", true))
-    --log.info(utils.stringify_table(command.value, "command value", true))
-    send_command(datapoints, device, command, tuya_types.Uint32(10 * command.args.level))  -- BigEndian ?
+    send_command(datapoints, device, command, function (e) return tuya_types.Uint32(e:to_zigbee(command.args.level)) end)  -- BigEndian ?
   end
 end
 
 function defaults.command_value_handler(datapoints)
   return function (driver, device, command)
-    --log.info(utils.stringify_table(command, "command", true))
-    --log.info(utils.stringify_table(command.value, "command value", true))
-    send_command(datapoints, device, command, tuya_types.Uint32(command.args.value))  -- BigEndian ?
+    send_command(datapoints, device, command, function () return tuya_types.Uint32(command.args.value) end)  -- BigEndian ?
   end
 end
 
 function defaults.command_string_handler(datapoints)
   return function (driver, device, command)
-    --log.info(utils.stringify_table(command, "command", true))
-    --log.info(utils.stringify_table(command.value, "command value", true))
-    send_command(datapoints, device, command, data_types.CharString(command.args.value))
+    send_command(datapoints, device, command, function () return data_types.CharString(command.args.value) end)
   end
 end
 
 function defaults.command_enum_handler(datapoints)
   return function (driver, device, command)
-    --log.info(utils.stringify_table(command, "command", true))
-    --log.info(utils.stringify_table(command.value, "command value", true))
-    send_command(datapoints, device, command, data_types.Enum8(command.args.value))
+    send_command(datapoints, device, command, function() return data_types.Enum8(command.args.value) end)
   end
 end
 
@@ -198,20 +217,18 @@ function defaults.command_bitmap_handler(datapoints)
   return function (driver, device, command)
     local value = command.args.value
     if value > 0xFFFF then
-      send_command(datapoints, device, command, tuya_types.Bitmap32(value)) -- BigEndian ?
+      send_command(datapoints, device, command, function () return tuya_types.Bitmap32(value) end) -- BigEndian ? untested
     elseif value > 0xFF then
-      send_command(datapoints, device, command, tuya_types.Bitmap16(value)) -- BigEndian ?
+      send_command(datapoints, device, command, function () return tuya_types.Bitmap16(value) end) -- BigEndian ? untested
     else
-      send_command(datapoints, device, command, data_types.Bitmap8(value))
+      send_command(datapoints, device, command, function () return data_types.Bitmap8(value) end)
     end
   end
 end
 
 function defaults.command_raw_handler(datapoints)
   return function (driver, device, command)
-    --log.info(utils.stringify_table(command, "command", true))
-    --log.info(utils.stringify_table(command.value, "command value", true))
-    send_command(datapoints, device, command, generic_body.GenericBody(command.args.value))
+    send_command(datapoints, device, command, function () return generic_body.GenericBody(command.args.value) end)
   end
 end
 

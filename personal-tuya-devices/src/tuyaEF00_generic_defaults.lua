@@ -26,10 +26,10 @@ local datapoint_types_to_fn = {
 
 local function get_datapoints (device)
   local o = {}
-  for name,fn in pairs(datapoint_types_to_fn) do
+  for name, def in pairs(datapoint_types_to_fn) do
     if device.preferences[name] ~= nil then
       for dpid in device.preferences[name]:gmatch("[^,]+") do
-        o[tonumber(dpid, 10)] = fn
+        o[tonumber(dpid, 10)] = def
       end
     end
   end
@@ -38,16 +38,17 @@ end
 
 local child_types_to_profile = {
   switchDatapoints = "child-switch-v1",
+  switchLevelDatapoints = "child-switchLevel-v1",
   contactSensorDatapoints = "child-contactSensor-v1",
   doorControlDatapoints = "child-doorControl-v1",
   motionSensorDatapoints = "child-motionSensor-v1",
   presenceSensorDatapoints = "child-presenceSensor-v1",
-  switchLevelDatapoints = "child-switchLevel-v1",
   waterSensorDatapoints = "child-waterSensor-v1",
-  bitmapDatapoints = "child-bitmap-v1",
   enumerationDatapoints = "child-enum-v1",
   stringDatapoints = "child-string-v1",
   valueDatapoints = "child-value-v1",
+  bitmapDatapoints = "child-bitmap-v1",
+  rawDatapoints = "child-raw-v1",
 }
 
 local lifecycle_handlers = {}
@@ -101,16 +102,16 @@ function defaults.command_data_report_handler(driver, device, ...)
   end
 end
 
-function defaults.command_switchLevel_handler(...)
-  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
-end
-
 function defaults.command_true_handler(...)
   send_command(tuyaEF00_defaults.command_true_handler, ...)
 end
 
 function defaults.command_false_handler(...)
   send_command(tuyaEF00_defaults.command_false_handler, ...)
+end
+
+function defaults.command_switchLevel_handler(...)
+  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
 end
 
 function defaults.command_value_handler(...)

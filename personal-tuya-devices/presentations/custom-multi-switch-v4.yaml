@@ -1,5 +1,6 @@
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v4.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v4.out.yaml
 mnmn: SmartThingsCommunity
-vid: a17254e5-8e9e-32a3-bbf8-7b3e948c369a
+vid: 9da457c6-9c39-3cce-9848-159dd43695ec
 version: 0.0.1
 type: profile
 dashboard:
@@ -74,6 +75,11 @@ dashboard:
 detailView:
   - component: main
     capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main
+    capability: signalStrength
     version: 1
     values: []
     patch: []
@@ -160,5 +166,5 @@ automation:
       values: []
       patch: []
       exclusion: []
-presentationId: a17254e5-8e9e-32a3-bbf8-7b3e948c369a
+presentationId: 9da457c6-9c39-3cce-9848-159dd43695ec
 manufacturerName: SmartThingsCommunity
