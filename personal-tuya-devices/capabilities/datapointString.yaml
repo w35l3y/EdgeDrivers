@@ -1,0 +1,27 @@
+#./smartthings capabilities:create -y -i=personal-tuya-devices/capabilities/datapointString.yaml -o=personal-tuya-devices/capabilities/datapointString.out.yaml
+#./smartthings capabilities:update -y -i=personal-tuya-devices/capabilities/datapointString.yaml -o=personal-tuya-devices/capabilities/datapointString.out.yaml
+id: valleyboard16460.datapointString
+version: 1
+status: proposed
+name: Datapoint String
+ephemeral: false
+attributes:
+  value:
+    schema:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+      required:
+        - value
+    setter: setValue
+    enumCommands: []
+commands:
+  setValue:
+    name: setValue
+    arguments:
+      - name: value
+        optional: false
+        schema:
+          type: string

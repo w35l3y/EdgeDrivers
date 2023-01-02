@@ -1,0 +1,27 @@
+#./smartthings capabilities:create -y -i=personal-tuya-devices/capabilities/datapointRaw.yaml -o=personal-tuya-devices/capabilities/datapointRaw.out.yaml
+#./smartthings capabilities:update -y -i=personal-tuya-devices/capabilities/datapointRaw.yaml -o=personal-tuya-devices/capabilities/datapointRaw.out.yaml
+id: valleyboard16460.datapointRaw
+version: 1
+status: proposed
+name: Datapoint Raw
+ephemeral: false
+attributes:
+  value:
+    schema:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+      required:
+        - value
+    setter: setValue
+    enumCommands: []
+commands:
+  setValue:
+    name: setValue
+    arguments:
+      - name: value
+        optional: false
+        schema:
+          type: string

@@ -1,0 +1,4 @@
+name: "Personal Tuya Devices"
+packageKey: "br.com.wesley.personal-tuya-devices"
+permissions:
+  zigbee: {}

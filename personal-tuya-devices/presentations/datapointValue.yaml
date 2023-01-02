@@ -1,0 +1,38 @@
+#./smartthings capabilities:presentation:create valleyboard16460.datapointValue 1 -y -i=personal-tuya-devices/presentations/datapointValue.yaml -o=personal-tuya-devices/presentations/datapointValue.out.yaml
+#./smartthings capabilities:presentation:update valleyboard16460.datapointValue 1 -y -i=personal-tuya-devices/presentations/datapointValue.yaml -o=personal-tuya-devices/presentations/datapointValue.out.yaml
+dashboard:
+  states:
+    - label: "{{value.value}}"
+  actions: []
+detailView:
+  - label: Datapoint Value
+    displayType: numberField
+    numberField:
+      value: value.value
+      valueType: integer
+      command: setValue
+      argumentType: integer
+      range:
+        - 0
+        - 16777215
+automation:
+  conditions:
+    - label: Datapoint Value
+      displayType: numberField
+      numberField:
+        value: value.value
+        valueType: integer
+        range:
+          - 0
+          - 16777215
+  actions:
+    - label: Datapoint Value
+      displayType: numberField
+      numberField:
+        command: setValue
+        argumentType: integer
+        range:
+          - 0
+          - 16777215
+id: valleyboard16460.datapointValue
+version: 1

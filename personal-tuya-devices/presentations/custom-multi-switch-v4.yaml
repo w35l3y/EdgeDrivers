@@ -1,0 +1,164 @@
+mnmn: SmartThingsCommunity
+vid: a17254e5-8e9e-32a3-bbf8-7b3e948c369a
+version: 0.0.1
+type: profile
+dashboard:
+  states:
+    - component: main
+      capability: switch
+      version: 1
+      idx: 0
+      group: main
+      values: []
+      composite: true
+    - component: main01
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 1
+      values: []
+      composite: true
+    - component: main02
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 2
+      values: []
+      composite: true
+    - component: main03
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 3
+      values: []
+      composite: true
+    - component: main04
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 4
+      values: []
+      composite: true
+  actions:
+    - component: main
+      capability: switch
+      version: 1
+      idx: 0
+      group: main
+      inline: null
+    - component: main01
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 1
+      inline: null
+    - component: main02
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 2
+      inline: null
+    - component: main03
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 3
+      inline: null
+    - component: main04
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 4
+      inline: null
+  basicPlus: []
+detailView:
+  - component: main
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main01
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main02
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main03
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main04
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+automation:
+  conditions:
+    - component: main
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main01
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main02
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main03
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main04
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+  actions:
+    - component: main
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main01
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main02
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main03
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main04
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+presentationId: a17254e5-8e9e-32a3-bbf8-7b3e948c369a
+manufacturerName: SmartThingsCommunity

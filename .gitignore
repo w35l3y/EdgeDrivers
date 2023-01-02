@@ -43,5 +43,7 @@ smartthings
 zigbee-template
 lua_libs-api_v0
 docs
+lua_libs-api_v3_46X_beta
 lua_libs-api_v0_OPEN_BETA_40x.tar.gz
 node_modules
+personal-tuya-devices/**/*.txt

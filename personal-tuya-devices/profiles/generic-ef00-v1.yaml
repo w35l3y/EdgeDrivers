@@ -1,0 +1,79 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "generic-ef00-v1"
+components:
+  - id: main
+    label: Info
+    capabilities:
+      - id: valleyboard16460.info
+        version: 1
+    categories:
+      - name: Generic Sensor
+preferences:
+  - name: presentation
+    title: Presentation
+    description: This can't be undone without re-pairing the device
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        generic_ef00_v1: Default
+        normal_multi_switch_v4: 4 switches
+        normal_multi_switch_v6: 6 switches
+        normal_garage_door_v1: Garage Door
+      default: generic_ef00_v1
+  - name: booleanDatapoints
+    title: Datapoints for booleans (switches)
+    description: List of datapoints used for booleans (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: enumerationDatapoints
+    title: Datapoints for domains (enums)
+    description: List of datapoints used for domains (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: valueDatapoints
+    title: Datapoints for values (numbers)
+    description: List of datapoints used for values (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: stringDatapoints
+    title: Datapoints for strings (texts)
+    description: List of datapoints used for strings (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: bitmapDatapoints
+    title: Datapoints for bitmaps
+    description: List of datapoints used for bitmaps (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: rawDatapoints
+    title: Datapoints for raw data
+    description: List of datapoints used for raw data (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+metadata:
+  deviceType: GenericSensor
+  ocfDeviceType: oic.d.sensor
+  deviceTypeId: GenericSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

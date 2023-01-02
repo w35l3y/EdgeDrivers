@@ -1,0 +1,100 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "normal-multi-dimmer-v2"
+components:
+  - id: main
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main02
+    label: Level 1
+    capabilities:
+      - id: switchLevel
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Range
+  - id: main03
+    label: Minimum Level 1
+    capabilities:
+      - id: switchLevel
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Range
+  - id: main04
+    label: Bulb Type 1
+    capabilities:
+      - id: valleyboard16460.datapointEnum
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main07
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main08
+    label: Level 2
+    capabilities:
+      - id: switchLevel
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Range
+  - id: main09
+    label: Minimum Level 2
+    capabilities:
+      - id: switchLevel
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Range
+  - id: main0A
+    label: Bulb Type 2
+    capabilities:
+      - id: valleyboard16460.datapointEnum
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: presentation
+    title: Presentation
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_multi_dimmer_v2: Normal
+        switch_all_multi_dimmer_v2: Normal + Switch All
+        custom_multi_dimmer_v2: Custom
+      default: normal_multi_dimmer_v2
+  - name: childMain07
+    title: Create child device for Switch 2
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+metadata:
+  deviceType: Switch
+  ocfDeviceType: oic.d.switch
+  deviceTypeId: Switch
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

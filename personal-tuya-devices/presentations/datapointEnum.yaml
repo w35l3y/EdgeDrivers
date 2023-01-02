@@ -1,0 +1,38 @@
+#./smartthings capabilities:presentation:create valleyboard16460.datapointEnum 1 -y -i=personal-tuya-devices/presentations/datapointEnum.yaml -o=personal-tuya-devices/presentations/datapointEnum.out.yaml
+#./smartthings capabilities:presentation:update valleyboard16460.datapointEnum 1 -y -i=personal-tuya-devices/presentations/datapointEnum.yaml -o=personal-tuya-devices/presentations/datapointEnum.out.yaml
+dashboard:
+  states:
+    - label: "{{value.value}}"
+  actions: []
+detailView:
+  - label: Datapoint Enum
+    displayType: numberField
+    numberField:
+      value: value.value
+      valueType: integer
+      command: setValue
+      argumentType: integer
+      range:
+        - 0
+        - 255
+automation:
+  conditions:
+    - label: Datapoint Enum
+      displayType: numberField
+      numberField:
+        value: value.value
+        valueType: integer
+        range:
+          - 0
+          - 255
+  actions:
+    - label: Datapoint Enum
+      displayType: numberField
+      numberField:
+        command: setValue
+        argumentType: integer
+        range:
+          - 0
+          - 255
+id: valleyboard16460.datapointEnum
+version: 1

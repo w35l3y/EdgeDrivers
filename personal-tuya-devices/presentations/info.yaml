@@ -1,0 +1,11 @@
+dashboard:
+  states:
+    - label: "{{value.value}}"
+  actions: []
+detailView:
+  - label: Info
+    displayType: state
+    state:
+      label: "{{value.value}}"
+id: valleyboard16460.info
+version: 1

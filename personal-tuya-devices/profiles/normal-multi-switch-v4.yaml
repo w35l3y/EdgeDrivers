@@ -1,0 +1,76 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "normal-multi-switch-v4"
+components:
+  - id: main
+    label: Switch 1
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main02
+    label: Switch 2
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main03
+    label: Switch 3
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+  - id: main04
+    label: Switch 4
+    capabilities:
+      - id: switch
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: presentation
+    title: Presentation
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_multi_switch_v4: Normal
+        switch_all_multi_switch_v4: Normal + Switch All
+        custom_multi_switch_v4: Custom
+      default: normal_multi_switch_v4
+  - name: childMain02
+    title: Create child device for Switch 2
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: childMain03
+    title: Create child device for Switch 3
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+  - name: childMain04
+    title: Create child device for Switch 4
+    required: true
+    preferenceType: boolean
+    definition:
+      default: false
+metadata:
+  deviceType: Switch
+  ocfDeviceType: oic.d.switch
+  deviceTypeId: Switch
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

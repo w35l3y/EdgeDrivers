@@ -1,0 +1,29 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "normal-garage-door-v1"
+components:
+  - id: main
+    label: Garage Door
+    capabilities:
+      - id: doorControl
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: GarageDoor
+  - id: main03
+    label: Contact Sensor
+    capabilities:
+      - id: contactSensor
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: ContactSensor
+metadata:
+  deviceType: GarageDoor
+  ocfDeviceType: oic.d.garagedoor # https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
+  deviceTypeId: GarageDoor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

@@ -1,0 +1,20 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "child-enum-v1"
+components:
+  - id: main
+    label: Generic Enum
+    capabilities:
+      - id: valleyboard16460.datapointEnum
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Range
+metadata:
+  deviceType: GenericSensor
+  ocfDeviceType: oic.d.sensor
+  deviceTypeId: GenericSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

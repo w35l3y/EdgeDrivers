@@ -1,0 +1,29 @@
+#./smartthings capabilities:presentation:create valleyboard16460.datapointRaw 1 -y -i=personal-tuya-devices/presentations/datapointRaw.yaml -o=personal-tuya-devices/presentations/datapointRaw.out.yaml
+#./smartthings capabilities:presentation:update valleyboard16460.datapointRaw 1 -y -i=personal-tuya-devices/presentations/datapointRaw.yaml -o=personal-tuya-devices/presentations/datapointRaw.out.yaml
+dashboard:
+  states:
+    - label: "{{value.value}}"
+  actions: []
+detailView:
+  - label: Datapoint Raw
+    displayType: textField
+    textField:
+      command: setValue
+      argumentType: string
+      value: value.value
+      valueType: string
+automation:
+  conditions:
+    - label: Datapoint Raw
+      displayType: textField
+      textField:
+        value: value.value
+        valueType: string
+  actions:
+    - label: Datapoint Raw
+      displayType: textField
+      textField:
+        command: setValue
+        argumentType: string
+id: valleyboard16460.datapointRaw
+version: 1

@@ -1,0 +1,29 @@
+#./smartthings capabilities:create -y -i=personal-tuya-devices/capabilities/datapointBitmap.yaml -o=personal-tuya-devices/capabilities/datapointBitmap.out.yaml
+#./smartthings capabilities:update -y -i=personal-tuya-devices/capabilities/datapointBitmap.yaml -o=personal-tuya-devices/capabilities/datapointBitmap.out.yaml
+id: valleyboard16460.datapointBitmap
+version: 1
+status: proposed
+name: Datapoint Bitmap
+ephemeral: false
+attributes:
+  value:
+    schema:
+      type: object
+      properties:
+        value:
+          type: integer
+          minimum: 0
+      additionalProperties: false
+      required:
+        - value
+    setter: setValue
+    enumCommands: []
+commands:
+  setValue:
+    name: setValue
+    arguments:
+      - name: value
+        optional: false
+        schema:
+          type: integer
+          minimum: 0

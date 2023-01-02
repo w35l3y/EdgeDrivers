@@ -1,0 +1,38 @@
+#./smartthings capabilities:presentation:create valleyboard16460.datapointBitmap 1 -y -i=personal-tuya-devices/presentations/datapointBitmap.yaml -o=personal-tuya-devices/presentations/datapointBitmap.out.yaml
+#./smartthings capabilities:presentation:update valleyboard16460.datapointBitmap 1 -y -i=personal-tuya-devices/presentations/datapointBitmap.yaml -o=personal-tuya-devices/presentations/datapointBitmap.out.yaml
+dashboard:
+  states:
+    - label: "{{value.value}}"
+  actions: []
+detailView:
+  - label: Datapoint Bitmap
+    displayType: numberField
+    numberField:
+      value: value.value
+      valueType: integer
+      command: setValue
+      argumentType: integer
+      range:
+        - 0
+        - 16777215
+automation:
+  conditions:
+    - label: Datapoint Bitmap
+      displayType: numberField
+      numberField:
+        value: value.value
+        valueType: integer
+        range:
+          - 0
+          - 16777215
+  actions:
+    - label: Datapoint Bitmap
+      displayType: numberField
+      numberField:
+        command: setValue
+        argumentType: integer
+        range:
+          - 0
+          - 16777215
+id: valleyboard16460.datapointBitmap
+version: 1
