@@ -3,8 +3,6 @@ zigbeeManufacturer:
     manufacturer: _TZE200_9mahtqtg
     model: TS0601
     deviceProfileName: normal-multi-switch-v6
-    #deviceProfileName: normal-garage-door-v1
-    #deviceProfileName: normal-multi-dimmer-v2
     deviceLabel: Multi Switch
     zigbeeProfiles:
       - 0x0104

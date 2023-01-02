@@ -29,24 +29,16 @@ function defaults.command_data_report_handler(...)
   send_command(tuyaEF00_defaults.command_data_report_handler, ...)
 end
 
-function defaults.command_on_handler(...)
-  send_command(tuyaEF00_defaults.command_on_handler, ...)
+function defaults.command_true_handler(...)
+  send_command(tuyaEF00_defaults.command_true_handler, ...)
 end
 
-function defaults.command_off_handler(...)
-  send_command(tuyaEF00_defaults.command_off_handler, ...)
+function defaults.command_false_handler(...)
+  send_command(tuyaEF00_defaults.command_false_handler, ...)
 end
 
-function defaults.command_open_handler(...)
-  send_command(tuyaEF00_defaults.command_open_handler, ...)
-end
-
-function defaults.command_close_handler(...)
-  send_command(tuyaEF00_defaults.command_close_handler, ...)
-end
-
-function defaults.command_level_handler(...)
-  send_command(tuyaEF00_defaults.command_level_handler, ...)
+function defaults.command_switchLevel_handler(...)
+  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
 end
 
 return defaults

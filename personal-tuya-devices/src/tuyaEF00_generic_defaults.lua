@@ -10,11 +10,18 @@ local capabilities = require "st.capabilities"
 local info = capabilities["valleyboard16460.info"]
 
 local datapoint_types_to_fn = {
-  booleanDatapoints = tuyaEF00_defaults.on_off,
+  switchDatapoints = tuyaEF00_defaults.switch,
+  switchLevelDatapoints = tuyaEF00_defaults.switchLevel,
+  contactSensorDatapoints = tuyaEF00_defaults.contactSensor,
+  doorControlDatapoints = tuyaEF00_defaults.doorControl,
+  motionSensorDatapoints = tuyaEF00_defaults.motionSensor,
+  presenceSensorDatapoints = tuyaEF00_defaults.presenceSensor,
+  waterSensorDatapoints = tuyaEF00_defaults.waterSensors,
   enumerationDatapoints = tuyaEF00_defaults.enum,
   valueDatapoints = tuyaEF00_defaults.value,
   stringDatapoints = tuyaEF00_defaults.string,
   bitmapDatapoints = tuyaEF00_defaults.bitmap,
+  rawDatapoints = tuyaEF00_defaults.raw,
 }
 
 local function get_datapoints (device)
@@ -30,7 +37,13 @@ local function get_datapoints (device)
 end
 
 local child_types_to_profile = {
-  booleanDatapoints = "child-switch-v1",
+  switchDatapoints = "child-switch-v1",
+  contactSensorDatapoints = "child-contactSensor-v1",
+  doorControlDatapoints = "child-doorControl-v1",
+  motionSensorDatapoints = "child-motionSensor-v1",
+  presenceSensorDatapoints = "child-presenceSensor-v1",
+  switchLevelDatapoints = "child-switchLevel-v1",
+  waterSensorDatapoints = "child-waterSensor-v1",
   bitmapDatapoints = "child-bitmap-v1",
   enumerationDatapoints = "child-enum-v1",
   stringDatapoints = "child-string-v1",
@@ -88,12 +101,20 @@ function defaults.command_data_report_handler(driver, device, ...)
   end
 end
 
-function defaults.command_on_handler(...)
-  send_command(tuyaEF00_defaults.command_on_handler, ...)
+function defaults.command_switchLevel_handler(...)
+  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
 end
 
-function defaults.command_off_handler(...)
-  send_command(tuyaEF00_defaults.command_off_handler, ...)
+function defaults.command_true_handler(...)
+  send_command(tuyaEF00_defaults.command_true_handler, ...)
+end
+
+function defaults.command_false_handler(...)
+  send_command(tuyaEF00_defaults.command_false_handler, ...)
+end
+
+function defaults.command_value_handler(...)
+  send_command(tuyaEF00_defaults.command_value_handler, ...)
 end
 
 function defaults.command_string_handler(...)
@@ -104,16 +125,12 @@ function defaults.command_enum_handler(...)
   send_command(tuyaEF00_defaults.command_enum_handler, ...)
 end
 
-function defaults.command_value_handler(...)
-  send_command(tuyaEF00_defaults.command_value_handler, ...)
+function defaults.command_bitmap_handler(...)
+  send_command(tuyaEF00_defaults.command_bitmap_handler, ...)
 end
 
 function defaults.command_raw_handler(...)
   send_command(tuyaEF00_defaults.command_raw_handler, ...)
-end
-
-function defaults.command_bitmap_handler(...)
-  send_command(tuyaEF00_defaults.command_bitmap_handler, ...)
 end
 
 return defaults

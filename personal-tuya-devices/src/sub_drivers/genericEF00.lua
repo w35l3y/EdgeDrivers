@@ -20,6 +20,8 @@ return {
   NAME = NAME,
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
+    capabilities.doorControl,
+    capabilities.switchLevel,
     _boolean,
     _bitmap,
     _enum,
@@ -44,9 +46,16 @@ return {
     },
   },
   capability_handlers = {
+    [capabilities.doorControl.ID] = {
+      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_generic_defaults.command_true_handler,
+      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_generic_defaults.command_false_handler,
+    },
+    [capabilities.switchLevel.ID] = {
+      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_generic_defaults.command_switchLevel_handler,
+    },
     [_boolean.ID] = {
-      [_boolean.commands.on.NAME] = tuyaEF00_generic_defaults.command_on_handler,
-      [_boolean.commands.off.NAME] = tuyaEF00_generic_defaults.command_off_handler,
+      [_boolean.commands.on.NAME] = tuyaEF00_generic_defaults.command_true_handler,
+      [_boolean.commands.off.NAME] = tuyaEF00_generic_defaults.command_false_handler,
     },
     [_bitmap.ID] = {
       [_bitmap.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_bitmap_handler,

@@ -33,15 +33,15 @@ return {
   },
   capability_handlers = {
     [capabilities.switch.ID] = {
-      [capabilities.switch.commands.on.NAME] = tuyaEF00_model_defaults.command_on_handler,
-      [capabilities.switch.commands.off.NAME] = tuyaEF00_model_defaults.command_off_handler,
+      [capabilities.switch.commands.on.NAME] = tuyaEF00_model_defaults.command_true_handler,
+      [capabilities.switch.commands.off.NAME] = tuyaEF00_model_defaults.command_false_handler,
     },
     [capabilities.doorControl.ID] = {
-      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_model_defaults.command_open_handler,
-      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_model_defaults.command_close_handler,
+      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_model_defaults.command_true_handler,
+      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_model_defaults.command_false_handler,
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_model_defaults.command_level_handler,
+      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_model_defaults.command_switchLevel_handler,
     },
   },
 }

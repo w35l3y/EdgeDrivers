@@ -17,44 +17,93 @@ preferences:
     definition:
       options:
         generic_ef00_v1: Default
+        normal_multi_dimmer_v2: 2 dimmers
         normal_multi_switch_v4: 4 switches
         normal_multi_switch_v6: 6 switches
         normal_garage_door_v1: Garage Door
       default: generic_ef00_v1
-  - name: booleanDatapoints
-    title: Datapoints for booleans (switches)
-    description: List of datapoints used for booleans (comma-separated)
+  - name: switchDatapoints
+    title: Datapoints for switches
+    description: List of datapoints used for switches (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: switchLevelDatapoints
+    title: Datapoints for switch levels
+    description: List of datapoints used for switch levels/dimmers (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: contactSensorDatapoints
+    title: Datapoints for contact sensors
+    description: List of datapoints used for contact sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: doorControlDatapoints
+    title: Datapoints for door controls
+    description: List of datapoints used for door controls (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: motionSensorDatapoints
+    title: Datapoints for motion sensors
+    description: List of datapoints used for motion sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: presenceSensorDatapoints
+    title: Datapoints for presence sensors
+    description: List of datapoints used for presence sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: waterSensorDatapoints
+    title: Datapoints for water sensors
+    description: List of datapoints used for water sensors (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
   - name: enumerationDatapoints
-    title: Datapoints for domains (enums)
-    description: List of datapoints used for domains (comma-separated)
+    title: Generic datapoints for enumerations
+    description: List of datapoints used for enumerations/domains (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
   - name: valueDatapoints
-    title: Datapoints for values (numbers)
-    description: List of datapoints used for values (comma-separated)
+    title: Generic datapoints for values
+    description: List of datapoints used for values/integers (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
   - name: stringDatapoints
-    title: Datapoints for strings (texts)
-    description: List of datapoints used for strings (comma-separated)
+    title: Generic datapoints for strings
+    description: List of datapoints used for strings/texts (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
   - name: bitmapDatapoints
-    title: Datapoints for bitmaps
+    title: Generic datapoints for bitmaps
     description: List of datapoints used for bitmaps (comma-separated)
     required: true
     preferenceType: string
@@ -62,7 +111,7 @@ preferences:
       stringType: text
       default: ""
   - name: rawDatapoints
-    title: Datapoints for raw data
+    title: Generic datapoints for raw data
     description: List of datapoints used for raw data (comma-separated)
     required: true
     preferenceType: string
