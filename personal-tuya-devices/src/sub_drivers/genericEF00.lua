@@ -29,9 +29,7 @@ return {
     _value,
     _raw,
   },
-  sub_drivers = {
-    require "sub_drivers.TS0601",
-  },
+  sub_drivers = require "sub_drivers.model_sub_drivers",
   lifecycle_handlers = tuyaEF00_generic_defaults.lifecycle_handlers,
   zigbee_handlers = {
     global = {
