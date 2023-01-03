@@ -1,3 +1,5 @@
+-- https://developer.smartthings.com/docs/edge-device-drivers/capabilities.html?highlight=visibility#visibility
+
 --local log = require "log"
 --local utils = require "st.utils"
 
@@ -16,8 +18,9 @@ return {
     attr = {
       [zcl_clusters.Basic.ID] = {
         [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function(driver, device, value, zb_rx)
-          device:emit_event(capabilities.signalStrength.rssi({value=zb_rx.rssi.value}))
-          device:emit_event(capabilities.signalStrength.lqi({value=zb_rx.lqi.value}))
+          local mt = { visibility = { displayed = false } }
+          device:emit_event(capabilities.signalStrength.rssi({ value = zb_rx.rssi.value }, mt))
+          device:emit_event(capabilities.signalStrength.lqi({ value = zb_rx.lqi.value }, mt))
         end,
       },
     },
