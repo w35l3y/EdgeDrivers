@@ -42,6 +42,16 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
      3. Add fingerprint that represents the device at `/fingerprints.yaml`
 3. Pull request your modification
 
+### Current devices tested with this driver
+
+| Model | Manufacturer | Description |
+|-|-|-|
+| TS0601 | _TZE200_1n2kyphz | 4 multi switches |
+| TS0601 | _TZE200_9mahtqtg | 6 multi switches |
+| TS0601 | _TZE200_e3oitdyu | 2 multi dimmers |
+| TS0601 | _TZE200_r731zlxk | 6 multi switches |
+| TS0601 | _TZE200_wfxuhoea | garage door |
+
 ### Known issues
 * **Some child devices weren't created**<br />
   Sometimes, when modifying configurations, some child devices aren't created.<br />
