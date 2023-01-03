@@ -66,8 +66,17 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
   It will update as soon as it receives data from the device.<br />
   If there are some physical interface with the device (like switches, buttons, sensors, ...), consider triggering it.<br />
   It should make the device send informations to the driver.
+  I still don't know how to request data without modifying it as a side effect. Ideas are welcome.
   
   <img src="resources/child_detailView_1.jpeg" height="300"/>
+* **Presentation didn't change**<br />
+  Sometimes, when modifying presentation, it doesn't update properly.<br />
+  It seems there is a reason to name the function as `device:try_update_metadata(...)`<br />
+  The driver can't do much about it, but try again.<br />
+  Just change to other presentation and revert to force updating presentation.
+  
+  <img src="resources/configuration_4.jpeg" height="300"/>
+
 ### Currently untested configurations
 * Motion Sensor
 * Presence Sensor
