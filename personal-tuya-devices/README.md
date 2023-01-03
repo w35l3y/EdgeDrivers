@@ -1,5 +1,5 @@
 ## How to use
-This driver is intended to work with devices that use 0xEF00 Tuya Cluster
+This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Install the driver
 1. Accept the invitation ( https://api.smartthings.com/invite/6Vjd4YPVJwjN )
@@ -10,6 +10,9 @@ This driver is intended to work with devices that use 0xEF00 Tuya Cluster
 1. Open SmartThings App
 2. Search for nearby devices
 3. Set the device in pairing mode
+
+<img src="resources/pairing_1.jpeg" height="300"/> <img src="resources/pairing_2.jpeg" height="300"/> <img src="resources/pairing_3.jpeg" height="300"/> <img src="resources/dashboard_1.jpeg" height="300"/>
+
 ### Configure datapoints
 1. Open the detail view of the device
 2. Open configurations
@@ -20,12 +23,15 @@ This driver is intended to work with devices that use 0xEF00 Tuya Cluster
    * There are configurations for some stock capabilities<br />
      Currently: switch, switchLevel, contactSensor, doorControl, motionSensor, presenceSensor and waterSensor
    * Also, there are configurations for generic Tuya Data Types<br />
-     Currently: Enumeration, value, string, bitmap, raw
+     Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
    * For example:
      * If you know the datapoint 1 is for a writable boolean, then add it to "Datapoints for switches"
      * If you know the datapoint 2 is for a read-only boolean, then add it to any sensor
+
+<img src="resources/detailView_1.jpeg" height="300"/> <img src="resources/configuration_1.jpeg" height="300"/> <img src="resources/configuration_2.jpeg" height="300"/> <img src="resources/dashboard_2.jpeg" height="300"/> <img src="resources/child_detailView_2.jpeg" height="300"/>
+
 ### Contribute with your integration
-1. Once you know exactly how your device works with each available datapoints, consider adding it to make it a little more user friendly
+1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly
 2. Create or use existing folder with model name at `/src/sub_drivers`<br />
    * If model name folder doesn't exist:<br />
      1. Duplicate `/src/sub_drivers/TEMPLATE` folder and modify all references to the new model name
@@ -34,7 +40,7 @@ This driver is intended to work with devices that use 0xEF00 Tuya Cluster
      1. Map the datapoints of the device at `/src/sub_drivers/MODEL/datapoints.lua`
      2. Create a profile that represents the device at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
      3. Add fingerprint that represents the device at `/fingerprints.yaml`
-
+3. Pull request your modification
 
 ### Known issues
 * **Some child devices weren't created**<br />
@@ -43,12 +49,15 @@ This driver is intended to work with devices that use 0xEF00 Tuya Cluster
   The driver can't do much about it, but try again.<br />
   Just change datapoint orders to force updating configuration.<br />
   For example, something like "1,2" to "2,1"
+  
+  <img src="resources/configuration_3.jpeg" height="300"/>
 * **Child dashboard/detail view didn't load properly**<br />
   The driver doesn't know the datapoints until user inform them.<br />
   It will update as soon as it receives data from the device.<br />
-  If there are some physical interface with the device (like switches, buttons, sensors, ...), consider trigger it.<br />
+  If there are some physical interface with the device (like switches, buttons, sensors, ...), consider triggering it.<br />
   It should make the device send informations to the driver.
-
+  
+  <img src="resources/child_detailView_1.jpeg" height="300"/>
 ### Currently untested configurations
 * Motion Sensor
 * Presence Sensor
