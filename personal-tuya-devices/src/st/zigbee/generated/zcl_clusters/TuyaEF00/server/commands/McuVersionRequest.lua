@@ -8,7 +8,7 @@ McuVersionRequest.ID = 0x10
 McuVersionRequest.args_def = {
   {
     name = "seqno",
-    optional = true,
+    optional = false,
     data_type = tuya_types.Uint16,
     is_complex = false,
     is_array = false,

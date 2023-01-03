@@ -10,7 +10,7 @@ McuSyncTime.ID = 0x24
 McuSyncTime.args_def = {
   {
     name = "seqno",
-    optional = true,
+    optional = false,
     data_type = tuya_types.Uint16,
     is_complex = false,
     is_array = false,

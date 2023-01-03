@@ -135,10 +135,10 @@ function defaults.command_data_report_handler(datapoints)
         log.warn("Unexpected component for datapoint", dpid, value)
         --device:emit_event(event)
       end
-      if event_dp.create_event == defaults.switch.create_event and not myutils.is_normal(device) then
+      if event_dp == defaults.switch and not myutils.is_normal(device) then
         local switchAll = true
         for dpid, v in pairs(datapoints) do
-          if v.create_event == defaults.switch.create_event then
+          if v == defaults.switch then
             local val, sta = device:get_latest_state(device:get_component_id_for_endpoint(dpid), event.capability.ID, event.attribute.NAME)
             if val ~= event.value.value then
               switchAll = false
@@ -166,7 +166,7 @@ local function send_command(datapoints, device, command, value_fn)
       device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, command.component, value_fn(datapoints[device:get_endpoint_for_component_id(command.component)] or defaults.generic)))
     else
       for dpid, def in pairs(datapoints) do
-        if def.create_event == defaults.switch.create_event then
+        if def == defaults.switch then
           device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, string.format("main%02X", dpid), value_fn(def)))
         end
       end
