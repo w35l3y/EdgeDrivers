@@ -67,6 +67,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: temperatureMeaDatapoints
+    title: Datapoints for temperature sensors
+    description: List of datapoints used for temperature sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: waterSensorDatapoints
     title: Datapoints for water sensors
     description: List of datapoints used for water sensors (comma-separated)

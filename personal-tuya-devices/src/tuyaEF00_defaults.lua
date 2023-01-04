@@ -59,6 +59,11 @@ local defaults = {
     attribute = "presence",
     from_zigbee = function (self, value) return value and "present" or "not present" end,
   },
+  temperatureMeasurement = {
+    capability = "temperatureMeasurement",
+    attribute = "temperature",
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
   waterSensor = {
     capability = "waterSensor",
     attribute = "water",
