@@ -1,0 +1,22 @@
+name: publish
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "personal-tuya-devices/**.yaml"
+      - "personal-tuya-devices/**.lua"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "personal-tuya-devices/**.yaml"
+      - "personal-tuya-devices/**.lua"
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish-driver.yaml
+    with:
+      driver: personal-tuya-devices
+    secrets: inherit
