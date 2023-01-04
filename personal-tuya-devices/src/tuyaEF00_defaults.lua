@@ -13,7 +13,7 @@ local function to_number (value)
   if type(value) == "boolean" then
     return value and 1 or 0
   elseif type(value) == "string" then
-    return tonumber(value, 10)
+    return tonumber(value, 10) or 0
   elseif type(value) == "nil" then
     return 0
   end
@@ -32,7 +32,7 @@ local defaults = {
   switch = {
     capability = "switch",
     attribute = "switch",
-    from_zigbee = function (self, value) return value and "on" or "off" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "off" or "on" end,
   },
   switchLevel = {
     capability = "switchLevel",
@@ -42,22 +42,22 @@ local defaults = {
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",
-    from_zigbee = function (self, value) return value and "open" or "closed" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "closed" or "open" end,
   },
   doorControl = {
     capability = "doorControl",
     attribute = "door",
-    from_zigbee = function (self, value) return value and "open" or "closed" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "closed" or "open" end,
   },
   motionSensor = {
     capability = "motionSensor",
     attribute = "motion",
-    from_zigbee = function (self, value) return value and "active" or "inactive" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "inactive" or "active" end,
   },
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",
-    from_zigbee = function (self, value) return value and "present" or "not present" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "not present" or "present" end,
   },
   temperatureMeasurement = {
     capability = "temperatureMeasurement",
@@ -67,7 +67,7 @@ local defaults = {
   waterSensor = {
     capability = "waterSensor",
     attribute = "water",
-    from_zigbee = function (self, value) return value and "wet" or "dry" end,
+    from_zigbee = function (self, value) return to_number(value)==0 and "dry" or "wet" end,
   },
   value = {
     capability = "valleyboard16460.datapointValue",
