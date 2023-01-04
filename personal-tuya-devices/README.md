@@ -65,7 +65,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
   The driver doesn't know the datapoints until user inform them.<br />
   It will update as soon as it receives data from the device.<br />
   If there are some physical interface with the device (like switches, buttons, sensors, ...), consider triggering it.<br />
-  It should make the device send informations to the driver.
+  It should make the device send informations to the driver.<br />
   I still don't know how to request data without modifying it as a side effect. Ideas are welcome.
   
   <img src="resources/child_detailView_1.jpeg" height="300"/>
