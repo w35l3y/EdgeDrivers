@@ -18,6 +18,6 @@ jobs:
       - name: download smartthings-cli
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
       - name: package personal-tuya-devices
-        run: smartthings edge:drivers:package personal-tuya-devices
+        run: ./smartthings edge:drivers:package personal-tuya-devices
       - name: package zigbee-smart-plug
-        run: smartthings edge:drivers:package zigbee-smart-plug
+        run: ./smartthings edge:drivers:package zigbee-smart-plug
