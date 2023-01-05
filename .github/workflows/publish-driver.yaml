@@ -7,10 +7,16 @@ on:
         description: "Folder name of the driver"
         required: true
         type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
     steps:
@@ -18,6 +24,6 @@ jobs:
       - name: download smartthings-cli
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
       - name: publish
-        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=665ba729-1a23-4183-9d38-746a44175978
+        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secret.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}

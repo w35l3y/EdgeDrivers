@@ -4,12 +4,14 @@ on:
   push:
     branches:
       - main
+      - beta
     paths:
       - "personal-tuya-devices/**.yaml"
       - "personal-tuya-devices/**.lua"
   pull_request:
     branches:
       - main
+      - beta
     paths:
       - "personal-tuya-devices/**.yaml"
       - "personal-tuya-devices/**.lua"
@@ -19,4 +21,5 @@ jobs:
     uses: ./.github/workflows/publish-driver.yaml
     with:
       driver: personal-tuya-devices
+      environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
