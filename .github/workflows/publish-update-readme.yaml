@@ -1,4 +1,4 @@
-name: publish-personal-tuya-devices
+name: publish-update-readme
 
 on:
   push:
@@ -6,19 +6,17 @@ on:
       - main
       - beta
     paths:
-      - "personal-tuya-devices/**.yaml"
-      - "personal-tuya-devices/**.lua"
+      - "personal-tuya-devices/TEMPLATE.md"
   pull_request:
     branches:
       - main
       - beta
     paths:
-      - "personal-tuya-devices/**.yaml"
-      - "personal-tuya-devices/**.lua"
+      - "personal-tuya-devices/TEMPLATE.md"
 
 jobs:
   call:
-    uses: ./.github/workflows/call-publish-driver.yaml
+    uses: ./.github/workflows/call-update-readme.yaml
     with:
       driver: personal-tuya-devices
       environment: ${{ github.head_ref || github.ref_name }}

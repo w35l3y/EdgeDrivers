@@ -1,0 +1,33 @@
+name: call-update-readme
+
+on:
+  workflow_call:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v3
+      - name: readme renderer
+        uses: varunsridharan/action-dynamic-readme@main
+        files: |
+          ${{ inputs.driver }}/TEMPLATE.md=${{ inputs.driver }}/README.md
+        committer_name: github-actions[bot]
+        committer_email: github-actions[bot]@users.noreply.github.com
+        commit_message: "docs: update readme file [skip ci]"
+        env:
+          INVITATION_LINK: ${{ secrets.INVITATION_LINK }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
