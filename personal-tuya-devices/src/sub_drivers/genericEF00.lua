@@ -40,7 +40,8 @@ return {
     cluster = {
       [zcl_clusters.TuyaEF00.ID] = {
         [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_data_report_handler,
-      }
+        [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_data_report_handler,
+      },
     },
   },
   capability_handlers = {

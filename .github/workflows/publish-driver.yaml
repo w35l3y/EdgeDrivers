@@ -24,6 +24,6 @@ jobs:
       - name: download smartthings-cli
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
       - name: publish
-        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secret.SMARTTHINGS_CHANNEL }}
+        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
