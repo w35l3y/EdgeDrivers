@@ -12,6 +12,17 @@ on:
         required: true
         type: string
         default: beta
+  workflow_dispatch:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
 
 jobs:
   publish:
