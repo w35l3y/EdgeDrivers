@@ -50,3 +50,4 @@ personal-tuya-devices/**/*.txt
 
 # files generated automatically
 personal-tuya-devices/README.md
+README.md

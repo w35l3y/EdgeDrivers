@@ -36,6 +36,7 @@ jobs:
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
+            TEMPLATE.md=README.md
             ${{ inputs.driver }}/TEMPLATE.md=${{ inputs.driver }}/README.md
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
