@@ -35,6 +35,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: buttonDatapoints
+    title: Datapoints for buttons
+    description: List of datapoints used for buttons (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: contactSensorDatapoints
     title: Datapoints for contact sensors
     description: List of datapoints used for contact sensors (comma-separated)

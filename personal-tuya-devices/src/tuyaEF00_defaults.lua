@@ -39,6 +39,12 @@ local defaults = {
     attribute = "level",
     from_zigbee = function (self, value) return to_number(value) end,
   },
+  button = {
+    capability = "button",
+    attribute = "button",
+    domain = {"pushed", "double", "held"},
+    from_zigbee = function (self, value) return self.domain[to_number(value)+1] end,
+  },
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",

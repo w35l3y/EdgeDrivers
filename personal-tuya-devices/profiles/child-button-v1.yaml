@@ -1,0 +1,20 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+name: "child-button-v1"
+components:
+  - id: main
+    label: Button
+    capabilities:
+      - id: button
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Generic Sensor
+metadata:
+  deviceType: GenericSensor
+  ocfDeviceType: oic.d.sensor
+  deviceTypeId: GenericSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

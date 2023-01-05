@@ -26,7 +26,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, contactSensor, doorControl, motionSensor, presenceSensor, temperatureMeasurement and waterSensor
+     Currently: switch, switchLevel, contactSensor, button, doorControl, motionSensor, presenceSensor, temperatureMeasurement and waterSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -89,7 +89,6 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 ### Currently untested configurations
 
 - Motion Sensor
-- Presence Sensor
 - Water Sensor
 - String Tuya Data Type
 - Bitmap Tuya Data Type
