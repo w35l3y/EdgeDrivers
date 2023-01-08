@@ -8,7 +8,7 @@ local utils = {}
 function utils.is_normal(device)
   --log.info("utils.is_normal", device.profile == device.st_store.profile, st_utils.stringify_table(device.profile, "profile", true))
   local pref = device.preferences.presentation
-  return pref == nil or pref:find("^normal_") ~= nil
+  return (pref == nil and device.parent_assigned_child_key ~= nil) or (pref ~= nil and pref:find("^normal_") ~= nil)
 end
 
 local function hexa(value, length)
@@ -83,7 +83,7 @@ function utils.info(device, datapoints)
         %s
         <tr><th colspan="3">Client Clusters</th></tr>
         %s
-        <tr><th colspan="3">Datapoints found</th></tr>
+        <tr><th colspan="3">Datapoints</th></tr>
         %s
       </tbody></table>]],
       self.manufacturer,

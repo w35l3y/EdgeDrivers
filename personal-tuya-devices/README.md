@@ -4,7 +4,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Install the driver
 
-1. Accept the invitation ( https://api.smartthings.com/invite/6Vjd4YPVJwjN )
+1. Accept the invitation ( https://bestow-regional.api.smartthings.com/invite/VbMb856WP8lB )
 2. Enroll the hub
 3. List available drivers
 4. Install the driver ( Personal Tuya Devices )
@@ -26,7 +26,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, contactSensor, button, doorControl, motionSensor, presenceSensor, temperatureMeasurement and waterSensor
+     Currently: switch, switchLevel, button, contactSensor, doorControl, illuminanceMeasurement, motionSensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement and waterSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -88,6 +88,8 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Currently untested configurations
 
+- Humidity Sensor
+- Illuminance Sensor
 - Motion Sensor
 - Water Sensor
 - String Tuya Data Type

@@ -14,8 +14,8 @@ local function component_to_endpoint(device, component_id)
   if component_id == "main" and myutils.is_normal(device) then
     return device.fingerprinted_endpoint_id
   else
-    local dpid = component_id:match("main(%x+)")
-    return dpid and tonumber(dpid, 16) or device.fingerprinted_endpoint_id
+    local group = component_id:match("main(%x+)")
+    return group and tonumber(group, 16) or device.fingerprinted_endpoint_id
   end
 end
 
@@ -24,16 +24,16 @@ end
 -- utilizado quando enviado comando device:emit_event_for_endpoint
 -- este comando acima é comumente utilizado quando clicamos num botão físico (recepção de attributo)
 -- @TODO pode ser que eu precise atualizar o handler global para emitir este evento
-local function endpoint_to_component(device, ep)
-  if ep == device.fingerprinted_endpoint_id and myutils.is_normal(device) then
+local function endpoint_to_component(device, group)
+  if group == device.fingerprinted_endpoint_id and myutils.is_normal(device) then
     return "main"
   else
-    return string.format("main%02X", ep)
+    return string.format("main%02X", group)
   end
 end
 
-local function find_child_fn(device, ep)
-  return device:get_child_by_parent_assigned_key(string.format("%02X", ep))
+local function find_child_fn(device, group)
+  return device:get_child_by_parent_assigned_key(string.format("%02X", group))
 end
 
 local lifecycles = {}
@@ -53,20 +53,21 @@ function lifecycles.infoChanged(driver, device, event, args)
 
   for id, value in pairs(device.preferences) do
     local normalized_id = utils.snake_case(id)
-    local match, _length, component, dpid = string.find(normalized_id, "^child_(main(%x+))$")
+    local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
     if match ~= nil and value and args.old_st_store.preferences[id] ~= value then
-      local created = device:get_child_by_parent_assigned_key(dpid)
+      local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
+      local created = device:get_child_by_parent_assigned_key(group)
       if not created then
         driver:try_create_device({
           type = "EDGE_CHILD",
           device_network_id = nil,
-          parent_assigned_child_key = dpid,
-          label = "Child Switch " .. tonumber(dpid, 16),
-          profile = "child-switch-v1",
+          parent_assigned_child_key = group,
+          label = "Child " .. tonumber(group, 16),
+          profile = profile,
           parent_device_id = device.id,
           manufacturer = driver.NAME,
-          model = "child-switch-v1",
-          vendor_provided_label = "Child Switch " .. tonumber(dpid, 16),
+          model = profile,
+          vendor_provided_label = "Child " .. tonumber(group, 16),
         })
       end
     end

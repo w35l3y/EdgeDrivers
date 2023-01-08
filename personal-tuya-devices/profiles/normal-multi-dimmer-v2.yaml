@@ -2,9 +2,13 @@
 name: "normal-multi-dimmer-v2"
 components:
   - id: main
-    label: Switch 1
+    label: Dimmer 1
     capabilities:
       - id: switch
+        version: 1
+      - id: switchLevel
+        version: 1
+      - id: valleyboard16460.datapointEnum
         version: 1
       - id: signalStrength
         version: 1
@@ -13,62 +17,12 @@ components:
     categories:
       - name: Switch
   - id: main02
-    label: Level 1
-    capabilities:
-      - id: switchLevel
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Range
-  - id: main03
-    label: Minimum Level 1
-    capabilities:
-      - id: switchLevel
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Range
-  - id: main04
-    label: Bulb Type 1
-    capabilities:
-      - id: valleyboard16460.datapointEnum
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Switch
-  - id: main07
-    label: Switch 2
+    label: Dimmer 2
     capabilities:
       - id: switch
         version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Switch
-  - id: main08
-    label: Level 2
-    capabilities:
       - id: switchLevel
         version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Range
-  - id: main09
-    label: Minimum Level 2
-    capabilities:
-      - id: switchLevel
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Range
-  - id: main0A
-    label: Bulb Type 2
-    capabilities:
       - id: valleyboard16460.datapointEnum
         version: 1
       - id: refresh
@@ -83,11 +37,11 @@ preferences:
     definition:
       options:
         normal_multi_dimmer_v2: Normal
-        switch_all_multi_dimmer_v2: Normal + Switch All
+        switch_all_multi_dimmer_v2: Normal + Dimmer All
         custom_multi_dimmer_v2: Custom
       default: normal_multi_dimmer_v2
-  - name: childMain07
-    title: Create child device for Switch 2
+  - name: childDimmerMain02
+    title: Create child device for Dimmer 2
     required: true
     preferenceType: boolean
     definition:

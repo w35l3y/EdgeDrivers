@@ -6,21 +6,14 @@ components:
     capabilities:
       - id: doorControl
         version: 1
+      - id: contactSensor
+        version: 1
       - id: signalStrength
         version: 1
       - id: refresh
         version: 1
     categories:
       - name: GarageDoor
-  - id: main03
-    label: Contact Sensor
-    capabilities:
-      - id: contactSensor
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: ContactSensor
 metadata:
   deviceType: GarageDoor
   ocfDeviceType: oic.d.garagedoor # https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf

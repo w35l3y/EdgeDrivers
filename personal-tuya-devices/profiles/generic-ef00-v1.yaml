@@ -59,6 +59,22 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: humidityMeasurDatapoints
+    title: Datapoints for humidity sensors
+    description: List of datapoints used for humidity sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: illuminanceMeaDatapoints
+    title: Datapoints for illuminance sensors
+    description: List of datapoints used for illuminance sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: motionSensorDatapoints
     title: Datapoints for motion sensors
     description: List of datapoints used for motion sensors (comma-separated)

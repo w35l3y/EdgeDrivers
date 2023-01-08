@@ -9,7 +9,6 @@ local tuyaEF00_generic_defaults = require "tuyaEF00_generic_defaults"
 
 local NAME = "GenericEF00"
 
-local _boolean = capabilities.switch
 local _bitmap = capabilities["valleyboard16460.datapointBitmap"]
 local _enum = capabilities["valleyboard16460.datapointEnum"]
 local _string = capabilities["valleyboard16460.datapointString"]
@@ -22,7 +21,7 @@ return {
   supported_capabilities = {
     capabilities.doorControl,
     capabilities.switchLevel,
-    _boolean,
+    capabilities.switch,  -- boolean
     _bitmap,
     _enum,
     _string,
@@ -34,42 +33,42 @@ return {
   zigbee_handlers = {
     global = {
       [zcl_clusters.TuyaEF00.ID] = {
-        [zcl_global_commands.WRITE_ATTRIBUTE_ID] = tuyaEF00_generic_defaults.command_data_report_handler,
+        [zcl_global_commands.WRITE_ATTRIBUTE_ID] = tuyaEF00_generic_defaults.command_response_handler,
       },
     },
     cluster = {
       [zcl_clusters.TuyaEF00.ID] = {
-        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_data_report_handler,
-        [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_data_report_handler,
+        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
+        [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_response_handler,
       },
     },
   },
   capability_handlers = {
     [capabilities.doorControl.ID] = {
-      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_generic_defaults.command_true_handler,
-      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_generic_defaults.command_false_handler,
+      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_generic_defaults.capability_handler,
+      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_generic_defaults.command_switchLevel_handler,
+      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
-    [_boolean.ID] = {
-      [_boolean.commands.on.NAME] = tuyaEF00_generic_defaults.command_true_handler,
-      [_boolean.commands.off.NAME] = tuyaEF00_generic_defaults.command_false_handler,
+    [capabilities.switch.ID] = {
+      [capabilities.switch.commands.on.NAME] = tuyaEF00_generic_defaults.capability_handler,
+      [capabilities.switch.commands.off.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [_bitmap.ID] = {
-      [_bitmap.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_bitmap_handler,
+      [_bitmap.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [_enum.ID] = {
-      [_enum.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_enum_handler,
+      [_enum.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [_string.ID] = {
-      [_string.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_string_handler,
+      [_string.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [_value.ID] = {
-      [_value.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_value_handler,
+      [_value.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
     [_raw.ID] = {
-      [_raw.commands.setValue.NAME] = tuyaEF00_generic_defaults.command_raw_handler,
+      [_raw.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
     },
   },
 }

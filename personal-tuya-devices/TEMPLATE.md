@@ -26,7 +26,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, contactSensor, button, doorControl, motionSensor, presenceSensor, temperatureMeasurement and waterSensor
+     Currently: switch, switchLevel, button, contactSensor, doorControl, illuminanceMeasurement, motionSensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement and waterSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -37,8 +37,9 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Contribute with your integration
 
-1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly
+1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly.
 2. Create or use existing folder with model name at `/src/sub_drivers`<br />
+   - The model name must be the value reported by the device as seen in the screenshot above, not what is labeled in the box.
    - If model name folder doesn't exist:<br />
      1. Duplicate `/src/sub_drivers/TEMPLATE` folder and modify all references to the new model name
      2. Add a reference to the new folder at `/src/sub_drivers/model_sub_drivers.lua`
@@ -88,6 +89,8 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Currently untested configurations
 
+- Humidity Sensor
+- Illuminance Sensor
 - Motion Sensor
 - Water Sensor
 - String Tuya Data Type

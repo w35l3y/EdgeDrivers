@@ -112,9 +112,9 @@ function TuyaCommand.build_test_rx(device, command)
   return TuyaCommand._cluster:build_test_rx_cluster_specific_command(device, out, "server")
 end
 
-function TuyaCommand:init(device, component, _value)
+function TuyaCommand:init(device, dpid, _value)
   local out = {}
-  local args = { 0, tuya_types.DatapointSegment(device:get_endpoint_for_component_id(component), _value) }
+  local args = { 0, tuya_types.DatapointSegment(dpid, _value) }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end
