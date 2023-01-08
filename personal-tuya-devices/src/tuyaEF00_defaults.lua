@@ -33,32 +33,33 @@ local defaults = {
     capability = "switch",
     attribute = "switch",
     to_zigbee = function (self, value) return value == "on" end,
-    from_zigbee = function (self, value) return to_number(value)==0 and "off" or "on" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "off" or "on" end,
     command_handler = function (self, evt) return data_types.Boolean(self:to_zigbee(evt.command)) end,
   },
   switchLevel = {
     capability = "switchLevel",
     attribute = "level",
-    to_zigbee = function (self, value) return to_number(value) end,
-    from_zigbee = function (self, value) return to_number(value) end,
+    divider = 1,
+    to_zigbee = function (self, value) return to_number(value) * self.divider end,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / self.divider) end,
     command_handler = function (self, command) return tuya_types.Uint32(self:to_zigbee(command.args.level)) end,
   },
   button = {
     capability = "button",
     attribute = "button",
     domain = {"pushed", "double", "held"},
-    from_zigbee = function (self, value) return self.domain[to_number(value)+1] or "double" end,
+    from_zigbee = function (self, value) return self.domain[1 + to_number(value)] or "double" end,
   },
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",
-    from_zigbee = function (self, value) return to_number(value)==0 and "closed" or "open" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
   },
   doorControl = {
     capability = "doorControl",
     attribute = "door",
     to_zigbee = function (self, value) return to_number(value == "open") end,
-    from_zigbee = function (self, value) return to_number(value)==0 and "closed" or "open" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
   },
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
@@ -68,12 +69,12 @@ local defaults = {
   motionSensor = {
     capability = "motionSensor",
     attribute = "motion",
-    from_zigbee = function (self, value) return to_number(value)==0 and "inactive" or "active" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "inactive" or "active" end,
   },
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",
-    from_zigbee = function (self, value) return to_number(value)==0 and "not present" or "present" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "not present" or "present" end,
   },
   relativeHumidityMeasurement = {
     capability = "relativeHumidityMeasurement",
@@ -88,7 +89,7 @@ local defaults = {
   waterSensor = {
     capability = "waterSensor",
     attribute = "water",
-    from_zigbee = function (self, value) return to_number(value)==0 and "dry" or "wet" end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "dry" or "wet" end,
   },
   value = {
     capability = "valleyboard16460.datapointValue",
@@ -128,13 +129,8 @@ local defaults = {
     from_zigbee = function (self, value) return tostring(value) end,
     command_handler = function (self, command) return generic_body.GenericBody(command.args.value) end,
   },
-
-  dimmer = {
-    parent = "switchLevel",
-    to_zigbee = function (self, value) return 10 * to_number(value) end,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / 10) end,
-  },
 }
+
 for k,v in pairs(defaults) do
   setmetatable(v, {
     __index=v.parent and defaults[v.parent] or default_generic,
