@@ -16,10 +16,12 @@ local datapoint_types_to_fn = {
   buttonDatapoints = tuyaEF00_defaults.button,
   contactSensorDatapoints = tuyaEF00_defaults.contactSensor,
   doorControlDatapoints = tuyaEF00_defaults.doorControl,
+  humidityMeasurDatapoints = tuyaEF00_defaults.relativeHumidityMeasurement,
+  illuminanceMeaDatapoints = tuyaEF00_defaults.illuminanceMeasurement,
   motionSensorDatapoints = tuyaEF00_defaults.motionSensor,
   presenceSensorDatapoints = tuyaEF00_defaults.presenceSensor,
   temperatureMeaDatapoints = tuyaEF00_defaults.temperatureMeasurement,
-  waterSensorDatapoints = tuyaEF00_defaults.waterSensors,
+  waterSensorDatapoints = tuyaEF00_defaults.waterSensor,
   enumerationDatapoints = tuyaEF00_defaults.enum,
   valueDatapoints = tuyaEF00_defaults.value,
   stringDatapoints = tuyaEF00_defaults.string,
@@ -33,6 +35,8 @@ local child_types_to_profile = {
   buttonDatapoints = "child-button-v1",
   contactSensorDatapoints = "child-contactSensor-v1",
   doorControlDatapoints = "child-doorControl-v1",
+  humidityMeasurDatapoints = "child-relativeHumidityMeasurement-v1",
+  illuminanceMeaDatapoints = "child-illuminanceMeasurement-v1",
   motionSensorDatapoints = "child-motionSensor-v1",
   presenceSensorDatapoints = "child-presenceSensor-v1",
   temperatureMeaDatapoints = "child-temperatureMeasurement-v1",
@@ -62,7 +66,7 @@ local function get_datapoints_from_device (device)
         if output[ndpid] == nil then
           num=num+1
         end
-        output[ndpid] = def
+        output[ndpid] = def({group=ndpid})
       end
     end
   end
@@ -75,7 +79,7 @@ local function get_datapoints_from_messages (list)
     if output[list.dpid.value] == nil then
       num=num+1
     end
-    output[list.dpid.value] = datapoint_types_to_fn[type_to_configuration[msg.type.value] .. "Datapoints"]
+    output[list.dpid.value] = datapoint_types_to_fn[type_to_configuration[msg.type.value] .. "Datapoints"]({group=list.dpid.value})
   end
   return output,num
 end
@@ -83,20 +87,20 @@ end
 
 local lifecycle_handlers = {}
 
-local function create_child(driver, device, ndpid, profile)
-  local dpid = string.format("%02X", ndpid)
-  local created = device:get_child_by_parent_assigned_key(dpid)
+local function create_child(driver, device, ngroup, profile)
+  local group = string.format("%02X", ngroup)
+  local created = device:get_child_by_parent_assigned_key(group)
   if not created then
     driver:try_create_device({
       type = "EDGE_CHILD",
       device_network_id = nil,
-      parent_assigned_child_key = dpid,
-      label = "Child " .. tonumber(dpid, 16),
+      parent_assigned_child_key = group,
+      label = "Child " .. tonumber(group, 16),
       profile = profile,
       parent_device_id = device.id,
       manufacturer = driver.NAME,
       model = profile,
-      vendor_provided_label = "Child " .. tonumber(dpid, 16),
+      vendor_provided_label = "Child " .. tonumber(group, 16),
     })
     --device:emit_event(datapoint_types_to_fn[name]:create_event(0))
   end
@@ -135,7 +139,7 @@ end
 
 local info = capabilities["valleyboard16460.info"]
 
-function defaults.command_data_report_handler(driver, device, zb_rx)
+function defaults.command_response_handler(driver, device, zb_rx)
   if temporary_datapoints[device.id] == nil then
     temporary_datapoints[device.id] = {}
   end
@@ -146,45 +150,15 @@ function defaults.command_data_report_handler(driver, device, zb_rx)
     temporary_datapoints[device.id][ndpid] = zb_rx.body.zcl_body.data
     device:emit_event(info.value(tostring(myutils.info(device, temporary_datapoints[device.id])), { visibility = { displayed = false } }))
   end
-  -- create_child(driver, device, ndpid, child_types_to_profile[type_to_configuration[_type.value] .. "Datapoints"])
-  -- tuyaEF00_defaults.command_data_report_handler(get_datapoints_from_messages(temporary_datapoints[device.id]))(driver, device, zb_rx)
 
   local datapoints,total = get_datapoints_from_device(device)
   if total > 0 then
-    tuyaEF00_defaults.command_data_report_handler(datapoints)(driver, device, zb_rx)
+    tuyaEF00_defaults.command_response_handler(datapoints)(driver, device, zb_rx)
   end
 end
 
-function defaults.command_true_handler(...)
-  send_command(tuyaEF00_defaults.command_true_handler, ...)
-end
-
-function defaults.command_false_handler(...)
-  send_command(tuyaEF00_defaults.command_false_handler, ...)
-end
-
-function defaults.command_switchLevel_handler(...)
-  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
-end
-
-function defaults.command_value_handler(...)
-  send_command(tuyaEF00_defaults.command_value_handler, ...)
-end
-
-function defaults.command_string_handler(...)
-  send_command(tuyaEF00_defaults.command_string_handler, ...)
-end
-
-function defaults.command_enum_handler(...)
-  send_command(tuyaEF00_defaults.command_enum_handler, ...)
-end
-
-function defaults.command_bitmap_handler(...)
-  send_command(tuyaEF00_defaults.command_bitmap_handler, ...)
-end
-
-function defaults.command_raw_handler(...)
-  send_command(tuyaEF00_defaults.command_raw_handler, ...)
+function defaults.capability_handler(...)
+  send_command(tuyaEF00_defaults.capability_handler, ...)
 end
 
 return defaults

@@ -1,4 +1,4 @@
-# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v6.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v6.out.yaml
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v6.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v6.yaml
 # currently, dashboard doesn't work with 6 switches ( https://community.smartthings.com/t/arrayindexoutofboundsexception-when-creating-device-presentation-for-6-switches/254926?u=w35l3y )
 mnmn: SmartThingsCommunity
 vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf

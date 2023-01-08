@@ -25,20 +25,12 @@ local function send_command(fn, driver, device, ...)
   end
 end
 
-function defaults.command_data_report_handler(...)
-  send_command(tuyaEF00_defaults.command_data_report_handler, ...)
+function defaults.command_response_handler(...)
+  send_command(tuyaEF00_defaults.command_response_handler, ...)
 end
 
-function defaults.command_true_handler(...)
-  send_command(tuyaEF00_defaults.command_true_handler, ...)
-end
-
-function defaults.command_false_handler(...)
-  send_command(tuyaEF00_defaults.command_false_handler, ...)
-end
-
-function defaults.command_switchLevel_handler(...)
-  send_command(tuyaEF00_defaults.command_switchLevel_handler, ...)
+function defaults.capability_handler(...)
+  send_command(tuyaEF00_defaults.capability_handler, ...)
 end
 
 return defaults

@@ -1,4 +1,4 @@
-# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v4.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v4.out.yaml
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v4.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v4.yaml
 mnmn: SmartThingsCommunity
 vid: 9da457c6-9c39-3cce-9848-159dd43695ec
 version: 0.0.1

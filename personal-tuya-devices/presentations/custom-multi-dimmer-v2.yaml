@@ -1,6 +1,6 @@
-# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-dimmer-v2.yaml -o=personal-tuya-devices/presentations/custom-multi-dimmer-v2.out.yaml
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-dimmer-v2.yaml -o=personal-tuya-devices/presentations/custom-multi-dimmer-v2.yaml
 mnmn: SmartThingsCommunity
-vid: 0ad7d052-f6ce-34c0-b4d8-fcfc571d2301
+vid: 94459380-339b-3a1a-951b-b010e0a9e54c
 version: 0.0.1
 type: profile
 dashboard:
@@ -16,14 +16,14 @@ dashboard:
       capability: switch
       version: 1
       idx: 0
-      group: Switch 1
+      group: Dimmer 1
       values: []
       composite: true
-    - component: main07
+    - component: main02
       capability: switch
       version: 1
       idx: 0
-      group: Switch 2
+      group: Dimmer 2
       values: []
       composite: true
   actions:
@@ -37,18 +37,23 @@ dashboard:
       capability: switch
       version: 1
       idx: 0
-      group: Switch 1
+      group: Dimmer 1
       inline: null
-    - component: main07
+    - component: main02
       capability: switch
       version: 1
       idx: 0
-      group: Switch 2
+      group: Dimmer 2
       inline: null
   basicPlus: []
 detailView:
   - component: main
     capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main
+    capability: switchLevel
     version: 1
     values: []
     patch: []
@@ -62,37 +67,27 @@ detailView:
     version: 1
     values: []
     patch: []
+  - component: main01
+    capability: switchLevel
+    version: 1
+    values: []
+    patch: []
+  - component: main01
+    capability: valleyboard16460.datapointEnum
+    version: 1
+    values: []
+    patch: []
+  - component: main02
+    capability: switch
+    version: 1
+    values: []
+    patch: []
   - component: main02
     capability: switchLevel
     version: 1
     values: []
     patch: []
-  - component: main03
-    capability: switchLevel
-    version: 1
-    values: []
-    patch: []
-  - component: main04
-    capability: valleyboard16460.datapointEnum
-    version: 1
-    values: []
-    patch: []
-  - component: main07
-    capability: switch
-    version: 1
-    values: []
-    patch: []
-  - component: main08
-    capability: switchLevel
-    version: 1
-    values: []
-    patch: []
-  - component: main09
-    capability: switchLevel
-    version: 1
-    values: []
-    patch: []
-  - component: main0A
+  - component: main02
     capability: valleyboard16460.datapointEnum
     version: 1
     values: []
@@ -105,25 +100,31 @@ automation:
       values: []
       patch: []
       exclusion: []
+    - component: main
+      capability: switchLevel
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
     - component: main01
       capability: switch
       version: 1
       values: []
       patch: []
       exclusion: []
-    - component: main02
+    - component: main01
       capability: switchLevel
       version: 1
       values: []
       patch: []
       exclusion: []
-    - component: main07
+    - component: main02
       capability: switch
       version: 1
       values: []
       patch: []
       exclusion: []
-    - component: main08
+    - component: main02
       capability: switchLevel
       version: 1
       values: []
@@ -136,7 +137,25 @@ automation:
       values: []
       patch: []
       exclusion: []
+    - component: main
+      capability: switchLevel
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
     - component: main01
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main01
+      capability: switchLevel
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main02
       capability: switch
       version: 1
       values: []
@@ -148,17 +167,5 @@ automation:
       values: []
       patch: []
       exclusion: []
-    - component: main07
-      capability: switch
-      version: 1
-      values: []
-      patch: []
-      exclusion: []
-    - component: main08
-      capability: switchLevel
-      version: 1
-      values: []
-      patch: []
-      exclusion: []
-presentationId: 0ad7d052-f6ce-34c0-b4d8-fcfc571d2301
+presentationId: 94459380-339b-3a1a-951b-b010e0a9e54c
 manufacturerName: SmartThingsCommunity
