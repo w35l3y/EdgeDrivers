@@ -51,7 +51,8 @@ function utils.info(device, datapoints)
   setmetatable(_datapoints, {
     __tostring = function (self)
       local output = {}
-      for _index, _data in pairs(self) do
+      for _index, zb_rx in pairs(self) do
+        local _data = zb_rx.body.zcl_body.data
         output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, _data.value.value)
       end
       if #output == 0 then

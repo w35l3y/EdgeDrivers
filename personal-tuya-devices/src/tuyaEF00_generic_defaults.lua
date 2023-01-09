@@ -75,17 +75,17 @@ end
 
 local function get_datapoints_from_messages (list)
   local output,num = {},0
-  for _, msg in pairs(list) do
-    if output[list.dpid.value] == nil then
+  for _, zb_rx in pairs(list) do
+    local body = zb_rx.body.zcl_body.data
+    if output[body.dpid.value] == nil then
       num=num+1
     end
-    output[list.dpid.value] = datapoint_types_to_fn[type_to_configuration[msg.type.value] .. "Datapoints"]({group=list.dpid.value})
+    output[body.dpid.value] = datapoint_types_to_fn[type_to_configuration[body.type.value] .. "Datapoints"]({group=body.dpid.value})
   end
   return output,num
 end
 
-
-local lifecycle_handlers = {}
+local temporary_datapoints = {}
 
 local function create_child(driver, device, ngroup, profile)
   local group = string.format("%02X", ngroup)
@@ -95,14 +95,34 @@ local function create_child(driver, device, ngroup, profile)
       type = "EDGE_CHILD",
       device_network_id = nil,
       parent_assigned_child_key = group,
-      label = "Child " .. tonumber(group, 16),
+      label = "Child " .. ngroup,
       profile = profile,
       parent_device_id = device.id,
       manufacturer = driver.NAME,
       model = profile,
-      vendor_provided_label = "Child " .. tonumber(group, 16),
+      vendor_provided_label = "Child " .. ngroup,
     })
-    --device:emit_event(datapoint_types_to_fn[name]:create_event(0))
+  end
+end
+
+local function send_command(fn, driver, device, ...)
+  local datapoints,total = get_datapoints_from_device(device.parent_assigned_child_key ~= nil and device:get_parent_device() or device)
+  if total > 0 then
+    fn(datapoints)(driver, device, ...)
+  end
+end
+
+local lifecycle_handlers = {}
+
+function lifecycle_handlers.added(driver, device, event, ...)
+  if device.parent_assigned_child_key ~= nil then
+    local tmp = temporary_datapoints[device.parent_device_id]
+    local dpid = tonumber(device.parent_assigned_child_key, 16)
+    if tmp ~= nil and tmp[dpid] ~= nil then
+      send_command(tuyaEF00_defaults.command_response_handler, driver, device:get_parent_device(), tmp[dpid])
+    else
+      log.warn("Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, tmp ~= nil)
+    end
   end
 end
 
@@ -110,7 +130,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   for name, profile in pairs(child_types_to_profile) do
     if device.preferences[name] ~= nil and args.old_st_store.preferences[name] ~= device.preferences[name] then
       for ndpid in device.preferences[name]:gmatch("[^,]+") do
-        create_child(driver, device, ndpid, profile)
+        create_child(driver, device, tonumber(ndpid, 10), profile)
       end
     end
   end
@@ -124,21 +144,6 @@ function defaults.can_handle (opts, driver, device, ...)
   return device:supports_server_cluster(zcl_clusters.tuya_ef00_id)
 end
 
-local temporary_datapoints = {}
-
-local function send_command(fn, driver, device, ...)
-  if device.parent_device_id ~= nil then
-    local datapoints,total = get_datapoints_from_device(device:get_parent_device())
-    if total > 0 then
-      fn(datapoints)(driver, device, ...)
-    -- else
-    --   fn(get_datapoints_from_messages(temporary_datapoints[device.id] or {}))(driver, device, ...)
-    end
-  end
-end
-
-local info = capabilities["valleyboard16460.info"]
-
 function defaults.command_response_handler(driver, device, zb_rx)
   if temporary_datapoints[device.id] == nil then
     temporary_datapoints[device.id] = {}
@@ -147,14 +152,11 @@ function defaults.command_response_handler(driver, device, zb_rx)
     local ndpid = zb_rx.body.zcl_body.data.dpid.value
     -- local _type = zb_rx.body.zcl_body.data.type
     -- local value = zb_rx.body.zcl_body.data.value.value
-    temporary_datapoints[device.id][ndpid] = zb_rx.body.zcl_body.data
+    temporary_datapoints[device.id][ndpid] = zb_rx
     device:emit_event(info.value(tostring(myutils.info(device, temporary_datapoints[device.id])), { visibility = { displayed = false } }))
   end
 
-  local datapoints,total = get_datapoints_from_device(device)
-  if total > 0 then
-    tuyaEF00_defaults.command_response_handler(datapoints)(driver, device, zb_rx)
-  end
+  send_command(tuyaEF00_defaults.command_response_handler, driver, device, zb_rx)
 end
 
 function defaults.capability_handler(...)
