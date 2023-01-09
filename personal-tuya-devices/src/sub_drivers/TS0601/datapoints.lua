@@ -43,12 +43,7 @@ return {
     [8] = tuyaEF00_defaults.switchLevel({group=2,divider=10}),
     [10] = tuyaEF00_defaults.enum({group=2}),
   },
+  ["_TZE204_ztc6ggyl"] = {  -- presence sensor
+    [1] = tuyaEF00_defaults.presenceSensor({group=1}),
+  },
 }
-
--- https://github.com/zigpy/zha-device-handlers/blob/05ee5195a0f008d06e9bfe56e216178ee5ac959c/zhaquirks/tuya/mcu/__init__.py#L509
---[[
-  1,7,15  bool    switch
-  2,8,16  value   current level
-  3,9,17  value   minimum level
-  4,10,18 enum    bulb type
---]]
