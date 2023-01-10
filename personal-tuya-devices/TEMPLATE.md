@@ -89,6 +89,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Currently untested configurations
 
+- Door Control
 - Humidity Sensor
 - Illuminance Sensor
 - Motion Sensor

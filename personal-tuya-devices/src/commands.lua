@@ -15,7 +15,7 @@ local function to_number (value)
 end
 
 local default_generic = {
-  to_zigbee = function (self, value) return value end,
+  to_zigbee = function (self, value) error("to_zigbee must be implemented") end,
   from_zigbee = function (self, value) return value end,
   command_handler = function (self, command) return self:to_zigbee(command.args.value) end, -- @FIXME
   create_event = function (self, value)
@@ -53,7 +53,7 @@ local defaults = {
   doorControl = {
     capability = "doorControl",
     attribute = "door",
-    to_zigbee = function (self, value) return to_number(value == "open") end,
+    to_zigbee = function (self, value) return data_types.Boolean(value == "open") end,
     from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
   },
   illuminanceMeasurement = {
