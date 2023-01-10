@@ -20,8 +20,9 @@ local template = {
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
     capabilities.doorControl,
-    capabilities.switchLevel,
     capabilities.switch,  -- boolean
+    capabilities.switchLevel,
+    capabilities.valve,
     _bitmap,
     _enum,
     _string,

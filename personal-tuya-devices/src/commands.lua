@@ -81,6 +81,12 @@ local defaults = {
     attribute = "temperature",
     from_zigbee = function (self, value) return to_number(value) end,
   },
+  valve = {
+    capability = "valve",
+    attribute = "valve",
+    to_zigbee = function (self, value) return data_types.Boolean(value == "open") end,
+    from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
+  },
   waterSensor = {
     capability = "waterSensor",
     attribute = "water",

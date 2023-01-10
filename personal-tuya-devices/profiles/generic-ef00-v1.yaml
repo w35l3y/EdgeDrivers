@@ -99,6 +99,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: valveDatapoints
+    title: Datapoints for valves
+    description: List of datapoints used for valves (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: waterSensorDatapoints
     title: Datapoints for water sensors
     description: List of datapoints used for water sensors (comma-separated)
