@@ -44,36 +44,6 @@ function lifecycles.init(driver, device, event, ...)
   device:set_find_child(find_child_fn)
 end
 
-function lifecycles.infoChanged(driver, device, event, args)
-  if args.old_st_store.preferences.presentation ~= device.preferences.presentation or (not myutils.is_normal(device) and device.profile.components.main == nil) then
-    device:try_update_metadata({
-      profile = device.preferences.presentation:gsub("_", "-")
-    })
-  end
-
-  for id, value in pairs(device.preferences) do
-    local normalized_id = utils.snake_case(id)
-    local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
-    if match ~= nil and value and args.old_st_store.preferences[id] ~= value then
-      local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
-      local created = device:get_child_by_parent_assigned_key(group)
-      if not created then
-        driver:try_create_device({
-          type = "EDGE_CHILD",
-          device_network_id = nil,
-          parent_assigned_child_key = group,
-          label = "Child " .. tonumber(group, 16),
-          profile = profile,
-          parent_device_id = device.id,
-          manufacturer = driver.NAME,
-          model = profile,
-          vendor_provided_label = "Child " .. tonumber(group, 16),
-        })
-      end
-    end
-  end
-end
-
 function lifecycles.added(driver, device, event, ...)
 end
 
