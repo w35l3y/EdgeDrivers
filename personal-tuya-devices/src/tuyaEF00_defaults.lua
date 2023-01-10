@@ -1,157 +1,22 @@
 local log = require "log"
 local utils = require "st.utils"
 
-local capabilities = require "st.capabilities"
-local data_types = require "st.zigbee.data_types"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
-local generic_body = require "st.zigbee.generic_body"
+local commands = require "commands"
 
 local myutils = require "utils"
 
-local function to_number (value)
-  if type(value) == "boolean" then
-    return value and 1 or 0
-  elseif type(value) == "string" then
-    return tonumber(value, 10) or 0
-  elseif type(value) == "nil" then
-    return 0
-  end
-  return value
-end
-
-local default_generic = {
-  to_zigbee = function (self, value) return value end,
-  from_zigbee = function (self, value) return value end,
-  create_event = function (self, value)
-    return self.capability ~= nil and self.attribute ~= nil and capabilities[self.capability][self.attribute](self:from_zigbee(value)) or nil
-  end,
-}
-
-local defaults = {
-  switch = {
-    capability = "switch",
-    attribute = "switch",
-    to_zigbee = function (self, value) return value == "on" end,
-    from_zigbee = function (self, value) return to_number(value) == 0 and "off" or "on" end,
-    command_handler = function (self, evt) return data_types.Boolean(self:to_zigbee(evt.command)) end,
-  },
-  switchLevel = {
-    capability = "switchLevel",
-    attribute = "level",
-    divider = 1,
-    to_zigbee = function (self, value) return to_number(value) * self.divider end,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / self.divider) end,
-    command_handler = function (self, command) return tuya_types.Uint32(self:to_zigbee(command.args.level)) end,
-  },
-  button = {
-    capability = "button",
-    attribute = "button",
-    domain = {"pushed", "double", "held"},
-    from_zigbee = function (self, value) return self.domain[1 + to_number(value)] or "double" end,
-  },
-  contactSensor = {
-    capability = "contactSensor",
-    attribute = "contact",
-    from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
-  },
-  doorControl = {
-    capability = "doorControl",
-    attribute = "door",
-    to_zigbee = function (self, value) return to_number(value == "open") end,
-    from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
-  },
-  illuminanceMeasurement = {
-    capability = "illuminanceMeasurement",
-    attribute = "illuminance",
-    from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
-  },
-  motionSensor = {
-    capability = "motionSensor",
-    attribute = "motion",
-    from_zigbee = function (self, value) return to_number(value) == 0 and "inactive" or "active" end,
-  },
-  presenceSensor = {
-    capability = "presenceSensor",
-    attribute = "presence",
-    from_zigbee = function (self, value) return to_number(value) == 0 and "not present" or "present" end,
-  },
-  relativeHumidityMeasurement = {
-    capability = "relativeHumidityMeasurement",
-    attribute = "humidity",
-    from_zigbee = function (self, value) return to_number(value) end,
-  },
-  temperatureMeasurement = {
-    capability = "temperatureMeasurement",
-    attribute = "temperature",
-    from_zigbee = function (self, value) return to_number(value) end,
-  },
-  waterSensor = {
-    capability = "waterSensor",
-    attribute = "water",
-    from_zigbee = function (self, value) return to_number(value) == 0 and "dry" or "wet" end,
-  },
-  value = {
-    capability = "valleyboard16460.datapointValue",
-    attribute = "value",
-    from_zigbee = function (self, value) return to_number(value) end,
-    command_handler = function (self, command) return tuya_types.Uint32(command.args.value) end,
-  },
-  string = {
-    capability = "valleyboard16460.datapointString",
-    attribute = "value",
-    from_zigbee = function (self, value) return tostring(value) end,
-    command_handler = function (self, command) return data_types.CharString(command.args.value) end,
-  },
-  enum = {
-    capability = "valleyboard16460.datapointEnum",
-    attribute = "value",
-    from_zigbee = function (self, value) return to_number(value) end,
-    command_handler = function(self, command) return data_types.Enum8(command.args.value) end,
-  },
-  bitmap = {
-    capability = "valleyboard16460.datapointBitmap",
-    attribute = "value",
-    from_zigbee = function (self, value) return to_number(value) end,
-    command_handler = function (self, command)
-      local value = command.args.value
-      if value > 0xFFFF then
-        return tuya_types.Bitmap32(value) -- BigEndian ? untested
-      elseif value > 0xFF then
-        return tuya_types.Bitmap16(value) -- BigEndian ? untested
-      end
-      return data_types.Bitmap8(value)
-    end
-  },
-  raw = {
-    capability = "valleyboard16460.datapointRaw",
-    attribute = "value",
-    from_zigbee = function (self, value) return tostring(value) end,
-    command_handler = function (self, command) return generic_body.GenericBody(command.args.value) end,
-  },
-}
-
-for k,v in pairs(defaults) do
-  setmetatable(v, {
-    __index=v.parent and defaults[v.parent] or default_generic,
-    __call=function (self, base)
-      setmetatable(base, {
-        __index=self
-      })
-      return base
-    end
-  })
-end
-defaults.generic = default_generic
-
 local map_to_fn = {
-  [tuya_types.DatapointSegmentType.BOOLEAN] = defaults.switch,
-  [tuya_types.DatapointSegmentType.VALUE] = defaults.value,
-  [tuya_types.DatapointSegmentType.STRING] = defaults.string,
-  [tuya_types.DatapointSegmentType.ENUM] = defaults.enum,
-  [tuya_types.DatapointSegmentType.BITMAP] = defaults.bitmap,
-  [tuya_types.DatapointSegmentType.RAW] = defaults.raw,
+  [tuya_types.DatapointSegmentType.BOOLEAN] = commands.switch,
+  [tuya_types.DatapointSegmentType.VALUE] = commands.value,
+  [tuya_types.DatapointSegmentType.STRING] = commands.string,
+  [tuya_types.DatapointSegmentType.ENUM] = commands.enum,
+  [tuya_types.DatapointSegmentType.BITMAP] = commands.bitmap,
+  [tuya_types.DatapointSegmentType.RAW] = commands.raw,
 }
+
+local defaults = {}
 
 function defaults.command_response_handler(datapoints)
   return function (driver, device, zb_rx)
@@ -159,11 +24,17 @@ function defaults.command_response_handler(datapoints)
     local dpid = zb_rx.body.zcl_body.data.dpid.value
     local value = zb_rx.body.zcl_body.data.value.value
     local _type = zb_rx.body.zcl_body.data.type.value
-    local event_dp = datapoints[dpid] or map_to_fn[_type]({group=dpid}) or defaults.generic
+    local event_dp = datapoints[dpid] or map_to_fn[_type]({group=dpid}) or commands.generic
     local event = event_dp:create_event(value)
 
     --log.info("device.preferences.presentation", device.preferences.presentation)
     if event ~= nil then
+      -- if event_dp.name ~= nil then
+      --   local pref_name = utils.camel_case("pref_"..event_dp.name)
+      --   log.info("pref_name", pref_name, device:get_field(pref_name), "-")
+      --   device:set_field(pref_name, event_dp:from_zigbee(value), {persist=true})
+      --   device.st_store.preferences[pref_name] = event_dp:from_zigbee(value)
+      -- end
       -- atualiza o child caso exista 
       local status, e = pcall(device.emit_event_for_endpoint, device, event_dp.group or dpid, event)
       -- quando e == nil, significa que encontrou child
@@ -200,6 +71,17 @@ function defaults.command_response_handler(datapoints)
       end
     else
       log.warn("Unexpected datapoint", dpid, value)
+    end
+  end
+end
+
+function defaults.update_data(datapoints)
+  return function (driver, device, name, value)
+    for dpid, def in pairs(datapoints) do
+      if def.name == name then
+        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:to_zigbee(value)))
+        break
+      end
     end
   end
 end

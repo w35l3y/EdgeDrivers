@@ -15,20 +15,23 @@ local _string = capabilities["valleyboard16460.datapointString"]
 local _value = capabilities["valleyboard16460.datapointValue"]
 local _raw = capabilities["valleyboard16460.datapointRaw"]
 
-return {
+local template = {
   NAME = NAME,
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
     capabilities.doorControl,
-    capabilities.switchLevel,
     capabilities.switch,  -- boolean
+    capabilities.switchLevel,
+    capabilities.valve,
     _bitmap,
     _enum,
     _string,
     _value,
     _raw,
   },
-  sub_drivers = require "sub_drivers.model_sub_drivers",
+  sub_drivers = {
+    require "sub_drivers.model"
+  },
   lifecycle_handlers = tuyaEF00_generic_defaults.lifecycle_handlers,
   zigbee_handlers = {
     global = {
@@ -43,32 +46,8 @@ return {
       },
     },
   },
-  capability_handlers = {
-    [capabilities.doorControl.ID] = {
-      [capabilities.doorControl.commands.open.NAME] = tuyaEF00_generic_defaults.capability_handler,
-      [capabilities.doorControl.commands.close.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [capabilities.switchLevel.ID] = {
-      [capabilities.switchLevel.commands.setLevel.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [capabilities.switch.ID] = {
-      [capabilities.switch.commands.on.NAME] = tuyaEF00_generic_defaults.capability_handler,
-      [capabilities.switch.commands.off.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [_bitmap.ID] = {
-      [_bitmap.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [_enum.ID] = {
-      [_enum.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [_string.ID] = {
-      [_string.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [_value.ID] = {
-      [_value.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-    [_raw.ID] = {
-      [_raw.commands.setValue.NAME] = tuyaEF00_generic_defaults.capability_handler,
-    },
-  },
 }
+
+tuyaEF00_generic_defaults.register_for_default_handlers(template, template.supported_capabilities)
+
+return template

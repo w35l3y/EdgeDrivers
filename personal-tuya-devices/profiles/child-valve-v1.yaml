@@ -1,0 +1,21 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivity.org/specs/OCF_SmartHome_Device_Specification_v1.0.0.pdf
+name: "child-valve-v1"
+components:
+  - id: main
+    label: Valve
+    capabilities:
+      - id: valve
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: WaterValve
+metadata:
+  deviceType: Water Valve
+  ocfDeviceType: oic.d.watervalve
+  deviceTypeId: Water Valve
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

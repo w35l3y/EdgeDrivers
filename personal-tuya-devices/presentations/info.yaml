@@ -1,6 +1,6 @@
+# ./smartthings capabilities:presentation:update valleyboard16460.info 1 -y -i=personal-tuya-devices/presentations/info.yaml -o=personal-tuya-devices/presentations/info.yaml
 dashboard:
-  states:
-    - label: "{{value.value}}"
+  states: []
   actions: []
 detailView:
   - label: Info

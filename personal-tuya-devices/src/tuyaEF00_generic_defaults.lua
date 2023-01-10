@@ -6,27 +6,29 @@ local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local myutils = require "utils"
+local commands = require "commands"
 
 local capabilities = require "st.capabilities"
 local info = capabilities["valleyboard16460.info"]
 
 local datapoint_types_to_fn = {
-  switchDatapoints = tuyaEF00_defaults.switch,
-  switchLevelDatapoints = tuyaEF00_defaults.switchLevel,
-  buttonDatapoints = tuyaEF00_defaults.button,
-  contactSensorDatapoints = tuyaEF00_defaults.contactSensor,
-  doorControlDatapoints = tuyaEF00_defaults.doorControl,
-  humidityMeasurDatapoints = tuyaEF00_defaults.relativeHumidityMeasurement,
-  illuminanceMeaDatapoints = tuyaEF00_defaults.illuminanceMeasurement,
-  motionSensorDatapoints = tuyaEF00_defaults.motionSensor,
-  presenceSensorDatapoints = tuyaEF00_defaults.presenceSensor,
-  temperatureMeaDatapoints = tuyaEF00_defaults.temperatureMeasurement,
-  waterSensorDatapoints = tuyaEF00_defaults.waterSensor,
-  enumerationDatapoints = tuyaEF00_defaults.enum,
-  valueDatapoints = tuyaEF00_defaults.value,
-  stringDatapoints = tuyaEF00_defaults.string,
-  bitmapDatapoints = tuyaEF00_defaults.bitmap,
-  rawDatapoints = tuyaEF00_defaults.raw,
+  switchDatapoints = commands.switch,
+  switchLevelDatapoints = commands.switchLevel,
+  buttonDatapoints = commands.button,
+  contactSensorDatapoints = commands.contactSensor,
+  doorControlDatapoints = commands.doorControl,
+  humidityMeasurDatapoints = commands.relativeHumidityMeasurement,
+  illuminanceMeaDatapoints = commands.illuminanceMeasurement,
+  motionSensorDatapoints = commands.motionSensor,
+  presenceSensorDatapoints = commands.presenceSensor,
+  temperatureMeaDatapoints = commands.temperatureMeasurement,
+  valveDatapoints = commands.valve,
+  waterSensorDatapoints = commands.waterSensor,
+  enumerationDatapoints = commands.enum,
+  valueDatapoints = commands.value,
+  stringDatapoints = commands.string,
+  bitmapDatapoints = commands.bitmap,
+  rawDatapoints = commands.raw,
 }
 
 local child_types_to_profile = {
@@ -40,6 +42,7 @@ local child_types_to_profile = {
   motionSensorDatapoints = "child-motionSensor-v1",
   presenceSensorDatapoints = "child-presenceSensor-v1",
   temperatureMeaDatapoints = "child-temperatureMeasurement-v1",
+  valveDatapoints = "child-valve-v1",
   waterSensorDatapoints = "child-waterSensor-v1",
   enumerationDatapoints = "child-enum-v1",
   stringDatapoints = "child-string-v1",
@@ -49,12 +52,12 @@ local child_types_to_profile = {
 }
 
 local type_to_configuration = {
-  [tuya_types.DatapointSegmentType.BOOLEAN] = "switch",
-  [tuya_types.DatapointSegmentType.VALUE] = "value",
-  [tuya_types.DatapointSegmentType.STRING] = "string",
-  [tuya_types.DatapointSegmentType.ENUM] = "enumeration",
-  [tuya_types.DatapointSegmentType.BITMAP] = "bitmap",
-  [tuya_types.DatapointSegmentType.RAW] = "raw",
+  [tuya_types.DatapointSegmentType.BOOLEAN] = "switchDatapoints",
+  [tuya_types.DatapointSegmentType.VALUE] = "valueDatapoints",
+  [tuya_types.DatapointSegmentType.STRING] = "stringDatapoints",
+  [tuya_types.DatapointSegmentType.ENUM] = "enumerationDatapoints",
+  [tuya_types.DatapointSegmentType.BITMAP] = "bitmapDatapoints",
+  [tuya_types.DatapointSegmentType.RAW] = "rawDatapoints",
 }
 
 local function get_datapoints_from_device (device)
@@ -80,7 +83,7 @@ local function get_datapoints_from_messages (list)
     if output[body.dpid.value] == nil then
       num=num+1
     end
-    output[body.dpid.value] = datapoint_types_to_fn[type_to_configuration[body.type.value] .. "Datapoints"]({group=body.dpid.value})
+    output[body.dpid.value] = datapoint_types_to_fn[type_to_configuration[body.type.value]]({group=body.dpid.value})
   end
   return output,num
 end
@@ -127,9 +130,10 @@ function lifecycle_handlers.added(driver, device, event, ...)
 end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
-  for name, profile in pairs(child_types_to_profile) do
-    if device.preferences[name] ~= nil and args.old_st_store.preferences[name] ~= device.preferences[name] then
-      for ndpid in device.preferences[name]:gmatch("[^,]+") do
+  for name, value in pairs(device.preferences) do
+    local profile = child_types_to_profile[name]
+    if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
+      for ndpid in value:gmatch("[^,]+") do
         create_child(driver, device, tonumber(ndpid, 10), profile)
       end
     end
@@ -161,6 +165,16 @@ end
 
 function defaults.capability_handler(...)
   send_command(tuyaEF00_defaults.capability_handler, ...)
+end
+
+function defaults.register_for_default_handlers(driver, capabilities)
+  driver.capability_handlers = driver.capability_handlers or {}
+  for _,cap in ipairs(capabilities) do
+    driver.capability_handlers[cap.ID] = driver.capability_handlers[cap.ID] or {}
+    for _,command in pairs(cap.commands) do
+      driver.capability_handlers[cap.ID][command.NAME] = driver.capability_handlers[cap.ID][command.NAME] or defaults.capability_handler
+    end
+  end
 end
 
 return defaults
