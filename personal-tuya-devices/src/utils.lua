@@ -74,8 +74,8 @@ function utils.info(device, datapoints)
   }
   setmetatable(o, {__tostring = function (self)
     return string.format(
-      [[<table style="font-size:0.6em"><tbody>
-        <tr><th align="left">Manufacturer</th><td colspan="2">%s</td></tr>
+      [[<table style="font-size:0.6em;min-width:100%%"><tbody>
+        <tr><th align="left" style="width:40%%">Manufacturer</th><td colspan="2" style="width:60%%">%s</td></tr>
         <tr><th align="left">Model</th><td colspan="2">%s</td></tr>
         <tr><th align="left">Endpoint</th><td colspan="2">%s</td></tr>
         <tr><th align="left">Device ID</th><td colspan="2">%s</td></tr>
