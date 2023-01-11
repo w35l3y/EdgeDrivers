@@ -2,12 +2,19 @@ local commands = require "commands"
 
 return {
   -- ["_TZE200_9mahtqtg"] = { -- only for testing purposes
-  --   [1] = commands.switch({group=1}),
-  --   [2] = commands.switchLevel({group=1}),
-  --   [3] = commands.enum({group=1}),
-  --   [6] = commands.switch({group=2}),
-  --   [5] = commands.switchLevel({group=2}),
-  --   [4] = commands.enum({group=2}),
+    -- [1] = commands.switch({group=1}),
+    -- [2] = commands.switchLevel({group=1}),
+    -- [3] = commands.enum({group=1}),
+    -- [6] = commands.switch({group=2}),
+    -- [5] = commands.switchLevel({group=2}),
+    -- [4] = commands.enum({group=2}),
+    -- [1] = commands.presenceSensor({group=1,name="state"}),
+    -- [2] = commands.value({group=2,name="sensitivity"}),
+    -- [3] = commands.value({group=3,name="minimum_range"}),
+    -- [4] = commands.value({group=4,name="maximum_range"}),
+    -- [101] = commands.value({group=5,name="detection_delay"}),
+    -- [102] = commands.value({group=6,name="fading_time"}),
+    -- [104] = commands.illuminanceMeasurement({group=1,name="illuminance"}),
   -- },
   ["_TZE200_1n2kyphz"] = {  -- 4 switches
     [1] = commands.switch({group=1}),
@@ -44,6 +51,12 @@ return {
     [3] = commands.contactSensor({group=1}),
   },
   ["_TZE204_ztc6ggyl"] = {  -- presence sensor
-    [1] = commands.presenceSensor({group=1}),
+    [1] = commands.presenceSensor({group=1,name="state"}),
+    [2] = commands.value({group=2,name="sensitivity"}),
+    [3] = commands.value({group=3,name="minimum_range"}),
+    [4] = commands.value({group=4,name="maximum_range"}),
+    [101] = commands.value({group=5,name="detection_delay"}),
+    [102] = commands.value({group=6,name="fading_time"}),
+    [104] = commands.illuminanceMeasurement({group=1,name="illuminance"}),
   },
 }

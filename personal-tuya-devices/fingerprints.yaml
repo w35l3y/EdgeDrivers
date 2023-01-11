@@ -4,6 +4,7 @@ zigbeeManufacturer:
     manufacturer: _TZE200_9mahtqtg
     deviceProfileName: normal-multi-switch-v6
     # deviceProfileName: normal-multi-dimmer-v2
+    # deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Multi Switch
     zigbeeProfiles:
       - 0x0104

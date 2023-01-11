@@ -16,6 +16,11 @@ local template = {
     capabilities.switch,
     capabilities.switchLevel,
     capabilities.valve,
+    capabilities["valleyboard16460.datapointBitmap"],
+    capabilities["valleyboard16460.datapointEnum"],
+    capabilities["valleyboard16460.datapointString"],
+    capabilities["valleyboard16460.datapointValue"],
+    capabilities["valleyboard16460.datapointRaw"],
   },
   zigbee_handlers = {
     global = {
