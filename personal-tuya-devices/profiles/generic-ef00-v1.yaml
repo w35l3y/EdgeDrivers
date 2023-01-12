@@ -1,4 +1,5 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
 name: "generic-ef00-v1"
 components:
   - id: main

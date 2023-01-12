@@ -1,4 +1,5 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
 name: "normal-garage-door-v1"
 components:
   - id: main
@@ -16,7 +17,7 @@ components:
       - name: GarageDoor
 metadata:
   deviceType: GarageDoor
-  ocfDeviceType: oic.d.garagedoor # https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
+  ocfDeviceType: oic.d.garagedoor
   deviceTypeId: GarageDoor
   mnmn: SmartThingsCommunity
 owner:

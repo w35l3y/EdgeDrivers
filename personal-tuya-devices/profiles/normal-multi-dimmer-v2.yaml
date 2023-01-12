@@ -46,6 +46,24 @@ preferences:
     preferenceType: boolean
     definition:
       default: false
+  - name: prefMinimumLevel1
+    title: Minimum Level 1
+    description: A integer between 0 and 100
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 100
+      default: 0
+  - name: prefMinimumLevel2
+    title: Minimum Level 2
+    description: A integer between 0 and 100
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 100
+      default: 0
 metadata:
   deviceType: Switch
   ocfDeviceType: oic.d.switch

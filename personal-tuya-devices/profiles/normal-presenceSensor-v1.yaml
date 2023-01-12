@@ -25,7 +25,7 @@ preferences:
       maximum: 9
       default: 7
   - name: prefMinimumRange
-    title: Minumum Range
+    title: Minimum Range
     description: A integer between 0 and 100 (cm)
     required: true
     preferenceType: integer
