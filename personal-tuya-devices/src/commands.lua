@@ -35,7 +35,7 @@ local defaults = {
     capability = "switchLevel",
     attribute = "level",
     rate = 1,
-    to_zigbee = function (self, value) return tuya_types.Uint32(to_number(value) * self.rate) end,
+    to_zigbee = function (self, value) return tuya_types.Uint32(math.floor(to_number(value) * self.rate)) end,
     from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
     command_handler = function (self, command) return self:to_zigbee(command.args.level) end,
   },
@@ -59,6 +59,7 @@ local defaults = {
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
     attribute = "illuminance",
+    -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
     from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
   },
   motionSensor = {
@@ -95,8 +96,9 @@ local defaults = {
   value = {
     capability = "valleyboard16460.datapointValue",
     attribute = "value",
-    to_zigbee = function (self, value) return tuya_types.Uint32(value) end,
-    from_zigbee = function (self, value) return to_number(value) end,
+    rate = 1,
+    to_zigbee = function (self, value) return tuya_types.Uint32(math.floor(to_number(value) * self.rate)) end,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
     command_handler = function (self, command) return self:to_zigbee(command.args.value) end,
   },
   string = {

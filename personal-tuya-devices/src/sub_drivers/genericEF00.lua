@@ -7,27 +7,19 @@ local zcl_global_commands = require "st.zigbee.zcl.global_commands"
 
 local tuyaEF00_generic_defaults = require "tuyaEF00_generic_defaults"
 
-local NAME = "GenericEF00"
-
-local _bitmap = capabilities["valleyboard16460.datapointBitmap"]
-local _enum = capabilities["valleyboard16460.datapointEnum"]
-local _string = capabilities["valleyboard16460.datapointString"]
-local _value = capabilities["valleyboard16460.datapointValue"]
-local _raw = capabilities["valleyboard16460.datapointRaw"]
-
 local template = {
-  NAME = NAME,
+  NAME = "GenericEF00",
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
     capabilities.doorControl,
     capabilities.switch,  -- boolean
     capabilities.switchLevel,
     capabilities.valve,
-    _bitmap,
-    _enum,
-    _string,
-    _value,
-    _raw,
+    capabilities["valleyboard16460.datapointBitmap"],
+    capabilities["valleyboard16460.datapointEnum"],
+    capabilities["valleyboard16460.datapointString"],
+    capabilities["valleyboard16460.datapointValue"],
+    capabilities["valleyboard16460.datapointRaw"],
   },
   sub_drivers = {
     require "sub_drivers.model"
@@ -41,8 +33,8 @@ local template = {
     },
     cluster = {
       [zcl_clusters.TuyaEF00.ID] = {
-        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_response_handler,
+        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
       },
     },
   },

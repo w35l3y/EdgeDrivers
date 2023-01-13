@@ -11,9 +11,9 @@ components:
     categories:
       - name: Contact Sensor
 metadata:
-  deviceType: GenericSensor
-  ocfDeviceType: oic.d.sensor
-  deviceTypeId: GenericSensor
+  deviceType: ContactSensor
+  ocfDeviceType: x.com.st.d.sensor.contact
+  deviceTypeId: ContactSensor
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

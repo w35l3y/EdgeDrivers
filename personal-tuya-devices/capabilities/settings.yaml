@@ -1,0 +1,26 @@
+# ./smartthings capabilities:create -y -i=personal-tuya-devices/capabilities/settings.yaml -o=personal-tuya-devices/capabilities/settings.yaml
+id: valleyboard16460.settings
+version: 1
+status: proposed
+name: Settings
+ephemeral: false
+attributes:
+  value:
+    schema:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+      required:
+        - value
+    setter: setValue
+    enumCommands: []
+commands:
+  setValue:
+    name: setValue
+    arguments:
+      - name: value
+        optional: false
+        schema:
+          type: string

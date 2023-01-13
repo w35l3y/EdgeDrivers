@@ -1,0 +1,12 @@
+# ./smartthings capabilities:presentation:create valleyboard16460.settings 1 -y -i=personal-tuya-devices/presentations/settings.yaml -o=personal-tuya-devices/presentations/settings.yaml
+# ./smartthings capabilities:presentation:update valleyboard16460.settings 1 -y -i=personal-tuya-devices/presentations/settings.yaml -o=personal-tuya-devices/presentations/settings.yaml
+dashboard:
+  states: []
+  actions: []
+detailView:
+  - label: Settings
+    displayType: state
+    state:
+      label: "{{value.value}}"
+id: valleyboard16460.settings
+version: 1
