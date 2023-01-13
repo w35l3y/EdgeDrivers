@@ -9,11 +9,11 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Generic Sensor
+      - name: Thermostat
 metadata:
-  deviceType: GenericSensor
-  ocfDeviceType: oic.d.sensor
-  deviceTypeId: GenericSensor
+  deviceType: Thermostat
+  ocfDeviceType: oic.d.thermostat
+  deviceTypeId: Thermostat
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

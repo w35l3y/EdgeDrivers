@@ -9,8 +9,7 @@ local mt = {}
 mt.__cluster_cache = {}
 mt.__index = function(self, key)
   if mt.__cluster_cache[key] == nil then
-    local req_loq = string.format("models.%s", key)
-    local ok, result = pcall(require, req_loq)
+    local ok, result = pcall(myutils.load_model_from_yaml, key)
     mt.__cluster_cache[key] = ok and result or {}
     if not ok then
       log.error(result)

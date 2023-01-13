@@ -7,10 +7,8 @@ local zcl_global_commands = require "st.zigbee.zcl.global_commands"
 
 local tuyaEF00_generic_defaults = require "tuyaEF00_generic_defaults"
 
-local NAME = "GenericEF00"
-
 local template = {
-  NAME = NAME,
+  NAME = "GenericEF00",
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
     capabilities.doorControl,
@@ -35,8 +33,8 @@ local template = {
     },
     cluster = {
       [zcl_clusters.TuyaEF00.ID] = {
-        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_response_handler,
+        [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
       },
     },
   },

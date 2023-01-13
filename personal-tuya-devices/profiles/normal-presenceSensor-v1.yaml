@@ -1,4 +1,6 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
 name: "normal-presenceSensor-v1"
 components:
   - id: main
@@ -8,6 +10,8 @@ components:
         version: 1
       - id: illuminanceMeasurement
         version: 1
+      - id: valleyboard16460.settings
+        version: 1
       - id: signalStrength
         version: 1
       - id: refresh
@@ -15,6 +19,14 @@ components:
     categories:
       - name: Presence Sensor
 preferences:
+  - name: presentation
+    title: Presentation
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_presenceSensor_v1: Normal
+      default: normal_presenceSensor_v1
   - name: prefSensitivity
     title: Sensitivity
     description: An integer between 0 and 9
@@ -24,46 +36,46 @@ preferences:
       minimum: 0
       maximum: 9
       default: 7
-  - name: prefMinimumRange
-    title: Minimum Range
-    description: A integer between 0 and 100 (cm)
+  - name: prefNearDetection
+    title: Near Detection
+    description: A integer between 0 and 95
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 95
+      default: 0
+  - name: prefFarDetection
+    title: Far Detection
+    description: A integer between 0 and 95
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 95
+      default: 95
+  - name: prefDetectionDelay
+    title: Detection Delay
+    description: A integer between 0 and 100
     required: true
     preferenceType: integer
     definition:
       minimum: 0
       maximum: 100
-      default: 60
-  - name: prefMaximumRange
-    title: Maximum Range
-    description: A integer between 10 and 800 (cm)
+      default: 1
+  - name: prefFadingTime
+    title: Fading Time
+    description: A integer between 10 and 1500
     required: true
     preferenceType: integer
     definition:
       minimum: 10
-      maximum: 800
-      default: 600
-  - name: prefDetectionDelay
-    title: Detection Delay
-    description: A integer between 0 and 10 (s)
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 10
-      default: 1
-  - name: prefFadingTime
-    title: Fading Time
-    description: A integer between 0 and 150 (s)
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 150
-      default: 150
+      maximum: 1500
+      default: 1500
 metadata:
-  deviceType: GenericSensor
-  ocfDeviceType: oic.d.sensor
-  deviceTypeId: GenericSensor
+  deviceType: PresenceSensor
+  ocfDeviceType: x.com.st.d.sensor.presence
+  deviceTypeId: PresenceSensor
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

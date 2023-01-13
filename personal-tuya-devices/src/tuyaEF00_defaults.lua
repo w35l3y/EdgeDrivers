@@ -1,9 +1,12 @@
 local log = require "log"
 local utils = require "st.utils"
 
+local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
+
 local commands = require "commands"
+local settings = capabilities["valleyboard16460.settings"]
 
 local myutils = require "utils"
 
@@ -29,13 +32,14 @@ function defaults.command_response_handler(datapoints)
 
     --log.info("device.preferences.presentation", device.preferences.presentation)
     if event ~= nil then
-      -- if event_dp.name ~= nil then
-      --   local pref_name = utils.camel_case("pref_"..event_dp.name)
-      --   log.info("pref_name", pref_name, device:get_field(pref_name), "-")
-      --   device:set_field(pref_name, event_dp:from_zigbee(value), {persist=true})
-      --   device.st_store.preferences[pref_name] = event_dp:from_zigbee(value)
-      -- end
-      -- atualiza o child caso exista 
+      if event_dp.name ~= nil then
+        local pref_name = utils.camel_case("pref_"..event_dp.name)
+        log.info("pref_name", pref_name, device:get_field(pref_name), "-")
+        device:set_field(pref_name, event_dp:from_zigbee(value))
+        -- device.st_store.preferences[pref_name] = event_dp:from_zigbee(value)
+        device:emit_event(settings.value(tostring(myutils.settings(device))))
+      end
+      -- atualiza o child caso exista
       local status, e = pcall(device.emit_event_for_endpoint, device, event_dp.group or dpid, event)
       -- quando e == nil, significa que encontrou child
       -- como preciso atualizar o parent também, daí tem a lógica abaixo
@@ -47,7 +51,7 @@ function defaults.command_response_handler(datapoints)
           device:emit_component_event(comp, event)
         end
       elseif not status then
-        log.warn("Unexpected component for datapoint", event_dp.group, dpid, value)
+        log.warn("Unexpected component for datapoint", event_dp.group, dpid, value, e)
         --device:emit_event(event)
       end
       if device.profile.components.main == nil then

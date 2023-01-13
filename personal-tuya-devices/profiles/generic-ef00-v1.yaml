@@ -1,5 +1,6 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
 name: "generic-ef00-v1"
 components:
   - id: main

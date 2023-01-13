@@ -2,6 +2,8 @@ local log = require "log"
 local st_utils = require "st.utils"
 
 local zcl_clusters = require "st.zigbee.zcl.clusters"
+local commands = require "commands"
+local yaml = require "yaml"
 
 local utils = {}
 
@@ -98,6 +100,60 @@ function utils.info(device, datapoints)
     )
   end})
 
+  return o
+end
+
+function utils.settings(device)
+  local o = {}
+  if device.preferences ~= nil then
+    for name, value in pairs(device.preferences) do
+      local normalized_id = st_utils.snake_case(name)
+      local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
+      if match ~= nil then
+        o[key] = device:get_field(name) or value
+      end
+    end
+  end
+  setmetatable(o, {
+    __tostring = function (self)
+      local str = {}
+      for k,v in pairs(self) do
+        str[#str+1] = string.format('<tr><th align="left" style="width:50%%">%s</th><td style="width:50%%">%s</td></tr>', k, v)
+      end
+      if #str == 0 then
+        str[#str+1] = '<tr><td colspan="2">None</td></tr>'
+      end
+      return '<table style="font-size:0.6em;min-width:100%%"><tbody>' .. table.concat(str) .. '</tbody></table>'
+    end
+  })
+  return o
+end
+
+function utils.load_model_from_yaml(model)
+  local req_loq = string.format("models.%s", model)
+  local yml = yaml.eval(require (req_loq))
+  
+  local o = {}
+  for _d, d in ipairs(yml.devices) do
+    for _m, manufacturer in pairs(d.manufacturers) do
+      if o[manufacturer] ~= nil then
+        log.warn("Manufacturer overwritten", model, manufacturer)
+      end
+      o[manufacturer] = {}
+      log.info("Added device", model, manufacturer, #d.datapoints)
+      for _p, datapoint in ipairs(d.datapoints) do
+        local dpid = tonumber(datapoint.id)
+        local base = datapoint.base or {}
+        setmetatable(base, {
+          __index = {
+            group = dpid
+          }
+        })
+        o[manufacturer][dpid] = commands[datapoint.command](base)
+      end
+    end
+  end
+  
   return o
 end
 
