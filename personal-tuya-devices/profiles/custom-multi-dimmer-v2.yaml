@@ -50,6 +50,7 @@ preferences:
         normal_multi_dimmer_v2: Normal
         switch_all_multi_dimmer_v2: Normal + Dimmer All
         custom_multi_dimmer_v2: Custom
+        generic_ef00_v1: Generic
       default: normal_multi_dimmer_v2
   - name: childDimmerMain01
     title: Create child device for Dimmer 1

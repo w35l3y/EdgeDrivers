@@ -130,6 +130,12 @@ function lifecycle_handlers.added(driver, device, event, ...)
 end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
+  if args.old_st_store.preferences.presentation ~= device.preferences.presentation then
+    device:try_update_metadata({
+      profile = device.preferences.presentation:gsub("_", "-")
+    })
+  end
+
   for name, value in pairs(device.preferences) do
     local profile = child_types_to_profile[name]
     if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then

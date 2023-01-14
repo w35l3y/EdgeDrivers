@@ -67,6 +67,11 @@ local defaults = {
     attribute = "motion",
     from_zigbee = function (self, value) return to_number(value) == 0 and "inactive" or "active" end,
   },
+  occupancySensor = {
+    capability = "occupancySensor",
+    attribute = "occupancy",
+    from_zigbee = function (self, value) return to_number(value) == 0 and "unoccupied" or "occupied" end,
+  },
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",
