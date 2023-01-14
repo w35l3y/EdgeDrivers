@@ -76,6 +76,7 @@ preferences:
         normal_multi_switch_v6: Normal
         switch_all_multi_switch_v6: Normal + Switch All
         custom_multi_switch_v6: Custom
+        generic_ef00_v1: Generic
       default: custom_multi_switch_v6
   - name: childSwitchMain01
     title: Create child device for Switch 1

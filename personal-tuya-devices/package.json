@@ -1,0 +1,14 @@
+{
+  "name": "personal-tuya-devices",
+  "version": "1.0.0",
+  "description": "This driver is intended to work with devices that use **0xEF00** Tuya Cluster",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wesley Menezes",
+  "license": "MIT",
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

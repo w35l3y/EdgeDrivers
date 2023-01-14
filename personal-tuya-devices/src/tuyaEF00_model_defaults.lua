@@ -9,7 +9,7 @@ local mt = {}
 mt.__cluster_cache = {}
 mt.__index = function(self, key)
   if mt.__cluster_cache[key] == nil then
-    local ok, result = pcall(myutils.load_model_from_yaml, key)
+    local ok, result = pcall(myutils.load_model_from_json, key)
     mt.__cluster_cache[key] = ok and result or {}
     if not ok then
       log.error(result)
@@ -19,10 +19,22 @@ mt.__index = function(self, key)
 end
 setmetatable(REPORT_BY_DP, mt)
 
+local function get_default_by_profile (device)
+  for model, devices in pairs(mt.__cluster_cache) do
+    for mfr, dp in pairs(devices) do
+      for _, profile in ipairs(dp.profiles) do
+        if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.presentation or profile == device.preferences.presentation then
+          log.warn("Simulating device", mfr, model)
+          return dp
+        end
+      end
+    end
+  end
+end
 local function send_command(fn, driver, device, ...)
-  local datapoints = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
-  if datapoints ~= nil then
-    fn(datapoints)(driver, device, ...)
+  local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()] or get_default_by_profile(device)
+  if dp ~= nil then
+    fn(dp.datapoints)(driver, device, ...)
   end
 end
 
@@ -72,10 +84,26 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  for mfr, dp in pairs(REPORT_BY_DP[device:get_model()]) do
-    if mfr == device:get_manufacturer() then
+  if device.preferences.presentation ~= "generic_ef00_v1" then
+    if REPORT_BY_DP[device:get_model()][device:get_manufacturer()] ~= nil then
       return true
     end
+    -- for mfr, dp in pairs(REPORT_BY_DP[device:get_model()]) do
+    --   if mfr == device:get_manufacturer() then
+    --     return true
+    --   end
+    -- end
+    for model, devices in pairs(mt.__cluster_cache) do
+      for mfr, dp in pairs(devices) do
+        for _, profile in ipairs(dp.profiles) do
+          if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.presentation or profile == device.preferences.presentation then
+            -- log.warn("Simulating device", mfr, model)
+            return true
+          end
+        end
+      end
+    end
+    log.warn("Similar device not found", device.preferences.presentation)
   end
   return false
 end

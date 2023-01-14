@@ -15,6 +15,20 @@ components:
     categories:
       - name: Generic Sensor
 preferences:
+  - name: presentation
+    title: Presentation
+    description: Recommended only for testing whether your device is compatible or not with the ones already predefined.
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        generic_ef00_v1: Generic
+        normal_multi_switch_v6: 6 switches
+        normal_multi_switch_v4: 4 switches
+        normal_multi_dimmer_v2: 2 dimmers
+        normal_garage_door_v1: Garage Door
+        normal_presenceSensor_v1: Presence sensor
+      default: generic_ef00_v1
   - name: updateInfo
     title: Update info with datapoints
     required: true

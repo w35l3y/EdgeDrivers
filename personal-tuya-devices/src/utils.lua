@@ -3,7 +3,7 @@ local st_utils = require "st.utils"
 
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local commands = require "commands"
-local yaml = require "yaml"
+local json = require "st.json"
 
 local utils = {}
 
@@ -129,17 +129,20 @@ function utils.settings(device)
   return o
 end
 
-function utils.load_model_from_yaml(model)
+function utils.load_model_from_json(model)
   local req_loq = string.format("models.%s", model)
-  local yml = yaml.eval(require (req_loq))
+  local res = json.decode(require(req_loq))
   
   local o = {}
-  for _d, d in ipairs(yml.devices) do
+  for _d, d in ipairs(res.devices) do
     for _m, manufacturer in pairs(d.manufacturers) do
       if o[manufacturer] ~= nil then
         log.warn("Manufacturer overwritten", model, manufacturer)
       end
-      o[manufacturer] = {}
+      o[manufacturer] = {
+        profiles = d.profiles,
+        datapoints = {},
+      }
       log.info("Added device", model, manufacturer, #d.datapoints)
       for _p, datapoint in ipairs(d.datapoints) do
         local dpid = tonumber(datapoint.id)
@@ -149,7 +152,7 @@ function utils.load_model_from_yaml(model)
             group = dpid
           }
         })
-        o[manufacturer][dpid] = commands[datapoint.command](base)
+        o[manufacturer].datapoints[dpid] = commands[datapoint.command](base)
       end
     end
   end
