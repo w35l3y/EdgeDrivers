@@ -1,4 +1,5 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
 name: "switch-all-multi-switch-v4"
 components:
   - id: main

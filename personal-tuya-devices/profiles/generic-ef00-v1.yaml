@@ -99,6 +99,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: occupancySensoDatapoints
+    title: Datapoints for occupancy sensors
+    description: List of datapoints used for occupancy sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: presenceSensorDatapoints
     title: Datapoints for presence sensors
     description: List of datapoints used for presence sensors (comma-separated)
