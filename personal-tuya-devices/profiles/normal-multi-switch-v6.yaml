@@ -59,9 +59,9 @@ components:
     categories:
       - name: Switch
 preferences:
-  - name: presentation
-    title: Presentation
-    description: Choose the presentation
+  - name: profile
+    title: Profile
+    description: Choose the profile
     required: true
     preferenceType: enumeration
     definition:

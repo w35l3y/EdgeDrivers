@@ -23,7 +23,7 @@ local function get_default_by_profile (device)
   for model, devices in pairs(mt.__cluster_cache) do
     for mfr, dp in pairs(devices) do
       for _, profile in ipairs(dp.profiles) do
-        if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.presentation or profile == device.preferences.presentation then
+        if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.profile or profile == device.preferences.profile then
           log.warn("Simulating device", mfr, model)
           return dp
         end
@@ -41,9 +41,9 @@ end
 local lifecycle_handlers = require "lifecycles"
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)
-  if args.old_st_store.preferences.presentation ~= device.preferences.presentation or (not myutils.is_normal(device) and device.profile.components.main == nil) then
+  if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
     device:try_update_metadata({
-      profile = device.preferences.presentation:gsub("_", "-")
+      profile = device.preferences.profile:gsub("_", "-")
     })
   end
 
@@ -84,7 +84,7 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  if device.preferences.presentation ~= "generic_ef00_v1" then
+  if device.preferences.profile ~= "generic_ef00_v1" then
     if REPORT_BY_DP[device:get_model()][device:get_manufacturer()] ~= nil then
       return true
     end
@@ -96,14 +96,14 @@ function defaults.can_handle (opts, driver, device, ...)
     for model, devices in pairs(mt.__cluster_cache) do
       for mfr, dp in pairs(devices) do
         for _, profile in ipairs(dp.profiles) do
-          if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.presentation or profile == device.preferences.presentation then
+          if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.profile or profile == device.preferences.profile then
             -- log.warn("Simulating device", mfr, model)
             return true
           end
         end
       end
     end
-    log.warn("Similar device not found", device.preferences.presentation)
+    log.warn("Similar device not found", device.preferences.profile)
   end
   return false
 end

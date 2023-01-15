@@ -8,8 +8,7 @@ local json = require "st.json"
 local utils = {}
 
 function utils.is_normal(device)
-  --log.info("utils.is_normal", device.profile == device.st_store.profile, st_utils.stringify_table(device.profile, "profile", true))
-  local pref = device.preferences.presentation
+  local pref = device.preferences.profile
   return (pref == nil and device.parent_assigned_child_key ~= nil) or (pref ~= nil and pref:find("^normal_") ~= nil)
 end
 

@@ -132,9 +132,9 @@ function lifecycle_handlers.added(driver, device, event, ...)
 end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
-  if args.old_st_store.preferences.presentation ~= device.preferences.presentation then
+  if args.old_st_store.preferences.profile ~= device.preferences.profile then
     device:try_update_metadata({
-      profile = device.preferences.presentation:gsub("_", "-")
+      profile = device.preferences.profile:gsub("_", "-")
     })
   end
 

@@ -30,7 +30,7 @@ function defaults.command_response_handler(datapoints)
     local event_dp = datapoints[dpid] or map_to_fn[_type]({group=dpid}) or commands.generic
     local event = event_dp:create_event(value)
 
-    --log.info("device.preferences.presentation", device.preferences.presentation)
+    --log.info("device.preferences.profile", device.preferences.profile)
     if event ~= nil then
       if event_dp.name ~= nil then
         local pref_name = utils.camel_case("pref_"..event_dp.name)
