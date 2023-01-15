@@ -70,6 +70,7 @@ components:
 preferences:
   - name: presentation
     title: Presentation
+    description: Choose the presentation
     required: true
     preferenceType: enumeration
     definition:
