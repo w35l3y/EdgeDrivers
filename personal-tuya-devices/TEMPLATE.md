@@ -81,11 +81,11 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
   <img src="resources/child_detailView_1.jpeg" height="300"/>
 
-- **Presentation didn't change**<br />
-  Sometimes, when modifying presentation, it doesn't update properly.<br />
+- **Profile didn't change**<br />
+  Sometimes, when modifying profile, it doesn't update properly.<br />
   It seems there is a reason to name the function as `device:try_update_metadata(...)`<br />
   The driver can't do much about it, but try again.<br />
-  Just change to other presentation and revert to force updating presentation.
+  Just change to other profile and revert to force updating profile.
 
   <img src="resources/configuration_4.jpeg" height="300"/>
 

@@ -20,6 +20,7 @@ local datapoint_types_to_fn = {
   humidityMeasurDatapoints = commands.relativeHumidityMeasurement,
   illuminanceMeaDatapoints = commands.illuminanceMeasurement,
   motionSensorDatapoints = commands.motionSensor,
+  occupancySensoDatapoints = commands.occupancySensor,
   presenceSensorDatapoints = commands.presenceSensor,
   temperatureMeaDatapoints = commands.temperatureMeasurement,
   valveDatapoints = commands.valve,
@@ -40,6 +41,7 @@ local child_types_to_profile = {
   humidityMeasurDatapoints = "child-relativeHumidityMeasurement-v1",
   illuminanceMeaDatapoints = "child-illuminanceMeasurement-v1",
   motionSensorDatapoints = "child-motionSensor-v1",
+  occupancySensoDatapoints = "child-occupancySensor-v1",
   presenceSensorDatapoints = "child-presenceSensor-v1",
   temperatureMeaDatapoints = "child-temperatureMeasurement-v1",
   valveDatapoints = "child-valve-v1",
@@ -130,9 +132,9 @@ function lifecycle_handlers.added(driver, device, event, ...)
 end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
-  if args.old_st_store.preferences.presentation ~= device.preferences.presentation then
+  if args.old_st_store.preferences.profile ~= device.preferences.profile then
     device:try_update_metadata({
-      profile = device.preferences.presentation:gsub("_", "-")
+      profile = device.preferences.profile:gsub("_", "-")
     })
   end
 

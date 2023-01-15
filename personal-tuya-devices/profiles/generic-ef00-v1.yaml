@@ -15,8 +15,8 @@ components:
     categories:
       - name: Generic Sensor
 preferences:
-  - name: presentation
-    title: Presentation
+  - name: profile
+    title: Profile
     description: Recommended only for testing whether your device is compatible or not with the ones already predefined.
     required: true
     preferenceType: enumeration
@@ -94,6 +94,14 @@ preferences:
   - name: motionSensorDatapoints
     title: Datapoints for motion sensors
     description: List of datapoints used for motion sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: occupancySensoDatapoints
+    title: Datapoints for occupancy sensors
+    description: List of datapoints used for occupancy sensors (comma-separated)
     required: true
     preferenceType: string
     definition:
