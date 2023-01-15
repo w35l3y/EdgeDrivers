@@ -48,7 +48,7 @@ local function map(endpoints, key)
 end
 
 function utils.info(device, datapoints)
-  local fid = device.zigbee_endpoints[device.fingerprinted_endpoint_id] or {}
+  local fei = device.zigbee_endpoints[device.fingerprinted_endpoint_id] or device.zigbee_endpoints[tostring(device.fingerprinted_endpoint_id)] or {}
   local _datapoints = datapoints or {}
   setmetatable(_datapoints, {
     __tostring = function (self)
@@ -68,8 +68,8 @@ function utils.info(device, datapoints)
     manufacturer = device:get_manufacturer(),
     model = device:get_model(),
     endpoint = hexa(device.fingerprinted_endpoint_id, 2),
-    device_id = hexa(fid.device_id, 4),
-    profile_id = hexa(fid.profile_id, 4),
+    device_id = hexa(fei.device_id, 4),
+    profile_id = hexa(fei.profile_id, 4),
     server = map(device.zigbee_endpoints, "server_clusters"),
     client = map(device.zigbee_endpoints, "client_clusters"),
     datapoints = _datapoints,
