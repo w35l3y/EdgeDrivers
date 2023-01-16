@@ -43,13 +43,19 @@ local defaults = {
     capability = "airQualitySensor",
     attribute = "airQuality",
     rate = 1,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   button = {
     capability = "button",
     attribute = "button",
     supportedButtonValues = {"pushed", "double", "held"},
     from_zigbee = function (self, value) return self.supportedButtonValues[1 + to_number(value)] or "double" end,
+  },
+  carbonDioxideMeasurement = {
+    capability = "carbonDioxideMeasurement",
+    attribute = "carbonDioxide",
+    rate = 1/10000,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   contactSensor = {
     capability = "contactSensor",
@@ -65,8 +71,8 @@ local defaults = {
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
-    rate = 1,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+    rate = 1/10000,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
@@ -92,18 +98,20 @@ local defaults = {
   relativeHumidityMeasurement = {
     capability = "relativeHumidityMeasurement",
     attribute = "humidity",
-    from_zigbee = function (self, value) return to_number(value) end,
+    rate = 1,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   temperatureMeasurement = {
     capability = "temperatureMeasurement",
     attribute = "temperature",
-    from_zigbee = function (self, value) return to_number(value) end,
+    rate = 1,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   tvocMeasurement = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",
-    rate = 1,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+    rate = 1/10000,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   valve = {
     capability = "valve",
@@ -121,7 +129,7 @@ local defaults = {
     attribute = "value",
     rate = 1,
     to_zigbee = function (self, value) return tuya_types.Uint32(math.floor(to_number(value) * self.rate)) end,
-    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+    from_zigbee = function (self, value) return to_number(value) / self.rate end,
     command_handler = function (self, command) return self:to_zigbee(command.args.value) end,
   },
   string = {

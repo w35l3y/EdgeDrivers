@@ -6,7 +6,7 @@ components:
   - id: main
     label: Air Quality Detector
     capabilities:
-      - id: airQualitySensor
+      - id: carbonDioxideMeasurement
         version: 1
       - id: temperatureMeasurement
         version: 1

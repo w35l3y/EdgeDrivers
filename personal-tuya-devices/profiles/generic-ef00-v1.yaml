@@ -68,6 +68,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: carbonDioxideMDatapoints
+    title: CO2 sensors
+    description: List of datapoints used for CO2 sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: contactSensorDatapoints
     title: Contact sensors
     description: List of datapoints used for contact sensors (comma-separated)
