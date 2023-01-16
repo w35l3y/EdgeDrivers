@@ -83,6 +83,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: formaldehydeMeDatapoints
+    title: Datapoints for formaldehyde sensors
+    description: List of datapoints used for formaldehyde sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: humidityMeasurDatapoints
     title: Datapoints for humidity sensors
     description: List of datapoints used for humidity sensors (comma-separated)

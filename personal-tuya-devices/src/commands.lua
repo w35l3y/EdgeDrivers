@@ -62,6 +62,12 @@ local defaults = {
     to_zigbee = function (self, value) return data_types.Boolean(value == "open") end,
     from_zigbee = function (self, value) return to_number(value) == 0 and "closed" or "open" end,
   },
+  formaldehydeMeasurement = {
+    capability = "formaldehydeMeasurement",
+    attribute = "formaldehydeLevel",
+    rate = 1,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+  },
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
     attribute = "illuminance",
