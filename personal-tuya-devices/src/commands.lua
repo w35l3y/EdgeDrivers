@@ -39,6 +39,12 @@ local defaults = {
     from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
     command_handler = function (self, command) return self:to_zigbee(command.args.level) end,
   },
+  airQualitySensor = {
+    capability = "airQualitySensor",
+    attribute = "airQuality",
+    rate = 1,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+  },
   button = {
     capability = "button",
     attribute = "button",

@@ -51,6 +51,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: airQualitySensDatapoints
+    title: Datapoints for air quality sensors
+    description: List of datapoints used for air quality sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: buttonDatapoints
     title: Datapoints for buttons
     description: List of datapoints used for buttons (comma-separated)
