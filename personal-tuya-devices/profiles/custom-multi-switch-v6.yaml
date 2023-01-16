@@ -121,7 +121,8 @@ metadata:
   ocfDeviceType: oic.d.switch
   deviceTypeId: Switch
   mnmn: SmartThingsCommunity
-  vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf
+  vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf # 4 switches dashboard
+  #vid: 13ab6200-93c2-39a7-a0b7-e283e7b76da6 # 6 switches dashboard
 owner:
   ownerType: USER
   ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

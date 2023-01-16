@@ -48,6 +48,12 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
      3. Add fingerprint that represents the device at `/fingerprints.yaml`
 3. Pull request your modification
 
+#### Examples of including stock capabilities:
+
+- https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
+- https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
+- https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
+
 ### Current devices tested with this driver
 
 | Model  | Manufacturer      | Description      |
