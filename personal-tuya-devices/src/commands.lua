@@ -54,7 +54,7 @@ local defaults = {
   carbonDioxideMeasurement = {
     capability = "carbonDioxideMeasurement",
     attribute = "carbonDioxide",
-    rate = 1/10000,
+    rate = 1,
     from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   contactSensor = {
@@ -71,7 +71,7 @@ local defaults = {
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
-    rate = 1/10000,
+    rate = 100,
     from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   illuminanceMeasurement = {
@@ -110,7 +110,7 @@ local defaults = {
   tvocMeasurement = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",
-    rate = 1/10000,
+    rate = 100,
     from_zigbee = function (self, value) return to_number(value) / self.rate end,
   },
   valve = {
