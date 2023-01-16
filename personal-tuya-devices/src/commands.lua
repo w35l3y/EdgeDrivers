@@ -93,6 +93,12 @@ local defaults = {
     attribute = "temperature",
     from_zigbee = function (self, value) return to_number(value) end,
   },
+  tvocMeasurement = {
+    capability = "tvocMeasurement",
+    attribute = "tvocLevel",
+    rate = 1,
+    from_zigbee = function (self, value) return math.floor(to_number(value) / self.rate) end,
+  },
   valve = {
     capability = "valve",
     attribute = "valve",
