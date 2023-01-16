@@ -26,6 +26,7 @@ preferences:
         normal_multi_switch_v6: 6 switches
         normal_multi_switch_v4: 4 switches
         normal_multi_dimmer_v2: 2 dimmers
+        normal_air_quality_v1: Air Quality
         normal_garage_door_v1: Garage Door
         normal_presenceSensor_v1: Presence sensor
       default: generic_ef00_v1
@@ -36,7 +37,7 @@ preferences:
     definition:
       default: true
   - name: switchDatapoints
-    title: Datapoints for switches
+    title: Switches
     description: List of datapoints used for switches (comma-separated)
     required: true
     preferenceType: string
@@ -44,23 +45,39 @@ preferences:
       stringType: text
       default: ""
   - name: switchLevelDatapoints
-    title: Datapoints for switch levels
+    title: Switch levels
     description: List of datapoints used for switch levels/dimmers (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
+  - name: airQualitySensDatapoints
+    title: Air quality sensors
+    description: List of datapoints used for air quality sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: buttonDatapoints
-    title: Datapoints for buttons
+    title: Buttons
     description: List of datapoints used for buttons (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
+  - name: carbonDioxideMDatapoints
+    title: CO2 sensors
+    description: List of datapoints used for CO2 sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: contactSensorDatapoints
-    title: Datapoints for contact sensors
+    title: Contact sensors
     description: List of datapoints used for contact sensors (comma-separated)
     required: true
     preferenceType: string
@@ -68,15 +85,23 @@ preferences:
       stringType: text
       default: ""
   - name: doorControlDatapoints
-    title: Datapoints for door controls
+    title: Door controls
     description: List of datapoints used for door controls (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
+  - name: formaldehydeMeDatapoints
+    title: Formaldehyde sensors
+    description: List of datapoints used for formaldehyde sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: humidityMeasurDatapoints
-    title: Datapoints for humidity sensors
+    title: Humidity sensors
     description: List of datapoints used for humidity sensors (comma-separated)
     required: true
     preferenceType: string
@@ -84,7 +109,7 @@ preferences:
       stringType: text
       default: ""
   - name: illuminanceMeaDatapoints
-    title: Datapoints for illuminance sensors
+    title: Illuminance sensors
     description: List of datapoints used for illuminance sensors (comma-separated)
     required: true
     preferenceType: string
@@ -92,7 +117,7 @@ preferences:
       stringType: text
       default: ""
   - name: motionSensorDatapoints
-    title: Datapoints for motion sensors
+    title: Motion sensors
     description: List of datapoints used for motion sensors (comma-separated)
     required: true
     preferenceType: string
@@ -100,7 +125,7 @@ preferences:
       stringType: text
       default: ""
   - name: occupancySensoDatapoints
-    title: Datapoints for occupancy sensors
+    title: Occupancy sensors
     description: List of datapoints used for occupancy sensors (comma-separated)
     required: true
     preferenceType: string
@@ -108,7 +133,7 @@ preferences:
       stringType: text
       default: ""
   - name: presenceSensorDatapoints
-    title: Datapoints for presence sensors
+    title: Presence sensors
     description: List of datapoints used for presence sensors (comma-separated)
     required: true
     preferenceType: string
@@ -116,7 +141,7 @@ preferences:
       stringType: text
       default: ""
   - name: temperatureMeaDatapoints
-    title: Datapoints for temperature sensors
+    title: Temperature sensors
     description: List of datapoints used for temperature sensors (comma-separated)
     required: true
     preferenceType: string
@@ -124,15 +149,23 @@ preferences:
       stringType: text
       default: ""
   - name: valveDatapoints
-    title: Datapoints for valves
+    title: Valves
     description: List of datapoints used for valves (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
+  - name: tvocMeasuremenDatapoints
+    title: VOC sensors
+    description: List of datapoints used for VOC sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: waterSensorDatapoints
-    title: Datapoints for water sensors
+    title: Water sensors
     description: List of datapoints used for water sensors (comma-separated)
     required: true
     preferenceType: string
@@ -140,7 +173,7 @@ preferences:
       stringType: text
       default: ""
   - name: enumerationDatapoints
-    title: Generic datapoints for enumerations
+    title: Generic enumerations
     description: List of datapoints used for enumerations/domains (comma-separated)
     required: true
     preferenceType: string
@@ -148,7 +181,7 @@ preferences:
       stringType: text
       default: ""
   - name: valueDatapoints
-    title: Generic datapoints for values
+    title: Generic values
     description: List of datapoints used for values/integers (comma-separated)
     required: true
     preferenceType: string
@@ -156,7 +189,7 @@ preferences:
       stringType: text
       default: ""
   - name: stringDatapoints
-    title: Generic datapoints for strings
+    title: Generic strings
     description: List of datapoints used for strings/texts (comma-separated)
     required: true
     preferenceType: string
@@ -164,7 +197,7 @@ preferences:
       stringType: text
       default: ""
   - name: bitmapDatapoints
-    title: Generic datapoints for bitmaps
+    title: Generic bitmaps
     description: List of datapoints used for bitmaps (comma-separated)
     required: true
     preferenceType: string
@@ -172,7 +205,7 @@ preferences:
       stringType: text
       default: ""
   - name: rawDatapoints
-    title: Generic datapoints for raw data
+    title: Generic raw data
     description: List of datapoints used for raw data (comma-separated)
     required: true
     preferenceType: string

@@ -26,7 +26,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, button, contactSensor, doorControl, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, valve and waterSensor
+     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve and waterSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -48,16 +48,25 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
      3. Add fingerprint that represents the device at `/fingerprints.yaml`
 3. Pull request your modification
 
+#### Examples of including stock capabilities:
+
+- https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
+- https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
+- https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
+
 ### Current devices tested with this driver
 
 | Model  | Manufacturer      | Description      |
 | ------ | ----------------- | ---------------- |
 | TS0601 | \_TZE200_1n2kyphz | 4 multi switches |
+| TS0601 | \_TZE200_8ygsuhe1 | air quality      |
 | TS0601 | \_TZE200_9mahtqtg | 6 multi switches |
+| TS0601 | \_TZE200_dwcarsat | air quality      |
 | TS0601 | \_TZE200_e3oitdyu | 2 multi dimmers  |
 | TS0601 | \_TZE200_r731zlxk | 6 multi switches |
 | TS0601 | \_TZE200_wfxuhoea | garage door      |
 | TS0601 | \_TZE200_ikvncluo | presence sensor  |
+| TS0601 | \_TZE200_yvx5lh6k | air quality      |
 | TS0601 | \_TZE200_ztc6ggyl | presence sensor  |
 | TS0601 | \_TZE204_ztc6ggyl | presence sensor  |
 
@@ -91,11 +100,14 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Currently untested configurations
 
+- Air Quality Sensor
 - Door Control
+- Formaldehyde Sensor
 - Humidity Sensor
 - Illuminance Sensor
 - Motion Sensor
 - Occupancy Sensor
+- VOC Sensor
 - Water Valve
 - Water Sensor
 - String Tuya Data Type
