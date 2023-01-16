@@ -1,0 +1,43 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-air-quality-v1"
+components:
+  - id: main
+    label: Air Quality Detector
+    capabilities:
+      - id: airQualitySensor
+        version: 1
+      - id: temperatureMeasurement
+        version: 1
+      - id: relativeHumidityMeasurement
+        version: 1
+      - id: tvocMeasurement
+        version: 1
+      - id: formaldehydeMeasurement
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Air Quality Detector
+preferences:
+  - name: profile
+    title: Profile
+    description: Choose the profile
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_air_quality_v1: Normal
+        generic_ef00_v1: Generic
+      default: normal_air_quality_v1
+metadata:
+  deviceType: AirQualityDetector
+  ocfDeviceType: x.com.st.d.airqualitysensor
+  deviceTypeId: AirQualityDetector
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

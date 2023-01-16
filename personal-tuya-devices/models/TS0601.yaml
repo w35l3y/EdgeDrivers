@@ -105,6 +105,33 @@ devices:
         base:
           group: 2
   - manufacturers:
+      - _TZE200_8ygsuhe1
+      - _TZE200_dwcarsat
+      - _TZE200_yvx5lh6k
+    profiles:
+      - normal_air_quality_v1
+    datapoints:
+      - id: 2
+        command: airQualitySensor
+        base:
+          group: 1
+      - id: 18
+        command: temperatureMeasurement
+        base:
+          group: 1
+      - id: 19
+        command: relativeHumidityMeasurement
+        base:
+          group: 1
+      - id: 21
+        command: tvocMeasurement
+        base:
+          group: 1
+      - id: 22
+        command: formaldehydeMeasurement
+        base:
+          group: 1
+  - manufacturers:
       - _TZE200_wfxuhoea
     profiles:
       - normal_garage_door_v1
