@@ -11,6 +11,9 @@ components:
         version: 1
     categories:
       - name: Presence Sensor
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: PresenceSensor
   ocfDeviceType: x.com.st.d.sensor.presence

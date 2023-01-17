@@ -11,6 +11,9 @@ components:
         version: 1
     categories:
       - name: Contact Sensor
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: ContactSensor
   ocfDeviceType: x.com.st.d.sensor.contact

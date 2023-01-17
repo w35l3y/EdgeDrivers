@@ -11,6 +11,9 @@ components:
         version: 1
     categories:
       - name: Leak Sensor
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: LeakSensor
   ocfDeviceType: x.com.st.d.sensor.moisture

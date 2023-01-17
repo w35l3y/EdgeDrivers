@@ -4,7 +4,39 @@ local utils = require "st.utils"
 -- https://community.smartthings.com/t/st-edge-change-driver-tool-in-the-st-app/230956/23?u=w35l3y
 local base_device = require "st.device"
 local device_management = require "st.zigbee.device_management"
+local zcl_clusters = require "st.zigbee.zcl.clusters"
+local data_types = require "st.zigbee.data_types"
+
 local myutils = require "utils"
+
+local cluster_base = require "st.zigbee.cluster_base"
+local read_attribute = require "st.zigbee.zcl.global_commands.read_attribute"
+local zcl_messages = require "st.zigbee.zcl"
+local messages = require "st.zigbee.messages"
+local zb_const = require "st.zigbee.constants"
+
+function cluster_base.read_attributes(device, cluster_id, attr_ids)
+  local read_body = read_attribute.ReadAttribute(attr_ids)
+  local zclh = zcl_messages.ZclHeader({
+    cmd = data_types.ZCLCommandId(read_attribute.ReadAttribute.ID)
+  })
+  local addrh = messages.AddressHeader(
+      zb_const.HUB.ADDR,
+      zb_const.HUB.ENDPOINT,
+      device:get_short_address(),
+      device:get_endpoint(cluster_id.value),
+      zb_const.HA_PROFILE_ID,
+      cluster_id.value
+  )
+  local message_body = zcl_messages.ZclMessageBody({
+    zcl_header = zclh,
+    zcl_body = read_body
+  })
+  return messages.ZigbeeMessageTx({
+    address_header = addrh,
+    body = message_body
+  })
+end
 
 -- set_component_to_endpoint_fn
 -- get_endpoint_for_component_id
@@ -42,6 +74,16 @@ function lifecycles.init(driver, device, event, ...)
   device:set_component_to_endpoint_fn(component_to_endpoint)
   device:set_endpoint_to_component_fn(endpoint_to_component)
   device:set_find_child(find_child_fn)
+
+  -- tuya magic spell
+  device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
+    data_types.AttributeId(0xFFFE),
+  }))
 end
 
 function lifecycles.added(driver, device, event, ...)
