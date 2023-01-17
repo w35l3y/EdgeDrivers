@@ -11,6 +11,9 @@ components:
         version: 1
     categories:
       - name: Door
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: Door
   ocfDeviceType: oic.d.door

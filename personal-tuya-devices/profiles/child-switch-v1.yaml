@@ -11,6 +11,9 @@ components:
         version: 1
     categories:
       - name: Switch
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: Switch
   ocfDeviceType: oic.d.switch

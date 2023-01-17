@@ -11,6 +11,17 @@ components:
         version: 1
     categories:
       - name: Generic Sensor
+preferences:
+  - name: rate
+    title: Rate
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 1
+  - preferenceId: humidityOffset
+    explicit: true
 metadata:
   deviceType: GenericSensor
   ocfDeviceType: oic.d.sensor

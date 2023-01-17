@@ -11,6 +11,11 @@ components:
         version: 1
     categories:
       - name: Motion Sensor
+preferences:
+  # - preferenceId: motionSensitivity
+  #   explicit: true
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: MotionSensor
   ocfDeviceType: x.com.st.d.sensor.motion

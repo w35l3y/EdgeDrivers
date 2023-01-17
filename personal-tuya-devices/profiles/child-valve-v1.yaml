@@ -12,6 +12,9 @@ components:
         version: 1
     categories:
       - name: WaterValve
+preferences:
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: Water Valve
   ocfDeviceType: oic.d.watervalve

@@ -11,6 +11,17 @@ components:
         version: 1
     categories:
       - name: Thermostat
+preferences:
+  - name: rate
+    title: Rate
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 1
+  - preferenceId: tempOffset
+    explicit: true
 metadata:
   deviceType: Thermostat
   ocfDeviceType: oic.d.thermostat
