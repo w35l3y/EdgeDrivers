@@ -60,6 +60,26 @@ devices:
         base:
           group: 6
   - manufacturers:
+      - _TZE200_dfxkcots
+    profiles:
+      - normal_single_dimmer_v1
+    datapoints:
+      - id: 1
+        command: switch
+        base:
+          group: 1
+      - id: 2
+        command: switchLevel
+        base:
+          group: 1
+          rate: 10
+      - id: 3
+        command: switchLevel
+        base:
+          group: 2
+          rate: 10
+          name: minimum_level
+  - manufacturers:
       - _TZE200_e3oitdyu
     profiles:
       - normal_multi_dimmer_v2
