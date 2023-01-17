@@ -33,7 +33,7 @@ function defaults.command_response_handler(datapoints)
     
     --log.info("device.preferences.profile", device.preferences.profile)
     if event ~= nil then
-      if not event_dp.reportingInterval == nil or cur_time - (event_dp.last_heard_time or 0) > 60 * event_dp.reportingInterval then
+      if event_dp.reportingInterval == nil or cur_time - (event_dp.last_heard_time or 0) > 60 * event_dp.reportingInterval then
         event_dp.last_heard_time = cur_time
         if event_dp.name ~= nil then
           local pref_name = utils.camel_case("pref_"..event_dp.name)
