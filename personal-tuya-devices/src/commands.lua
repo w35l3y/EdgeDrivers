@@ -64,6 +64,7 @@ local defaults = {
     capability = "airQualitySensor",
     attribute = "airQuality",
     rate = 1,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
@@ -79,6 +80,7 @@ local defaults = {
     capability = "carbonDioxideMeasurement",
     attribute = "carbonDioxide",
     rate = 1,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
@@ -117,6 +119,7 @@ local defaults = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
     rate = 100,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
@@ -125,6 +128,7 @@ local defaults = {
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
     attribute = "illuminance",
+    reportingInterval = 0.2,
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
     from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
   },
@@ -185,6 +189,7 @@ local defaults = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",
     rate = 100,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
