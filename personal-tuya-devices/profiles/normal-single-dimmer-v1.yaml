@@ -15,15 +15,15 @@ components:
         version: 1
     categories:
       - name: Switch
-  - id: main02
-    label: Settings
-    capabilities:
-      - id: switchLevel
-        version: 1
-      - id: refresh
-        version: 1
-    categories:
-      - name: Switch
+  # - id: main02
+  #   label: Settings
+  #   capabilities:
+  #     - id: switchLevel
+  #       version: 1
+  #     - id: refresh
+  #       version: 1
+  #   categories:
+  #     - name: Switch
 preferences:
   - name: profile
     title: Profile
@@ -35,6 +35,15 @@ preferences:
         normal_single_dimmer_v1: Normal
         generic_ef00_v1: Generic
       default: normal_single_dimmer_v1
+  - name: prefMinimumLevel
+    title: Minimum Level
+    description: A integer between 0 and 100
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 100
+      default: 0
 metadata:
   deviceType: Switch
   ocfDeviceType: oic.d.switch
