@@ -49,5 +49,6 @@ node_modules
 personal-tuya-devices/**/*.txt
 
 # files generated automatically
-personal-tuya-devices/README.md
 README.md
+personal-tuya-devices/README.md
+personal-tuya-devices/config.yaml

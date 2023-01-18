@@ -1,3 +1,5 @@
+# ./smartthings capabilities:create --yaml --input=personal-tuya-devices/capabilities/info.yaml --output=personal-tuya-devices/capabilities/info.yaml
+# ./smartthings capabilities:update valleyboard16460.info 1 --yaml --input=personal-tuya-devices/capabilities/info.yaml --output=personal-tuya-devices/capabilities/info.yaml
 id: valleyboard16460.info
 version: 1
 status: proposed
@@ -23,3 +25,6 @@ commands:
         optional: false
         schema:
           type: string
+  clear:
+    name: clear
+    arguments: []

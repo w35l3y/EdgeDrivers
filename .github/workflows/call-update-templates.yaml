@@ -1,4 +1,4 @@
-name: call-update-readme
+name: call-update-templates
 
 on:
   workflow_call:
@@ -32,7 +32,7 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: readme renderer
+      - name: md files
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
@@ -43,4 +43,16 @@ jobs:
           commit_message: "docs: update readme file [skip ci]"
         env:
           INVITATION_LINK: ${{ secrets.INVITATION_LINK }}
+          ENVIRONMENT: ${{ inputs.environment }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: yaml+lua files
+        uses: varunsridharan/action-dynamic-readme@main
+        with:
+          files: |
+            ${{ inputs.driver }}/config-TEMPLATE.yml=${{ inputs.driver }}/config.yaml
+          committer_name: github-actions[bot]
+          committer_email: github-actions[bot]@users.noreply.github.com
+          commit_message: "docs: update template file"
+        env:
+          ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
