@@ -100,10 +100,6 @@ local defaults = {
   doorControl = {
     capability = "doorControl",
     attribute = "door",
-    command_handler = function (self, command, device)
-      log.debug(utils.stringify_table(command, "command", true))
-      return self:to_zigbee(command.command == "open" and "open" or "closed", device)
-    end,
     to_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       if pref.reverse then
@@ -118,6 +114,7 @@ local defaults = {
       end
       return to_number(value) == 0 and "closed" or "open"
     end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
@@ -202,10 +199,6 @@ local defaults = {
   valve = {
     capability = "valve",
     attribute = "valve",
-    command_handler = function (self, command, device)
-      log.debug(utils.stringify_table(command, "command", true))
-      return self:to_zigbee(command.command == "open" and "open" or "closed", device)
-    end,
     to_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       if pref.reverse then
@@ -220,6 +213,7 @@ local defaults = {
       end
       return to_number(value) == 0 and "closed" or "open"
     end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
   waterSensor = {
     capability = "waterSensor",
