@@ -1,4 +1,4 @@
-name: call-update-readme
+name: call-update-templates
 
 on:
   workflow_call:
@@ -38,9 +38,11 @@ jobs:
           files: |
             TEMPLATE.md=README.md
             ${{ inputs.driver }}/TEMPLATE.md=${{ inputs.driver }}/README.md
+            ${{ inputs.driver }}/config-TEMPLATE.yaml=${{ inputs.driver }}/config.yaml
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update readme file [skip ci]"
         env:
           INVITATION_LINK: ${{ secrets.INVITATION_LINK }}
+          ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
