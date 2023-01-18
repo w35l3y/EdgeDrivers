@@ -97,7 +97,6 @@ function defaults.update_data(datapoints)
 end
 
 local function send_command(datapoints, device, command, value_fn)
-  log.info("send_command")
   if device.parent_assigned_child_key == nil then
     if command.component ~= "main" or myutils.is_normal(device) then
       local group = device:get_endpoint_for_component_id(command.component)

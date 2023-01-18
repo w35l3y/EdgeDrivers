@@ -18,9 +18,10 @@ local function to_number (value)
 end
 
 local default_generic = {
+  attribute = "value",
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented") end,
   from_zigbee = function (self, value, device) return value end,
-  command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end, -- @FIXME
+  command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute], device) end,
   create_event = function (self, value, device)
     return self.capability ~= nil and self.attribute ~= nil and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
   end,
@@ -58,7 +59,6 @@ local defaults = {
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return math.floor(to_number(value) / (pref.rate or self.rate))
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.level, device) end,
   },
   airQualitySensor = {
     capability = "airQualitySensor",
@@ -100,6 +100,10 @@ local defaults = {
   doorControl = {
     capability = "doorControl",
     attribute = "door",
+    command_handler = function (self, command, device)
+      log.debug(utils.stringify_table(command, "command", true))
+      return self:to_zigbee(command.command == "open" and "open" or "closed", device)
+    end,
     to_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       if pref.reverse then
@@ -236,21 +240,18 @@ local defaults = {
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end,
   },
   string = {
     capability = "valleyboard16460.datapointString",
     attribute = "value",
     to_zigbee = function (self, value) return data_types.CharString(value) end,
     from_zigbee = function (self, value) return tostring(value) end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end,
   },
   enum = {
     capability = "valleyboard16460.datapointEnum",
     attribute = "value",
     to_zigbee = function (self, value) return data_types.Enum8(value) end,
     from_zigbee = function (self, value) return to_number(value) end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end,
   },
   bitmap = {
     capability = "valleyboard16460.datapointBitmap",
@@ -265,14 +266,12 @@ local defaults = {
       return data_types.Bitmap8(v)
     end,
     from_zigbee = function (self, value) return to_number(value) end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end,
   },
   raw = {
     capability = "valleyboard16460.datapointRaw",
     attribute = "value",
     to_zigbee = function (self, value) return generic_body.GenericBody(value) end,
     from_zigbee = function (self, value) return tostring(value) end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.value, device) end,
   },
 }
 
