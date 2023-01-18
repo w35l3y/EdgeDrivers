@@ -1,5 +1,5 @@
-name: "Personal Tuya Devices - beta"
-packageKey: "br.com.wesley.beta.tuya-devices"
+name: "Personal Tuya Devices - main"
+packageKey: "br.com.wesley.main.tuya-devices"
 description: "This driver is intended to work with devices that use 0xEF00 Tuya Cluster"
 vendorSupportInformation: 'This driver requires firmware 45.1+ to work properly.<br /><br /><a href="https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270?u=w35l3y">SmartThings Community discussion</a><br /><br /><a href="https://github.com/w35l3y/EdgeDrivers/tree/main/personal-tuya-devices#readme">GitHub Repository</a>'
 permissions:
