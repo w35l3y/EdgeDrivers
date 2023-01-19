@@ -42,7 +42,7 @@ jobs:
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update readme file [skip ci]"
         env:
-          INVITATION_LINK: ${{ secrets.INVITATION_LINK }}
+          INVITATION_LINK: ${{ vars.INVITATION_LINK }}
           ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: yaml+lua files

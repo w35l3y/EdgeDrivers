@@ -100,24 +100,6 @@ end
 
 local temporary_datapoints = {}
 
-local function create_child(driver, device, ngroup, profile)
-  local group = string.format("%02X", ngroup)
-  local created = device:get_child_by_parent_assigned_key(group)
-  if not created then
-    driver:try_create_device({
-      type = "EDGE_CHILD",
-      device_network_id = nil,
-      parent_assigned_child_key = group,
-      label = "Child " .. ngroup,
-      profile = profile,
-      parent_device_id = device.id,
-      manufacturer = driver.NAME,
-      model = profile,
-      vendor_provided_label = "Child " .. ngroup,
-    })
-  end
-end
-
 local function send_command(fn, driver, device, ...)
   local datapoints,total = get_datapoints_from_device(device.parent_assigned_child_key ~= nil and device:get_parent_device() or device)
   if total > 0 then
@@ -150,7 +132,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
     local profile = child_types_to_profile[name]
     if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
       for ndpid in value:gmatch("[^,]+") do
-        create_child(driver, device, tonumber(ndpid, 10), profile)
+        myutils.create_child(driver, device, tonumber(ndpid, 10), profile)
       end
     end
   end

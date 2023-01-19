@@ -15,15 +15,15 @@ return {
     info,
   },
   lifecycle_handlers = {
-    added = function (driver, device, ...)
+    init = function (driver, device, ...)
       device:emit_event(info.value(tostring(myutils.info(device))))
     end,
   },
   capability_handlers = {
-    [info.ID] = {
-      [info.commands.clear.NAME] = function (driver, device, ...)
-        device:emit_event(info.value(tostring(myutils.info(device)), { visibility = { displayed = false } }))
-      end
-    },
+    -- [info.ID] = {
+    --   [info.commands.clear.NAME] = function (driver, device, ...)
+    --     device:emit_event(info.value(tostring(myutils.info(device)), { visibility = { displayed = false } }))
+    --   end
+    -- },
   },
 }

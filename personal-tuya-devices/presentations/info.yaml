@@ -5,9 +5,7 @@ dashboard:
   actions: []
 detailView:
   - label: Info
-    displayType: pushButton
-    pushButton:
-      command: clear
+    displayType: state
     state:
       label: "{{value.value}}"
 id: valleyboard16460.info

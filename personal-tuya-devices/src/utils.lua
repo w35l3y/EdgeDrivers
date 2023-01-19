@@ -51,6 +51,9 @@ function utils.info(device, datapoints)
   local _datapoints = datapoints or {}
   setmetatable(_datapoints, {
     __tostring = function (self)
+      if datapoints == nil then
+        return ""
+      end
       local output = {}
       for _index, zb_rx in pairs(self) do
         local _data = zb_rx.body.zcl_body.data
@@ -59,7 +62,7 @@ function utils.info(device, datapoints)
       if #output == 0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'
       end
-      return table.concat(output)
+      return '<tr><th colspan="3">Datapoints</th></tr>' .. table.concat(output)
     end
   })
 
@@ -85,7 +88,6 @@ function utils.info(device, datapoints)
         %s
         <tr><th colspan="3">Client Clusters</th></tr>
         %s
-        <tr><th colspan="3">Datapoints</th></tr>
         %s
       </tbody></table>]],
       self.manufacturer,
@@ -157,6 +159,24 @@ function utils.load_model_from_json(model)
   end
   
   return o
+end
+
+function utils.create_child(driver, device, ngroup, profile)
+  local group = string.format("%02X", ngroup)
+  local created = device:get_child_by_parent_assigned_key(group)
+  if not created then
+    driver:try_create_device({
+      type = "EDGE_CHILD",
+      device_network_id = nil,
+      parent_assigned_child_key = group,
+      label = "Child " .. ngroup,
+      profile = profile,
+      parent_device_id = device.id,
+      manufacturer = driver.NAME,
+      model = profile,
+      vendor_provided_label = "Child " .. ngroup,
+    })
+  end
 end
 
 return utils

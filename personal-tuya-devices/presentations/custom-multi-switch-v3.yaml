@@ -1,0 +1,140 @@
+# ./smartthings presentation:device-config:create -y -i=personal-tuya-devices/presentations/custom-multi-switch-v3.yaml -o=personal-tuya-devices/presentations/custom-multi-switch-v3.yaml
+mnmn: SmartThingsCommunity
+vid: 5eec0700-8143-317c-8353-937baf87cd40
+version: 0.0.1
+type: profile
+dashboard:
+  states:
+    - component: main
+      capability: switch
+      version: 1
+      idx: 0
+      group: main
+      values: []
+      composite: true
+    - component: main01
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 1
+      values: []
+      composite: true
+    - component: main02
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 2
+      values: []
+      composite: true
+    - component: main03
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 3
+      values: []
+      composite: true
+  actions:
+    - component: main
+      capability: switch
+      version: 1
+      idx: 0
+      group: main
+      inline: null
+    - component: main01
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 1
+      inline: null
+    - component: main02
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 2
+      inline: null
+    - component: main03
+      capability: switch
+      version: 1
+      idx: 0
+      group: Switch 3
+      inline: null
+  basicPlus: []
+detailView:
+  - component: main
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main
+    capability: signalStrength
+    version: 1
+    values: []
+    patch: []
+  - component: main01
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main02
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+  - component: main03
+    capability: switch
+    version: 1
+    values: []
+    patch: []
+automation:
+  conditions:
+    - component: main
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main01
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main02
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main03
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+  actions:
+    - component: main
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main01
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main02
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+    - component: main03
+      capability: switch
+      version: 1
+      values: []
+      patch: []
+      exclusion: []
+presentationId: 5eec0700-8143-317c-8353-937baf87cd40
+manufacturerName: SmartThingsCommunity
