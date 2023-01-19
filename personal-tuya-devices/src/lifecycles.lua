@@ -87,6 +87,29 @@ function lifecycles.init(driver, device, event, ...)
 end
 
 function lifecycles.added(driver, device, event, ...)
+  local ep_supports_server_cluster = function(cluster_id, ep)
+    -- if not ep then return false end
+    for _, cluster in ipairs(ep.server_clusters) do
+      if cluster == cluster_id then
+        return true
+      end
+    end
+    return false
+  end
+
+  if device.preferences.profile == "normal_multi_switch_v1" then
+    for _, ep in pairs(device.zigbee_endpoints) do
+      if ep.id ~= device.fingerprinted_endpoint_id and ep_supports_server_cluster(zcl_clusters.OnOff.ID, ep) then
+        myutils.create_child(driver, device, ep.id, "child-switch-v1")
+      end
+    end
+  elseif device.preferences.profile == "normal_multi_dimmer_v1" then
+    for _, ep in pairs(device.zigbee_endpoints) do
+      if ep.id ~= device.fingerprinted_endpoint_id and ep_supports_server_cluster(zcl_clusters.Level.ID, ep) then
+        myutils.create_child(driver, device, ep.id, "child-dimmer-v1")
+      end
+    end
+  end
 end
 
 function lifecycles.removed(driver, device, event, ...)

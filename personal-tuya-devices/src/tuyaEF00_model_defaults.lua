@@ -53,20 +53,21 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
       if match ~= nil then
         local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
-        local created = device:get_child_by_parent_assigned_key(group)
-        if not created then
-          driver:try_create_device({
-            type = "EDGE_CHILD",
-            device_network_id = nil,
-            parent_assigned_child_key = group,
-            label = "Child " .. tonumber(group, 16),
-            profile = profile,
-            parent_device_id = device.id,
-            manufacturer = driver.NAME,
-            model = profile,
-            vendor_provided_label = "Child " .. tonumber(group, 16),
-          })
-        end
+        myutils.create_child(driver, device, tonumber(group, 16), profile)
+        -- local created = device:get_child_by_parent_assigned_key(group)
+        -- if not created then
+        --   driver:try_create_device({
+        --     type = "EDGE_CHILD",
+        --     device_network_id = nil,
+        --     parent_assigned_child_key = group,
+        --     label = "Child " .. tonumber(group, 16),
+        --     profile = profile,
+        --     parent_device_id = device.id,
+        --     manufacturer = driver.NAME,
+        --     model = profile,
+        --     vendor_provided_label = "Child " .. tonumber(group, 16),
+        --   })
+        -- end
         goto next
       end
       local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")

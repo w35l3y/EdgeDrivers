@@ -1,19 +1,33 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "child-dimmer-v1"
+name: "normal-multi-dimmer-v1"
 components:
   - id: main
-    label: Switch
+    label: Switch All
     capabilities:
       - id: switch
         version: 1
       - id: switchLevel
+        version: 1
+      - id: signalStrength
         version: 1
       - id: refresh
         version: 1
     categories:
       - name: Switch
 preferences:
+  - name: profile
+    title: Profile
+    description: Choose the profile
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_multi_dimmer_v1: Normal
+        # switch_all_multi_dimmer_v1: Switch All
+        # custom_multi_dimmer_v1: Custom
+        # generic_ef00_v1: Generic
+      default: normal_multi_dimmer_v1
   - preferenceId: reverse
     explicit: true
   - name: rate

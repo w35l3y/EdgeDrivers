@@ -11,11 +11,19 @@ local data_types = require "st.zigbee.data_types"
 local defaults = require "st.zigbee.defaults"
 --local device_management = require "st.zigbee.device_management"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
+local zcl_global_commands = require "st.zigbee.zcl.global_commands"
 
 zb_const.ZGP_PROFILE_ID = 0xA1E0
 
 zcl_clusters.green_power_id = 0x0021
 zcl_clusters.id_to_name_map[zcl_clusters.green_power_id] = "GreenPowerProxy"
+
+zcl_clusters.tuya_e000_id = 0xE000
+zcl_clusters.id_to_name_map[zcl_clusters.tuya_e000_id] = "TuyaE000"
+data_types.id_to_name_map[0x48] = "CharString"  -- override Array data type (0xE000 attributes)
+
+zcl_clusters.tuya_e001_id = 0xE001
+zcl_clusters.id_to_name_map[zcl_clusters.tuya_e001_id] = "TuyaE001"
 
 zcl_clusters.tuya_ef00_id = 0xEF00
 zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaEF00"
@@ -23,10 +31,25 @@ zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaEF00"
 local template = {
   sub_drivers = require "sub_drivers",
   supported_capabilities = {
+    capabilities.switch,
     capabilities.refresh,
   },
   lifecycle_handlers = require "lifecycles",
   zigbee_handlers = {
+    -- global = {
+    --   [zcl_clusters.TuyaE000.ID] = {
+    --     [zcl_global_commands.REPORT_ATTRIBUTE_ID] = function (driver, device, zb_rx)
+    --       log.info(zb_rx:pretty_print())
+    --     end,
+    --   },
+    -- },
+    -- cluster = {
+    --   [zcl_clusters.TuyaE000.ID] = {
+    --     [zcl_clusters.TuyaE000.commands.Generic.ID] = function (driver, device, zb_rx)
+    --       log.info(zb_rx:pretty_print())
+    --     end,
+    --   }
+    -- },
     attr = {
       [zcl_clusters.Basic.ID] = {
         [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function() end,

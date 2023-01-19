@@ -159,4 +159,22 @@ function utils.load_model_from_json(model)
   return o
 end
 
+function utils.create_child(driver, device, ngroup, profile)
+  local group = string.format("%02X", ngroup)
+  local created = device:get_child_by_parent_assigned_key(group)
+  if not created then
+    driver:try_create_device({
+      type = "EDGE_CHILD",
+      device_network_id = nil,
+      parent_assigned_child_key = group,
+      label = "Child " .. ngroup,
+      profile = profile,
+      parent_device_id = device.id,
+      manufacturer = driver.NAME,
+      model = profile,
+      vendor_provided_label = "Child " .. ngroup,
+    })
+  end
+end
+
 return utils
