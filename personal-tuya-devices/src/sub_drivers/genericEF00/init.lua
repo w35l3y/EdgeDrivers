@@ -22,7 +22,7 @@ local template = {
     capabilities["valleyboard16460.datapointRaw"],
   },
   sub_drivers = {
-    require "sub_drivers.model"
+    require "sub_drivers.genericEF00.model"
   },
   lifecycle_handlers = tuyaEF00_generic_defaults.lifecycle_handlers,
   zigbee_handlers = {

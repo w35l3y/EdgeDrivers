@@ -15,7 +15,7 @@ return {
     info,
   },
   lifecycle_handlers = {
-    added = function (driver, device, ...)
+    init = function (driver, device, ...)
       device:emit_event(info.value(tostring(myutils.info(device))))
     end,
   },

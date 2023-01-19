@@ -51,6 +51,9 @@ function utils.info(device, datapoints)
   local _datapoints = datapoints or {}
   setmetatable(_datapoints, {
     __tostring = function (self)
+      if datapoints == nil then
+        return ""
+      end
       local output = {}
       for _index, zb_rx in pairs(self) do
         local _data = zb_rx.body.zcl_body.data
@@ -59,7 +62,7 @@ function utils.info(device, datapoints)
       if #output == 0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'
       end
-      return table.concat(output)
+      return '<tr><th colspan="3">Datapoints</th></tr>' .. table.concat(output)
     end
   })
 
@@ -85,7 +88,6 @@ function utils.info(device, datapoints)
         %s
         <tr><th colspan="3">Client Clusters</th></tr>
         %s
-        <tr><th colspan="3">Datapoints</th></tr>
         %s
       </tbody></table>]],
       self.manufacturer,

@@ -31,25 +31,9 @@ zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaEF00"
 local template = {
   sub_drivers = require "sub_drivers",
   supported_capabilities = {
-    capabilities.switch,
     capabilities.refresh,
   },
-  lifecycle_handlers = require "lifecycles",
   zigbee_handlers = {
-    -- global = {
-    --   [zcl_clusters.TuyaE000.ID] = {
-    --     [zcl_global_commands.REPORT_ATTRIBUTE_ID] = function (driver, device, zb_rx)
-    --       log.info(zb_rx:pretty_print())
-    --     end,
-    --   },
-    -- },
-    -- cluster = {
-    --   [zcl_clusters.TuyaE000.ID] = {
-    --     [zcl_clusters.TuyaE000.commands.Generic.ID] = function (driver, device, zb_rx)
-    --       log.info(zb_rx:pretty_print())
-    --     end,
-    --   }
-    -- },
     attr = {
       [zcl_clusters.Basic.ID] = {
         [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function() end,
@@ -74,7 +58,6 @@ local template = {
   },
 }
 
-defaults.register_for_default_handlers(template, template.supported_capabilities)
 local driver = require("st.zigbee")("personal-tuya-devices", template)
 
 driver:run()

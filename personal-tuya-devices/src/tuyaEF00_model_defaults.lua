@@ -38,7 +38,7 @@ local function send_command(fn, driver, device, ...)
   end
 end
 
-local lifecycle_handlers = require "lifecycles"
+local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then

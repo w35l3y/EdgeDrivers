@@ -7,7 +7,28 @@ zigbeeManufacturer:
     zigbeeProfiles:
       - 0x0104
     deviceIdentifiers:
-      - 0x0051
+      - 0x0100
+    clusters:
+      server:
+        - 0x0000
+        - 0x0003
+        - 0x0004
+        - 0x0005
+        - 0x0006
+        - 0xE000
+        - 0xE001
+      client:
+        - 0x000A
+        - 0x0019
+  - id: "TS011F/_TZ3000_3zofvcaa"
+    model: TS011F
+    manufacturer: _TZ3000_3zofvcaa
+    deviceProfileName: normal-multi-switch-v1
+    deviceLabel: Multi Switch
+    zigbeeProfiles:
+      - 0x0104
+    deviceIdentifiers:
+      - 0x010A
     clusters:
       server:
         - 0x0000
