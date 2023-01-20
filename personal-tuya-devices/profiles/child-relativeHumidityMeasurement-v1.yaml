@@ -3,7 +3,7 @@
 name: "child-relativeHumidityMeasurement-v1"
 components:
   - id: main
-    label: Illuminance
+    label: Humidity
     capabilities:
       - id: relativeHumidityMeasurement
         version: 1

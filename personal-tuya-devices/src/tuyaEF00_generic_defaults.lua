@@ -3,6 +3,7 @@ local utils = require "st.utils"
 
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
+local device_lib = require "st.device"
 
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local myutils = require "utils"
@@ -110,7 +111,8 @@ end
 local lifecycle_handlers = {}
 
 function lifecycle_handlers.added(driver, device, event, ...)
-  if device.parent_assigned_child_key ~= nil then
+  if device.network_type == device_lib.NETWORK_TYPE_CHILD then
+  -- if device.parent_assigned_child_key ~= nil then
     local tmp = temporary_datapoints[device.parent_device_id]
     local dpid = tonumber(device.parent_assigned_child_key, 16)
     if tmp ~= nil and tmp[dpid] ~= nil then
@@ -128,11 +130,13 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
     })
   end
 
-  for name, value in pairs(device.preferences) do
-    local profile = child_types_to_profile[name]
-    if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
-      for ndpid in value:gmatch("[^,]+") do
-        myutils.create_child(driver, device, tonumber(ndpid, 10), profile)
+  if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    for name, value in pairs(device.preferences) do
+      local profile = child_types_to_profile[name]
+      if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
+        for ndpid in value:gmatch("[^,]+") do
+          myutils.create_child(driver, device, tonumber(ndpid, 10), profile)
+        end
       end
     end
   end

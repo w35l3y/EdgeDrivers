@@ -9,6 +9,8 @@ local mt = {}
 mt.__cluster_cache = {}
 mt.__index = function(self, key)
   if mt.__cluster_cache[key] == nil then
+    -- @FIXME Update to load device on demand, not the whole model
+    -- It will require a file for each model+manufacturer
     local ok, result = pcall(myutils.load_model_from_json, key)
     mt.__cluster_cache[key] = ok and result or {}
     if not ok then
@@ -46,37 +48,39 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       profile = device.preferences.profile:gsub("_", "-")
     })
   end
-
-  for name, value in pairs(device.preferences) do
-    if value and value ~= args.old_st_store.preferences[name] then
-      local normalized_id = utils.snake_case(name)
-      local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
-      if match ~= nil then
-        local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
-        myutils.create_child(driver, device, tonumber(group, 16), profile)
-        -- local created = device:get_child_by_parent_assigned_key(group)
-        -- if not created then
-        --   driver:try_create_device({
-        --     type = "EDGE_CHILD",
-        --     device_network_id = nil,
-        --     parent_assigned_child_key = group,
-        --     label = "Child " .. tonumber(group, 16),
-        --     profile = profile,
-        --     parent_device_id = device.id,
-        --     manufacturer = driver.NAME,
-        --     model = profile,
-        --     vendor_provided_label = "Child " .. tonumber(group, 16),
-        --   })
-        -- end
-        goto next
+  
+  if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    for name, value in pairs(device.preferences) do
+      if value and value ~= args.old_st_store.preferences[name] then
+        local normalized_id = utils.snake_case(name)
+        local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
+        if match ~= nil then
+          local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
+          myutils.create_child(driver, device, tonumber(group, 16), profile)
+          -- local created = device:get_child_by_parent_assigned_key(group)
+          -- if not created then
+          --   driver:try_create_device({
+          --     type = "EDGE_CHILD",
+          --     device_network_id = nil,
+          --     parent_assigned_child_key = group,
+          --     label = "Child " .. tonumber(group, 16),
+          --     profile = profile,
+          --     parent_device_id = device.id,
+          --     manufacturer = driver.NAME,
+          --     model = profile,
+          --     vendor_provided_label = "Child " .. tonumber(group, 16),
+          --   })
+          -- end
+          goto next
+        end
+        local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
+        if match ~= nil then
+          send_command(tuyaEF00_defaults.update_data, driver, device, key, value)
+          goto next
+        end
       end
-      local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
-      if match ~= nil then
-        send_command(tuyaEF00_defaults.update_data, driver, device, key, value)
-        goto next
-      end
+      ::next::
     end
-    ::next::
   end
 end
 

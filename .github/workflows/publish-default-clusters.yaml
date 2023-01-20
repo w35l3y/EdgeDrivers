@@ -1,0 +1,25 @@
+name: publish-default-clusters
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+    paths:
+      - "default-clusters/**.yaml"
+      - "default-clusters/**.lua"
+  pull_request:
+    branches:
+      - main
+      - beta
+    paths:
+      - "default-clusters/**.yaml"
+      - "default-clusters/**.lua"
+
+jobs:
+  call:
+    uses: ./.github/workflows/call-publish-driver.yaml
+    with:
+      driver: default-clusters
+      environment: ${{ github.head_ref || github.ref_name }}
+    secrets: inherit
