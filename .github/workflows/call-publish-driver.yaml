@@ -25,7 +25,7 @@ on:
         default: beta
 
 env:
-  LUA_PATH: ~/lua_libs-api_v3_46X/lua_libs-api_v3/?.lua;~/lua_libs-api_v3_46X/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;
+  LUA_PATH: ~/lua_libs-api_v3/?.lua;~/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;
 
 jobs:
   publish:
