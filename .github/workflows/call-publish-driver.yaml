@@ -25,7 +25,7 @@ on:
         default: beta
 
 env:
-  LUA_PATH: ./lua_libs-api_v3/?.lua;./lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;
+  LUA_PATH: $HOME/lua_libs-api_v3/?.lua;$HOME/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;
 
 jobs:
   publish:
@@ -49,7 +49,8 @@ jobs:
         if: steps.stapi.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz
       - name: Run tests
-        run: lua ${{ inputs.driver }}/src/test/switch.lua
+        working-directory: ${{ inputs.driver }}/src
+        run: lua test/switch.lua
       - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
