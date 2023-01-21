@@ -46,7 +46,7 @@ jobs:
           path: lua_libs-api_v*
           key: stapi-lua_libs-api_v3_46X
       - name: Run tests
-        working-directory: src/test
+        working-directory: ${{ inputs.driver }}/src/test
         run: lua single_switch.lua
       - name: Download SmartThings API
         if: steps.stapi.outputs.cache-hit != 'true'
