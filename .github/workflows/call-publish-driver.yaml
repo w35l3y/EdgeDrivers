@@ -47,6 +47,8 @@ jobs:
         run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz
       - name: Set LUA_PATH
         run: echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+      - name: Set ST_CAPABILITY_CACHE
+        run: echo "ST_CAPABILITY_CACHE="$(pwd)/capabilities/"
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
