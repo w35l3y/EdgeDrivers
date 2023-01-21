@@ -71,7 +71,7 @@ local template = {
       if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
         device:set_find_child(utils.find_child_fn)
 
-        utils.spell_magic_trick(device)
+        -- utils.spell_magic_trick(device)
 
         device:emit_event(capabilities["valleyboard16460.info"].value(tostring(utils.info(device))))
       end
