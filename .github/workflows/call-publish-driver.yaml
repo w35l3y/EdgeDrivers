@@ -49,8 +49,7 @@ jobs:
         if: steps.stapi.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz
       - name: Run tests
-        working-directory: ${{ inputs.driver }}/src/test
-        run: lua switch.lua
+        run: lua ${{ inputs.driver }}/src/test/switch.lua
       - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
