@@ -3,6 +3,7 @@ local clusters = require "st.zigbee.zcl.clusters"
 local OnOff = clusters.OnOff
 local capabilities = require "st.capabilities"
 local data_types = require "st.zigbee.data_types"
+local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
 local t_utils = require "integration_test.utils"
 
@@ -63,7 +64,14 @@ test.register_message_test(
       {
         channel = "zigbee",
         direction = "send",
-        message = { mock_parent_device.id, cluster_base.build_test_read_attributes(mock_parent_device, 0, {4,0,1,5,7,0xFFFE}):to_endpoint(0x01) }
+        message = { mock_parent_device.id, cluster_base.build_test_read_attributes(mock_parent_device, data_types.ClusterId(zcl_clusters.Basic.ID), {
+          data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
+          data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
+          data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
+          data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
+          data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
+          data_types.AttributeId(0xFFFE),
+        }):to_endpoint(0x01) }
       },
       {
         channel = "zigbee",
