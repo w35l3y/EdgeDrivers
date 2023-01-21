@@ -1,3 +1,5 @@
+local log = require "log"
+
 local data_types = require "st.zigbee.data_types"
 local zb_const = require "st.zigbee.constants"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
@@ -71,9 +73,10 @@ local template = {
       if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
         device:set_find_child(utils.find_child_fn)
 
-        -- utils.spell_magic_trick(device)
-
-        device:emit_event(capabilities["valleyboard16460.info"].value(tostring(utils.info(device))))
+        driver:call_with_delay(0, function ()
+          utils.spell_magic_trick(device)
+          device:emit_event(capabilities["valleyboard16460.info"].value(tostring(utils.info(device))))
+        end)
       end
     end,
     added = function (driver, device, ...)
