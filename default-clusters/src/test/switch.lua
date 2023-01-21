@@ -21,7 +21,6 @@ local mock_parent_device = test.mock_device.build_test_zigbee_device(
     }
 )
 
-
 zigbee_test_utils.prepare_zigbee_env_info()
 
 test.set_test_init_function(function ()
