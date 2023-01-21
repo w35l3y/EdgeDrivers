@@ -2,6 +2,7 @@ local test = require "integration_test"
 local clusters = require "st.zigbee.zcl.clusters"
 local OnOff = clusters.OnOff
 local capabilities = require "st.capabilities"
+local data_types = require "st.zigbee.data_types"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
 local t_utils = require "integration_test.utils"
 

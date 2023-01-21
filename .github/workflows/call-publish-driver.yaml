@@ -50,7 +50,8 @@ jobs:
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
-        run: echo "success=$(lua test/switch.lua | awk '/FAILED/{print("false");f=1}END{if(!f)print("true")}' -)" >> $GITHUB_OUTPUT
+        run: lua test/switch.lua | awk -v x=1 '/SUCCESS/{x=0}END{exit x}' -
+        # run: echo "success=$(lua test/switch.lua | awk '/SUCCESS/{print("true");f=1}END{if(!f)print("false")}' -)" >> $GITHUB_OUTPUT
       - name: Check test
         run: echo "result = ${{ steps.test.outputs.success }} (${{ steps.test.outputs.success == 'true' }})"
       # - name: Load SmartThings CLI from cache
