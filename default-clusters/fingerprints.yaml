@@ -1,0 +1,99 @@
+zigbeeGeneric:
+  - id: "GenericColorDimmer"
+    deviceProfileName: colordimmer_v1
+    deviceLabel: Generic Dimmer
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+        - 0x0008
+        - 0x0300
+  - id: "GenericThermostat"
+    deviceProfileName: thermostat_v1
+    deviceLabel: Generic Thermostat
+    clusters:
+      server:
+        - 0x0000
+        - 0x0201
+        - 0x0402
+        - 0x0405
+  - id: "GenericTempHumiBatt"
+    deviceProfileName: temphumibatt_v1
+    deviceLabel: Generic Thermostat
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0402
+        - 0x0405
+  - id: "GenericTempHumi"
+    deviceProfileName: temphumi_v1
+    deviceLabel: Generic Thermostat
+    clusters:
+      server:
+        - 0x0000
+        - 0x0402
+        - 0x0405
+  - id: "GenericDimmer"
+    deviceProfileName: dimmer_v1
+    deviceLabel: Generic Dimmer
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+        - 0x0008
+  - id: "GenericWindowShade"
+    deviceProfileName: windowshade_v1
+    deviceLabel: Generic Window Shade
+    clusters:
+      server:
+        - 0x0000
+        - 0x0102
+  - id: "GenericOccupancy"
+    deviceProfileName: occupancy_v1
+    deviceLabel: Generic Occupancy
+    clusters:
+      server:
+        - 0x0000
+        - 0x0406
+  - id: "GenericCarbonMonoxide"
+    deviceProfileName: carbonmonoxide_v1
+    deviceLabel: Generic Carbon Monoxide
+    clusters:
+      server:
+        - 0x0000
+        - 0x040C
+  - id: "GenericTemperature"
+    deviceProfileName: temperature_v1
+    deviceLabel: Generic Temperature
+    clusters:
+      server:
+        - 0x0000
+        - 0x0402
+  - id: "GenericHumidity"
+    deviceProfileName: humidity_v1
+    deviceLabel: Generic Humidity
+    clusters:
+      server:
+        - 0x0000
+        - 0x0405
+  - id: "GenericSwitch"
+    deviceProfileName: switch_v1
+    deviceLabel: Generic Switch
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+  - id: "GenericValve"
+    deviceProfileName: valve_v1
+    deviceLabel: Generic Valve
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+  - id: "GenericDevice"
+    deviceProfileName: default_v1
+    deviceLabel: Generic Device
+    clusters:
+      server:
+        - 0x0000
