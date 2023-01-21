@@ -49,6 +49,8 @@ jobs:
         run: echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
       - name: Set ST_CAPABILITY_CACHE
         run: echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
+      - name: Create symbolic link
+        run: sudo ln -s $(pwd)/smartthings /usr/bin/smartthings
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
@@ -66,6 +68,6 @@ jobs:
       #   if: steps.stcli.outputs.cache-hit != 'true'
       #   run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
       # - name: Publish
-      #   run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+      #   run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
       #   env:
       #     SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
