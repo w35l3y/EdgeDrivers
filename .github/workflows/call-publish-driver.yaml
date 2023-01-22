@@ -45,10 +45,6 @@ jobs:
       - name: Download SmartThings API
         if: steps.stapi.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz
-      - name: Set LUA_PATH
-        run: echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
-      - name: Set ST_CAPABILITY_CACHE
-        run: echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
       - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
@@ -58,8 +54,18 @@ jobs:
       - name: Download SmartThings CLI
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
+      - name: Set Environment Variables
+        run: |
+          echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
       - name: Create symbolic link for SmartThings CLI
         run: sudo ln -s $(pwd)/smartthings /usr/bin/smartthings
+      - name: Load capabilities from cache
+        uses: actions/cache@v3
+        id: capabilities
+        with:
+          path: capabilities
+          key: capabilities
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
