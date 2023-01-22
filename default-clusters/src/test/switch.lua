@@ -74,38 +74,7 @@ test.register_message_test(
 	}
 )
 
-function test.run_registered_tests()
-  local passed_tests = 0
-  local failed_tests = 0
-  for i, test_config in ipairs(registered_tests) do
-    local test_run_line = string.format("Running test \"%s\" (%d of %d)", test_config.test_name, i, #registered_tests)
-    print(test_run_line)
-    print(string.rep("-", #test_run_line))
-    if test_config.test_init ~= nil then
-      test_config.test_init()
-    elseif integration_test.test_init_func ~= nil then
-      integration_test.test_init_func()
-    end
-    if run_configured_test(test_config.test_func, test_config.expected_error) then
-      passed_tests = passed_tests + 1
-      print("PASSED")
-    else
-      failed_tests = failed_tests + 1
-      print("FAILED")
-    end
-    integration_test.reset_tests()
-    print("\n")
-  end
-  print("Passed " .. passed_tests .. " of " .. #registered_tests .. " tests")
-
-  return {
-    passed = passed_tests,
-    failed = failed_tests,
-    total = #registered_tests,
-  }
-end
-
 local result = test.run_registered_tests()
-if result.failed > 0 then
+if result.passed ~= result.total then
   error("Some tests have failed")
 end
