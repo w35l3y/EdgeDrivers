@@ -4,7 +4,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Install the driver
 
-1. Accept the invitation ( https://bestow-regional.api.smartthings.com/invite/VbMb856WP8lB )
+1. Accept the invitation ( https://api.smartthings.com/invite/6Vjd4YPVJwjN )
 2. Enroll the hub
 3. List available drivers
 4. Install the driver ( Personal Tuya Devices )
