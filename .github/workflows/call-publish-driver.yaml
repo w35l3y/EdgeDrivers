@@ -39,10 +39,8 @@ jobs:
           version: 1.0
       - name: Create symbolic links
         run: |
-          sudo update-alternatives --remove-all lua
-          sudo update-alternatives --install /usr/bin/lua lua /usr/bin/lua5.3 20
-          sudo update-alternatives --remove-all luac
-          sudo update-alternatives --install /usr/bin/luac luac /usr/bin/luac5.3 20
+          sudo update-alternatives --install /usr/bin/lua lua /usr/bin/lua5.3 20 2>/dev/null
+          sudo update-alternatives --install /usr/bin/luac luac /usr/bin/luac5.3 20 2>/dev/null
       # - name: Install Lua
       #   run: |
       #     sudo apt update
