@@ -74,6 +74,6 @@ test.register_message_test(
 )
 
 local result = test.run_registered_tests()
-if result.passed ~= result.total then
-  error("Some tests have failed")
+if result == nil or result.failed > 0 then
+  error("Unable to proceed")
 end
