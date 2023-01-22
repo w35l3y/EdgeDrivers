@@ -58,15 +58,12 @@ jobs:
       - name: Download SmartThings CLI
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
-      - name: Create symbolic link
+      - name: Create symbolic link for SmartThings CLI
         run: sudo ln -s $(pwd)/smartthings /usr/bin/smartthings
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
         run: lua test/switch.lua | awk -v x=1 '/SUCCESS/{x=0}END{exit x}' -
-        # run: echo "success=$(lua test/switch.lua | awk '/SUCCESS/{print("true");f=1}END{if(!f)print("false")}' -)" >> $GITHUB_OUTPUT
-      - name: Check test
-        run: echo "result = ${{ steps.test.outputs.success }} (${{ steps.test.outputs.success == 'true' }})"
       # - name: Publish
       #   run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
       #   env:
