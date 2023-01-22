@@ -30,6 +30,7 @@ preferences:
         normal_air_quality_v1: Air Quality
         normal_garage_door_v1: Garage Door
         normal_presenceSensor_v1: Presence sensor
+        normal_thermostat_v1: Thermostat
       default: generic_ef00_v1
   - name: updateInfo
     title: Update info with datapoints

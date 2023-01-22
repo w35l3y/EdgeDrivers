@@ -171,6 +171,23 @@ devices:
         base:
           group: 1
   - manufacturers:
+      - _TZE200_a8sdabtg
+      - _TZE200_qoy0ekbd
+      - _TZE200_znbl8dj5
+    profiles:
+      - normal_thermostat_v1
+    datapoints:
+      # https://github.com/zigpy/zha-device-handlers/blob/25cf57dc29bf38dc8a004454a1da90de8eef7030/zhaquirks/tuya/ts0601_sensor.py#L129
+      - id: 1
+        command: temperatureMeasurement
+        base:
+          group: 1
+          rate: 10
+      - id: 2
+        command: relativeHumidityMeasurement
+        base:
+          group: 1
+  - manufacturers:
       - _TZE200_ikvncluo
       - _TZE200_ztc6ggyl
       - _TZE204_ztc6ggyl
