@@ -1,4 +1,3 @@
-local log = require "log"
 local test = require "integration_test"
 local capabilities = require "st.capabilities"
 local data_types = require "st.zigbee.data_types"

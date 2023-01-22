@@ -68,7 +68,7 @@ jobs:
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
-        run: lua test/switch.lua | awk '/Passed 1 of 1 tests/{exit 0}END{exit 1}' -
+        run: lua test/switch.lua
       # - name: Publish
       #   run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
       #   env:
