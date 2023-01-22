@@ -58,8 +58,7 @@ jobs:
         run: |
           echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
           echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
-      - name: Create symbolic link for SmartThings CLI
-        run: sudo ln -s $(pwd)/smartthings /usr/bin/smartthings
+          echo "$(pwd)" >> $GITHUB_PATH
       - name: Load capabilities from cache
         uses: actions/cache@v3
         id: capabilities
@@ -69,7 +68,7 @@ jobs:
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
-        run: lua test/switch.lua | awk -v x=1 '/SUCCESS/{x=0}END{exit x}' -
+        run: lua test/switch.lua | awk '/Passed 1 of 1 tests/{exit 0}END{exit 1}' -
       # - name: Publish
       #   run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
       #   env:
