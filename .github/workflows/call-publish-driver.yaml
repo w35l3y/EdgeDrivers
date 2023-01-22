@@ -37,10 +37,8 @@ jobs:
         with:
           packages: lua5.3
           version: 1.0
-      - name: Create symbolic links
-        run: |
-          sudo update-alternatives --install /usr/bin/lua lua /usr/bin/lua5.3 20 2>/dev/null
-          sudo update-alternatives --install /usr/bin/luac luac /usr/bin/luac5.3 20 2>/dev/null
+      - name: Create symbolic link
+        run: sudo ln -s /usr/bin/lua5.3 /usr/bin/lua
       # - name: Install Lua
       #   run: |
       #     sudo apt update
