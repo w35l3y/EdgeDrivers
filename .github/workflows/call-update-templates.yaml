@@ -43,6 +43,7 @@ jobs:
           commit_message: "docs: update readme file [skip ci]"
         env:
           INVITATION_LINK: ${{ vars.INVITATION_LINK }}
+          INVITATION_LINK_BETA: ${{ vars.INVITATION_LINK_BETA }}
           ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: yaml+lua files
