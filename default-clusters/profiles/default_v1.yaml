@@ -53,6 +53,8 @@ components:
         version: 1
       - id: windowShadeLevel
         version: 1
+      - id: windowShadePreset
+        version: 1
       - id: signalStrength
         version: 1
       - id: powerSource

@@ -6,9 +6,7 @@ local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
 local t_utils = require "integration_test.utils"
 
-local profile = t_utils.get_profile_definition("switch_v1.yaml")
-
-log.info("profile", profile.preferences.profile)
+local profile = t_utils.get_profile_definition("default_v1.yaml")
 
 test.load_all_caps_from_profile(profile)
 
