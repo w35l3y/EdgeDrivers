@@ -68,7 +68,7 @@ jobs:
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
-        run: lua test/switch.lua
+        run: lua test/init.lua
       - name: Publish
         run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:
