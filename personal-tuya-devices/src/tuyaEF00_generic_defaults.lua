@@ -142,12 +142,26 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   end
 end
 
+-- devices that use 0xEF00 but doesn't expose it
+local exceptions = {
+  "_TZE200_znbl8dj5"
+}
+
+local function in_exception_list (device)
+  for _,mfr in ipairs(exceptions) do
+    if mfr == device:get_manufacturer() then
+      return true
+    end
+  end
+  return false
+end
+
 local defaults = {
   lifecycle_handlers = lifecycle_handlers
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id)
+  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id) or in_exception_list(device)
 end
 
 function defaults.command_response_handler(driver, device, zb_rx)
