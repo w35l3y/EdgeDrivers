@@ -32,16 +32,61 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
-      - name: load smartthings-cli from cache
+      - name: Load/Install Lua
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: lua5.3
+          version: 1.0
+      - name: Create symbolic link
+        run: sudo ln -fs /usr/bin/lua5.3 /usr/bin/lua
+      # - name: Load Lua from cache
+      #   uses: actions/cache@v3
+      #   id: lua
+      #   with:
+      #     path: |
+      #       /usr/bin/lua*
+      #       /usr/share/doc/lua*
+      #       /usr/share/man/man1/lua*.gz
+      #     key: lua-5.3
+      # - name: Install Lua
+      #   if: steps.lua.outputs.cache-hit != 'true'
+      #   run: |
+      #     sudo apt update
+      #     sudo apt install lua5.3
+      - name: Load SmartThings API from cache
+        uses: actions/cache@v3
+        id: stapi
+        with:
+          path: lua_libs-api_v*
+          key: stapi-lua_libs-api_v3_46X
+      - name: Download SmartThings API
+        if: steps.stapi.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz --skip-old-files
+      - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
         with:
           path: smartthings
           key: stcli-latest
-      - name: download smartthings-cli
+      - name: Download SmartThings CLI
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
-      - name: publish
-        run: ./smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+      - name: Set Environment Variables
+        run: |
+          echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
+          echo "$(pwd)" >> $GITHUB_PATH
+      - name: Load capabilities from cache
+        uses: actions/cache@v3
+        id: capabilities
+        with:
+          path: capabilities
+          key: capabilities
+      - name: Run tests
+        id: test
+        working-directory: ${{ inputs.driver }}/src
+        run: lua test/init.lua
+      - name: Publish
+        run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}

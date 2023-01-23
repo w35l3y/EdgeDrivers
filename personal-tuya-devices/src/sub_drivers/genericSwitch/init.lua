@@ -15,8 +15,8 @@ local child_cluster = zcl_clusters.OnOff
 local template = {
   NAME = "GenericSwitch",
   can_handle = function (opts, driver, device, ...)
-    return device.preferences.profile == profile
-          or device.parent_assigned_child_key ~= nil and device:get_parent_device().preferences.profile == profile
+    return myutils.is_same_profile(device, profile)
+          or device.parent_assigned_child_key ~= nil and myutils.is_same_profile(device:get_parent_device(), profile)
   end,
   supported_capabilities = {
     capabilities.switch,

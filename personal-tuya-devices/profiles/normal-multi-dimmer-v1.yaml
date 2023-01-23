@@ -26,9 +26,7 @@ preferences:
     definition:
       options:
         normal_multi_dimmer_v1: Normal
-        # switch_all_multi_dimmer_v1: Switch All
-        # custom_multi_dimmer_v1: Custom
-        # generic_ef00_v1: Generic
+        normal_multi_switch_v1: Switch only
       default: normal_multi_dimmer_v1
   - preferenceId: reverse
     explicit: true

@@ -14,6 +14,16 @@ components:
     categories:
       - name: Switch
 preferences:
+  - name: profile
+    title: Profile
+    description: Choose the profile
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        child_dimmer_v1: Normal
+        child_switch_v1: Switch only
+      default: child_dimmer_v1
   - preferenceId: reverse
     explicit: true
   - name: rate

@@ -6,6 +6,7 @@ local base_device = require "st.device"
 local device_management = require "st.zigbee.device_management"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local data_types = require "st.zigbee.data_types"
+local device_lib = require "st.device"
 
 local myutils = require "utils"
 
@@ -71,19 +72,21 @@ end
 local lifecycles = {}
 
 function lifecycles.init(driver, device, event, ...)
-  device:set_component_to_endpoint_fn(component_to_endpoint)
-  device:set_endpoint_to_component_fn(endpoint_to_component)
-  device:set_find_child(find_child_fn)
+  if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    device:set_component_to_endpoint_fn(component_to_endpoint)
+    device:set_endpoint_to_component_fn(endpoint_to_component)
+    device:set_find_child(find_child_fn)
 
-  -- tuya magic spell
-  device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
-    data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
-    data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
-    data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
-    data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
-    data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
-    data_types.AttributeId(0xFFFE),
-  }))
+    -- tuya magic spell
+    device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
+      data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
+      data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
+      data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
+      data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
+      data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
+      data_types.AttributeId(0xFFFE),
+    }))
+  end
 end
 
 function lifecycles.added(driver, device, event, ...)

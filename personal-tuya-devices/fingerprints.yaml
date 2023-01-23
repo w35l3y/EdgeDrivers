@@ -1,4 +1,5 @@
 zigbeeManufacturer:
+  # https://developer.tuya.com/en/docs/iot/tuya-zigbee-multiple-switch-access-standard?id=K9ik6zvnqr09m
   - id: "TS0003/_TZ3000_tbfw3xj0"
     model: TS0003
     manufacturer: _TZ3000_tbfw3xj0
@@ -20,6 +21,7 @@ zigbeeManufacturer:
       client:
         - 0x000A
         - 0x0019
+  # https://developer.tuya.com/en/docs/iot/tuya-zigbee-measuring-smart-plug-access-standard?id=K9ik6zvofpzqk
   - id: "TS011F/_TZ3000_3zofvcaa"
     model: TS011F
     manufacturer: _TZ3000_3zofvcaa
@@ -41,6 +43,7 @@ zigbeeManufacturer:
       client:
         - 0x000A
         - 0x0019
+  # https://developer.tuya.com/en/docs/iot/tuya-zigbee-universal-docking-access-standard?id=K9ik6zvofpzql
   - id: "TS0601/_TZE200_9mahtqtg"
     model: TS0601
     manufacturer: _TZE200_9mahtqtg
@@ -133,9 +136,27 @@ zigbeeManufacturer:
       client:
         - 0x000A
         - 0x0019
-  - id: "TS0601/_TZE204_ztc6ggyl"
-    manufacturer: _TZE204_ztc6ggyl
+  - id: "TS0601/_TZE200_znbl8dj5"
     model: TS0601
+    manufacturer: _TZE200_znbl8dj5
+    deviceProfileName: normal-thermostat-v1
+    deviceLabel: Thermostat
+    zigbeeProfiles:
+      - 0x0104
+    deviceIdentifiers:
+      - 0x0051
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0402
+        - 0x0405
+      client:
+        - 0x000A
+        - 0x0019
+  - id: "TS0601/_TZE204_ztc6ggyl"
+    model: TS0601
+    manufacturer: _TZE204_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presense Sensor
     zigbeeProfiles:
@@ -152,8 +173,8 @@ zigbeeManufacturer:
         - 0x000A
         - 0x0019
   - id: "TS0601/_TZE200_ztc6ggyl"
-    manufacturer: _TZE200_ztc6ggyl
     model: TS0601
+    manufacturer: _TZE200_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presense Sensor
     zigbeeProfiles:

@@ -7,6 +7,8 @@ on:
       - beta
     paths:
       - "TEMPLATE.md"
+      - "default-clusters/TEMPLATE.md"
+      - "default-clusters/config-TEMPLATE.yml"
       - "personal-tuya-devices/TEMPLATE.md"
       - "personal-tuya-devices/config-TEMPLATE.yml"
   pull_request:
@@ -15,13 +17,21 @@ on:
       - beta
     paths:
       - "TEMPLATE.md"
+      - "default-clusters/TEMPLATE.md"
+      - "default-clusters/config-TEMPLATE.yml"
       - "personal-tuya-devices/TEMPLATE.md"
       - "personal-tuya-devices/config-TEMPLATE.yml"
 
 jobs:
-  call:
+  tuya_devices:
     uses: ./.github/workflows/call-update-templates.yaml
     with:
       driver: personal-tuya-devices
+      environment: ${{ github.head_ref || github.ref_name }}
+    secrets: inherit
+  default_clusters:
+    uses: ./.github/workflows/call-update-templates.yaml
+    with:
+      driver: default-clusters
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit

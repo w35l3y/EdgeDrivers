@@ -12,6 +12,11 @@ function utils.is_normal(device)
   return (pref == nil and device.parent_assigned_child_key ~= nil) or (pref ~= nil and pref:find("^normal_") ~= nil)
 end
 
+function utils.is_same_profile(device, profile)
+  return device.preferences ~= nil and device.preferences.profile == profile
+end
+
+
 local function hexa(value, length)
   return string.format("0x%0"..(length or 4).."X", value or 0)
 end
