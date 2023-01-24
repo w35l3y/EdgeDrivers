@@ -89,7 +89,9 @@ jobs:
           cache: 'npm'
           cache-dependency-path: package-lock.json
       - name: Execute helpers
-        run: npm start
+        run: |
+          npm ci
+          npm start
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
