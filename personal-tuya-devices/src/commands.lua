@@ -116,6 +116,36 @@ local defaults = {
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
+  dustSensor = {
+    capability = "dustSensor",
+    attribute = "dustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
+  fineDustSensor = {
+    capability = "dustSensor",
+    attribute = "fineDustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
+  veryFineDustSensor = {
+    capability = "veryFineDustSensor",
+    attribute = "veryFineDustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
@@ -170,7 +200,7 @@ local defaults = {
     capability = "relativeHumidityMeasurement",
     attribute = "humidity",
     rate = 1,
-    reportingInterval = 2,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)
@@ -180,7 +210,7 @@ local defaults = {
     capability = "temperatureMeasurement",
     attribute = "temperature",
     rate = 1,
-    reportingInterval = 2,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
       return to_number(value) / (pref.rate or self.rate)

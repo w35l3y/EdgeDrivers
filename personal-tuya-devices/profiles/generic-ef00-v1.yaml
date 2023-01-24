@@ -27,7 +27,7 @@ preferences:
         normal_multi_switch_v4: 4 switches
         normal_multi_dimmer_v2: 2 dimmers
         normal_single_dimmer_v1: 1 dimmer
-        normal_air_quality_v1: Air Quality
+        normal_air_quality_v2: Air Quality
         normal_garage_door_v1: Garage Door
         normal_presenceSensor_v1: Presence sensor
         normal_thermostat_v1: Thermostat
@@ -89,6 +89,30 @@ preferences:
   - name: doorControlDatapoints
     title: Door controls
     description: List of datapoints used for door controls (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: dustSensorDatapoints
+    title: Dust Sensors (PM10)
+    description: List of datapoints used for dust sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: fineDustSensorDatapoints
+    title: Fine Dust Sensors (PM2.5)
+    description: List of datapoints used for fine dust sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: veryFineDustSeDatapoints
+    title: Very Fine Dust Sensors (PM1.0)
+    description: List of datapoints used for very fine dust sensors (comma-separated)
     required: true
     preferenceType: string
     definition:
