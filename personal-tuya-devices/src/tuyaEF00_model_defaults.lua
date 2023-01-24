@@ -1,6 +1,8 @@
 local log = require "log"
 local utils = require "st.utils"
 
+local device_lib = require "st.device"
+
 local myutils = require "utils"
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local REPORT_BY_DP = {}
