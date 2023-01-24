@@ -89,6 +89,6 @@ jobs:
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
       - name: Publish
-        run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ secrets.SMARTTHINGS_CHANNEL }}
+        run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ vars.SMARTTHINGS_CHANNEL }}
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
