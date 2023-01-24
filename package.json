@@ -1,0 +1,26 @@
+{
+  "name": "w35l3y-edge-drivers",
+  "version": "1.0.0",
+  "description": "### STABLE Invitation Link https://api.smartthings.com/invite/6Vjd4YPVJwjN",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+		"start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w35l3y/EdgeDrivers.git"
+  },
+  "author": "Wesley Menezes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/w35l3y/EdgeDrivers/issues"
+  },
+  "homepage": "https://github.com/w35l3y/EdgeDrivers#readme",
+  "devDependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}
