@@ -125,8 +125,38 @@ devices:
         base:
           group: 2
   - manufacturers:
-      - _TZE200_8ygsuhe1
       - _TZE200_dwcarsat
+    profiles:
+      - normal_air_quality_v2
+    datapoints:
+      - id: 2
+        command: carbonDioxideMeasurement
+        base:
+          group: 1
+      - id: 18
+        command: temperatureMeasurement
+        base:
+          group: 1
+          rate: 10
+      - id: 19
+        command: relativeHumidityMeasurement
+        base:
+          group: 1
+          rate: 10
+      - id: 20
+        command: fineDustSensor
+        base:
+          group: 1
+      - id: 21
+        command: tvocMeasurement
+        base:
+          group: 1
+      - id: 22
+        command: formaldehydeMeasurement
+        base:
+          group: 1
+  - manufacturers:
+      - _TZE200_8ygsuhe1
       - _TZE200_yvx5lh6k
     profiles:
       - normal_air_quality_v1
