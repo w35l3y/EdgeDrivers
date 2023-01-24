@@ -27,6 +27,10 @@ preferences:
         normal_thermostat_v1: Normal
         generic_ef00_v1: Generic
       default: normal_thermostat_v1
+  - preferenceId: tempOffset
+    explicit: true
+  - preferenceId: humidityOffset
+    explicit: true
 metadata:
   deviceType: Thermostat
   ocfDeviceType: oic.d.thermostat
