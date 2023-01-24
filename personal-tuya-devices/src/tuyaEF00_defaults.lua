@@ -89,7 +89,7 @@ function defaults.update_data(datapoints)
   return function (driver, device, name, value)
     for dpid, def in pairs(datapoints) do
       if def.name == name then
-        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:to_zigbee(value)))
+        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:to_zigbee(value, device)))
         break
       end
     end
