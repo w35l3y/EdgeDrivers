@@ -17,6 +17,15 @@ local function to_number (value)
   return value
 end
 
+-- tries to make it partially work with firmware below 45.1
+local function get_child_or_parent(device, group)
+  if (device.get_child_by_parent_assigned_key == nil) then
+    log.warn("Driver requires firmware 45.1+ to work properly")
+    return device
+  end
+  return device:get_child_by_parent_assigned_key(string.format("%02X", group)) or device
+end
+
 local default_generic = {
   attribute = "value",
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented") end,
@@ -32,14 +41,14 @@ local defaults = {
     capability = "switch",
     attribute = "switch",
     to_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return data_types.Boolean(value == "off")
       end
       return data_types.Boolean(value == "on")
     end,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "on" or "off"
       end
@@ -52,11 +61,11 @@ local defaults = {
     attribute = "level",
     rate = 1,
     to_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return tuya_types.Uint32(math.floor(to_number(value) * (pref.rate or self.rate)))
     end,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(to_number(value) / (pref.rate or self.rate))
     end,
   },
@@ -66,7 +75,7 @@ local defaults = {
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -82,7 +91,7 @@ local defaults = {
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -90,7 +99,7 @@ local defaults = {
     capability = "contactSensor",
     attribute = "contact",
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "open" or "closed"
       end
@@ -101,14 +110,14 @@ local defaults = {
     capability = "doorControl",
     attribute = "door",
     to_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return data_types.Boolean(value == "closed")
       end
       return data_types.Boolean(value == "open")
     end,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "open" or "closed"
       end
@@ -116,13 +125,43 @@ local defaults = {
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
+  dustSensor = {
+    capability = "dustSensor",
+    attribute = "dustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
+  fineDustSensor = {
+    capability = "dustSensor",
+    attribute = "fineDustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
+  veryFineDustSensor = {
+    capability = "veryFineDustSensor",
+    attribute = "veryFineDustLevel",
+    rate = 100,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / (pref.rate or self.rate)
+    end,
+  },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
     rate = 100,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -137,7 +176,7 @@ local defaults = {
     capability = "motionSensor",
     attribute = "motion",
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "active" or "inactive"
       end
@@ -148,7 +187,7 @@ local defaults = {
     capability = "occupancySensor",
     attribute = "occupancy",
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "occupied" or "unoccupied"
       end
@@ -159,7 +198,7 @@ local defaults = {
     capability = "presenceSensor",
     attribute = "presence",
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "present" or "not present"
       end
@@ -170,9 +209,9 @@ local defaults = {
     capability = "relativeHumidityMeasurement",
     attribute = "humidity",
     rate = 1,
-    reportingInterval = 2,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -180,9 +219,9 @@ local defaults = {
     capability = "temperatureMeasurement",
     attribute = "temperature",
     rate = 1,
-    reportingInterval = 2,
+    reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -192,7 +231,7 @@ local defaults = {
     rate = 100,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },
@@ -200,14 +239,14 @@ local defaults = {
     capability = "valve",
     attribute = "valve",
     to_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return data_types.Boolean(value == "closed")
       end
       return data_types.Boolean(value == "open")
     end,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "open" or "closed"
       end
@@ -219,7 +258,7 @@ local defaults = {
     capability = "waterSensor",
     attribute = "water",
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
         return to_number(value) == 0 and "wet" or "dry"
       end
@@ -231,11 +270,11 @@ local defaults = {
     attribute = "value",
     rate = 1,
     to_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return tuya_types.Uint32(math.floor(to_number(value) * (pref.rate or self.rate)))
     end,
     from_zigbee = function (self, value, device)
-      local pref = (device:get_child_by_parent_assigned_key(string.format("%02X", self.group)) or device).preferences
+      local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / (pref.rate or self.rate)
     end,
   },

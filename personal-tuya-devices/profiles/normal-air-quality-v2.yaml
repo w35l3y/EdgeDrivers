@@ -1,21 +1,29 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
-# https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
+# https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-thermostat-v1"
+name: "normal-air-quality-v2"
 components:
   - id: main
-    label: Thermostat
+    label: Air Quality Detector
     capabilities:
+      - id: carbonDioxideMeasurement
+        version: 1
+      - id: dustSensor
+        version: 1
       - id: temperatureMeasurement
         version: 1
       - id: relativeHumidityMeasurement
+        version: 1
+      - id: tvocMeasurement
+        version: 1
+      - id: formaldehydeMeasurement
         version: 1
       - id: signalStrength
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Thermostat
+      - name: Air Quality Detector
 preferences:
   - name: profile
     title: Profile
@@ -24,17 +32,14 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_thermostat_v1: Normal
+        normal_air_quality_v2: Normal
+        normal_air_quality_v1: No dust sensor
         generic_ef00_v1: Generic
-      default: normal_thermostat_v1
-  - preferenceId: tempOffset
-    explicit: true
-  - preferenceId: humidityOffset
-    explicit: true
+      default: normal_air_quality_v2
 metadata:
-  deviceType: Thermostat
-  ocfDeviceType: oic.d.thermostat
-  deviceTypeId: Thermostat
+  deviceType: AirQualityDetector
+  ocfDeviceType: x.com.st.d.airqualitysensor
+  deviceTypeId: AirQualityDetector
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER
