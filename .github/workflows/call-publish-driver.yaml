@@ -82,6 +82,16 @@ jobs:
         with:
           path: capabilities
           key: capabilities
+      - name: Load node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Execute helpers
+        run: |
+          npm ci
+          npm start
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src
