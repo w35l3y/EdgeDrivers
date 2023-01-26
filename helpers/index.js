@@ -12,6 +12,7 @@ function update_models(path = ".") {
         path + "/src/models/" + file.replace(".yaml", ".lua"),
         "return [[" + JSON.stringify(obj) + "]]"
       );
+      console.log(file, JSON.stringify(obj, null, 2));
     });
   });
 }
