@@ -1,0 +1,34 @@
+deviceLabel: Multi Switch
+profiles:
+  - normal_multi_switch_v6
+  - switch_all_multi_switch_v6
+  - custom_multi_switch_v6
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/fc9f0137669abf9f4e61daf20ddb8904b4e56c44/devices/zemismart.js#L237
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/converters/toZigbee.js#L3816
+  # https://github.com/zigpy/zha-device-handlers/blob/b20b34a9201ba9bd793a84a4fe7516a34c28273f/zhaquirks/tuya/ts0601_switch.py#L574
+  # https://github.com/zigpy/zha-device-handlers/blob/b20b34a9201ba9bd793a84a4fe7516a34c28273f/zhaquirks/tuya/ts0601_switch.py#L656
+  - id: 1
+    command: switch
+    base:
+      group: 1
+  - id: 2
+    command: switch
+    base:
+      group: 2
+  - id: 3
+    command: switch
+    base:
+      group: 3
+  - id: 4
+    command: switch
+    base:
+      group: 4
+  - id: 5
+    command: switch
+    base:
+      group: 5
+  - id: 6
+    command: switch
+    base:
+      group: 6

@@ -8,27 +8,40 @@ local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local REPORT_BY_DP = {}
 
 local mt = {}
-mt.__cluster_cache = {}
-mt.__index = function(self, key)
-  if mt.__cluster_cache[key] == nil then
-    -- @FIXME Update to load device on demand, not the whole model
-    -- It will require a file for each model+manufacturer
-    local ok, result = pcall(myutils.load_model_from_json, key)
-    mt.__cluster_cache[key] = ok and result or {}
-    if not ok then
-      log.error(result)
+mt.__cache = {}
+mt.__index = function(self, model)
+  if mt.__cache[model] == nil then
+    log.info("Model cached", model)
+    mt.__cache[model] = {}
+    local mt_model = {}
+    mt_model.__cache = {}
+    mt_model.__index = function (self, manufacturer)
+      if mt_model.__cache[manufacturer] == nil then
+        log.info("Manufacturer cached", manufacturer)
+        local ok, result = pcall(myutils.load_model_from_json, model, manufacturer)
+        mt_model.__cache[manufacturer] = ok and result or {
+          default = true
+        }
+        if not ok then
+          log.error(result)
+        end
+      end
+      return mt_model.__cache[manufacturer]
     end
+    setmetatable(mt.__cache[model], mt_model)
   end
-  return mt.__cluster_cache[key]
+  return mt.__cache[model]
 end
 setmetatable(REPORT_BY_DP, mt)
 
-local function get_default_by_profile (device)
-  for model, devices in pairs(mt.__cluster_cache) do
+local function get_default_by_profile (device, warn)
+  for model, devices in pairs(mt.__cache) do
     for mfr, dp in pairs(devices) do
       for _, profile in ipairs(dp.profiles) do
         if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.profile or profile == device.preferences.profile then
-          log.warn("Simulating device", mfr, model)
+          if warn then
+            log.warn("Simulating device", model, mfr)
+          end
           return dp
         end
       end
@@ -36,7 +49,10 @@ local function get_default_by_profile (device)
   end
 end
 local function send_command(fn, driver, device, ...)
-  local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()] or get_default_by_profile(device)
+  local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+  if dp == nil or dp.default then
+    dp = get_default_by_profile(device, true)
+  end
   if dp ~= nil then
     fn(dp.datapoints)(driver, device, ...)
   end
@@ -78,23 +94,15 @@ local defaults = {
 
 function defaults.can_handle (opts, driver, device, ...)
   if device.preferences.profile ~= "generic_ef00_v1" then
-    if REPORT_BY_DP[device:get_model()][device:get_manufacturer()] ~= nil then
+    -- log.info(device:get_model(), device:get_manufacturer())
+    local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+    if x ~= nil and x.default == nil then
       return true
     end
-    -- for mfr, dp in pairs(REPORT_BY_DP[device:get_model()]) do
-    --   if mfr == device:get_manufacturer() then
-    --     return true
-    --   end
-    -- end
-    for model, devices in pairs(mt.__cluster_cache) do
-      for mfr, dp in pairs(devices) do
-        for _, profile in ipairs(dp.profiles) do
-          if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.profile or profile == device.preferences.profile then
-            -- log.warn("Simulating device", mfr, model)
-            return true
-          end
-        end
-      end
+    mt.__cache = require "models"
+    local prf = get_default_by_profile(device, false)
+    if prf ~= nil then
+      return true
     end
     log.warn("Similar device not found", device.preferences.profile)
   end
