@@ -32,6 +32,16 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v3
+      - name: Load node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - name: Execute helpers
+        run: |
+          npm ci
+          npm start
       - name: Load/Install Lua
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
@@ -71,27 +81,17 @@ jobs:
       - name: Download SmartThings CLI
         if: steps.stcli.outputs.cache-hit != 'true'
         run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
-      - name: Set Environment Variables
-        run: |
-          echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
-          echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
-          echo "$(pwd)" >> $GITHUB_PATH
       - name: Load capabilities from cache
         uses: actions/cache@v3
         id: capabilities
         with:
           path: capabilities
           key: capabilities
-      - name: Load node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-      - name: Execute helpers
+      - name: Set Environment Variables
         run: |
-          npm ci
-          npm start
+          echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
+          echo "$(pwd)" >> $GITHUB_PATH
       - name: Run tests
         id: test
         working-directory: ${{ inputs.driver }}/src

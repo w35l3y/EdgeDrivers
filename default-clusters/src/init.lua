@@ -82,7 +82,7 @@ local template = {
     added = function (driver, device, ...)
       if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
         local found, result = utils.get_profiles(device, device.fingerprinted_endpoint_id)
-        if found then
+        if found and device.preferences.profile ~= result[1].name then
           utils.update_profile(device, result[1].name)
         end
         for _, ep in pairs(device.zigbee_endpoints) do
