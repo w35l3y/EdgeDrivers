@@ -275,7 +275,7 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / (pref.rate or self.rate)
+      return math.floor(to_number(value) / (pref.rate or self.rate))
     end,
   },
   string = {
