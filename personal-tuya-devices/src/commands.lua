@@ -128,7 +128,7 @@ local defaults = {
   dustSensor = {
     capability = "dustSensor",
     attribute = "dustLevel",
-    rate = 100,
+    rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -138,7 +138,7 @@ local defaults = {
   fineDustSensor = {
     capability = "dustSensor",
     attribute = "fineDustLevel",
-    rate = 100,
+    rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -148,7 +148,7 @@ local defaults = {
   veryFineDustSensor = {
     capability = "veryFineDustSensor",
     attribute = "veryFineDustLevel",
-    rate = 100,
+    rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -275,7 +275,7 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / (pref.rate or self.rate)
+      return math.floor(to_number(value) / (pref.rate or self.rate))
     end,
   },
   string = {

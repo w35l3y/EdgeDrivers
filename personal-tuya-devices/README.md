@@ -38,14 +38,10 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 ### Contribute with your integration
 
 1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly.
-2. Create or use existing model name file at `/models`<br />
-   - The model name must be the value reported by the device as seen in the screenshot above, not what is labeled in the box.
-   - If model name file doesn't exist:<br />
-     1. Duplicate `/models/TEMPLATE.yaml` and rename it with the model name.
-   - If model name file already exists:<br />
-     1. Map the datapoints of the device at `/models/MODEL.yaml`. Possible commands are at `/src/commands.lua`
-     2. Create a profile that represents the device at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
-     3. Add fingerprint that represents the device at `/fingerprints.yaml`
+2. Create a file representing your device at `/models/<model>/<manufacturer>.yaml`<br />
+   - Use any of the existing files as template.
+   - Possible commands are at `/src/commands.lua`.
+   - If you need a new profile, then create it at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
 3. Pull request your modification
 
 #### Examples of including stock capabilities:

@@ -1,7 +1,7 @@
-These model files are generated automatically.
+These files are generated automatically.
 
 ```
-node personal-tuya-devices/helpers/generate_models.js
+npm start
 ```
 
-The base files that can be modified are at `personal-tuya-devices/models`
+The base files can be modified at `personal-tuya-devices/models`

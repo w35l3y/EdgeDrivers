@@ -1,0 +1,16 @@
+deviceLabel: Garage Door
+profiles:
+  - normal_garage_door_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/devices/tuya.js#L3305
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/converters/toZigbee.js#L2560
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/converters/toZigbee.js#L5858
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/lib/tuya.js#L792
+  - id: 1
+    command: doorControl
+    base:
+      group: 1
+  - id: 3
+    command: contactSensor
+    base:
+      group: 1

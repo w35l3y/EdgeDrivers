@@ -72,9 +72,9 @@ local profiles = {
     zcl_clusters.RelativeHumidity,
     zcl_clusters.Thermostat,
   },
-  valve_v1 = {
-    zcl_clusters.OnOff,
-  },
+  -- valve_v1 = {
+  --   zcl_clusters.OnOff,
+  -- },
   windowshade_v1 = {
     zcl_clusters.WindowCovering,
   },

@@ -1,0 +1,42 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/devices/tuya.js#L3587
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/converters/toZigbee.js#L7005
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/lib/tuya.js#L833
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1
+  - id: 2
+    command: value
+    base:
+      group: 2
+      name: sensitivity
+  - id: 3
+    command: value
+    base:
+      group: 3
+      name: near_detection
+      rate: 6.3
+  - id: 4
+    command: value
+    base:
+      group: 4
+      name: far_detection
+      rate: 6.3
+  - id: 101
+    command: value
+    base:
+      group: 5
+      name: detection_delay
+  - id: 102
+    command: value
+    base:
+      group: 6
+      name: fading_time
+  - id: 104
+    command: illuminanceMeasurement
+    base:
+      group: 1

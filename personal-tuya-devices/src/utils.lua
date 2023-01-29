@@ -135,32 +135,24 @@ function utils.settings(device)
   return o
 end
 
-function utils.load_model_from_json(model)
-  local req_loq = string.format("models.%s", model)
+function utils.load_model_from_json(model, manufacturer)
+  local req_loq = string.format("models.%s.%s", model, manufacturer)
   local res = json.decode(require(req_loq))
   
-  local o = {}
-  for _d, d in ipairs(res.devices) do
-    for _m, manufacturer in pairs(d.manufacturers) do
-      if o[manufacturer] ~= nil then
-        log.warn("Manufacturer overwritten", model, manufacturer)
-      end
-      o[manufacturer] = {
-        profiles = d.profiles,
-        datapoints = {},
+  local o = {
+    profiles = res.profiles,
+    datapoints = {},
+  }
+  log.info("Added device", model, manufacturer, #res.datapoints)
+  for _p, datapoint in ipairs(res.datapoints) do
+    local dpid = tonumber(datapoint.id)
+    local base = datapoint.base or {}
+    setmetatable(base, {
+      __index = {
+        group = dpid
       }
-      log.info("Added device", model, manufacturer, #d.datapoints)
-      for _p, datapoint in ipairs(d.datapoints) do
-        local dpid = tonumber(datapoint.id)
-        local base = datapoint.base or {}
-        setmetatable(base, {
-          __index = {
-            group = dpid
-          }
-        })
-        o[manufacturer].datapoints[dpid] = commands[datapoint.command](base)
-      end
-    end
+    })
+    o.datapoints[dpid] = commands[datapoint.command](base)
   end
   
   return o

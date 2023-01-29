@@ -53,3 +53,4 @@ personal-tuya-devices/**/*.txt
 README.md
 personal-tuya-devices/README.md
 personal-tuya-devices/config.yaml
+capabilities/*.json

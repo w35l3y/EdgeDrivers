@@ -20,7 +20,6 @@ local mock_timer_api = require "integration_test.mock_timer_channel"
 local mock_devices_api = require "integration_test.mock_devices_api"
 local dkjson = require "dkjson"
 local log_mod = require("stdout_log")
-local log = require "log"
 
 local VALID_CHANNELS = {
   tcp = true,
@@ -41,7 +40,6 @@ socket:add_mock_socket("zigbee", mock_zigbee_channel)
 socket:add_mock_socket("zwave", mock_zwave_channel)
 socket:add_mock_socket("matter", mock_matter_channel)
 socket:add_mock_socket("capability", mock_capability_channel)
-log.info("mock_capability_channel", mock_capability_channel)
 
 timer = mock_timer_api
 
@@ -284,7 +282,6 @@ end
 --- @param manifest table An "array" of individual messages that are expected to be sent/received in the order presented
 --- @param opts table A table of optional parameters to control the tests.  See test guide for details
 function integration_test.register_message_test(test_name, manifest, opts)
-  log.info("register_message_test")
   opts = opts or {}
   -- Split into "blocks" where each block has a single receive followed by
   -- any number of expected sends
@@ -308,7 +305,6 @@ function integration_test.register_message_test(test_name, manifest, opts)
   end
 
   local test_func = function()
-    log.info("test_func")
     if opts ~= nil and opts.inner_block_ordering == "relaxed" then
       for _, message in ipairs(manifest) do
         integration_test.socket[message.channel]:__set_channel_ordering("relaxed")
@@ -317,10 +313,8 @@ function integration_test.register_message_test(test_name, manifest, opts)
     for _, block in ipairs(block_list) do
       for _, message in ipairs(block) do
         if message.direction == "receive" then
-          log.info("__queue_receive", message.channel, message.message)
           integration_test.socket[message.channel]:__queue_receive(message.message)
         else
-          log.info("__expect_send", message.channel, message.message)
           integration_test.socket[message.channel]:__expect_send(message.message)
         end
       end

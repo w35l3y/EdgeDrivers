@@ -1,0 +1,23 @@
+deviceLabel: Multi Switch
+profiles:
+  - normal_multi_switch_v4
+  - switch_all_multi_switch_v4
+  - custom_multi_switch_v4
+datapoints:
+  # https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/tuya/ts0601_switch.py#L492
+  - id: 1
+    command: switch
+    base:
+      group: 1
+  - id: 2
+    command: switch
+    base:
+      group: 2
+  - id: 3
+    command: switch
+    base:
+      group: 3
+  - id: 4
+    command: switch
+    base:
+      group: 4
