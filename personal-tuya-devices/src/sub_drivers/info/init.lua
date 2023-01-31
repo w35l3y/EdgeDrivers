@@ -16,7 +16,9 @@ return {
   },
   lifecycle_handlers = {
     init = function (driver, device, ...)
-      device:emit_event(info.value(tostring(myutils.info(device))))
+      driver:call_with_delay(0, function ()
+        device:emit_event(info.value(tostring(myutils.info(device))))
+      end)
     end,
   },
   capability_handlers = {

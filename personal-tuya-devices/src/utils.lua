@@ -1,11 +1,52 @@
 local log = require "log"
 local st_utils = require "st.utils"
 
+local data_types = require "st.zigbee.data_types"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local commands = require "commands"
 local json = require "st.json"
 
+local cluster_base = require "st.zigbee.cluster_base"
+local read_attribute = require "st.zigbee.zcl.global_commands.read_attribute"
+local zcl_messages = require "st.zigbee.zcl"
+local messages = require "st.zigbee.messages"
+local zb_const = require "st.zigbee.constants"
+
+function cluster_base.read_attributes(device, cluster_id, attr_ids)
+  local read_body = read_attribute.ReadAttribute(attr_ids)
+  local zclh = zcl_messages.ZclHeader({
+    cmd = data_types.ZCLCommandId(read_attribute.ReadAttribute.ID)
+  })
+  local addrh = messages.AddressHeader(
+      zb_const.HUB.ADDR,
+      zb_const.HUB.ENDPOINT,
+      device:get_short_address(),
+      device:get_endpoint(cluster_id.value),
+      zb_const.HA_PROFILE_ID,
+      cluster_id.value
+  )
+  local message_body = zcl_messages.ZclMessageBody({
+    zcl_header = zclh,
+    zcl_body = read_body
+  })
+  return messages.ZigbeeMessageTx({
+    address_header = addrh,
+    body = message_body
+  })
+end
+
 local utils = {}
+
+function utils.spell_magic_trick (device)
+  device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
+    data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
+    data_types.AttributeId(0xFFFE),
+  }))
+end
 
 function utils.is_normal(device)
   local pref = device.preferences.profile
@@ -51,6 +92,20 @@ local function map(endpoints, key)
   return o
 end
 
+function utils.pairsByKeys (t, f)
+  local a = {}
+  for n in pairs(t) do table.insert(a, n) end
+  table.sort(a, f)
+  local i = 0      -- iterator variable
+  local iter = function ()   -- iterator function
+    i = i + 1
+    if a[i] == nil then return nil
+    else return a[i], t[a[i]]
+    end
+  end
+  return iter
+end
+
 function utils.info(device, datapoints)
   local fei = device.zigbee_endpoints[device.fingerprinted_endpoint_id] or device.zigbee_endpoints[tostring(device.fingerprinted_endpoint_id)] or {}
   local _datapoints = datapoints or {}
@@ -60,7 +115,7 @@ function utils.info(device, datapoints)
         return ""
       end
       local output = {}
-      for _index, zb_rx in pairs(self) do
+      for _index, zb_rx in utils.pairsByKeys(self) do
         local _data = zb_rx.body.zcl_body.data
         output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, _data.value.value)
       end
@@ -112,19 +167,22 @@ end
 function utils.settings(device)
   local o = {}
   if device.preferences ~= nil then
-    for name, value in pairs(device.preferences) do
+    for name, value in utils.pairsByKeys(device.preferences) do
       local normalized_id = st_utils.snake_case(name)
       local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
       if match ~= nil then
-        o[key] = device:get_field(name) or value
+        o[#o+1] = {
+          k = key,
+          v = device:get_field(name) or value,
+        }
       end
     end
   end
   setmetatable(o, {
     __tostring = function (self)
       local str = {}
-      for k,v in pairs(self) do
-        str[#str+1] = string.format('<tr><th align="left" style="width:50%%">%s</th><td style="width:50%%">%s</td></tr>', k, v)
+      for _i,o in pairs(self) do
+        str[#str+1] = string.format('<tr><th align="left" style="width:50%%">%s</th><td style="width:50%%">%s</td></tr>', o.k, o.v)
       end
       if #str == 0 then
         str[#str+1] = '<tr><td colspan="2">None</td></tr>'

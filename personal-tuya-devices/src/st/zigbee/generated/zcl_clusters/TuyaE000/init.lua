@@ -22,38 +22,14 @@ TuyaE000.types = Types
 TuyaE000.attr_id_map = {}
 TuyaE000.server_id_map = {
   [0x0A] = "Generic",
-  -- [0x00] = "DataRequest",
-  -- [0x02] = "DataReport",  -- GenericBody:  00 1A 01 01 00 01 00 / 00 1B 02 01 00 01 01 / 00 1C 03 01 00 01 01 / 00 1D 04 01 00 01 01 / 00 1E 05 01 00 01 01 / 00 1F 06 01 00 01 01
-  -- [0x03] = "DataQuery",
-  -- [0x10] = "McuVersionRequest",
-  -- [0x12] = "McuOtaNotify",
-  -- [0x13] = "OtaBlockDataRequest", -- server or client ?
-  -- [0x24] = "McuSyncTime",
 }
 TuyaE000.client_id_map = {
   [0x0A] = "Generic",
-  -- [0x01] = "DataResponse",
-  -- [0x02] = "DataReport",  -- 00 1B 02 01 00 01 01
-  -- [0x11] = "McuVersionResponse", -- 02 9C 40
-  -- [0x14] = "OtaBlockDataResponse", -- server or client ?
-  -- [0x15] = "McuOtaResult",
-  -- [0x24] = "McuSyncTime",
 }
 TuyaE000.attribute_direction_map = {
 }
 TuyaE000.command_direction_map = {
   ["Generic"] = "server",
-  -- ["DataRequest"] = "server",
-  -- ["DataResponse"] = "client",
-  -- ["DataReport"] = "server",
-  -- ["DataQuery"] = "server",
-  -- ["McuVersionRequest"] = "server",
-  -- ["McuVersionResponse"] = "client",
-  -- ["McuOtaNotify"] = "server",
-  -- ["OtaBlockDataRequest"] = "server",
-  -- ["OtaBlockDataResponse"] = "client",
-  -- ["McuOtaResult"] = "client",
-  -- ["McuSynctime"] = "server",
 }
 TuyaE000.attributes = {}
 TuyaE000.commands = {}
