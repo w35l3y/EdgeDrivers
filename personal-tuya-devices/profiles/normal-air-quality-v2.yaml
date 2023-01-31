@@ -8,7 +8,7 @@ components:
     capabilities:
       - id: carbonDioxideMeasurement
         version: 1
-      - id: dustSensor
+      - id: fineDustSensor
         version: 1
       - id: temperatureMeasurement
         version: 1
@@ -33,7 +33,7 @@ preferences:
     definition:
       options:
         normal_air_quality_v2: Normal
-        normal_air_quality_v1: No dust sensor
+        normal_air_quality_v1: No fine dust sensor
         generic_ef00_v1: Generic
       default: normal_air_quality_v2
 metadata:

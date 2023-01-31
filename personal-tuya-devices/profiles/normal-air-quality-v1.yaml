@@ -31,7 +31,7 @@ preferences:
     definition:
       options:
         normal_air_quality_v1: Normal
-        normal_air_quality_v2: "+ dust sensor"
+        normal_air_quality_v2: "+ fine dust sensor"
         generic_ef00_v1: Generic
       default: normal_air_quality_v1
 metadata:

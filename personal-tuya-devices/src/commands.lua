@@ -143,7 +143,7 @@ local defaults = {
     end,
   },
   fineDustSensor = {
-    capability = "dustSensor",
+    capability = "fineDustSensor",
     attribute = "fineDustLevel",
     rate = 1,
     reportingInterval = 1,
