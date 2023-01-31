@@ -297,6 +297,34 @@ test.register_message_test(
 )
 
 test.register_message_test(
+  "switchLevel",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_2.id, { capability = "switchLevel", component = "main", command = "setLevel", args = {50} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, tuya_types.Uint32(50)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 2, tuya_types.Uint32(30)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_2:generate_test_message("main", capabilities.switchLevel.level(30))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
   "airQualitySensor",
   {
     {
@@ -598,6 +626,16 @@ test.register_message_test(
   "valve",
   {
     {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_19.id, { capability = "valve", component = "main", command = "open", args = {} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 19, data_types.Boolean(true)) }
+    },
+    {
       channel = "zigbee",
       direction = "receive",
       message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 19, data_types.Boolean(true)) }
@@ -634,6 +672,16 @@ test.register_message_test(
   "enum",
   {
     {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_21.id, { capability = "valleyboard16460.datapointEnum", component = "main", command = "setValue", args = {9} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 21, data_types.Enum8(9)) }
+    },
+    {
       channel = "zigbee",
       direction = "receive",
       message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 21, data_types.Enum8(4)) }
@@ -651,6 +699,16 @@ test.register_message_test(
 test.register_message_test(
   "value",
   {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_22.id, { capability = "valleyboard16460.datapointValue", component = "main", command = "setValue", args = {14} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 22, tuya_types.Uint32(14)) }
+    },
     {
       channel = "zigbee",
       direction = "receive",
@@ -670,6 +728,16 @@ test.register_message_test(
   "string",
   {
     {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_23.id, { capability = "valleyboard16460.datapointString", component = "main", command = "setValue", args = {"w35l3y"} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 23, data_types.CharString("w35l3y")) }
+    },
+    {
       channel = "zigbee",
       direction = "receive",
       message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 23, data_types.CharString("w35l3y")) }
@@ -685,8 +753,46 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "bitmap",
+  "bitmap 8",
   {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_24.id, { capability = "valleyboard16460.datapointBitmap", component = "main", command = "setValue", args = {0x11} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 24, data_types.Bitmap8(0x11)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 24, data_types.Bitmap8(0x10)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_24:generate_test_message("main", capabilities["valleyboard16460.datapointBitmap"].value(0x10))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "bitmap 16",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_24.id, { capability = "valleyboard16460.datapointBitmap", component = "main", command = "setValue", args = {0x1011} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 24, tuya_types.Bitmap16(0x1011)) }
+    },
     {
       channel = "zigbee",
       direction = "receive",
@@ -703,8 +809,46 @@ test.register_message_test(
 )
 
 test.register_message_test(
+  "bitmap 32",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_24.id, { capability = "valleyboard16460.datapointBitmap", component = "main", command = "setValue", args = {0x101011} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 24, tuya_types.Bitmap32(0x101011)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 24, tuya_types.Bitmap32(0x101010)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_24:generate_test_message("main", capabilities["valleyboard16460.datapointBitmap"].value(0x101010))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
   "raw",
   {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_25.id, { capability = "valleyboard16460.datapointRaw", component = "main", command = "setValue", args = {"w35l3y"} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 25, generic_body.GenericBody("w35l3y")) }
+    },
     {
       channel = "zigbee",
       direction = "receive",
