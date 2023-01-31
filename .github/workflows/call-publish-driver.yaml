@@ -98,6 +98,10 @@ jobs:
         run: lua test/init.lua
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
+      - name: Remove unwanted files before packaging
+        working-directory: ${{ inputs.driver }}/src
+        run: |
+          find . -name "*.md" -type f -delete
       - name: Publish
         run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ vars.SMARTTHINGS_CHANNEL }}
         env:
