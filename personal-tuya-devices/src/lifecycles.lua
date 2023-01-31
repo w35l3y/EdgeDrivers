@@ -77,15 +77,9 @@ function lifecycles.init(driver, device, event, ...)
     device:set_endpoint_to_component_fn(endpoint_to_component)
     device:set_find_child(find_child_fn)
 
-    -- tuya magic spell
-    device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
-      data_types.AttributeId(zcl_clusters.Basic.attributes.ManufacturerName.ID),
-      data_types.AttributeId(zcl_clusters.Basic.attributes.ZCLVersion.ID),
-      data_types.AttributeId(zcl_clusters.Basic.attributes.ApplicationVersion.ID),
-      data_types.AttributeId(zcl_clusters.Basic.attributes.ModelIdentifier.ID),
-      data_types.AttributeId(zcl_clusters.Basic.attributes.PowerSource.ID),
-      data_types.AttributeId(0xFFFE),
-    }))
+    driver:call_with_delay(0, function ()
+      myutils.spell_magic_trick(device)
+    end)
   end
 end
 

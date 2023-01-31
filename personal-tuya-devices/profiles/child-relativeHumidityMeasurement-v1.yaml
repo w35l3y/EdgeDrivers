@@ -14,12 +14,13 @@ components:
 preferences:
   - name: rate
     title: Rate
+    description: Set 0 to use default value
     required: true
     preferenceType: number
     definition:
       minimum: 0
       maximum: 1000
-      default: 1
+      default: 0
   - preferenceId: humidityOffset
     explicit: true
 metadata:
