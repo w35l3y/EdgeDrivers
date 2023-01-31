@@ -7,8 +7,6 @@ local t_utils = require "integration_test.utils"
 
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
-local mock_devices_api = require "integration_test.mock_devices_api"
-
 local profile = t_utils.get_profile_definition("normal-multi-dimmer-v2.yaml")
 
 test.load_all_caps_from_profile(profile)
@@ -35,20 +33,7 @@ local mock_first_child = test.mock_device.build_test_child_device({
 
 local test_init = function ()
   test.mock_device.add_test_device(mock_parent_device)
-  -- test.socket.device_lifecycle:__queue_receive(mock_parent_device:generate_info_changed({preferences = {
-  --   profile = "normal_multi_dimmer_v2",
-  --   rate = 10,
-  --   childDimmerMain02 = false,
-  --   prefMinimumLevel1 = 0,
-  --   prefMinimumLevel2 = 0,
-  --   reverse = false,
-  -- }}))
   test.mock_device.add_test_device(mock_first_child)
-  -- test.socket.device_lifecycle:__queue_receive(mock_first_child:generate_info_changed({preferences = {
-  --   profile = "child_dimmer_v1",
-  --   rate = 10,
-  --   reverse = false,
-  -- }}))
 end
 
 local test_init_mod = function ()

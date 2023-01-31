@@ -4,6 +4,7 @@ local utils = require "st.utils"
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
+local generic_body = require "st.zigbee.generic_body"
 
 local commands = require "commands"
 local settings = capabilities["valleyboard16460.settings"]
@@ -21,11 +22,18 @@ local map_to_fn = {
 
 local defaults = {}
 
+local function get_value(data)
+  if getmetatable(data) == generic_body.GenericBody then
+    return data:_serialize()
+  end
+  return data.value
+end
+
 function defaults.command_response_handler(datapoints)
   return function (driver, device, zb_rx)
     -- device.parent_assigned_child_key chega sempre nulo
     local dpid = zb_rx.body.zcl_body.data.dpid.value
-    local value = zb_rx.body.zcl_body.data.value.value
+    local value = get_value(zb_rx.body.zcl_body.data.value)
     local _type = zb_rx.body.zcl_body.data.type.value
     local event_dp = datapoints[dpid] or map_to_fn[_type]({group=dpid}) or commands.generic
     local event = event_dp:create_event(value, device)
@@ -33,14 +41,16 @@ function defaults.command_response_handler(datapoints)
     
     --log.info("device.preferences.profile", device.preferences.profile)
     if event ~= nil then
-      if event_dp.reportingInterval == nil or cur_time - (event_dp.last_heard_time or 0) > 60 * event_dp.reportingInterval then
+      if event_dp.reportingInterval == nil or event_dp.last_heard_time == nil or cur_time - event_dp.last_heard_time >= 60 * event_dp.reportingInterval then
         event_dp.last_heard_time = cur_time
         if event_dp.name ~= nil then
           local pref_name = utils.camel_case("pref_"..event_dp.name)
           log.info("pref_name", pref_name, device:get_field(pref_name), "-")
           device:set_field(pref_name, event_dp:from_zigbee(value, device))
           -- device.st_store.preferences[pref_name] = event_dp:from_zigbee(value, device)
-          device:emit_event(settings.value(tostring(myutils.settings(device))))
+          if device:supports_capability_by_id(settings.ID) then
+            device:emit_event(settings.value(tostring(myutils.settings(device))))
+          end
         end
         -- atualiza o child caso exista
         local status, e = pcall(device.emit_event_for_endpoint, device, event_dp.group or dpid, event)
@@ -77,7 +87,7 @@ function defaults.command_response_handler(datapoints)
           end
         end
       else
-        log.info("Too quick! Do nothing.", dpid, value, event_dp.reportingInterval)
+        log.info("Too quick! Do nothing.", dpid, value, event_dp.reportingInterval, cur_time, event_dp.last_heard_time, "-")
       end
     else
       log.warn("Unexpected datapoint.", dpid, value)

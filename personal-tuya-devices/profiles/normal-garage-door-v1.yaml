@@ -27,6 +27,8 @@ preferences:
         normal_garage_door_v1: Normal
         generic_ef00_v1: Generic
       default: normal_garage_door_v1
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: GarageDoor
   ocfDeviceType: oic.d.garagedoor

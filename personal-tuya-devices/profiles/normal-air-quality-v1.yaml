@@ -34,6 +34,10 @@ preferences:
         normal_air_quality_v2: "+ fine dust sensor"
         generic_ef00_v1: Generic
       default: normal_air_quality_v1
+  - preferenceId: tempOffset
+    explicit: true
+  - preferenceId: humidityOffset
+    explicit: true
 metadata:
   deviceType: AirQualityDetector
   ocfDeviceType: x.com.st.d.airqualitysensor

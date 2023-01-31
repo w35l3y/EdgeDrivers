@@ -216,20 +216,22 @@ local defaults = {
     capability = "relativeHumidityMeasurement",
     attribute = "humidity",
     rate = 1,
+    humidityOffset = 0.0,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return (to_number(value) / get_value("rate", pref, self)) + get_value("humidityOffset", pref, self)
     end,
   },
   temperatureMeasurement = {
     capability = "temperatureMeasurement",
     attribute = "temperature",
     rate = 1,
+    tempOffset = 0.0,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return (to_number(value) / get_value("rate", pref, self)) + get_value("tempOffset", pref, self)
     end,
   },
   tvocMeasurement = {

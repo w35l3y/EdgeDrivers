@@ -174,17 +174,17 @@ preferences:
     definition:
       stringType: text
       default: ""
-  - name: valveDatapoints
-    title: Valves
-    description: List of datapoints used for valves (comma-separated)
+  - name: tvocMeasuremenDatapoints
+    title: VOC sensors
+    description: List of datapoints used for VOC sensors (comma-separated)
     required: true
     preferenceType: string
     definition:
       stringType: text
       default: ""
-  - name: tvocMeasuremenDatapoints
-    title: VOC sensors
-    description: List of datapoints used for VOC sensors (comma-separated)
+  - name: valveDatapoints
+    title: Valves
+    description: List of datapoints used for valves (comma-separated)
     required: true
     preferenceType: string
     definition:

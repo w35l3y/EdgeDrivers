@@ -62,8 +62,8 @@ local child_types_to_profile = {
   valveDatapoints = "child-valve-v1",
   waterSensorDatapoints = "child-waterSensor-v1",
   enumerationDatapoints = "child-enum-v1",
-  stringDatapoints = "child-string-v1",
   valueDatapoints = "child-value-v1",
+  stringDatapoints = "child-string-v1",
   bitmapDatapoints = "child-bitmap-v1",
   rawDatapoints = "child-raw-v1",
 }
@@ -114,7 +114,7 @@ local function send_command(fn, driver, device, ...)
   end
 end
 
-local lifecycle_handlers = {}
+local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_CHILD then
@@ -137,7 +137,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   end
 
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    for name, value in pairs(device.preferences) do
+    for name, value in myutils.pairsByKeys(device.preferences) do
       local profile = child_types_to_profile[name]
       if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
         for ndpid in value:gmatch("[^,]+") do
