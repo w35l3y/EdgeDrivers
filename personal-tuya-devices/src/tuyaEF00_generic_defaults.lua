@@ -137,7 +137,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   end
 
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    for name, value in myutils.pairsByKeys(device.preferences) do
+    for name, value in utils.pairs_by_key(device.preferences) do
       local profile = child_types_to_profile[name]
       if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
         for ndpid in value:gmatch("[^,]+") do
