@@ -234,4 +234,15 @@ function utils.create_child(driver, device, ngroup, profile)
   end
 end
 
+local started_at = os.time()
+
+function utils.details(driver)
+  driver:call_on_schedule(60, function()
+    local diff = os.time() - started_at
+    collectgarbage("collect")
+    local memory = math.ceil(collectgarbage("count"))
+    print(string.format("\n\nStart : %s\nUptime: %02d:%02d:%02d\nMemory: %d KB\n", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor(diff/60), diff % 60, memory))
+  end)
+end
+
 return utils

@@ -3,7 +3,7 @@
 -- https://raw.githubusercontent.com/kkossev/Hubitat/main/Drivers/Tuya%20Zigbee%20Metering%20Plug/Tuya%20Zigbee%20Metering%20Plug
 
 local log = require "log"
---local utils = require "st.utils"
+--local st_utils = require "st.utils"
 
 local zb_const = require "st.zigbee.constants"
 local capabilities = require "st.capabilities"
@@ -12,6 +12,8 @@ local defaults = require "st.zigbee.defaults"
 --local device_management = require "st.zigbee.device_management"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zcl_global_commands = require "st.zigbee.zcl.global_commands"
+
+local utils = require "utils"
 
 zb_const.ZGP_PROFILE_ID = 0xA1E0
 
@@ -59,5 +61,7 @@ local template = {
 }
 
 local driver = require("st.zigbee")("personal-tuya-devices", template)
+
+utils.details(driver)
 
 driver:run()
