@@ -92,20 +92,6 @@ local function map(endpoints, key)
   return o
 end
 
-function utils.pairsByKeys (t, f)
-  local a = {}
-  for n in pairs(t) do table.insert(a, n) end
-  table.sort(a, f)
-  local i = 0      -- iterator variable
-  local iter = function ()   -- iterator function
-    i = i + 1
-    if a[i] == nil then return nil
-    else return a[i], t[a[i]]
-    end
-  end
-  return iter
-end
-
 function utils.info(device, datapoints)
   local fei = device.zigbee_endpoints[device.fingerprinted_endpoint_id] or device.zigbee_endpoints[tostring(device.fingerprinted_endpoint_id)] or {}
   local _datapoints = datapoints or {}
@@ -115,7 +101,7 @@ function utils.info(device, datapoints)
         return ""
       end
       local output = {}
-      for _index, zb_rx in utils.pairsByKeys(self) do
+      for _index, zb_rx in st_utils.pairs_by_key(self) do
         local _data = zb_rx.body.zcl_body.data
         output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, _data.value.value)
       end
@@ -167,7 +153,7 @@ end
 function utils.settings(device)
   local o = {}
   if device.preferences ~= nil then
-    for name, value in utils.pairsByKeys(device.preferences) do
+    for name, value in st_utils.pairs_by_key(device.preferences) do
       local normalized_id = st_utils.snake_case(name)
       local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
       if match ~= nil then
@@ -238,10 +224,10 @@ local started_at = os.time()
 
 function utils.details(driver)
   driver:call_on_schedule(60, function()
-    local diff = os.time() - started_at
-    collectgarbage("collect")
+    local diff = os.difftime(os.time(), started_at)
+    -- collectgarbage("collect")
     local memory = math.ceil(collectgarbage("count"))
-    print(string.format("\n\nStart : %s\nUptime: %02d:%02d:%02d\nMemory: %d KB\nDevices: %d\n", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor(diff/60), diff % 60, memory, #driver:get_devices()))
+    print(string.format("start: %s, uptime: %02d:%02d:%02d, memory: %d KB, devices: %d", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor(diff/60), diff % 60, memory, #driver:get_devices()))
   end)
 end
 
