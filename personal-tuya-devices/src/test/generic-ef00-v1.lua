@@ -435,7 +435,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_8:generate_test_message("main", capabilities.dustSensor.dustLevel(20.0))
+      message = mock_child_8:generate_test_message("main", capabilities.dustSensor.dustLevel(20))
     },
   }, {
     test_init = test_init
@@ -453,7 +453,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_9:generate_test_message("main", capabilities.fineDustSensor.fineDustLevel(20.0))
+      message = mock_child_9:generate_test_message("main", capabilities.fineDustSensor.fineDustLevel(20))
     },
   }, {
     test_init = test_init
@@ -471,7 +471,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_10:generate_test_message("main", capabilities.veryFineDustSensor.veryFineDustLevel(20.0))
+      message = mock_child_10:generate_test_message("main", capabilities.veryFineDustSensor.veryFineDustLevel(20))
     },
   }, {
     test_init = test_init

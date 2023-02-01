@@ -127,4 +127,6 @@ defaults.register_for_default_handlers(template, template.supported_capabilities
 
 local driver = require("st.zigbee")("default-clusters", template)
 
+utils.details(driver)
+
 driver:run()

@@ -53,18 +53,18 @@ function defaults.command_response_handler(datapoints)
           end
         end
         -- atualiza o child caso exista
-        local status, e = pcall(device.emit_event_for_endpoint, device, event_dp.group or dpid, event)
+        local status, e, err = pcall(device.emit_event_for_endpoint, device, event_dp.group or dpid, event)
         -- quando e == nil, significa que encontrou child
         -- como preciso atualizar o parent também, daí tem a lógica abaixo
-        if e == nil then
+        if e == nil and err == nil then
           -- atualiza o parent
           local comp_id = device:get_component_id_for_endpoint(event_dp.group or dpid)
           local comp = device.profile.components[comp_id]
           if comp ~= nil then
             device:emit_component_event(comp, event)
           end
-        elseif not status then
-          log.warn("Unexpected component for datapoint", event_dp.group, dpid, value, e)
+        elseif not status or err ~= nil then
+          log.warn("Unexpected component for datapoint", event_dp.group, dpid, value, e, err)
           --device:emit_event(event)
         end
         if device.profile.components.main == nil then
