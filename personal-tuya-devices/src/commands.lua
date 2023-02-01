@@ -139,7 +139,7 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return math.floor(to_number(value) / get_value("rate", pref, self))
     end,
   },
   fineDustSensor = {
@@ -149,7 +149,7 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return math.floor(to_number(value) / get_value("rate", pref, self))
     end,
   },
   veryFineDustSensor = {
@@ -159,7 +159,7 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return math.floor(to_number(value) / get_value("rate", pref, self))
     end,
   },
   formaldehydeMeasurement = {
