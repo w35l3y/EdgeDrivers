@@ -18,5 +18,4 @@
 | TS0601 | _TZE200_ztc6ggyl | Presense Sensor |
 | TS0601 | _TZE204_ztc6ggyl | Presense Sensor |
 
-* This is a list of predefined devices, but the driver is NOT limited to those.
-It should work with any device that expose EF00 cluster.
+* This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
