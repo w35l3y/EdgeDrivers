@@ -52,19 +52,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 ### Current devices tested with this driver
 
-| Model  | Manufacturer      | Description      |
-| ------ | ----------------- | ---------------- |
-| TS0601 | \_TZE200_1n2kyphz | 4 multi switches |
-| TS0601 | \_TZE200_8ygsuhe1 | air quality      |
-| TS0601 | \_TZE200_9mahtqtg | 6 multi switches |
-| TS0601 | \_TZE200_dwcarsat | air quality      |
-| TS0601 | \_TZE200_e3oitdyu | 2 multi dimmers  |
-| TS0601 | \_TZE200_r731zlxk | 6 multi switches |
-| TS0601 | \_TZE200_wfxuhoea | garage door      |
-| TS0601 | \_TZE200_ikvncluo | presence sensor  |
-| TS0601 | \_TZE200_yvx5lh6k | air quality      |
-| TS0601 | \_TZE200_ztc6ggyl | presence sensor  |
-| TS0601 | \_TZE204_ztc6ggyl | presence sensor  |
+<!-- include ./DEVICES.md -->
 
 ### Known issues
 
