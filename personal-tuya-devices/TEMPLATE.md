@@ -24,14 +24,14 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 3. Fill the fields that meets the specified for the device
    - Search the internet about your device details (manufacturer and model)
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
-   - Similar devices usually use the same datapoints
+   - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve and waterSensor
+     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, dustSensor, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor and waterSensor/leakSensor
    - Also, there are configurations for generic Tuya Data Types<br />
-     Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
+     Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
-     - If you know the datapoint 1 is for a writable boolean, then add it to "Datapoints for switches"
-     - If you know the datapoint 2 is for a read-only boolean, then add it to any sensor
+     - If you know the datapoint 1 is for a writable boolean (actuator), then add it to "Datapoints for switches"
+     - If you know the datapoint 2 is for a read-only boolean (sensor), then add it to any binary sensor
 
 <img src="resources/detailView_1.jpeg" height="300"/> <img src="resources/configuration_1.jpeg" height="300"/> <img src="resources/configuration_2.jpeg" height="300"/> <img src="resources/dashboard_2.jpeg" height="300"/> <img src="resources/child_detailView_2.jpeg" height="300"/>
 
@@ -49,6 +49,11 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 - https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
 - https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
 - https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
+
+### Examples of including predefined devices:
+
+- The code was refactored, so I don't have any recent commit example.
+- But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
 
 ## Current devices tested with this driver
 

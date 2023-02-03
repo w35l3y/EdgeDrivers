@@ -204,17 +204,6 @@ local defaults = {
       return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
-  veryFineDustSensor = {
-    capability = "veryFineDustSensor",
-    attribute = "veryFineDustLevel",
-    rate_name = "rate",
-    rate = 1,
-    reportingInterval = 1,
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
-    end,
-  },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
@@ -321,6 +310,17 @@ local defaults = {
       return to_number(value) == 0 and "closed" or "open"
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
+  },
+  veryFineDustSensor = {
+    capability = "veryFineDustSensor",
+    attribute = "veryFineDustLevel",
+    rate_name = "rate",
+    rate = 1,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
   },
   waterSensor = {
     capability = "waterSensor",
