@@ -17,7 +17,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 <img src="resources/pairing_1.jpeg" height="300"/> <img src="resources/pairing_2.jpeg" height="300"/> <img src="resources/pairing_3.jpeg" height="300"/> <img src="resources/dashboard_1.jpeg" height="300"/>
 
-### Configure datapoints
+### Configure datapoints (only if your device was not recognized automatically)
 
 1. Open the detail view of the device
 2. Open configurations
@@ -35,7 +35,7 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 <img src="resources/detailView_1.jpeg" height="300"/> <img src="resources/configuration_1.jpeg" height="300"/> <img src="resources/configuration_2.jpeg" height="300"/> <img src="resources/dashboard_2.jpeg" height="300"/> <img src="resources/child_detailView_2.jpeg" height="300"/>
 
-### Contribute with your integration
+## Contribute with your integration
 
 1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly.
 2. Create a file representing your device at `/models/<model>/<manufacturer>.yaml`<br />
@@ -44,17 +44,17 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - If you need a new profile, then create it at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
 3. Pull request your modification
 
-#### Examples of including stock capabilities:
+### Examples of including stock capabilities:
 
 - https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
 - https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
 - https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
 
-### Current devices tested with this driver
+## Current devices tested with this driver
 
 <!-- include ./DEVICES.md -->
 
-### Known issues
+## Known issues
 
 - **Some child devices weren't created**<br />
   Sometimes, when modifying configurations, some child devices aren't created.<br />
@@ -82,16 +82,12 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
   <img src="resources/configuration_4.jpeg" height="300"/>
 
-### Currently untested configurations
+## Currently untested configurations
 
-- Air Quality Sensor
 - Door Control
-- Formaldehyde Sensor
-- Humidity Sensor
 - Illuminance Sensor
 - Motion Sensor
 - Occupancy Sensor
-- VOC Sensor
 - Water Valve
 - Water Sensor
 - String Tuya Data Type
