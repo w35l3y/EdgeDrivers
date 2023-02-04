@@ -1,3 +1,6 @@
+* [SmartThings Community Discussion](https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270?u=w35l3y)
+* [Invitation link](https://api.smartthings.com/invite/6Vjd4YPVJwjN)
+
 ## How to use
 
 This driver is intended to work with devices that use **0xEF00** Tuya Cluster
