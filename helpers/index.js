@@ -41,6 +41,7 @@ function update_models(path = ".") {
     });
     fs.writeFileSync(path + "/src/models/" + SPECIFIC_MODEL + "init.lua", "local myutils = require \"utils\"\n\nreturn {\n  "+manufacturers.map(({ mfr, mdl }) => "[\""+mfr+"\"] = myutils.load_model_from_json(\""+mdl+"\", \""+mfr+"\")").join(",\n  ")+"\n}")
   });
+  fs.writeFileSync(path + "/DEVICES.md", "| Model | Manufacturer | Label |\n|---|---|---|\n" + fingerprints.zigbeeManufacturer.map(({model,manufacturer,deviceLabel}) => ["",model,manufacturer,deviceLabel,""].join(" | ").trim()).join("\n") + "\n\n* This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.")
   fs.writeFileSync(path + "/src/models/init.lua", "return {\n  "+directories.map(mdl => "[\""+mdl+"\"] = require \"models."+mdl+"\"").join(",\n  ")+"\n}");
   fs.writeFileSync(path + "/fingerprints.yaml", yaml.dump(fingerprints, {
     styles: {

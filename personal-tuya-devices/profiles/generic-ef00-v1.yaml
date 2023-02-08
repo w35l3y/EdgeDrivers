@@ -78,6 +78,22 @@ preferences:
     definition:
       stringType: text
       default: ""
+  # - name: colorControlDatapoints
+  #   title: Color controls
+  #   description: List of datapoints used for color controls (comma-separated)
+  #   required: true
+  #   preferenceType: string
+  #   definition:
+  #     stringType: text
+  #     default: ""
+  # - name: colorTemperatuDatapoints
+  #   title: Color temperature
+  #   description: List of datapoints used for color temperatures (comma-separated)
+  #   required: true
+  #   preferenceType: string
+  #   definition:
+  #     stringType: text
+  #     default: ""
   - name: contactSensorDatapoints
     title: Contact sensors
     description: List of datapoints used for contact sensors (comma-separated)

@@ -6,6 +6,8 @@ local data_types = require "st.zigbee.data_types"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 local generic_body = require "st.zigbee.generic_body"
 
+-- local json = require('dkjson')
+
 local function to_number (value)
   if type(value) == "boolean" then
     return value and 1 or 0
@@ -36,11 +38,11 @@ local default_generic = {
   end,
 }
 
-local function get_value(name, pref, cmd)
-  if pref[name] ~= nil and pref[name] ~= 0 then
-    return pref[name]
+local function get_value (pref, cmd)
+  if pref ~= nil and pref ~= 0 then
+    return to_number(pref)
   end
-  return cmd[name]
+  return cmd
 end
 
 local defaults = {
@@ -66,24 +68,26 @@ local defaults = {
   switchLevel = {
     capability = "switchLevel",
     attribute = "level",
+    rate_name = "rate",
     rate = 1,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value("rate", pref, self)))
+      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate)))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value("rate", pref, self))
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
   airQualitySensor = {
     capability = "airQualitySensor",
     attribute = "airQuality",
+    rate_name = "rate",
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   button = {
@@ -95,13 +99,59 @@ local defaults = {
   carbonDioxideMeasurement = {
     capability = "carbonDioxideMeasurement",
     attribute = "carbonDioxide",
+    rate_name = "rate",
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
+  -- colorControl = {
+  --   capability = "colorControl",
+  --   attribute = "color",
+  --   to_zigbee = function (self, value, device)
+  --     -- log.info("to_zigbee", utils.stringify_table(value, "color", true))
+  --     -- https://developer.tuya.com/en/docs/iot/tuya-zigbee-lighting-access-standard?id=K9ik6zvod83fi#title-12-DP5%20Color
+  --     -- local red, green, blue = utils.hsl_to_rgb(value.color.hue, value.color.saturation)
+  --     -- local color = (red << 16) + (green << 8) + blue
+  --     local hue, sat, val = math.floor(value.hue * 0x0168) << 32, math.floor(value.saturation * 0x03E8) << 16, math.floor(0 * 0x0358)
+  --     -- log.info("to_zigbee", hue, sat, val)
+  --     -- @FIXME it won't work properly as `Uint48` isn't known tuya data type
+  --     return data_types.Uint48(hue + sat + val)
+  --     -- return generic_body.GenericBody(hue+sat+val)
+  --   end,
+  --   from_zigbee = function (self, value, device)
+  --     local color = to_number(value)
+  --     -- log.info("from_zigbee", value, color, string.format("%X", color))
+  --     -- local red, green, blue = (color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF
+  --     -- local hue, sat, lightness = utils.rgb_to_hsl(red, green, blue)
+  --     -- @FIXME it won't work as `Uint48` isn't known tuya data type
+  --     local hue, sat, val = ((color >> 32) & 0xFFFF) / 0x0168, ((color >> 16) & 0xFFFF) / 0x03E8, (color & 0xFFFF) / 0x03E8
+  --     -- log.info("from_zigbee", hue, sat, val)
+  --     return json.encode({
+  --       color = {
+  --         hue = hue,
+  --         saturation = sat,
+  --         -- lightness = lightness
+  --       }
+  --     })
+  --   end,
+  -- },
+  -- colorTemperature = {
+  --   capability = "colorTemperature",
+  --   attribute = "colorTemperature",
+  --   rate_name = "rate",
+  --   rate = 1, --  1/30,
+  --   to_zigbee = function (self, value, device)
+  --     local pref = get_child_or_parent(device, self.group).preferences
+  --     return tuya_types.Uint16(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate)))
+  --   end,
+  --   from_zigbee = function (self, value, device)
+  --     local pref = get_child_or_parent(device, self.group).preferences
+  --     return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+  --   end,
+  -- },
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",
@@ -135,41 +185,34 @@ local defaults = {
   dustSensor = {
     capability = "dustSensor",
     attribute = "dustLevel",
+    rate_name = "rate",
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value("rate", pref, self))
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
   fineDustSensor = {
     capability = "fineDustSensor",
     attribute = "fineDustLevel",
+    rate_name = "rate",
     rate = 1,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value("rate", pref, self))
-    end,
-  },
-  veryFineDustSensor = {
-    capability = "veryFineDustSensor",
-    attribute = "veryFineDustLevel",
-    rate = 1,
-    reportingInterval = 1,
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value("rate", pref, self))
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
     attribute = "formaldehydeLevel",
+    rate_name = "rate",
     rate = 100,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   illuminanceMeasurement = {
@@ -215,33 +258,38 @@ local defaults = {
   relativeHumidityMeasurement = {
     capability = "relativeHumidityMeasurement",
     attribute = "humidity",
+    rate_name = "rate",
     rate = 1,
+    humidityOffset_name = "humidityOffset",
     humidityOffset = 0.0,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return (to_number(value) / get_value("rate", pref, self)) + get_value("humidityOffset", pref, self)
+      return (to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.humidityOffset_name], self.humidityOffset)
     end,
   },
   temperatureMeasurement = {
     capability = "temperatureMeasurement",
     attribute = "temperature",
+    rate_name = "rate",
     rate = 1,
+    tempOffset_name = "tempOffset",
     tempOffset = 0.0,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return (to_number(value) / get_value("rate", pref, self)) + get_value("tempOffset", pref, self)
+      return (to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset)
     end,
   },
   tvocMeasurement = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",
+    rate_name = "rate",
     rate = 100,
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return to_number(value) / get_value("rate", pref, self)
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   valve = {
@@ -263,6 +311,17 @@ local defaults = {
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
+  veryFineDustSensor = {
+    capability = "veryFineDustSensor",
+    attribute = "veryFineDustLevel",
+    rate_name = "rate",
+    rate = 1,
+    reportingInterval = 1,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
   waterSensor = {
     capability = "waterSensor",
     attribute = "water",
@@ -277,14 +336,15 @@ local defaults = {
   value = {
     capability = "valleyboard16460.datapointValue",
     attribute = "value",
+    rate_name = "rate",
     rate = 1,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value("rate", pref, self)))
+      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate)))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(to_number(value) / get_value("rate", pref, self))
+      return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
   string = {

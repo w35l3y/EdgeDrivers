@@ -1,3 +1,6 @@
+* [SmartThings Community Discussion](https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270?u=w35l3y)
+* [Invitation link](${{ env.INVITATION_LINK }})
+
 ## How to use
 
 This driver is intended to work with devices that use **0xEF00** Tuya Cluster
@@ -17,25 +20,25 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
 <img src="resources/pairing_1.jpeg" height="300"/> <img src="resources/pairing_2.jpeg" height="300"/> <img src="resources/pairing_3.jpeg" height="300"/> <img src="resources/dashboard_1.jpeg" height="300"/>
 
-### Configure datapoints
+### Configure datapoints (only if your device was not recognized automatically)
 
 1. Open the detail view of the device
 2. Open configurations
 3. Fill the fields that meets the specified for the device
    - Search the internet about your device details (manufacturer and model)
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
-   - Similar devices usually use the same datapoints
+   - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve and waterSensor
+     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, dustSensor, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor and waterSensor/leakSensor
    - Also, there are configurations for generic Tuya Data Types<br />
-     Currently: boolean (switch/sensors), enumeration, value, string, bitmap and raw
+     Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
-     - If you know the datapoint 1 is for a writable boolean, then add it to "Datapoints for switches"
-     - If you know the datapoint 2 is for a read-only boolean, then add it to any sensor
+     - If you know the datapoint 1 is for a writable boolean (actuator), then add it to "Datapoints for switches"
+     - If you know the datapoint 2 is for a read-only boolean (sensor), then add it to any binary sensor
 
 <img src="resources/detailView_1.jpeg" height="300"/> <img src="resources/configuration_1.jpeg" height="300"/> <img src="resources/configuration_2.jpeg" height="300"/> <img src="resources/dashboard_2.jpeg" height="300"/> <img src="resources/child_detailView_2.jpeg" height="300"/>
 
-### Contribute with your integration
+## Contribute with your integration
 
 1. Once you know exactly how your device works with each available datapoints, consider forking the repository and adding the code needed to make it a little more user friendly.
 2. Create a file representing your device at `/models/<model>/<manufacturer>.yaml`<br />
@@ -44,29 +47,22 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
    - If you need a new profile, then create it at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
 3. Pull request your modification
 
-#### Examples of including stock capabilities:
+### Examples of including stock capabilities:
 
 - https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
 - https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
 - https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
 
-### Current devices tested with this driver
+### Examples of including predefined devices:
 
-| Model  | Manufacturer      | Description      |
-| ------ | ----------------- | ---------------- |
-| TS0601 | \_TZE200_1n2kyphz | 4 multi switches |
-| TS0601 | \_TZE200_8ygsuhe1 | air quality      |
-| TS0601 | \_TZE200_9mahtqtg | 6 multi switches |
-| TS0601 | \_TZE200_dwcarsat | air quality      |
-| TS0601 | \_TZE200_e3oitdyu | 2 multi dimmers  |
-| TS0601 | \_TZE200_r731zlxk | 6 multi switches |
-| TS0601 | \_TZE200_wfxuhoea | garage door      |
-| TS0601 | \_TZE200_ikvncluo | presence sensor  |
-| TS0601 | \_TZE200_yvx5lh6k | air quality      |
-| TS0601 | \_TZE200_ztc6ggyl | presence sensor  |
-| TS0601 | \_TZE204_ztc6ggyl | presence sensor  |
+- The code was refactored, so I don't have any recent commit example.
+- But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
 
-### Known issues
+## Current devices tested with this driver
+
+<!-- include ./DEVICES.md -->
+
+## Known issues
 
 - **Some child devices weren't created**<br />
   Sometimes, when modifying configurations, some child devices aren't created.<br />
@@ -94,16 +90,12 @@ This driver is intended to work with devices that use **0xEF00** Tuya Cluster
 
   <img src="resources/configuration_4.jpeg" height="300"/>
 
-### Currently untested configurations
+## Currently untested configurations
 
-- Air Quality Sensor
 - Door Control
-- Formaldehyde Sensor
-- Humidity Sensor
 - Illuminance Sensor
 - Motion Sensor
 - Occupancy Sensor
-- VOC Sensor
 - Water Valve
 - Water Sensor
 - String Tuya Data Type

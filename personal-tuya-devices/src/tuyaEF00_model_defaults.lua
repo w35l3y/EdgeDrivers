@@ -93,7 +93,7 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  if device.preferences.profile ~= "generic_ef00_v1" then
+  if device.preferences.profile ~= "generic_ef00_v1" or (device.parent_assigned_child_key ~= nil and device:get_parent_device().preferences.profile ~= "generic_ef00_v1") then
     -- log.info(device:get_model(), device:get_manufacturer())
     local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
     if x ~= nil and x.default == nil then
@@ -104,7 +104,7 @@ function defaults.can_handle (opts, driver, device, ...)
     if prf ~= nil then
       return true
     end
-    log.warn("Similar device not found", device.preferences.profile)
+    log.warn("Similar device not found", device.preferences.profile, "")
   end
   return false
 end
