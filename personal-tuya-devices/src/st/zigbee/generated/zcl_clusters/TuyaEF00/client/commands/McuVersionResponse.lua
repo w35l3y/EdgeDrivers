@@ -33,13 +33,13 @@ function McuVersionResponse:get_fields()
       if v.array_length_size ~= 0 then
         fields[#fields + 1] = self[v.name .. "_length"]
       end
-      if self[v.name .. "_list"] ~= nil then
+      if self[v.name .. "_list"] then
         for _, entry in ipairs(self[v.name .. "_list"]) do
           fields[#fields + 1] = entry
         end
       end
     else
-      if self[v.name] ~= nil then
+      if self[v.name] then
         fields[#fields + 1] = self[v.name]
       end
     end
@@ -82,7 +82,7 @@ end
 
 function McuVersionResponse:set_field_names()
   for _, v in ipairs(self.args_def) do
-    if self[v.name] ~= nil then
+    if self[v.name] then
       self[v.name].field_name = v.name
     end
   end

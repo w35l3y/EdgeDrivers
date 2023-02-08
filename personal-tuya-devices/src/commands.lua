@@ -34,12 +34,12 @@ local default_generic = {
   from_zigbee = function (self, value, device) return value end,
   command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute], device) end,
   create_event = function (self, value, device)
-    return self.capability ~= nil and self.attribute ~= nil and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
+    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
   end,
 }
 
 local function get_value (pref, cmd)
-  if pref ~= nil and pref ~= 0 then
+  if pref and pref ~= 0 then
     return to_number(pref)
   end
   return cmd

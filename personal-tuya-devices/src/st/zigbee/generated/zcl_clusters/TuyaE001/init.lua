@@ -29,21 +29,21 @@ TuyaE001.commands = {}
 
 function TuyaE001:get_attribute_by_id(attr_id)
   local attr_name = self.attr_id_map[attr_id]
-  if attr_name ~= nil then
+  if attr_name then
     return self.attributes[attr_name]
   end
   return nil
 end
 
 function TuyaE001:get_server_command_by_id(command_id)
-  if self.server_id_map[command_id] ~= nil then
+  if self.server_id_map[command_id] then
     return self.server.commands[self.server_id_map[command_id]]
   end
   return nil
 end
 
 function TuyaE001:get_client_command_by_id(command_id)
-  if self.client_id_map[command_id] ~= nil then
+  if self.client_id_map[command_id] then
     return self.client.commands[self.client_id_map[command_id]]
   end
   return nil

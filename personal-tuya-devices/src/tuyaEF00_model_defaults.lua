@@ -38,7 +38,7 @@ local function get_default_by_profile (device, warn)
   for model, devices in pairs(mt.__cache) do
     for mfr, dp in pairs(devices) do
       for _, profile in ipairs(dp.profiles) do
-        if device.parent_assigned_child_key ~= nil and profile == device:get_parent_device().preferences.profile or profile == device.preferences.profile then
+        if myutils.is_profile(device, profile) then
           if warn then
             log.warn("Simulating device", model, mfr)
           end
@@ -53,7 +53,7 @@ local function send_command(fn, driver, device, ...)
   if dp == nil or dp.default then
     dp = get_default_by_profile(device, true)
   end
-  if dp ~= nil then
+  if dp then
     fn(dp.datapoints)(driver, device, ...)
   end
 end
@@ -72,13 +72,13 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       if value and value ~= args.old_st_store.preferences[name] then
         local normalized_id = utils.snake_case(name)
         local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
-        if match ~= nil then
+        if match then
           local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
           myutils.create_child(driver, device, tonumber(group, 16), profile)
           goto next
         end
         local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
-        if match ~= nil then
+        if match then
           send_command(tuyaEF00_defaults.update_data, driver, device, key, value)
           goto next
         end
@@ -93,18 +93,23 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  if device.preferences.profile ~= "generic_ef00_v1" or (device.parent_assigned_child_key ~= nil and device:get_parent_device().preferences.profile ~= "generic_ef00_v1") then
-    -- log.info(device:get_model(), device:get_manufacturer())
-    local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
-    if x ~= nil and x.default == nil then
-      return true
-    end
-    mt.__cache = require "models"
-    local prf = get_default_by_profile(device, false)
-    if prf ~= nil then
-      return true
-    end
-    log.warn("Similar device not found", device.preferences.profile, "")
+  if myutils.is_profile(device, "generic_ef00_v1") then
+    return false
+  end
+  -- log.info(device:get_model(), device:get_manufacturer())
+  local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+  if x and x.default == nil then
+    -- `default == nil` means a profile was found for the model+mfr
+    return true
+  end
+  mt.__cache = require "models"
+  local prf = get_default_by_profile(device, false)
+  if prf then
+    return true
+  elseif device.parent_assigned_child_key then
+    log.warn("Similar device not found (child)", device.preferences.profile, device:get_parent_device().preferences.profile)
+  elseif device.preferences.profile then
+    log.warn("Similar device not found (parent)", device.preferences.profile)
   end
   return false
 end

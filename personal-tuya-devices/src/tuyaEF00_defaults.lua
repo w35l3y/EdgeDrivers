@@ -40,10 +40,10 @@ function defaults.command_response_handler(datapoints)
     local cur_time = os.time()
     
     --log.info("device.preferences.profile", device.preferences.profile)
-    if event ~= nil then
+    if event then
       if event_dp.reportingInterval == nil or event_dp.last_heard_time == nil or cur_time - event_dp.last_heard_time >= 60 * event_dp.reportingInterval then
         event_dp.last_heard_time = cur_time
-        if event_dp.name ~= nil then
+        if event_dp.name then
           local pref_name = utils.camel_case("pref_"..event_dp.name)
           log.info("pref_name", pref_name, device:get_field(pref_name), "-")
           device:set_field(pref_name, event_dp:from_zigbee(value, device))
@@ -60,10 +60,10 @@ function defaults.command_response_handler(datapoints)
           -- atualiza o parent
           local comp_id = device:get_component_id_for_endpoint(event_dp.group or dpid)
           local comp = device.profile.components[comp_id]
-          if comp ~= nil then
+          if comp then
             device:emit_component_event(comp, event)
           end
-        elseif not status or err ~= nil then
+        elseif not status or err then
           log.warn("Unexpected component for datapoint", event_dp.group, dpid, value, e, err)
           --device:emit_event(event)
         end

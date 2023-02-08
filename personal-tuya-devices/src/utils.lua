@@ -54,9 +54,12 @@ function utils.is_normal(device)
 end
 
 function utils.is_same_profile(device, profile)
-  return device.preferences ~= nil and device.preferences.profile == profile
+  return device.preferences and device.preferences.profile == profile or false
 end
 
+function utils.is_profile(device, profile)
+  return device.parent_assigned_child_key and utils.is_same_profile(device:get_parent_device(), profile) or utils.is_same_profile(device, profile)
+end
 
 local function hexa(value, length)
   return string.format("0x%0"..(length or 4).."X", value or 0)
@@ -152,11 +155,11 @@ end
 
 function utils.settings(device)
   local o = {}
-  if device.preferences ~= nil then
+  if device.preferences then
     for name, value in st_utils.pairs_by_key(device.preferences) do
       local normalized_id = st_utils.snake_case(name)
       local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
-      if match ~= nil then
+      if match then
         o[#o+1] = {
           k = key,
           v = device:get_field(name) or value,

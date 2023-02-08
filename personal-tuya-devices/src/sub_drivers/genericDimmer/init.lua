@@ -15,8 +15,7 @@ local child_cluster = zcl_clusters.Level
 local template = {
   NAME = "GenericDimmer",
   can_handle = function (opts, driver, device, ...)
-    return myutils.is_same_profile(device, profile)
-          or device.parent_assigned_child_key ~= nil and myutils.is_same_profile(device:get_parent_device(), profile)
+    return myutils.is_profile(device, profile)
   end,
   supported_capabilities = {
     capabilities.switch,

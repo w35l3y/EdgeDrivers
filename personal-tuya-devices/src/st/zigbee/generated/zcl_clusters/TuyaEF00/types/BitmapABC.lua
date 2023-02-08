@@ -72,7 +72,7 @@ function BitmapABC.new_mt(base, byte_length, little_endian)
     end
   end
   mt.__index.is_bit_set = function(self, bit_num)
-    if self.value ~= nil then
+    if self.value then
       if bit_num <= self.byte_length * 8 then
         return (self.value & (0x1 << (bit_num - 1))) ~= 0
       else

@@ -50,7 +50,7 @@ zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaEF00"
 -- }
 
 -- function ColorControl:get_server_command_by_id(command_id)
---   if ColorControl.server_id_map[command_id] ~= nil then
+--   if ColorControl.server_id_map[command_id] then
 --     return self.server.commands[ColorControl.server_id_map[command_id]]
 --   end
 --   return nil
