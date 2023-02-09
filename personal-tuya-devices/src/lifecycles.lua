@@ -89,6 +89,9 @@ end
 function lifecycles.removed(driver, device, event, ...)
 end
 
+function lifecycles.driverSwitched(driver, device, event, ...)
+end
+
 --function lifecycles.doConfigure(driver, device, event, args)
 --  device_management.configure(driver, device)
 --end
