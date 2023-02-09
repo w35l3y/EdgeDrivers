@@ -73,10 +73,8 @@ local template = {
       if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
         device:set_find_child(utils.find_child_fn)
 
-        driver:call_with_delay(0, function ()
-          utils.spell_magic_trick(device)
-          device:emit_event(capabilities["valleyboard16460.info"].value(tostring(utils.info(device))))
-        end)
+        utils.spell_magic_trick(device)
+        device:emit_event(capabilities["valleyboard16460.info"].value(tostring(utils.info(device))))
       end
     end,
     added = function (driver, device, ...)
