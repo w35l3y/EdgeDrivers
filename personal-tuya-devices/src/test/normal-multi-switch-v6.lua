@@ -5,6 +5,8 @@ local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
 local t_utils = require "integration_test.utils"
 
+local utils = require "test.utils"
+
 -- local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
 local profile = t_utils.get_profile_definition("normal-multi-switch-v6.yaml")
@@ -31,22 +33,36 @@ local mock_first_child = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 2)
 })
 
-local test_init = function ()
+local test_init_parent = function ()
+  utils.send_spell(mock_parent_device)
+
   test.mock_device.add_test_device(mock_parent_device)
+end
+
+local test_init = function ()
+  test_init_parent()
+
   test.mock_device.add_test_device(mock_first_child)
 end
 
-test.register_coroutine_test("device_lifecycle added", function ()
-  test.socket.device_lifecycle:__queue_receive({ mock_parent_device.id, "added" })
-
-  test.timer.__create_and_queue_test_time_advance_timer(0, "oneshot")
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zigbee_test_utils.build_attribute_read(mock_parent_device, zcl_clusters.Basic.ID, { 0x0004, 0x0000, 0x0001, 0x0005, 0x0007, 0xFFFE }):to_endpoint(0x01) })
-
-  test.socket.device_lifecycle:__queue_receive({ mock_parent_device.id, "init" })
-end, {
-  test_init = function()
-    test.mock_device.add_test_device(mock_parent_device)
-  end
+test.register_message_test("device_lifecycle added", {
+  {
+    channel = "device_lifecycle",
+    direction = "receive",
+    message = { mock_parent_device.id, "added" },
+  },
+  {
+    channel = "zigbee",
+    direction = "send",
+    message = utils.expect_spell(mock_parent_device),
+  },
+  {
+    channel = "device_lifecycle",
+    direction = "receive",
+    message = { mock_parent_device.id, "init" },
+  },
+}, {
+  test_init = test_init_parent
 })
 
 test.register_message_test(
@@ -148,9 +164,7 @@ test.register_coroutine_test("infoChanged child 02", function ()
 
   test.socket.capability:__expect_send(mock_parent_device:generate_test_message("main02", capabilities.switch.switch.off()))
 end, {
-  test_init = function()
-    test.mock_device.add_test_device(mock_parent_device)
-  end
+  test_init = test_init_parent
 })
 
 test.register_coroutine_test("infoChanged child 02 - reverse", function ()
@@ -184,7 +198,5 @@ test.register_coroutine_test("infoChanged child 02 - reverse", function ()
 
   test.socket.capability:__expect_send(mock_parent_device:generate_test_message("main02", capabilities.switch.switch.on()))
 end, {
-  test_init = function()
-    test.mock_device.add_test_device(mock_parent_device)
-  end
+  test_init = test_init_parent
 })

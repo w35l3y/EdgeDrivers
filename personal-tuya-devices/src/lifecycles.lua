@@ -77,9 +77,7 @@ function lifecycles.init(driver, device, event, ...)
     device:set_endpoint_to_component_fn(endpoint_to_component)
     device:set_find_child(find_child_fn)
 
-    driver:call_with_delay(0, function ()
-      myutils.spell_magic_trick(device)
-    end)
+    myutils.spell_magic_trick(device)
   end
 end
 
@@ -87,6 +85,9 @@ function lifecycles.added(driver, device, event, ...)
 end
 
 function lifecycles.removed(driver, device, event, ...)
+end
+
+function lifecycles.driverSwitched(driver, device, event, ...)
 end
 
 --function lifecycles.doConfigure(driver, device, event, args)

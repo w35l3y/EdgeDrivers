@@ -21,7 +21,7 @@ setmetatable(zgp_clusters, zgp_clusters_mt)
 
 zgp_clusters.get_cluster_from_id = function(id)
   local cluster_name = zgp_clusters.id_to_name_map[id]
-  if cluster_name ~= nil then
+  if cluster_name then
     return zgp_clusters[cluster_name]
   end
   return nil

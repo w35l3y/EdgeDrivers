@@ -8,6 +8,8 @@ local t_utils = require "integration_test.utils"
 local generic_body = require "st.zigbee.generic_body"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
+local utils = require "test.utils"
+
 local profile = t_utils.get_profile_definition("generic-ef00-v1.yaml")
 
 test.load_all_caps_from_profile(profile)
@@ -191,8 +193,14 @@ local mock_child_25 = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 25)
 })
 
-local test_init = function ()
+local test_init_parent = function ()
   test.mock_device.add_test_device(mock_parent_device)
+
+  utils.send_spell(mock_parent_device)
+end
+
+local test_init = function ()
+  test_init_parent()
 
   test.socket.device_lifecycle:__queue_receive(mock_parent_device:generate_info_changed({
     preferences = {
@@ -253,19 +261,24 @@ local test_init = function ()
   test.mock_device.add_test_device(mock_child_25)
 end
 
-test.register_coroutine_test("device_lifecycle added", function ()
-  test.socket.device_lifecycle:__queue_receive({ mock_parent_device.id, "added" })
-
-  test.timer.__create_and_queue_test_time_advance_timer(0, "oneshot")
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zigbee_test_utils.build_attribute_read(mock_parent_device, zcl_clusters.Basic.ID, { 0x0004, 0x0000, 0x0001, 0x0005, 0x0007, 0xFFFE }):to_endpoint(0x01) })
-  test.timer.__create_and_queue_test_time_advance_timer(0, "oneshot")
-  test.socket.capability:__expect_send(mock_parent_device:generate_test_message("main", capabilities["valleyboard16460.info"].value("<table style=\"font-size:0.6em;min-width:100%\"><tbody>\n        <tr><th align=\"left\" style=\"width:40%\">Manufacturer</th><td colspan=\"2\" style=\"width:60%\">_UNKNOWN_DEVICE</td></tr>\n        <tr><th align=\"left\">Model</th><td colspan=\"2\">TS0601</td></tr>\n        <tr><th align=\"left\">Endpoint</th><td colspan=\"2\">0x01</td></tr>\n        <tr><th align=\"left\">Device ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th align=\"left\">Profile ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th colspan=\"3\">Server Clusters</th></tr>\n        <tr><th align=\"left\">Basic</th><td>0x0000</td><td>0x01</td></tr><tr><th align=\"left\">TuyaEF00</th><td>0xEF00</td><td>0x01</td></tr>\n        <tr><th colspan=\"3\">Client Clusters</th></tr>\n        <tr><td colspan=\"3\">None</td></tr>\n        \n      </tbody></table>")))
-
-  test.socket.device_lifecycle:__queue_receive({ mock_parent_device.id, "init" })
-end, {
-  test_init = function()
-    test.mock_device.add_test_device(mock_parent_device)
-  end
+test.register_message_test("device_lifecycle added", {
+  {
+    channel = "device_lifecycle",
+    direction = "receive",
+    message = { mock_parent_device.id, "added" },
+  },
+  {
+    channel = "zigbee",
+    direction = "send",
+    message = utils.expect_spell(mock_parent_device),
+  },
+  {
+    channel = "device_lifecycle",
+    direction = "receive",
+    message = { mock_parent_device.id, "init" },
+  },
+}, {
+  test_init = test_init_parent
 })
 
 test.register_message_test(

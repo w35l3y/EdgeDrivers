@@ -80,7 +80,7 @@ local type_to_configuration = {
 local function get_datapoints_from_device (device)
   local output,num = {},0
   for name, def in pairs(datapoint_types_to_fn) do
-    if device.preferences[name] ~= nil then
+    if device.preferences[name] then
       for dpid in device.preferences[name]:gmatch("[^,]+") do
         local ndpid = tonumber(dpid, 10)
         if output[ndpid] == nil then
@@ -108,7 +108,7 @@ end
 local temporary_datapoints = {}
 
 local function send_command(fn, driver, device, ...)
-  local datapoints,total = get_datapoints_from_device(device.parent_assigned_child_key ~= nil and device:get_parent_device() or device)
+  local datapoints,total = get_datapoints_from_device(device.parent_assigned_child_key and device:get_parent_device() or device)
   if total > 0 then
     fn(datapoints)(driver, device, ...)
   end
@@ -118,13 +118,13 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_CHILD then
-  -- if device.parent_assigned_child_key ~= nil then
+  -- if device.parent_assigned_child_key then
     local tmp = temporary_datapoints[device.parent_device_id]
     local dpid = tonumber(device.parent_assigned_child_key, 16)
-    if tmp ~= nil and tmp[dpid] ~= nil then
+    if tmp and tmp[dpid] then
       send_command(tuyaEF00_defaults.command_response_handler, driver, device:get_parent_device(), tmp[dpid])
     else
-      log.warn("Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, tmp ~= nil)
+      log.warn("Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, dpid, tmp and true or false)
     end
   end
 end
@@ -139,7 +139,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do
       local profile = child_types_to_profile[name]
-      if profile ~= nil and value and value ~= args.old_st_store.preferences[name] then
+      if profile and value and value ~= args.old_st_store.preferences[name] then
         for ndpid in value:gmatch("[^,]+") do
           myutils.create_child(driver, device, tonumber(ndpid, 10), profile)
         end
@@ -174,7 +174,7 @@ function defaults.command_response_handler(driver, device, zb_rx)
   if temporary_datapoints[device.id] == nil then
     temporary_datapoints[device.id] = {}
   end
-  if device.preferences ~= nil and device.preferences.updateInfo then
+  if device.preferences and device.preferences.updateInfo then
     local ndpid = zb_rx.body.zcl_body.data.dpid.value
     -- local _type = zb_rx.body.zcl_body.data.type
     -- local value = zb_rx.body.zcl_body.data.value.value

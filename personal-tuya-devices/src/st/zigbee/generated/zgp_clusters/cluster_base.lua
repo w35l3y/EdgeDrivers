@@ -435,12 +435,12 @@ end
 function cluster_base_index.parse_cluster_specific_command(self, command, direction, buf)
   if direction == 0x00 then
     local cmd = self:get_server_command_by_id(command.value)
-    if cmd ~= nil then
+    if cmd then
       return cmd.deserialize(buf)
     end
   elseif direction == 0x01 then
     local cmd = self:get_client_command_by_id(command.value)
-    if cmd ~= nil then
+    if cmd then
       return cmd.deserialize(buf)
     end
   end

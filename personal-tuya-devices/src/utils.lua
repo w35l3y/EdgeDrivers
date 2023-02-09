@@ -54,9 +54,12 @@ function utils.is_normal(device)
 end
 
 function utils.is_same_profile(device, profile)
-  return device.preferences ~= nil and device.preferences.profile == profile
+  return device.preferences and device.preferences.profile == profile or false
 end
 
+function utils.is_profile(device, profile)
+  return device.parent_assigned_child_key and utils.is_same_profile(device:get_parent_device(), profile) or utils.is_same_profile(device, profile)
+end
 
 local function hexa(value, length)
   return string.format("0x%0"..(length or 4).."X", value or 0)
@@ -152,11 +155,11 @@ end
 
 function utils.settings(device)
   local o = {}
-  if device.preferences ~= nil then
+  if device.preferences then
     for name, value in st_utils.pairs_by_key(device.preferences) do
       local normalized_id = st_utils.snake_case(name)
       local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
-      if match ~= nil then
+      if match then
         o[#o+1] = {
           k = key,
           v = device:get_field(name) or value,
@@ -173,7 +176,7 @@ function utils.settings(device)
       if #str == 0 then
         str[#str+1] = '<tr><td colspan="2">None</td></tr>'
       end
-      return '<table style="font-size:0.6em;min-width:100%%"><tbody>' .. table.concat(str) .. '</tbody></table>'
+      return '<table style="font-size:0.6em;min-width:100%"><tbody>' .. table.concat(str) .. '</tbody></table>'
     end
   })
   return o
@@ -227,7 +230,7 @@ function utils.details(driver)
     local diff = os.difftime(os.time(), started_at)
     -- collectgarbage("collect")
     local memory = math.ceil(collectgarbage("count"))
-    print(string.format("start: %s, uptime: %02d:%02d:%02d, memory: %d KB, devices: %d", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor(diff/60), diff % 60, memory, #driver:get_devices()))
+    print(string.format("start: %s, uptime: %02d:%02d:%02d, memory: %d KB, devices: %d", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor((diff%3600)/60), diff % 60, memory, #driver:get_devices()))
   end)
 end
 
