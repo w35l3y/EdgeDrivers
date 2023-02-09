@@ -176,7 +176,7 @@ function utils.settings(device)
       if #str == 0 then
         str[#str+1] = '<tr><td colspan="2">None</td></tr>'
       end
-      return '<table style="font-size:0.6em;min-width:100%%"><tbody>' .. table.concat(str) .. '</tbody></table>'
+      return '<table style="font-size:0.6em;min-width:100%"><tbody>' .. table.concat(str) .. '</tbody></table>'
     end
   })
   return o
