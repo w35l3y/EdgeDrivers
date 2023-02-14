@@ -1,5 +1,5 @@
-* [SmartThings Community Discussion](https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270?u=w35l3y)
-* [Invitation link](https://api.smartthings.com/invite/6Vjd4YPVJwjN)
+- [SmartThings Community Discussion](https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270?u=w35l3y)
+- [Invitation link](https://api.smartthings.com/invite/6Vjd4YPVJwjN)
 
 ## How to use
 
@@ -59,8 +59,11 @@ If it doesn't update the profile, please read Known issues.
 
 ### Examples of including predefined devices:
 
-- The code was refactored, so I don't have any recent commit example.
+- https://github.com/w35l3y/EdgeDrivers/commit/b697a549dd1de61046736c933f3b1726d930d444
+- The code was refactored, so I don't have much recent commit example.
 - But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
+
+Once you include/modify your model file, execute the command `npm start` to generate other files.
 
 ### Examples of including new stock capabilities:
 
@@ -82,6 +85,7 @@ If it doesn't update the profile, please read Known issues.
 | TS0601 | _TZE200_dwcarsat | Air Quality |
 | TS0601 | _TZE200_e3oitdyu | Multi Dimmer |
 | TS0601 | _TZE200_ikvncluo | Presence Sensor |
+| TS0601 | _TZE200_nklqjk62 | Garage Door |
 | TS0601 | _TZE200_qoy0ekbd | Thermostat |
 | TS0601 | _TZE200_r731zlxk | Multi Switch |
 | TS0601 | _TZE200_wfxuhoea | Garage Door |
