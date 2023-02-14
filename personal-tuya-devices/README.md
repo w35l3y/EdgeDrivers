@@ -59,7 +59,7 @@ If it doesn't update the profile, please read Known issues.
 
 ### Examples of including predefined devices:
 
-- https://github.com/w35l3y/EdgeDrivers/commit/b697a549dd1de61046736c933f3b1726d930d444
+- https://github.com/w35l3y/EdgeDrivers/commit/47b55df44d73fb6faf3db1b5e6965aadf2c62ac7
 - The code was refactored, so I don't have much recent commit example.
 - But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
 
@@ -73,28 +73,28 @@ Once you include/modify your model file, execute the command `npm start` to gene
 
 ## Current devices tested with this driver
 
-| Model | Manufacturer | Label |
-|---|---|---|
-| TS0003 | _TZ3000_tbfw3xj0 | Multi Switch |
-| TS011F | _TZ3000_3zofvcaa | Multi Switch |
-| TS0601 | _TZE200_1n2kyphz | Multi Switch |
-| TS0601 | _TZE200_8ygsuhe1 | Air Quality |
-| TS0601 | _TZE200_9mahtqtg | Multi Switch |
-| TS0601 | _TZE200_a8sdabtg | Thermostat |
-| TS0601 | _TZE200_dfxkcots | Dimmer |
-| TS0601 | _TZE200_dwcarsat | Air Quality |
-| TS0601 | _TZE200_e3oitdyu | Multi Dimmer |
-| TS0601 | _TZE200_ikvncluo | Presence Sensor |
-| TS0601 | _TZE200_nklqjk62 | Garage Door |
-| TS0601 | _TZE200_qoy0ekbd | Thermostat |
-| TS0601 | _TZE200_r731zlxk | Multi Switch |
-| TS0601 | _TZE200_wfxuhoea | Garage Door |
-| TS0601 | _TZE200_yvx5lh6k | Air Quality |
-| TS0601 | _TZE200_znbl8dj5 | Thermostat |
-| TS0601 | _TZE200_ztc6ggyl | Presense Sensor |
-| TS0601 | _TZE204_ztc6ggyl | Presense Sensor |
+| Model  | Manufacturer      | Label           |
+| ------ | ----------------- | --------------- |
+| TS0003 | \_TZ3000_tbfw3xj0 | Multi Switch    |
+| TS011F | \_TZ3000_3zofvcaa | Multi Switch    |
+| TS0601 | \_TZE200_1n2kyphz | Multi Switch    |
+| TS0601 | \_TZE200_8ygsuhe1 | Air Quality     |
+| TS0601 | \_TZE200_9mahtqtg | Multi Switch    |
+| TS0601 | \_TZE200_a8sdabtg | Thermostat      |
+| TS0601 | \_TZE200_dfxkcots | Dimmer          |
+| TS0601 | \_TZE200_dwcarsat | Air Quality     |
+| TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    |
+| TS0601 | \_TZE200_ikvncluo | Presence Sensor |
+| TS0601 | \_TZE200_nklqjk62 | Garage Door     |
+| TS0601 | \_TZE200_qoy0ekbd | Thermostat      |
+| TS0601 | \_TZE200_r731zlxk | Multi Switch    |
+| TS0601 | \_TZE200_wfxuhoea | Garage Door     |
+| TS0601 | \_TZE200_yvx5lh6k | Air Quality     |
+| TS0601 | \_TZE200_znbl8dj5 | Thermostat      |
+| TS0601 | \_TZE200_ztc6ggyl | Presense Sensor |
+| TS0601 | \_TZE204_ztc6ggyl | Presense Sensor |
 
-* This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
+- This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
 
 ## Known issues
 

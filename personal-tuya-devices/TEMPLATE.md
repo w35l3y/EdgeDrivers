@@ -59,7 +59,7 @@ If it doesn't update the profile, please read Known issues.
 
 ### Examples of including predefined devices:
 
-- https://github.com/w35l3y/EdgeDrivers/commit/b697a549dd1de61046736c933f3b1726d930d444
+- https://github.com/w35l3y/EdgeDrivers/commit/47b55df44d73fb6faf3db1b5e6965aadf2c62ac7
 - The code was refactored, so I don't have much recent commit example.
 - But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
 
