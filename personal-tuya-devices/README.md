@@ -96,6 +96,7 @@ Once you include/modify your model file, execute the command `npm start` to gene
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
 
+
 ## Known issues
 
 - **Some child devices weren't created**<br />
