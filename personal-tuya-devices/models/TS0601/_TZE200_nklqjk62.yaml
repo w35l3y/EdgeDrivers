@@ -2,7 +2,7 @@ deviceLabel: Garage Door
 profiles:
   - normal_garage_door_v1
 datapoints:
-  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/505dc9809be48b493024e639aa498204cb01873d/devices/tuya.js#L3428
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/505dc9809be48b493024e639aa498204cb01873d/devices/tuya.js#L3412
   # https://github.com/Koenkk/zigbee-herdsman-converters/blob/505dc9809be48b493024e639aa498204cb01873d/converters/toZigbee.js#L2571
   # https://github.com/Koenkk/zigbee-herdsman-converters/blob/505dc9809be48b493024e639aa498204cb01873d/lib/tuya.js#L769
   - id: 1

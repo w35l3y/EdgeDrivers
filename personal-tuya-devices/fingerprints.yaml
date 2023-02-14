@@ -81,6 +81,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_ikvncluo
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE200_nklqjk62
+    model: TS0601
+    manufacturer: _TZE200_nklqjk62
+    deviceProfileName: normal-garage-door-v1
+    deviceLabel: Garage Door
   - id: TS0601/_TZE200_qoy0ekbd
     model: TS0601
     manufacturer: _TZE200_qoy0ekbd
