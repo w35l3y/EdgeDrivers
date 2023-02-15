@@ -254,6 +254,16 @@ local defaults = {
       return to_number(value) == 0 and "unoccupied" or "occupied"
     end,
   },
+  powerMeter = {
+    capability = "powerMeter",
+    attribute = "power",
+    rate_name = "rate",
+    rate = 10,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
+    end,
+  },
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",

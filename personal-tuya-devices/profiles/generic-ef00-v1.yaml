@@ -183,6 +183,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: powerMeterDatapoints
+    title: Power Meters
+    description: List of datapoints used for power meters (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: presenceSensorDatapoints
     title: Presence sensors
     description: List of datapoints used for presence sensors (comma-separated)

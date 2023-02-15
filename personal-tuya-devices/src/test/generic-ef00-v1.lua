@@ -205,6 +205,12 @@ local mock_child_27 = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 27)
 })
 
+local mock_child_28 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-powerMeter-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 28)
+})
+
 local test_init_parent = function ()
   test.mock_device.add_test_device(mock_parent_device)
 
@@ -245,6 +251,7 @@ local test_init = function ()
       rawDatapoints = "25",
       voltageMeasureDatapoints = "26",
       energyMeterDatapoints = "27",
+      powerMeterDatapoints = "28",
     }
   }))
 
@@ -275,6 +282,7 @@ local test_init = function ()
   test.mock_device.add_test_device(mock_child_25)
   test.mock_device.add_test_device(mock_child_26)
   test.mock_device.add_test_device(mock_child_27)
+  test.mock_device.add_test_device(mock_child_28)
 end
 
 test.register_message_test("device_lifecycle added", {
@@ -923,6 +931,24 @@ test.register_message_test(
       channel = "capability",
       direction = "send",
       message = mock_child_27:generate_test_message("main", capabilities.energyMeter.energy(12.345))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "powerMeter",
+  {
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 28, tuya_types.Uint32(123)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_28:generate_test_message("main", capabilities.powerMeter.power(12.3))
     },
   }, {
     test_init = test_init
