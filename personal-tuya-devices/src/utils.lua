@@ -121,6 +121,7 @@ function utils.info(device, datapoints)
     endpoint = hexa(device.fingerprinted_endpoint_id, 2),
     device_id = hexa(fei.device_id, 4),
     profile_id = hexa(fei.profile_id, 4),
+    network_id = "0x" .. device.device_network_id,
     server = map(device.zigbee_endpoints, "server_clusters"),
     client = map(device.zigbee_endpoints, "client_clusters"),
     datapoints = _datapoints,
@@ -133,6 +134,7 @@ function utils.info(device, datapoints)
         <tr><th align="left">Endpoint</th><td colspan="2">%s</td></tr>
         <tr><th align="left">Device ID</th><td colspan="2">%s</td></tr>
         <tr><th align="left">Profile ID</th><td colspan="2">%s</td></tr>
+        <tr><th align="left">Network ID</th><td colspan="2">%s</td></tr>
         <tr><th colspan="3">Server Clusters</th></tr>
         %s
         <tr><th colspan="3">Client Clusters</th></tr>
@@ -143,6 +145,7 @@ function utils.info(device, datapoints)
       self.model,
       self.endpoint,
       self.device_id,
+      self.network_id,
       self.profile_id,
       self.server,
       self.client,
