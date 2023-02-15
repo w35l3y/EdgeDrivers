@@ -23,7 +23,13 @@ on:
       - "personal-tuya-devices/config-TEMPLATE.yml"
 
 jobs:
+  common:
+    uses: ./.github/workflows/call-update-templates-common.yaml
+    with:
+      environment: ${{ github.head_ref || github.ref_name }}
+    secrets: inherit
   tuya_devices:
+    needs: common
     uses: ./.github/workflows/call-update-templates.yaml
     with:
       driver: personal-tuya-devices
