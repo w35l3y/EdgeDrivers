@@ -163,6 +163,16 @@ local defaults = {
       return to_number(value) == 0 and "closed" or "open"
     end,
   },
+  currentMeasurement = {
+    capability = "currentMeasurement",
+    attribute = "current",
+    rate_name = "rate",
+    rate = 1000,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
+    end,
+  },
   doorControl = {
     capability = "doorControl",
     attribute = "door",

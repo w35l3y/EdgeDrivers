@@ -103,6 +103,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: currentMeasureDatapoints
+    title: Current sensors
+    description: List of datapoints used for current sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: doorControlDatapoints
     title: Door controls
     description: List of datapoints used for door controls (comma-separated)
