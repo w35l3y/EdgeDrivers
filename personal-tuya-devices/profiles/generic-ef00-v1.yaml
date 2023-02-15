@@ -63,6 +63,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: batteryDatapoints
+    title: Batteries
+    description: List of datapoints used for batteries (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: buttonDatapoints
     title: Buttons
     description: List of datapoints used for buttons (comma-separated)
