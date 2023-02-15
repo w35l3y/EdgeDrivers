@@ -207,6 +207,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: voltageMeasureDatapoints
+    title: Voltage sensors
+    description: List of datapoints used for voltage sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: waterSensorDatapoints
     title: Water sensors
     description: List of datapoints used for water sensors (comma-separated)
