@@ -53,7 +53,7 @@ preferences:
         custom_multi_switch_v3: Custom
         generic_ef00_v1: Generic
       default: switch_all_multi_switch_v3
-  - name: childMain01
+  - name: childSwitchMain01
     title: Create child device for Switch 1
     required: true
     preferenceType: boolean

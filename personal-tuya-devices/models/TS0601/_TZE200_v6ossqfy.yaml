@@ -1,0 +1,9 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v2
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/0d727653f2d503192553327e6f5bdb57a336c96b/devices/tuya.js#L3871
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1

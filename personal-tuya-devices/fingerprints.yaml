@@ -46,6 +46,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_1n2kyphz
     deviceProfileName: normal-multi-switch-v4
     deviceLabel: Multi Switch
+  - id: TS0601/_TZE200_2hf7x9n3
+    model: TS0601
+    manufacturer: _TZE200_2hf7x9n3
+    deviceProfileName: normal-multi-switch-v3
+    deviceLabel: Multi Switch
   - id: TS0601/_TZE200_8ygsuhe1
     model: TS0601
     manufacturer: _TZE200_8ygsuhe1
@@ -76,11 +81,21 @@ zigbeeManufacturer:
     manufacturer: _TZE200_e3oitdyu
     deviceProfileName: normal-multi-dimmer-v2
     deviceLabel: Multi Dimmer
+  - id: TS0601/_TZE200_go3tvswy
+    model: TS0601
+    manufacturer: _TZE200_go3tvswy
+    deviceProfileName: normal-multi-switch-v3
+    deviceLabel: Multi Switch
   - id: TS0601/_TZE200_ikvncluo
     model: TS0601
     manufacturer: _TZE200_ikvncluo
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE200_nklqjk62
+    model: TS0601
+    manufacturer: _TZE200_nklqjk62
+    deviceProfileName: normal-garage-door-v1
+    deviceLabel: Garage Door
   - id: TS0601/_TZE200_qoy0ekbd
     model: TS0601
     manufacturer: _TZE200_qoy0ekbd
@@ -91,6 +106,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_r731zlxk
     deviceProfileName: normal-multi-switch-v6
     deviceLabel: Multi Switch
+  - id: TS0601/_TZE200_v6ossqfy
+    model: TS0601
+    manufacturer: _TZE200_v6ossqfy
+    deviceProfileName: normal-presenceSensor-v2
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE200_wfxuhoea
     model: TS0601
     manufacturer: _TZE200_wfxuhoea

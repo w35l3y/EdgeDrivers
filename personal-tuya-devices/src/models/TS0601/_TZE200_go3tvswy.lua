@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Multi Switch","profiles":["normal_multi_switch_v3","switch_all_multi_switch_v3","custom_multi_switch_v3"],"datapoints":[{"id":1,"command":"switch","base":{"group":1}},{"id":2,"command":"switch","base":{"group":2}},{"id":3,"command":"switch","base":{"group":3}}]}]]
