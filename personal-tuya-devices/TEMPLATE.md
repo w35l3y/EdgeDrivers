@@ -73,6 +73,7 @@ Once you include/modify your model file, execute the command `npm start` to gene
 
 ### Examples of including new stock capabilities:
 
+- https://github.com/w35l3y/EdgeDrivers/commit/f4827edd743b4cd544199812226755c32ec5cde6 (+ unit tests)
 - https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
 - https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
 - https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f

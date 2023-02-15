@@ -326,7 +326,7 @@ local defaults = {
     capability = "voltageMeasurement",
     attribute = "voltage",
     rate_name = "rate",
-    rate = 1000,
+    rate = 10,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / get_value(pref[self.rate_name], self.rate)

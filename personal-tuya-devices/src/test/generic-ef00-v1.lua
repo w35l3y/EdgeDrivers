@@ -891,7 +891,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 26, tuya_types.Uint32(217000)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 26, tuya_types.Uint32(2170)) }
     },
     {
       channel = "capability",
