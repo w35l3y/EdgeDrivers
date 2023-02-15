@@ -163,6 +163,16 @@ local defaults = {
       return to_number(value) == 0 and "closed" or "open"
     end,
   },
+  currentMeasurement = {
+    capability = "currentMeasurement",
+    attribute = "current",
+    rate_name = "rate",
+    rate = 1000,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
+    end,
+  },
   doorControl = {
     capability = "doorControl",
     attribute = "door",
@@ -191,6 +201,16 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  energyMeter = {
+    capability = "energyMeter",
+    attribute = "energy",
+    rate_name = "rate",
+    rate = 1000,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   fineDustSensor = {
@@ -242,6 +262,16 @@ local defaults = {
         return to_number(value) == 0 and "occupied" or "unoccupied"
       end
       return to_number(value) == 0 and "unoccupied" or "occupied"
+    end,
+  },
+  powerMeter = {
+    capability = "powerMeter",
+    attribute = "power",
+    rate_name = "rate",
+    rate = 10,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   presenceSensor = {
@@ -320,6 +350,16 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  voltageMeasurement = {
+    capability = "voltageMeasurement",
+    attribute = "voltage",
+    rate_name = "rate",
+    rate = 10,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
   waterSensor = {

@@ -103,6 +103,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: currentMeasureDatapoints
+    title: Current sensors
+    description: List of datapoints used for current sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: doorControlDatapoints
     title: Door controls
     description: List of datapoints used for door controls (comma-separated)
@@ -114,6 +122,14 @@ preferences:
   - name: dustSensorDatapoints
     title: Dust Sensors (PM10)
     description: List of datapoints used for dust sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: energyMeterDatapoints
+    title: Energy Meters
+    description: List of datapoints used for energy meters (comma-separated)
     required: true
     preferenceType: string
     definition:
@@ -175,6 +191,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: powerMeterDatapoints
+    title: Power Meters
+    description: List of datapoints used for power meters (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: presenceSensorDatapoints
     title: Presence sensors
     description: List of datapoints used for presence sensors (comma-separated)
@@ -202,6 +226,14 @@ preferences:
   - name: valveDatapoints
     title: Valves
     description: List of datapoints used for valves (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: voltageMeasureDatapoints
+    title: Voltage sensors
+    description: List of datapoints used for voltage sensors (comma-separated)
     required: true
     preferenceType: string
     definition:

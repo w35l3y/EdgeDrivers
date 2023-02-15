@@ -19,5 +19,6 @@ return {
   ["_TZE200_yvx5lh6k"] = myutils.load_model_from_json("TS0601", "_TZE200_yvx5lh6k"),
   ["_TZE200_znbl8dj5"] = myutils.load_model_from_json("TS0601", "_TZE200_znbl8dj5"),
   ["_TZE200_ztc6ggyl"] = myutils.load_model_from_json("TS0601", "_TZE200_ztc6ggyl"),
+  ["_TZE204_cjbofhxw"] = myutils.load_model_from_json("TS0601", "_TZE204_cjbofhxw"),
   ["_TZE204_ztc6ggyl"] = myutils.load_model_from_json("TS0601", "_TZE204_ztc6ggyl")
 }

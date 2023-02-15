@@ -39,7 +39,7 @@ If it doesn't update the profile, please read Known issues.
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, doorControl, dustSensor, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor and waterSensor/leakSensor
+     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement and waterSensor/leakSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -55,18 +55,29 @@ If it doesn't update the profile, please read Known issues.
    - You may use any of the existing files as template.
    - Possible commands are at `/src/commands.lua`.
    - If you need a new profile, then create it at `/profiles/normal-XXXXXXXXXXXXXXXXX-vX.yaml`
-3. Pull request your modification
+3. Execute `npm start` to test locally
+   - All required files are created/modified with this command.
+   - Don't bother modifying `fingerprints.yaml` manually.
+   - Re-execute it every time you modify your model file to create/modify files properly. Otherwise, you may have inconsistent results.
+4. Pull request your modification
 
 ### Examples of including predefined devices:
 
+- https://github.com/w35l3y/EdgeDrivers/commit/c8afcfc759c8114b53693f5095b1059a8c679ea6 (new profile + unit tests)
 - https://github.com/w35l3y/EdgeDrivers/commit/47b55df44d73fb6faf3db1b5e6965aadf2c62ac7
-- The code was refactored, so I don't have much recent commit example.
-- But each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
+- https://github.com/w35l3y/EdgeDrivers/commit/9b9448c8f46ec47a82034809d7a25c580df7d4cf (new profile)
+- https://github.com/w35l3y/EdgeDrivers/commit/e51cd5fcd3a2e096d2289074a3a44c976348ec93
+- https://github.com/w35l3y/EdgeDrivers/commit/0fe4849b5bffe7b52bac84cbc71a55b6bae3b0a5
+- Each file here is an example: https://github.com/w35l3y/EdgeDrivers/tree/beta/personal-tuya-devices/models/TS0601
 
 Once you include/modify your model file, execute the command `npm start` to generate other files.
 
 ### Examples of including new stock capabilities:
 
+- https://github.com/w35l3y/EdgeDrivers/commit/f76feeca83ab707abe9f2ba6b0f0ae682a14a099 (+ unit tests)
+- https://github.com/w35l3y/EdgeDrivers/commit/ad5aad2f4842a5fe6195777aece3cf15fd4a31c9 (+ unit tests)
+- https://github.com/w35l3y/EdgeDrivers/commit/c0925db83c50985368b52ab76d1694aefc4deb79 (+ unit tests)
+- https://github.com/w35l3y/EdgeDrivers/commit/f4827edd743b4cd544199812226755c32ec5cde6 (+ unit tests)
 - https://github.com/w35l3y/EdgeDrivers/commit/1c6708f6c48790cae2be812ad668a01c71884836
 - https://github.com/w35l3y/EdgeDrivers/commit/013d41ca525106162134223fb2cd826b5bc01918
 - https://github.com/w35l3y/EdgeDrivers/commit/cdf8a6f023cd4b54fcc60136f3c9885164bae14f
@@ -78,20 +89,24 @@ Once you include/modify your model file, execute the command `npm start` to gene
 | TS0003 | \_TZ3000_tbfw3xj0 | Multi Switch    |
 | TS011F | \_TZ3000_3zofvcaa | Multi Switch    |
 | TS0601 | \_TZE200_1n2kyphz | Multi Switch    |
+| TS0601 | \_TZE200_2hf7x9n3 | Multi Switch    |
 | TS0601 | \_TZE200_8ygsuhe1 | Air Quality     |
 | TS0601 | \_TZE200_9mahtqtg | Multi Switch    |
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    |
+| TS0601 | \_TZE200_go3tvswy | Multi Switch    |
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     |
 | TS0601 | \_TZE200_qoy0ekbd | Thermostat      |
 | TS0601 | \_TZE200_r731zlxk | Multi Switch    |
+| TS0601 | \_TZE200_v6ossqfy | Presence Sensor |
 | TS0601 | \_TZE200_wfxuhoea | Garage Door     |
 | TS0601 | \_TZE200_yvx5lh6k | Air Quality     |
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      |
 | TS0601 | \_TZE200_ztc6ggyl | Presense Sensor |
+| TS0601 | \_TZE204_cjbofhxw | Power Meter     |
 | TS0601 | \_TZE204_ztc6ggyl | Presense Sensor |
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
