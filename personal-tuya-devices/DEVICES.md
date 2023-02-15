@@ -9,6 +9,7 @@
 | TS0601 | \_TZE200_dfxkcots | Dimmer          |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    |
+| TS0601 | \_TZE200_go3tvswy | Multi Switch    |
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     |
 | TS0601 | \_TZE200_qoy0ekbd | Thermostat      |
