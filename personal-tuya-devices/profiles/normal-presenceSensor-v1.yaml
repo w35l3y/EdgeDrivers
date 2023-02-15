@@ -27,6 +27,7 @@ preferences:
     definition:
       options:
         normal_presenceSensor_v1: Normal
+        normal_presenceSensor_v2: No illuminance
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v1
   - name: prefSensitivity
