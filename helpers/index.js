@@ -61,15 +61,50 @@ function update_models(path = ".") {
         "\n}"
     );
   });
+  let maxLength = fingerprints.zigbeeManufacturer.reduce(
+    (acc, { model, manufacturer, deviceLabel }) => {
+      const t = [model, manufacturer.replace(/^_/, "\\_"), deviceLabel];
+      return acc.map((v, i) => Math.max(v, t[i].length));
+    },
+    [0, 0, 0]
+  );
+
   fs.writeFileSync(
     path + "/DEVICES.md",
-    "| Model | Manufacturer | Label |\n|---|---|---|\n" +
+    [
+      "",
+      "Model".padEnd(maxLength[0], " "),
+      "Manufacturer".padEnd(maxLength[1], " "),
+      "Label".padEnd(maxLength[2], " "),
+      "",
+    ]
+      .join(" | ")
+      .trim() +
+      "\n" +
+      [
+        "",
+        "".padEnd(maxLength[0], "-"),
+        "".padEnd(maxLength[1], "-"),
+        "".padEnd(maxLength[2], "-"),
+        "",
+      ]
+        .join(" | ")
+        .trim() +
+      "\n" +
       fingerprints.zigbeeManufacturer
         .map(({ model, manufacturer, deviceLabel }) =>
-          ["", model, manufacturer, deviceLabel, ""].join(" | ").trim()
+          [
+            "",
+            model.padEnd(maxLength[0], " "),
+            manufacturer.replace(/^_/, "\\_").padEnd(maxLength[1], " "),
+            deviceLabel.padEnd(maxLength[2], " "),
+            "",
+          ]
+            .join(" | ")
+            .trim()
         )
         .join("\n") +
-      "\n\n- This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster."
+      "\n\n- This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.\n"
   );
   fs.writeFileSync(
     path + "/src/models/init.lua",
