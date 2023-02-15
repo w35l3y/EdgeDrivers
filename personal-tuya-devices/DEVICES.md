@@ -3,6 +3,7 @@
 | TS0003 | \_TZ3000_tbfw3xj0 | Multi Switch    |
 | TS011F | \_TZ3000_3zofvcaa | Multi Switch    |
 | TS0601 | \_TZE200_1n2kyphz | Multi Switch    |
+| TS0601 | \_TZE200_2hf7x9n3 | Multi Switch    |
 | TS0601 | \_TZE200_8ygsuhe1 | Air Quality     |
 | TS0601 | \_TZE200_9mahtqtg | Multi Switch    |
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      |
