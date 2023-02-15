@@ -30,6 +30,7 @@ jobs:
       environment: ${{ github.head_ref || github.ref_name }}
     secrets: inherit
   default_clusters:
+    needs: tuya_devices
     uses: ./.github/workflows/call-update-templates.yaml
     with:
       driver: default-clusters
