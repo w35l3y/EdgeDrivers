@@ -1,12 +1,8 @@
-name: call-update-templates
+name: call-update-templates-common
 
 on:
   workflow_call:
     inputs:
-      driver:
-        description: "Folder name of the driver"
-        required: true
-        type: string
       environment:
         description: Environment
         required: true
@@ -14,10 +10,6 @@ on:
         default: beta
   workflow_dispatch:
     inputs:
-      driver:
-        description: "Folder name of the driver"
-        required: true
-        type: string
       environment:
         description: Environment
         required: true
@@ -36,23 +28,12 @@ jobs:
         uses: varunsridharan/action-dynamic-readme@main
         with:
           files: |
-            ${{ inputs.driver }}/TEMPLATE.md=${{ inputs.driver }}/README.md
+            TEMPLATE.md=README.md
           committer_name: github-actions[bot]
           committer_email: github-actions[bot]@users.noreply.github.com
           commit_message: "docs: update readme file [skip ci]"
         env:
           INVITATION_LINK: ${{ vars.INVITATION_LINK }}
           INVITATION_LINK_BETA: ${{ vars.INVITATION_LINK_BETA }}
-          ENVIRONMENT: ${{ inputs.environment }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: yaml+lua files
-        uses: varunsridharan/action-dynamic-readme@main
-        with:
-          files: |
-            ${{ inputs.driver }}/config-TEMPLATE.yml=${{ inputs.driver }}/config.yaml
-          committer_name: github-actions[bot]
-          committer_email: github-actions[bot]@users.noreply.github.com
-          commit_message: "docs: update template file"
-        env:
           ENVIRONMENT: ${{ inputs.environment }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
