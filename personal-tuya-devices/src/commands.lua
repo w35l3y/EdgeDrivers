@@ -193,6 +193,16 @@ local defaults = {
       return math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
+  energyMeter = {
+    capability = "energyMeter",
+    attribute = "energy",
+    rate_name = "rate",
+    rate = 1000,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return to_number(value) / get_value(pref[self.rate_name], self.rate)
+    end,
+  },
   fineDustSensor = {
     capability = "fineDustSensor",
     attribute = "fineDustLevel",

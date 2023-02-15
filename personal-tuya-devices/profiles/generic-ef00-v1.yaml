@@ -119,6 +119,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: energyMeterDatapoints
+    title: Energy Meters
+    description: List of datapoints used for energy meters (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: fineDustSensorDatapoints
     title: Fine Dust Sensors (PM2.5)
     description: List of datapoints used for fine dust sensors (comma-separated)
