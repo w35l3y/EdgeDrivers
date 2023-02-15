@@ -20,6 +20,7 @@
 | TS0601 | \_TZE200_yvx5lh6k | Air Quality     |
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      |
 | TS0601 | \_TZE200_ztc6ggyl | Presense Sensor |
+| TS0601 | \_TZE204_cjbofhxw | Power Meter     |
 | TS0601 | \_TZE204_ztc6ggyl | Presense Sensor |
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
