@@ -59,7 +59,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "receive",
-      message = { mock_parent_device.id, { capability = "valve", component = "main", command = "open", args = {} } }
+      message = { mock_parent_device.id, { capability = "valve", component = "main", command = "close", args = {} } }
     },
     {
       channel = "zigbee",
@@ -74,7 +74,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.valve.valve("open"))
+      message = mock_parent_device:generate_test_message("main", capabilities.valve.valve("closed"))
     },
   }, {
     test_init = test_init_parent
