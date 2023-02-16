@@ -15,6 +15,7 @@ local template = {
     -- capabilities.colorControl,
     -- capabilities.colorTemperature,
     capabilities.doorControl,
+    capabilities.energyMeter,
     capabilities.switch,
     capabilities.switchLevel,
     capabilities.valve,
