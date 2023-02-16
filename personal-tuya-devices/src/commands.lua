@@ -45,6 +45,11 @@ local function get_value (pref, cmd)
   return cmd
 end
 
+local function unescape (str)
+  local output = string.gsub(str, "\\x(%x+)", function (o) return string.char(tonumber(o, 16)) end)
+  return output
+end
+
 local defaults = {
   switch = {
     capability = "switch",
@@ -218,10 +223,15 @@ local defaults = {
     attribute = "energy",
     rate_name = "rate",
     rate = 1000,
+    to_zigbee = function (self, value, device)  -- resetEnergyMeter (untested!)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return tuya_types.Uint32(0)
+    end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
   },
   fineDustSensor = {
     capability = "fineDustSensor",
@@ -426,8 +436,8 @@ local defaults = {
   raw = {
     capability = "valleyboard16460.datapointRaw",
     attribute = "value",
-    to_zigbee = function (self, value) return generic_body.GenericBody(value) end,
-    from_zigbee = function (self, value) return tostring(value) end,
+    to_zigbee = function (self, value) return generic_body.GenericBody(unescape(value)) end,
+    from_zigbee = function (self, value) return utils.get_print_safe_string(value) end,
   },
 }
 
