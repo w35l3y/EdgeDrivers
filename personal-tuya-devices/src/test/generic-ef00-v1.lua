@@ -918,7 +918,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "raw (nil)",
+  "raw (empty)",
   {
     {
       channel = "capability",
@@ -933,7 +933,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 25, generic_body.GenericBody()) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 25, generic_body.GenericBody("")) }
     },
     {
       channel = "capability",
