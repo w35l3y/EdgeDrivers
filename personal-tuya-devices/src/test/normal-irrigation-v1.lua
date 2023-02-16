@@ -95,7 +95,7 @@ test.register_message_test(
       message = mock_parent_device:generate_test_message("main", capabilities.battery.battery(86))
     },
   }, {
-    test_init = test_init
+    test_init = test_init_parent
   }
 )
 
@@ -123,6 +123,6 @@ test.register_message_test(
       message = mock_parent_device:generate_test_message("main02", capabilities["valleyboard16460.datapointValue"].value(4))
     },
   }, {
-    test_init = test_init
+    test_init = test_init_parent
   }
 )

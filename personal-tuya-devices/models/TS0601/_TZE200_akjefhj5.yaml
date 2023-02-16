@@ -12,6 +12,6 @@ datapoints:
     base:
       group: 1
   - id: 11
-    command: valleyboard16460.datapointValue
+    command: value
     base:
       group: 2
