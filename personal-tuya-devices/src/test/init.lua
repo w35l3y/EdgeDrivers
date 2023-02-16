@@ -16,6 +16,8 @@ require "test.normal-thermostat-v1"
 require "test.normal-single-dimmer-v1"
 require "test.normal-presenceSensor-v1"
 require "test.normal-garage-door-v1"
+require "test.normal-powerMeter-v1"
+require "test.normal-irrigation-v1"
 
 local test = require "integration_test"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
