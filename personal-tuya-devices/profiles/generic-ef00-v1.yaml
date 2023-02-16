@@ -30,6 +30,7 @@ preferences:
         normal_single_dimmer_v1: 1 dimmer
         normal_air_quality_v2: Air Quality
         normal_garage_door_v1: Garage Door
+        normal_irrigation_v1: Irrigation
         normal_presenceSensor_v2: Presence sensor
         normal_thermostat_v1: Thermostat
       default: generic_ef00_v1
@@ -58,6 +59,14 @@ preferences:
   - name: airQualitySensDatapoints
     title: Air quality sensors
     description: List of datapoints used for air quality sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: batteryDatapoints
+    title: Batteries
+    description: List of datapoints used for batteries (comma-separated)
     required: true
     preferenceType: string
     definition:

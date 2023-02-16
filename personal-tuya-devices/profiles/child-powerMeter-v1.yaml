@@ -10,7 +10,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Generic Sensor
+      - name: Power Meter
 preferences:
   - name: rate
     title: Rate
@@ -22,9 +22,9 @@ preferences:
       maximum: 10000
       default: 0
 metadata:
-  deviceType: GenericSensor
-  ocfDeviceType: oic.d.sensor
-  deviceTypeId: GenericSensor
+  deviceType: PowerMeter
+  ocfDeviceType: x.com.st.d.energymeter
+  deviceTypeId: PowerMeter
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

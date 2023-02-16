@@ -66,6 +66,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_a8sdabtg
     deviceProfileName: normal-thermostat-v1
     deviceLabel: Thermostat
+  - id: TS0601/_TZE200_akjefhj5
+    model: TS0601
+    manufacturer: _TZE200_akjefhj5
+    deviceProfileName: normal-irrigation-v1
+    deviceLabel: Irrigation
   - id: TS0601/_TZE200_dfxkcots
     model: TS0601
     manufacturer: _TZE200_dfxkcots

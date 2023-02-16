@@ -7,6 +7,7 @@
 | TS0601 | \_TZE200_8ygsuhe1 | Air Quality     |
 | TS0601 | \_TZE200_9mahtqtg | Multi Switch    |
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      |
+| TS0601 | \_TZE200_akjefhj5 | Irrigation      |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    |

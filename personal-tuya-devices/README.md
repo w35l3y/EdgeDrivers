@@ -39,7 +39,7 @@ If it doesn't update the profile, please read Known issues.
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement and waterSensor/leakSensor
+     Currently: switch, switchLevel, airQualitySensor, battery, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement and waterSensor/leakSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -93,6 +93,7 @@ Once you include/modify your model file, execute the command `npm start` to gene
 | TS0601 | \_TZE200_8ygsuhe1 | Air Quality     |
 | TS0601 | \_TZE200_9mahtqtg | Multi Switch    |
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      |
+| TS0601 | \_TZE200_akjefhj5 | Irrigation      |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    |

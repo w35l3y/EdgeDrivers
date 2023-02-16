@@ -1,0 +1,17 @@
+deviceLabel: Irrigation
+profiles:
+  - normal_irrigation_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bb7792937180f2fbc50a4a5932c06c7447dd2114/devices/tuya.js#L2726
+  - id: 1
+    command: valve
+    base:
+      group: 1
+  - id: 7
+    command: battery
+    base:
+      group: 1
+  - id: 11
+    command: value
+    base:
+      group: 2
