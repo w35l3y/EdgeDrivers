@@ -918,6 +918,34 @@ test.register_message_test(
 )
 
 test.register_message_test(
+  "raw (empty)",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_25.id, { capability = "valleyboard16460.datapointRaw", component = "main", command = "setValue", args = {""} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 25, generic_body.GenericBody("")) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 25, generic_body.GenericBody("")) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_25:generate_test_message("main", capabilities["valleyboard16460.datapointRaw"].value(""))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
   "voltageMeasurement",
   {
     {

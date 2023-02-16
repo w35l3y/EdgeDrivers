@@ -436,8 +436,8 @@ local defaults = {
   raw = {
     capability = "valleyboard16460.datapointRaw",
     attribute = "value",
-    to_zigbee = function (self, value) return generic_body.GenericBody(unescape(value)) end,
-    from_zigbee = function (self, value) return utils.get_print_safe_string(value) end,
+    to_zigbee = function (self, value) return generic_body.GenericBody(value and unescape(value) or "") end,
+    from_zigbee = function (self, value) return value and utils.get_print_safe_string(value) or "" end,
   },
 }
 
