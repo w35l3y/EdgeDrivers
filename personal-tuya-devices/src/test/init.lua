@@ -18,6 +18,7 @@ require "test.normal-presenceSensor-v1"
 require "test.normal-garage-door-v1"
 require "test.normal-powerMeter-v1"
 require "test.normal-irrigation-v1"
+require "test.normal-irrigation-v1_TZE200_sh1btabb"
 
 local test = require "integration_test"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"

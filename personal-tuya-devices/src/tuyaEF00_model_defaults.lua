@@ -38,7 +38,7 @@ local function get_default_by_profile (device, warn)
   for model, devices in pairs(mt.__cache) do
     for mfr, dp in pairs(devices) do
       for _, profile in ipairs(dp.profiles) do
-        if myutils.is_profile(device, profile) then
+        if myutils.is_profile(device, profile, mfr) then
           if warn then
             log.warn("Simulating device", model, mfr)
           end
