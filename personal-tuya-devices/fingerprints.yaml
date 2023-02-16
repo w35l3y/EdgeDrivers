@@ -111,6 +111,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_r731zlxk
     deviceProfileName: normal-multi-switch-v6
     deviceLabel: Multi Switch
+  - id: TS0601/_TZE200_sh1btabb
+    model: TS0601
+    manufacturer: _TZE200_sh1btabb
+    deviceProfileName: normal-irrigation-v1
+    deviceLabel: Irrigation
   - id: TS0601/_TZE200_v6ossqfy
     model: TS0601
     manufacturer: _TZE200_v6ossqfy

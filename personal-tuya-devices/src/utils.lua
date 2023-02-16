@@ -53,12 +53,12 @@ function utils.is_normal(device)
   return (pref == nil and device.parent_assigned_child_key ~= nil) or (pref ~= nil and pref:find("^normal_") ~= nil)
 end
 
-function utils.is_same_profile(device, profile)
-  return device.preferences and device.preferences.profile == profile or false
+function utils.is_same_profile(device, profile, mfr)
+  return device.preferences and ((mfr and mfr == device.preferences.manufacturer) or (device.preferences.profile == profile and not (device.preferences.manufacturer and mfr))) or false
 end
 
-function utils.is_profile(device, profile)
-  return device.parent_assigned_child_key and utils.is_same_profile(device:get_parent_device(), profile) or utils.is_same_profile(device, profile)
+function utils.is_profile(device, profile, mfr)
+  return device.parent_assigned_child_key and utils.is_same_profile(device:get_parent_device(), profile, mfr) or utils.is_same_profile(device, profile, mfr)
 end
 
 local function hexa(value, length)
