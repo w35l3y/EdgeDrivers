@@ -51,7 +51,7 @@ local test_init_mod = function ()
   test.mock_device.add_test_device(mock_parent_device)
   test.socket.device_lifecycle:__queue_receive(mock_parent_device:generate_info_changed({preferences = {
     profile = "custom_multi_dimmer_v2",
-    rate = 5,
+    rate = 50,
     childDimmerMain02 = false,
     prefMinimumLevel1 = 0,
     prefMinimumLevel2 = 0,
@@ -60,7 +60,7 @@ local test_init_mod = function ()
   test.mock_device.add_test_device(mock_first_child)
   test.socket.device_lifecycle:__queue_receive(mock_first_child:generate_info_changed({preferences = {
     profile = "child_dimmer_v1",
-    rate = 5,
+    rate = 50,
     reverse = true,
   }}))
 end
