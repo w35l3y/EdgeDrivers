@@ -10,12 +10,12 @@ datapoints:
     command: temperatureMeasurement
     base:
       group: 1
-      rate: 10
+      rate: 100
   - id: 19
     command: relativeHumidityMeasurement
     base:
       group: 1
-      rate: 10
+      rate: 100
   - id: 20
     command: formaldehydeMeasurement
     base:
