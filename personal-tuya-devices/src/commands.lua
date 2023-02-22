@@ -14,6 +14,7 @@ local function to_number (value)
   elseif type(value) == "string" then
     return tonumber(value, 10) or 0
   elseif type(value) == "nil" then
+    log.warn("value is nil. converted to 0")
     return 0
   end
   return value
@@ -344,6 +345,7 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.args.setpoint, device) end,
   },
   thermostatHeatingSetpoint = {
     capability = "thermostatHeatingSetpoint",
@@ -358,6 +360,7 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.args.setpoint, device) end,
   },
   tvocMeasurement = {
     capability = "tvocMeasurement",
