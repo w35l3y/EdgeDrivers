@@ -7,8 +7,9 @@ datapoints:
     command: temperatureMeasurement
     base:
       group: 1
-      rate: 100
+      rate: 1000
   - id: 2
     command: relativeHumidityMeasurement
     base:
       group: 1
+      rate: 100

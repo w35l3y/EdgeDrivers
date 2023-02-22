@@ -14,7 +14,7 @@ datapoints:
     command: switchLevel
     base:
       group: 1
-      rate: 100
+      rate: 1000
   - id: 3
     command: value
     base:
@@ -32,7 +32,7 @@ datapoints:
     command: switchLevel
     base:
       group: 2
-      rate: 100
+      rate: 1000
   - id: 9
     command: value
     base:
