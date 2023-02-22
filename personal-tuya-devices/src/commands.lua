@@ -400,7 +400,7 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return 100 * math.floor(to_number(value) / get_value(pref[self.rate_name], self.rate))
+      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
   voltageMeasurement = {
