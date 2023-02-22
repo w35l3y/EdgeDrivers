@@ -33,7 +33,7 @@ local default_generic = {
   attribute = "value",
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented") end,
   from_zigbee = function (self, value, device) return value end,
-  command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute], device) end,
+  command_handler = function (self, command, device) return self:to_zigbee(command.args[self.command_arg or self.attribute], device) end,
   create_event = function (self, value, device)
     return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
   end,
@@ -335,6 +335,7 @@ local defaults = {
   thermostatCoolingSetpoint = {
     capability = "thermostatCoolingSetpoint",
     attribute = "coolingSetpoint",
+    command_arg = "setpoint",
     rate_name = "rate",
     rate = 10,
     to_zigbee = function (self, value, device)
@@ -345,11 +346,11 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.setpoint, device) end,
   },
   thermostatHeatingSetpoint = {
     capability = "thermostatHeatingSetpoint",
     attribute = "heatingSetpoint",
+    command_arg = "setpoint",
     rate_name = "rate",
     rate = 10,
     to_zigbee = function (self, value, device)
@@ -360,7 +361,6 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args.setpoint, device) end,
   },
   tvocMeasurement = {
     capability = "tvocMeasurement",
