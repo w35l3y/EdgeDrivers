@@ -225,6 +225,22 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: thermostatCoolDatapoints
+    title: Thermostat Cooling Setpoint
+    description: List of datapoints used for cooling setpoints (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: thermostatHeatDatapoints
+    title: Thermostat Heating Setpoint
+    description: List of datapoints used for heating setpoints (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: tvocMeasuremenDatapoints
     title: VOC sensors
     description: List of datapoints used for VOC sensors (comma-separated)

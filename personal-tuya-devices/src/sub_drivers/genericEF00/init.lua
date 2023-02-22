@@ -17,6 +17,8 @@ local template = {
     capabilities.energyMeter,
     capabilities.switch,  -- boolean
     capabilities.switchLevel,
+    capabilities.thermostatCoolingSetpoint,
+    capabilities.thermostatHeatingSetpoint,
     capabilities.valve,
     capabilities["valleyboard16460.datapointBitmap"],
     capabilities["valleyboard16460.datapointEnum"],

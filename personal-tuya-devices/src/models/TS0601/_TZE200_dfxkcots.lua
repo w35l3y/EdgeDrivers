@@ -1,1 +1,1 @@
-return [[{"deviceLabel":"Dimmer","profiles":["normal_single_dimmer_v1"],"datapoints":[{"id":1,"command":"switch","base":{"group":1}},{"id":2,"command":"switchLevel","base":{"group":1,"rate":10}},{"id":3,"command":"switchLevel","base":{"group":2,"rate":10,"name":"minimum_level"}}]}]]
+return [[{"deviceLabel":"Dimmer","profiles":["normal_single_dimmer_v1"],"datapoints":[{"id":1,"command":"switch","base":{"group":1}},{"id":2,"command":"switchLevel","base":{"group":1,"rate":100}},{"id":3,"command":"switchLevel","base":{"group":2,"rate":100,"name":"minimum_level"}}]}]]
