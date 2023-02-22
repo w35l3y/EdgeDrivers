@@ -39,7 +39,7 @@ If it doesn't update the profile, please read Known issues.
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, battery, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement and waterSensor/leakSensor
+     Currently: switch, switchLevel, airQualitySensor, battery, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, thermostatCoolingSetpoint, thermostatHeatingSetpoint, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement and waterSensor/leakSensor
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
@@ -102,6 +102,7 @@ Once you include/modify your model file, execute the command `npm start` to gene
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     |
 | TS0601 | \_TZE200_qoy0ekbd | Thermostat      |
 | TS0601 | \_TZE200_r731zlxk | Multi Switch    |
+| TS0601 | \_TZE200_sh1btabb | Irrigation      |
 | TS0601 | \_TZE200_v6ossqfy | Presence Sensor |
 | TS0601 | \_TZE200_wfxuhoea | Garage Door     |
 | TS0601 | \_TZE200_yvx5lh6k | Air Quality     |
