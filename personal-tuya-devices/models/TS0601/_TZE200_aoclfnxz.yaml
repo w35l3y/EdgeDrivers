@@ -1,0 +1,15 @@
+deviceLabel: Thermostat
+profiles:
+  - normal_thermostat_v2
+datapoints:
+  # https://github.com/zigpy/zha-device-handlers/blob/25cf57dc29bf38dc8a004454a1da90de8eef7030/zhaquirks/tuya/ts0601_sensor.py#L129
+  - id: 16
+    command: thermostatHeatingSetpoint
+    base:
+      group: 1
+      rate: 100
+  - id: 24
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
