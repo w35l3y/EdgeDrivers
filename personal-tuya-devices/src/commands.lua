@@ -331,6 +331,34 @@ local defaults = {
       return (10 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset)
     end,
   },
+  thermostatCoolingSetpoint = {
+    capability = "thermostatCoolingSetpoint",
+    attribute = "coolingSetpoint",
+    rate_name = "rate",
+    rate = 10,
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 10))
+    end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  thermostatHeatingSetpoint = {
+    capability = "thermostatHeatingSetpoint",
+    attribute = "heatingSetpoint",
+    rate_name = "rate",
+    rate = 10,
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 10))
+    end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(10 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
   tvocMeasurement = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",
