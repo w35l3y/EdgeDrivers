@@ -30,8 +30,24 @@ preferences:
       default: normal_thermostat_v2
   - preferenceId: tempOffset
     explicit: true
-  - preferenceId: humidityOffset
-    explicit: true
+  - name: dpThermostatHeatinMain01
+    title: DP for Thermostat Heating Setpoint
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: Thermostat
   ocfDeviceType: oic.d.thermostat

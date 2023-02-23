@@ -50,7 +50,7 @@ end
 
 function utils.is_normal(device)
   local pref = device.preferences.profile
-  return (pref == nil and device.parent_assigned_child_key ~= nil) or (pref ~= nil and pref:find("^normal_") ~= nil)
+  return (not pref and device.parent_assigned_child_key ~= nil) or (pref and pref:find("^normal_") ~= nil) or false
 end
 
 function utils.is_same_profile(device, profile, mfr)

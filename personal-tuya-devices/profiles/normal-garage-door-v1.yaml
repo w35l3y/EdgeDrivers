@@ -29,6 +29,24 @@ preferences:
       default: normal_garage_door_v1
   - preferenceId: reverse
     explicit: true
+  - name: dpDoorControlMain01
+    title: DP for Door Control
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpContactSensorMain01
+    title: DP for Contact Sensor
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: GarageDoor
   ocfDeviceType: oic.d.garagedoor

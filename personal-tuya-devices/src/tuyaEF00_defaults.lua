@@ -29,13 +29,61 @@ local function get_value(data)
   return data.value
 end
 
+local map_cap_to_pref = {
+  ["valleyboard16460.datapointValue"] = "value",
+  ["valleyboard16460.datapointString"] = "string",
+  ["valleyboard16460.datapointEnum"] = "enum",
+  ["valleyboard16460.datapointBitmap"] = "bitmap",
+  ["valleyboard16460.datapointRaw"] = "raw",
+}
+
+local function get_dp(dp, def, device)
+  local cap = string.sub(utils.pascal_case(map_cap_to_pref[def.capability] or def.capability), 1, 16)
+  local pref_name = "dp" .. cap .. "Main" .. string.format("%02X", def.group)
+  if device.parent_assigned_child_key then
+    local pdp = device:get_parent_device().preferences[pref_name]
+    -- log.info("PREFNAME", pref_name, pdp, dp)
+    return (not dp or pdp ~= 0) and pdp or dp
+  end
+  local pdp = device.preferences[pref_name]
+  -- log.info("PREFNAME", pref_name, pdp, dp)
+  return (not dp or pdp ~= 0) and pdp or dp
+end
+
 function defaults.command_response_handler(datapoints)
   return function (driver, device, zb_rx)
+    -- log.info("command_response_handler")
     -- device.parent_assigned_child_key chega sempre nulo
     local dpid = zb_rx.body.zcl_body.data.dpid.value
-    local value = get_value(zb_rx.body.zcl_body.data.value)
     local _type = zb_rx.body.zcl_body.data.type.value
-    local event_dp = datapoints[dpid] or map_to_fn[_type]({group=dpid}) or commands.generic
+    local event_dp = datapoints[dpid]
+    local __dpid = event_dp and get_dp(nil, event_dp, device) or nil
+    if __dpid ~= 0 and __dpid ~= dpid then
+      for cdpid, cdef in pairs(datapoints) do
+        local odpid = get_dp(nil, cdef, device)
+        -- log.info("Iterate", dpid, cdpid, odpid)
+        if dpid == odpid then
+          local dp_exists = datapoints[dpid]
+          local _odpid = dp_exists and get_dp(nil, dp_exists, device) or nil
+          -- log.info("dp_exists?", dp_exists, _odpid)
+          if _odpid == 0 or dpid == _odpid then
+            log.warn("Datapoint can't be overridden because it already exists and uses its default value.", dpid, cdpid, _odpid)
+          else
+            log.info("Datapoint overridden", dpid, cdpid, _odpid)
+            dpid = cdpid
+            event_dp = cdef
+          end
+          break
+        elseif dpid == cdpid and odpid then
+          event_dp = nil
+        end
+      end
+    end
+    if not event_dp then
+      log.info("Datapoint not found. Using default", dpid)
+      event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
+    end
+    local value = get_value(zb_rx.body.zcl_body.data.value)
     local event = event_dp:create_event(value, device)
     local cur_time = os.time()
     
@@ -99,7 +147,7 @@ function defaults.update_data(datapoints)
   return function (driver, device, name, value)
     for dpid, def in pairs(datapoints) do
       if def.name == name then
-        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:to_zigbee(value, device)))
+        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, get_dp(dpid, def, device), def:to_zigbee(value, device)))
         break
       end
     end
@@ -107,19 +155,20 @@ function defaults.update_data(datapoints)
 end
 
 local function send_command(datapoints, device, command, value_fn)
+  -- log.info("send_command")
   if device.parent_assigned_child_key == nil then
     if command.component ~= "main" or myutils.is_normal(device) then
       local group = device:get_endpoint_for_component_id(command.component)
       for dpid, def in pairs(datapoints) do
         if group == def.group and command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:command_handler(command, device)))
+          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, get_dp(dpid, def, device), def:command_handler(command, device)))
           break
         end
       end
     else
       for dpid, def in pairs(datapoints) do
         if command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, dpid, def:command_handler(command, device)))
+          device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, get_dp(dpid, def, device), def:command_handler(command, device)))
         end
       end
     end
@@ -128,7 +177,7 @@ local function send_command(datapoints, device, command, value_fn)
     for dpid, def in pairs(datapoints) do
       if group == def.group and command.capability == def.capability then
         -- este comando abaixo delega pro get_parent_device()
-        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device:get_parent_device(), dpid, def:command_handler(command, device)))
+        device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device:get_parent_device(), get_dp(dpid, def, device), def:command_handler(command, device)))
       end
     end
   end

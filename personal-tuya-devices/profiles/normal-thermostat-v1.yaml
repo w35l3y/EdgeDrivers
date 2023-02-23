@@ -32,6 +32,24 @@ preferences:
     explicit: true
   - preferenceId: humidityOffset
     explicit: true
+  - name: dpRelativeHumidityMain01
+    title: DP for Relative Humidity Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: Thermostat
   ocfDeviceType: oic.d.thermostat

@@ -31,6 +31,42 @@ preferences:
         normal_powerMeter_v1: Normal
         generic_ef00_v1: Generic
       default: normal_powerMeter_v1
+  - name: dpPowerMeterMain01
+    title: DP for Power Meter
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpCurrentMeasuremeMain01
+    title: DP for Current Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpVoltageMeasuremeMain01
+    title: DP for Voltage Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpEnergyMeterMain01
+    title: DP for Energy Meter
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: PowerMeter
   ocfDeviceType: x.com.st.d.energymeter
