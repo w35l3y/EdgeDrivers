@@ -10,10 +10,10 @@ datapoints:
     command: switchLevel
     base:
       group: 1
-      rate: 100
+      rate: 1000
   - id: 3
     command: switchLevel
     base:
       group: 2
-      rate: 100
+      rate: 1000
       name: minimum_level

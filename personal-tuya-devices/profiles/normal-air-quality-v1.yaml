@@ -38,6 +38,51 @@ preferences:
     explicit: true
   - preferenceId: humidityOffset
     explicit: true
+  - name: dpCarbonDioxideMeaMain01
+    title: DP for Carbon Dioxide Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpRelativeHumidityMain01
+    title: DP for Relative Humidity Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTvocMeasurementMain01
+    title: DP for TVOC Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpFormaldehydeMeasMain01
+    title: DP for Formaldehyde Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: AirQualityDetector
   ocfDeviceType: x.com.st.d.airqualitysensor

@@ -75,6 +75,24 @@ preferences:
       minimum: 10
       maximum: 1500
       default: 1500
+  - name: dpPresenceSensorMain01
+    title: DP for Presence Sensor
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpIlluminanceMeasuMain01
+    title: DP for Illuminance Measurement
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: PresenceSensor
   ocfDeviceType: x.com.st.d.sensor.presence

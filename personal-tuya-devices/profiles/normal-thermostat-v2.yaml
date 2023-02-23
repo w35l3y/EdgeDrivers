@@ -1,25 +1,21 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-powerMeter-v1"
+name: "normal-thermostat-v2"
 components:
   - id: main
-    label: Power Meter
+    label: Thermostat
     capabilities:
-      - id: powerMeter
+      - id: thermostatHeatingSetpoint
         version: 1
-      - id: currentMeasurement
-        version: 1
-      - id: voltageMeasurement
-        version: 1
-      - id: energyMeter
+      - id: temperatureMeasurement
         version: 1
       - id: signalStrength
         version: 1
       - id: refresh
         version: 1
     categories:
-      - name: Power Meter
+      - name: Thermostat
 preferences:
   - name: profile
     title: Profile
@@ -28,11 +24,14 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_powerMeter_v1: Normal
+        normal_thermostat_v2: Normal
+        normal_thermostat_v1: Only sensors
         generic_ef00_v1: Generic
-      default: normal_powerMeter_v1
-  - name: dpPowerMeterMain01
-    title: DP for Power Meter
+      default: normal_thermostat_v2
+  - preferenceId: tempOffset
+    explicit: true
+  - name: dpThermostatHeatinMain01
+    title: DP for Thermostat Heating Setpoint
     description: Only if you want to override the default DataPoint
     required: false
     preferenceType: integer
@@ -40,26 +39,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpCurrentMeasuremeMain01
-    title: DP for Current Measurement
-    description: Only if you want to override the default DataPoint
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpVoltageMeasuremeMain01
-    title: DP for Voltage Measurement
-    description: Only if you want to override the default DataPoint
-    required: false
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpEnergyMeterMain01
-    title: DP for Energy Meter
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
     description: Only if you want to override the default DataPoint
     required: false
     preferenceType: integer
@@ -68,9 +49,9 @@ preferences:
       maximum: 255
       default: 0
 metadata:
-  deviceType: PowerMeter
-  ocfDeviceType: x.com.st.d.energymeter
-  deviceTypeId: PowerMeter
+  deviceType: Thermostat
+  ocfDeviceType: oic.d.thermostat
+  deviceTypeId: Thermostat
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

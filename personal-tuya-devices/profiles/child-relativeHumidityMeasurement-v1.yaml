@@ -19,7 +19,7 @@ preferences:
     preferenceType: number
     definition:
       minimum: 0
-      maximum: 1000
+      maximum: 100000
       default: 0
   - preferenceId: humidityOffset
     explicit: true

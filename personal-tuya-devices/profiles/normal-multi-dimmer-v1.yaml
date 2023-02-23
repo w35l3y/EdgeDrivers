@@ -37,7 +37,25 @@ preferences:
     preferenceType: number
     definition:
       minimum: 0
-      maximum: 1000
+      maximum: 100000
+      default: 0
+  - name: dpSwitchMain01
+    title: DP for Switch
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpSwitchLevelMain01
+    title: DP for Switch Level
+    description: Only if you want to override the default DataPoint
+    required: false
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
       default: 0
 metadata:
   deviceType: Switch
