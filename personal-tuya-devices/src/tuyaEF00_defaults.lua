@@ -42,11 +42,19 @@ local function get_dp(dp, def, device)
   local pref_name = "dp" .. cap .. "Main" .. string.format("%02X", def.group)
   if device.parent_assigned_child_key then
     local pdp = device:get_parent_device().preferences[pref_name]
-    -- log.info("PREFNAME", pref_name, pdp, dp)
+    if type(pdp) == "userdata" then
+      log.warn("1 Unexpected config type", pref_name, pdp, cap)
+      pdp = 0
+    end
+    -- log.info("PREFNAME 1", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
     return (not dp or pdp ~= 0) and pdp or dp
   end
   local pdp = device.preferences[pref_name]
-  -- log.info("PREFNAME", pref_name, pdp, dp)
+  if type(pdp) == "userdata" then
+    log.warn("2 Unexpected config type", pref_name, pdp, cap)
+    pdp = 0
+  end
+  -- log.info("PREFNAME 2", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
   return (not dp or pdp ~= 0) and pdp or dp
 end
 
