@@ -15,7 +15,7 @@ components:
 preferences:
   - preferenceId: reverse
     explicit: true
-  - name: valve_type
+  - name: valveType
     title: Type
     description: Expected type by the device
     required: true
