@@ -39,6 +39,14 @@ local default_generic = {
   end,
 }
 
+local function get_pref (value, default, name)
+  if type(value) == "userdata" then
+    log.warn("Unexpected type for preference", name, value, default)
+    return default
+  end
+  return value or default
+end
+
 local function get_value (pref, cmd)
   if pref and pref ~= 0 then
     return to_number(pref)
@@ -376,8 +384,16 @@ local defaults = {
   valve = {
     capability = "valve",
     attribute = "valve",
+    type_name = "valveType",
+    type = "bool",
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      if get_pref(pref[self.type_name], self.type, self.type_name) == "enum" then
+        if pref.reverse then
+          return data_types.Enum8(value == "closed" and 1 or 0)
+        end
+        return data_types.Enum8(value == "open" and 1 or 0)
+      end
       if pref.reverse then
         return data_types.Boolean(value == "closed")
       end

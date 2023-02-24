@@ -15,6 +15,16 @@ components:
 preferences:
   - preferenceId: reverse
     explicit: true
+  - name: valveType
+    title: Type
+    description: Expected type by the device
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        bool: Boolean
+        enum: Enum
+      default: bool
 metadata:
   deviceType: Water Valve
   ocfDeviceType: oic.d.watervalve

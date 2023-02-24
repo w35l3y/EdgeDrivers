@@ -74,7 +74,7 @@ preferences:
   - name: dpSwitchMain01
     title: DP for Switch 1
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -83,7 +83,7 @@ preferences:
   - name: dpSwitchMain02
     title: DP for Switch 2
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -92,7 +92,7 @@ preferences:
   - name: dpSwitchMain03
     title: DP for Switch 3
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -101,7 +101,7 @@ preferences:
   - name: dpSwitchMain04
     title: DP for Switch 4
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0

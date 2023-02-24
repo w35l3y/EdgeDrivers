@@ -78,7 +78,7 @@ preferences:
   - name: dpPresenceSensorMain01
     title: DP for Presence Sensor
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -87,7 +87,7 @@ preferences:
   - name: dpIlluminanceMeasuMain01
     title: DP for Illuminance Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0

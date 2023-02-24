@@ -41,7 +41,7 @@ preferences:
   - name: dpCarbonDioxideMeaMain01
     title: DP for Carbon Dioxide Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -50,7 +50,7 @@ preferences:
   - name: dpTemperatureMeasuMain01
     title: DP for Temperature Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -59,7 +59,7 @@ preferences:
   - name: dpRelativeHumidityMain01
     title: DP for Relative Humidity Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -68,7 +68,7 @@ preferences:
   - name: dpTvocMeasurementMain01
     title: DP for TVOC Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -77,7 +77,7 @@ preferences:
   - name: dpFormaldehydeMeasMain01
     title: DP for Formaldehyde Measurement
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0

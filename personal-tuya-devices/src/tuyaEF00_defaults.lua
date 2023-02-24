@@ -166,6 +166,7 @@ local function send_command(datapoints, device, command, value_fn)
   -- log.info("send_command")
   if device.parent_assigned_child_key == nil then
     if command.component ~= "main" or myutils.is_normal(device) then
+      -- log.info("entrou 1")
       local group = device:get_endpoint_for_component_id(command.component)
       for dpid, def in pairs(datapoints) do
         if group == def.group and command.capability == def.capability then
@@ -174,6 +175,7 @@ local function send_command(datapoints, device, command, value_fn)
         end
       end
     else
+      -- log.info("entrou 2")
       for dpid, def in pairs(datapoints) do
         if command.capability == def.capability then
           device:send(zcl_clusters.TuyaEF00.server.commands.DataRequest(device, get_dp(dpid, def, device), def:command_handler(command, device)))
