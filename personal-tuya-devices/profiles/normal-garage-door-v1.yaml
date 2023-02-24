@@ -32,7 +32,7 @@ preferences:
   - name: dpDoorControlMain01
     title: DP for Door Control
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
@@ -41,7 +41,7 @@ preferences:
   - name: dpContactSensorMain01
     title: DP for Contact Sensor
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0

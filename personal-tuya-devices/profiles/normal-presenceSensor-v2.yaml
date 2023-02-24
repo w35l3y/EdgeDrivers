@@ -29,7 +29,7 @@ preferences:
   - name: dpPresenceSensorMain01
     title: DP for Presence Sensor
     description: Only if you want to override the default DataPoint
-    required: false
+    required: true
     preferenceType: integer
     definition:
       minimum: 0
