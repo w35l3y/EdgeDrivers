@@ -10,8 +10,8 @@ components:
         version: 1
       - id: temperatureMeasurement
         version: 1
-      - id: valve
-        version: 1
+      # - id: valve
+      #   version: 1
       - id: signalStrength
         version: 1
       - id: refresh
@@ -52,15 +52,15 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpValveMain01
-    title: DP for Valve
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
+  # - name: dpValveMain01
+  #   title: DP for Valve
+  #   description: Only if you want to override the default DataPoint
+  #   required: true
+  #   preferenceType: integer
+  #   definition:
+  #     minimum: 0
+  #     maximum: 255
+  #     default: 0
 metadata:
   deviceType: Thermostat
   ocfDeviceType: oic.d.thermostat
