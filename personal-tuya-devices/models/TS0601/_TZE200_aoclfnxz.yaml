@@ -13,8 +13,8 @@ datapoints:
     base:
       group: 1
       rate: 1000
-  - id: 36
-    command: valve
-    base:
-      group: 1
-      type: enum
+  # - id: 36
+  #   command: valve
+  #   base:
+  #     group: 1
+  #     type: enum
