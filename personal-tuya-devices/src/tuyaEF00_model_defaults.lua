@@ -93,7 +93,7 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  if myutils.is_profile(device, "generic_ef00_v1") then
+  if myutils.is_profile(device, "generic_ef00_v1") or myutils.is_profile(device, "normal_multi_switch_v1") then
     return false
   end
   -- log.info(device:get_model(), device:get_manufacturer())

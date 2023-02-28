@@ -32,8 +32,8 @@ preferences:
       default: normal_thermostat_v2
   - preferenceId: tempOffset
     explicit: true
-  - preferenceId: reverse
-    explicit: true
+  # - preferenceId: reverse
+  #   explicit: true
   - name: dpThermostatHeatinMain01
     title: DP for Thermostat Heating Setpoint
     description: Only if you want to override the default DataPoint
