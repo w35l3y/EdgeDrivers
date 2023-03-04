@@ -3,6 +3,7 @@ local myutils = require "utils"
 return {
   ["_TZE200_1n2kyphz"] = myutils.load_model_from_json("TS0601", "_TZE200_1n2kyphz"),
   ["_TZE200_2hf7x9n3"] = myutils.load_model_from_json("TS0601", "_TZE200_2hf7x9n3"),
+  ["_TZE200_4hbx5cvx"] = myutils.load_model_from_json("TS0601", "_TZE200_4hbx5cvx"),
   ["_TZE200_8ygsuhe1"] = myutils.load_model_from_json("TS0601", "_TZE200_8ygsuhe1"),
   ["_TZE200_9mahtqtg"] = myutils.load_model_from_json("TS0601", "_TZE200_9mahtqtg"),
   ["_TZE200_a8sdabtg"] = myutils.load_model_from_json("TS0601", "_TZE200_a8sdabtg"),
