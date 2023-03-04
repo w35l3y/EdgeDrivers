@@ -62,11 +62,16 @@ function update_models(path = ".") {
     );
   });
   let maxLength = fingerprints.zigbeeManufacturer.reduce(
-    (acc, { model, manufacturer, deviceLabel }) => {
-      const t = [model, manufacturer.replace(/^_/, "\\_"), deviceLabel];
+    (acc, { model, manufacturer, deviceLabel, deviceProfileName }) => {
+      const t = [
+        model,
+        manufacturer.replace(/^_/, "\\_"),
+        deviceLabel,
+        deviceProfileName,
+      ];
       return acc.map((v, i) => Math.max(v, t[i].length));
     },
-    [0, 0, 0]
+    [0, 0, 0, 0]
   );
 
   fs.writeFileSync(
@@ -76,6 +81,7 @@ function update_models(path = ".") {
       "Model".padEnd(maxLength[0], " "),
       "Manufacturer".padEnd(maxLength[1], " "),
       "Label".padEnd(maxLength[2], " "),
+      "Default profile".padEnd(maxLength[3], " "),
       "",
     ]
       .join(" | ")
@@ -86,18 +92,20 @@ function update_models(path = ".") {
         "".padEnd(maxLength[0], "-"),
         "".padEnd(maxLength[1], "-"),
         "".padEnd(maxLength[2], "-"),
+        "".padEnd(maxLength[3], "-"),
         "",
       ]
         .join(" | ")
         .trim() +
       "\n" +
       fingerprints.zigbeeManufacturer
-        .map(({ model, manufacturer, deviceLabel }) =>
+        .map(({ model, manufacturer, deviceLabel, deviceProfileName }) =>
           [
             "",
             model.padEnd(maxLength[0], " "),
             manufacturer.replace(/^_/, "\\_").padEnd(maxLength[1], " "),
             deviceLabel.padEnd(maxLength[2], " "),
+            deviceProfileName.padEnd(maxLength[3], " "),
             "",
           ]
             .join(" | ")
