@@ -1,12 +1,12 @@
 local log = require "log"
 local utils = require "st.utils"
-
 local zcl_clusters = require "st.zigbee.zcl.clusters"
-local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 local device_lib = require "st.device"
 
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local myutils = require "utils"
+
+local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 local commands = require "commands"
 
 local capabilities = require "st.capabilities"

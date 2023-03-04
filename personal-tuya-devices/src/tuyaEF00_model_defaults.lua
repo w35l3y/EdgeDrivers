@@ -1,10 +1,11 @@
 local log = require "log"
 local utils = require "st.utils"
-
+local zcl_clusters = require "st.zigbee.zcl.clusters"
 local device_lib = require "st.device"
 
-local myutils = require "utils"
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
+local myutils = require "utils"
+
 local REPORT_BY_DP = {}
 
 local mt = {}
