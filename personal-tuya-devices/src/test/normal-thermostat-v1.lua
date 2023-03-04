@@ -69,6 +69,7 @@ test.register_message_test(
           profile = "normal_thermostat_v1",
           tempOffset = -2.0,
           humidityOffset = 3.0,
+          timezoneOffset = 0,
         }
       })
     },
