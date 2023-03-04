@@ -10,19 +10,17 @@ McuSyncTimeData.NAME = "McuSyncTimeData"
 McuSyncTimeData.args_def = {
   {
     name = "standardTimestamp",
-    optional = true,
+    optional = false,
     data_type = data_types.UtcTime,
     is_complex = false,
     is_array = false,
-    default = function() return os.time(os.date('!*t')) end,
   },
   {
     name = "localTimestamp",
-    optional = true,
+    optional = false,
     data_type = data_types.UtcTime,
     is_complex = false,
     is_array = false,
-    default = function() return os.time(os.date('*t')) end,
   },
 }
 
@@ -94,9 +92,9 @@ McuSyncTimeData.deserialize = function(buf)
 end
 
 -- untested
-McuSyncTimeData.init = function(orig)
+McuSyncTimeData.init = function(self)
   local out = {}
-  local args = {}
+  local args = { os.time(os.date('!*t')), os.time(os.date('*t')) }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end
@@ -104,7 +102,7 @@ McuSyncTimeData.init = function(orig)
     if v.optional and args[i] == nil then
       out[v.name] = nil
     elseif not v.optional and args[i] == nil then
-      out[v.name] = data_types.validate_or_build_type(v.default(), v.data_type, v.name)   
+      out[v.name] = data_types.validate_or_build_type(v.default, v.data_type, v.name)   
     elseif v.is_array then
       local validated_list = {}
       for j, entry in ipairs(args[i]) do
@@ -123,8 +121,8 @@ McuSyncTimeData.init = function(orig)
     end
   end
   setmetatable(out, {
-    __index = McuSyncTimeData,
-    __tostring = McuSyncTimeData.pretty_print
+    __index = self,
+    __tostring = self.pretty_print
   })
   out:set_field_names()
   return out

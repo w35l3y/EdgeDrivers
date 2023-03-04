@@ -10,7 +10,7 @@ McuSyncTime.ID = 0x24
 McuSyncTime.args_def = {
   {
     name = "seqno",
-    optional = true,
+    optional = false,
     data_type = tuya_types.Uint16,
     is_complex = false,
     is_array = false,
@@ -18,11 +18,10 @@ McuSyncTime.args_def = {
   },
   {
     name = "data",
-    optional = true,
+    optional = false,
     data_type = tuya_types.McuSyncTimeData,
     is_complex = false,
     is_array = false,
-    default = {}
   },
 }
 
@@ -133,7 +132,7 @@ end
 --- @return st.zigbee.ZigbeeMessageTx the full command addressed to the device
 function McuSyncTime:init(device)
   local out = {}
-  local args = {}
+  local args = { nil, tuya_types.McuSyncTimeData() }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end

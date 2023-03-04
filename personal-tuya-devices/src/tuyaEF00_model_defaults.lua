@@ -60,6 +60,12 @@ end
 
 local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
+function lifecycle_handlers.added(driver, device, event, ...)
+  if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+  end
+end
+
 function lifecycle_handlers.infoChanged(driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
     device:try_update_metadata({
@@ -90,6 +96,7 @@ end
 
 local defaults = {
   lifecycle_handlers = lifecycle_handlers,
+  command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
 }
 
 function defaults.can_handle (opts, driver, device, ...)

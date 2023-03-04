@@ -234,6 +234,10 @@ function utils.details(driver)
     -- collectgarbage("collect")
     local memory = math.ceil(collectgarbage("count"))
     print(string.format("start: %s, uptime: %02d:%02d:%02d, memory: %d KB, devices: %d", os.date("%Y-%m-%d %H:%M:%S", started_at), math.floor(diff/3600), math.floor((diff%3600)/60), diff % 60, memory, #driver:get_devices()))
+    -- local g = os.time(os.date('!*t'))
+    -- print("G", os.date('%c', g), g, string.format("%X", g))
+    -- local l = os.time(os.date('*t'))
+    -- print("L", os.date('%c', l), l, string.format("%X", l))
   end)
 end
 

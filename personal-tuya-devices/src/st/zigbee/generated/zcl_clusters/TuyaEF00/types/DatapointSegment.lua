@@ -71,7 +71,7 @@ local types = {
 }
 
 -- untested
-DatapointSegment.init = function(orig, dpid, value)
+DatapointSegment.init = function(self, dpid, value)
   --log.info(string.format("DatapointSegment.init: %s %s", v.type, v.value))
   local _type = types[value.ID] or tuya_types.DatapointSegmentType.RAW
   local o = {}
@@ -80,8 +80,8 @@ DatapointSegment.init = function(orig, dpid, value)
   o.length = tuya_types.Uint16(value:get_length())
   o.value = value
   setmetatable(o, {
-    __index = orig,
-    __tostring = orig.pretty_print
+    __index = self,
+    __tostring = self.pretty_print
   })
   o:set_field_names()
   return o
