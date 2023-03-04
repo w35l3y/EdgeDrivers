@@ -130,9 +130,9 @@ end
 --- @param self McuSyncTime the template class for this command
 --- @param device st.zigbee.Device the device to build this message to
 --- @return st.zigbee.ZigbeeMessageTx the full command addressed to the device
-function McuSyncTime:init(device)
+function McuSyncTime:init(device, tzOffset)
   local out = {}
-  local args = { nil, tuya_types.McuSyncTimeData() }
+  local args = { nil, tuya_types.McuSyncTimeData(tzOffset) }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end

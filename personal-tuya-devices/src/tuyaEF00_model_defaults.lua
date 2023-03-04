@@ -73,6 +73,9 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       profile = device.preferences.profile:gsub("_", "-")
     })
   end
+  if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
+    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, device.preferences.timezoneOffset))
+  end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do

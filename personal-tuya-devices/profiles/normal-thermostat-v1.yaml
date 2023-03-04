@@ -19,19 +19,29 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         normal_thermostat_v1: Normal
         normal_thermostat_v2: Normal + Setpoint
+        normal_thermostat_v3: Normal + Setpoint + Switch
         generic_ef00_v1: Generic
       default: normal_thermostat_v1
   - preferenceId: tempOffset
     explicit: true
   - preferenceId: humidityOffset
     explicit: true
+  - name: timezoneOffset
+    title: Timezone in minutes
+    description: Currently, ST doesn't report local timezone
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: -720
+      maximum: 720
+      default: 0
   - name: dpRelativeHumidityMain01
     title: DP for Relative Humidity Measurement
     description: Only if you want to override the default DataPoint
