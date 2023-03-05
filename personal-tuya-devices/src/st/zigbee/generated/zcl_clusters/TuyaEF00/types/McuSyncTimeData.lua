@@ -1,6 +1,7 @@
 local log = require('log')
-local data_types = require "st.zigbee.data_types"
 local utils = require "st.zigbee.utils"
+local data_types = require "st.zigbee.data_types"
+local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 local generic_body = require "st.zigbee.generic_body"
 
 -- https://developer.tuya.com/en/docs/iot/tuya-zigbee-universal-docking-access-standard?id=K9ik6zvofpzql#subtitle-8-DP%20data%20format
@@ -11,14 +12,14 @@ McuSyncTimeData.args_def = {
   {
     name = "standardTimestamp",
     optional = false,
-    data_type = data_types.UtcTime,
+    data_type = tuya_types.UtcTime,
     is_complex = false,
     is_array = false,
   },
   {
     name = "localTimestamp",
     optional = false,
-    data_type = data_types.UtcTime,
+    data_type = tuya_types.UtcTime,
     is_complex = false,
     is_array = false,
   },
