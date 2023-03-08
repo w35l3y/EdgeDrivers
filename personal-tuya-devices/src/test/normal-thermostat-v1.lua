@@ -42,6 +42,11 @@ test.register_message_test("device_lifecycle added", {
   {
     channel = "zigbee",
     direction = "send",
+    message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.McuSyncTime(mock_parent_device) },
+  },
+  {
+    channel = "zigbee",
+    direction = "send",
     message = utils.expect_spell(mock_parent_device),
   },
   {
@@ -64,6 +69,7 @@ test.register_message_test(
           profile = "normal_thermostat_v1",
           tempOffset = -2.0,
           humidityOffset = 3.0,
+          timezoneOffset = 0,
         }
       })
     },

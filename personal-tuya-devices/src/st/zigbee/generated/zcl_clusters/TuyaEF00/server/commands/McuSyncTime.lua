@@ -18,11 +18,10 @@ McuSyncTime.args_def = {
   },
   {
     name = "data",
-    optional = true,
+    optional = false,
     data_type = tuya_types.McuSyncTimeData,
     is_complex = false,
     is_array = false,
-    default = {}
   },
 }
 
@@ -131,9 +130,9 @@ end
 --- @param self McuSyncTime the template class for this command
 --- @param device st.zigbee.Device the device to build this message to
 --- @return st.zigbee.ZigbeeMessageTx the full command addressed to the device
-function McuSyncTime:init(device)
+function McuSyncTime:init(device, tzOffset)
   local out = {}
-  local args = {}
+  local args = { nil, tuya_types.McuSyncTimeData(tzOffset) }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end

@@ -37,6 +37,7 @@ local template = {
       [zcl_clusters.TuyaEF00.ID] = {
         [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_model_defaults.command_response_handler,  -- for some reason, buttons use this
         [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_model_defaults.command_response_handler,
+        [zcl_clusters.TuyaEF00.commands.McuSyncTime.ID] = tuyaEF00_model_defaults.command_synctime_handler,
       }
     },
   },

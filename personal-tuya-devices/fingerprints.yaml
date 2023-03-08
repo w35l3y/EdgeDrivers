@@ -51,6 +51,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_2hf7x9n3
     deviceProfileName: normal-multi-switch-v3
     deviceLabel: Multi Switch
+  - id: TS0601/_TZE200_4hbx5cvx
+    model: TS0601
+    manufacturer: _TZE200_4hbx5cvx
+    deviceProfileName: normal-thermostat-v3
+    deviceLabel: Thermostat
   - id: TS0601/_TZE200_8ygsuhe1
     model: TS0601
     manufacturer: _TZE200_8ygsuhe1

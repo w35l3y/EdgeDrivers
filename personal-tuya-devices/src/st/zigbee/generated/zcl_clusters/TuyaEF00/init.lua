@@ -51,7 +51,7 @@ TuyaEF00.command_direction_map = {
   ["OtaBlockDataRequest"] = "server",
   ["OtaBlockDataResponse"] = "client",
   ["McuOtaResult"] = "client",
-  ["McuSynctime"] = "server",
+  ["McuSyncTime"] = "server",
 }
 TuyaEF00.attributes = {}
 TuyaEF00.commands = {}
