@@ -88,11 +88,9 @@ function defaults.command_response_handler(datapoints)
           break
         end
       end
-      if not pref_found then
+      if not pref_found and dp_pref_temp then
         event_dp = nil
-        if dp_pref_temp then
-          log.warn("Datapoint settings rejected", dpid, dp_pref_temp)
-        end
+        log.warn("Datapoint settings rejected", dpid, dp_pref_temp)
       end
     end
 
