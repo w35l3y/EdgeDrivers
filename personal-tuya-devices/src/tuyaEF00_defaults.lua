@@ -68,31 +68,36 @@ function defaults.command_response_handler(datapoints)
     -- device.parent_assigned_child_key chega sempre nulo
     local dpid = zb_rx.body.zcl_body.data.dpid.value
     local _type = zb_rx.body.zcl_body.data.type.value
+
     local event_dp = datapoints[dpid]
-    local __dpid = event_dp and get_dp(nil, event_dp, device) or nil
-    if __dpid ~= 0 and __dpid ~= dpid then
-      for cdpid, cdef in pairs(datapoints) do
-        local odpid = get_dp(nil, cdef, device)
-        -- log.info("Iterate", dpid, cdpid, odpid)
-        if dpid == odpid then
-          local dp_exists = datapoints[dpid]
-          local _odpid = dp_exists and get_dp(nil, dp_exists, device) or nil
-          -- log.info("dp_exists?", dp_exists, _odpid)
-          if _odpid == 0 or dpid == _odpid then
-            log.warn("Datapoint can't be overridden because it already exists and uses its default value.", dpid, cdpid, _odpid)
+    local dp_pref_temp = event_dp and get_dp(nil, event_dp, device) or nil
+    if dp_pref_temp == 0 or dp_pref_temp == dpid then
+      log.info("Default datapoint", dpid, dp_pref_temp)
+    else
+      local pref_found = false
+      for index_pref, event_pref in pairs(datapoints) do
+        local dp_pref = get_dp(nil, event_pref, device)
+        if dpid == dp_pref then
+          pref_found = true
+          if dp_pref_temp and index_pref ~= dp_pref_temp then
+            log.warn("Datapoint overridden", dpid, dp_pref_temp, index_pref)
           else
-            log.info("Datapoint overridden", dpid, cdpid, _odpid)
-            dpid = cdpid
-            event_dp = cdef
+            log.info("Datapoint overridden", dpid, dp_pref_temp, index_pref)
           end
+          event_dp = event_pref
           break
-        elseif dpid == cdpid and odpid then
-          event_dp = nil
+        end
+      end
+      if not pref_found then
+        event_dp = nil
+        if dp_pref_temp then
+          log.warn("Datapoint settings rejected", dpid, dp_pref_temp)
         end
       end
     end
+
     if not event_dp then
-      log.info("Datapoint not found. Using default", dpid)
+      log.warn("Datapoint not found. Using default", dpid)
       event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
     end
     local value = get_value(zb_rx.body.zcl_body.data.value)
@@ -101,7 +106,7 @@ function defaults.command_response_handler(datapoints)
     
     --log.info("device.preferences.profile", device.preferences.profile)
     if event then
-      if event_dp.reportingInterval == nil or event_dp.last_heard_time == nil or cur_time - event_dp.last_heard_time >= 60 * event_dp.reportingInterval then
+      if not event_dp.reportingInterval or not event_dp.last_heard_time or cur_time - event_dp.last_heard_time >= 60 * event_dp.reportingInterval then
         event_dp.last_heard_time = cur_time
         if event_dp.name then
           local pref_name = utils.camel_case("pref_"..event_dp.name)
