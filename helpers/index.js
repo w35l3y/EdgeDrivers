@@ -1,7 +1,37 @@
 const fs = require("fs");
 const yaml = require("js-yaml");
 
-function update_models(path = ".") {
+function update_models_lan(path = ".", getdir = () => "") {
+  const MODEL_FOLDER = path + "/services/";
+  const files = fs.readdirSync(MODEL_FOLDER);
+  const services = [];
+  files.forEach((file) => {
+    let obj = yaml.load(
+      fs.readFileSync(MODEL_FOLDER + file, {
+        encoding: "utf-8",
+      })
+    );
+    const SPECIFIC_MODEL = getdir(obj) + "/";
+    if (!fs.existsSync(path + "/src/services/" + SPECIFIC_MODEL)) {
+      fs.mkdirSync(path + "/src/services/" + SPECIFIC_MODEL);
+    }
+    fs.writeFileSync(
+      path + "/src/services/" + SPECIFIC_MODEL + "init.lua",
+      "return [[" + JSON.stringify(obj) + "]]"
+    );
+    services.push(
+      ("services/" + SPECIFIC_MODEL).slice(0, -1).replace(/\//g, ".")
+    );
+  });
+  fs.writeFileSync(
+    path + "/src/services/init.lua",
+    'local json = require "st.json"\n\nreturn {\n' +
+      services.map((s) => '  json.decode(require "' + s + '"),').join("\n") +
+      "\n}"
+  );
+}
+
+function update_models_zigbee(path = ".") {
   const MODEL_FOLDER = path + "/models/";
   const fingerprints = yaml.load(
     fs.readFileSync(path + "/STATIC-fingerprints.yaml", { encoding: "utf-8" })
@@ -133,5 +163,6 @@ function update_models(path = ".") {
 }
 
 module.exports = {
-  update_models,
+  update_models_zigbee,
+  update_models_lan,
 };
