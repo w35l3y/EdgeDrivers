@@ -42,6 +42,33 @@ preferences:
       minimum: 0
       maximum: 100000
       default: 0
+  - name: dpWindowShadeMain01
+    title: DP for Window Shade
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpWindowShadeLevelMain01
+    title: DP for Window Shade
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpWindowShadePreseMain01
+    title: DP for Window Shade
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: Blind
   ocfDeviceType: oic.d.blind
