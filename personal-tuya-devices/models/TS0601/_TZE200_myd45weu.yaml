@@ -1,0 +1,20 @@
+deviceLabel: Soil sensor
+profiles:
+  - normal_temphumibatt_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/devices/tuya.js#L1300-L1304
+  - id: 5
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 3
+    command: relativeHumidityMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 15
+    command: battery
+    base:
+      group: 1
+      rate: 100

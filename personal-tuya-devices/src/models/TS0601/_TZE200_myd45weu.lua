@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Soil sensor","profiles":["normal_temphumibatt_v1"],"datapoints":[{"id":5,"command":"temperatureMeasurement","base":{"group":1,"rate":100}},{"id":3,"command":"relativeHumidityMeasurement","base":{"group":1,"rate":100}},{"id":15,"command":"battery","base":{"group":1,"rate":100}}]}]]

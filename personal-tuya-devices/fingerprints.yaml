@@ -74,7 +74,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_a8sdabtg
     model: TS0601
     manufacturer: _TZE200_a8sdabtg
-    deviceProfileName: normal-thermostat-v1
+    deviceProfileName: normal-temphumi-v1
     deviceLabel: Thermostat
   - id: TS0601/_TZE200_akjefhj5
     model: TS0601
@@ -111,6 +111,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_ikvncluo
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE200_myd45weu
+    model: TS0601
+    manufacturer: _TZE200_myd45weu
+    deviceProfileName: normal-temphumibatt-v1
+    deviceLabel: Soil sensor
   - id: TS0601/_TZE200_nklqjk62
     model: TS0601
     manufacturer: _TZE200_nklqjk62
@@ -119,7 +124,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_qoy0ekbd
     model: TS0601
     manufacturer: _TZE200_qoy0ekbd
-    deviceProfileName: normal-thermostat-v1
+    deviceProfileName: normal-temphumi-v1
     deviceLabel: Thermostat
   - id: TS0601/_TZE200_r731zlxk
     model: TS0601
@@ -149,7 +154,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_znbl8dj5
     model: TS0601
     manufacturer: _TZE200_znbl8dj5
-    deviceProfileName: normal-thermostat-v1
+    deviceProfileName: normal-temphumi-v1
     deviceLabel: Thermostat
   - id: TS0601/_TZE200_ztc6ggyl
     model: TS0601
