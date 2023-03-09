@@ -9,7 +9,7 @@ local utils = require "test.utils"
 
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
-local profile = t_utils.get_profile_definition("normal-irrigation-v1.yaml")
+local profile = t_utils.get_profile_definition("normal-irrigation-v2.yaml")
 
 test.load_all_caps_from_profile(profile)
 
@@ -57,6 +57,34 @@ test.register_message_test("device_lifecycle added", {
 }, {
   test_init = test_init_parent
 })
+
+test.register_message_test(
+  "From zigbee (DP 1) - switch",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_parent_device.id, { capability = "switch", component = "main", command = "off", args = {} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 1, data_types.Boolean(false)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 1, data_types.Boolean(false)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_parent_device:generate_test_message("main", capabilities.switch.switch("off"))
+    },
+  }, {
+    test_init = test_init_parent
+  }
+)
 
 test.register_message_test(
   "From zigbee (DP 2) - valve",
@@ -110,7 +138,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "receive",
-      message = { mock_parent_device.id, { capability = "valleyboard16460.datapointValue", component = "main02", command = "setValue", args = {14} } }
+      message = { mock_parent_device.id, { capability = "valleyboard16460.datapointValue", component = "main", command = "setValue", args = {14} } }
     },
     {
       channel = "zigbee",
@@ -125,7 +153,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main02", capabilities["valleyboard16460.datapointValue"].value(4))
+      message = mock_parent_device:generate_test_message("main", capabilities["valleyboard16460.datapointValue"].value(4))
     },
   }, {
     test_init = test_init_parent
