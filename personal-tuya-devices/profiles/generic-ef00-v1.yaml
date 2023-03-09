@@ -34,7 +34,8 @@ preferences:
         normal_irrigation_v1: Irrigation
         normal_powerMeter_v1: Power meter
         normal_presenceSensor_v2: Presence sensor
-        normal_thermostat_v1: Thermostat
+        normal_temphumi_v1: Temperature & Humidity
+        normal_thermostat_v2: Thermostat
         normal_windowShade_v1: Window Shade
       default: generic_ef00_v1
   - name: updateInfo

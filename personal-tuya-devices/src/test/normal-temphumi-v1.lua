@@ -9,7 +9,7 @@ local utils = require "test.utils"
 
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
-local profile = t_utils.get_profile_definition("normal-thermostat-v1.yaml")
+local profile = t_utils.get_profile_definition("normal-temphumi-v1.yaml")
 
 test.load_all_caps_from_profile(profile)
 
@@ -66,7 +66,7 @@ test.register_message_test(
       direction = "receive",
       message = mock_parent_device:generate_info_changed({
         preferences = {
-          profile = "normal_thermostat_v1",
+          profile = "normal_temphumi_v1",
           tempOffset = -2.0,
           humidityOffset = 3.0,
           timezoneOffset = 0,

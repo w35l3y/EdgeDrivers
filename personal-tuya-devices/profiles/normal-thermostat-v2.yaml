@@ -28,7 +28,7 @@ preferences:
       options:
         normal_thermostat_v2: Normal
         normal_thermostat_v3: Normal + switch
-        normal_thermostat_v1: Only sensors
+        normal_temphumi_v1: Only sensors
         generic_ef00_v1: Generic
       default: normal_thermostat_v2
   # - name: manufacturer
