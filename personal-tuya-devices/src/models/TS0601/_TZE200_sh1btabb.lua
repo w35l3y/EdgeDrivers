@@ -1,1 +1,1 @@
-return [[{"deviceLabel":"Irrigation","profiles":["normal_irrigation_v1"],"datapoints":[{"id":2,"command":"valve","base":{"group":1}},{"id":108,"command":"battery","base":{"group":1}},{"id":104,"command":"value","base":{"group":2}}]}]]
+return [[{"deviceLabel":"Irrigation","profiles":["normal_irrigation_v2"],"datapoints":[{"id":1,"command":"switch","base":{"group":1}},{"id":2,"command":"valve","base":{"group":1}},{"id":108,"command":"battery","base":{"group":1}},{"id":104,"command":"value","base":{"group":1}}]}]]

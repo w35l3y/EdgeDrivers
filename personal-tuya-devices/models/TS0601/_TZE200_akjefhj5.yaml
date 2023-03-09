@@ -2,7 +2,7 @@ deviceLabel: Irrigation
 profiles:
   - normal_irrigation_v1
 datapoints:
-  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bb7792937180f2fbc50a4a5932c06c7447dd2114/devices/tuya.js#L2726
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/devices/rtx.js#L11
   - id: 1
     command: valve
     base:
@@ -14,4 +14,4 @@ datapoints:
   - id: 11
     command: value
     base:
-      group: 2
+      group: 1
