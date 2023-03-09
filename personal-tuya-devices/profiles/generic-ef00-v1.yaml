@@ -17,7 +17,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined. "
+    description: Recommended only for testing whether your device is compatible or not with the ones already predefined.
     required: true
     preferenceType: enumeration
     definition:
@@ -35,6 +35,7 @@ preferences:
         normal_powerMeter_v1: Power meter
         normal_presenceSensor_v2: Presence sensor
         normal_thermostat_v1: Thermostat
+        normal_windowShade_v1: Window Shade
       default: generic_ef00_v1
   - name: updateInfo
     title: Update info with datapoints
@@ -269,6 +270,30 @@ preferences:
   - name: waterSensorDatapoints
     title: Water sensors
     description: List of datapoints used for water sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: windowShadeDatapoints
+    title: Window Shades
+    description: List of datapoints used for window shades (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: windowShadeLevDatapoints
+    title: Window Shade Levels
+    description: List of datapoints used for window shade levels (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: windowShadePreDatapoints
+    title: Window Shade Presets
+    description: List of datapoints used for window shade presets (comma-separated)
     required: true
     preferenceType: string
     definition:

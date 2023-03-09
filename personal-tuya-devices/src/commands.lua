@@ -72,10 +72,11 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "on" or "off"
+        return v == 0 and "on" or "off"
       end
-      return to_number(value) == 0 and "off" or "on"
+      return v == 0 and "off" or "on"
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
   },
@@ -181,10 +182,11 @@ local defaults = {
     attribute = "contact",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "open" or "closed"
+        return v == 0 and "open" or "closed"
       end
-      return to_number(value) == 0 and "closed" or "open"
+      return v == 0 and "closed" or "open"
     end,
   },
   currentMeasurement = {
@@ -209,10 +211,11 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "open" or "closed"
+        return v == 0 and "open" or "closed"
       end
-      return to_number(value) == 0 and "closed" or "open"
+      return v == 0 and "closed" or "open"
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
@@ -276,10 +279,11 @@ local defaults = {
     attribute = "motion",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "active" or "inactive"
+        return v == 0 and "active" or "inactive"
       end
-      return to_number(value) == 0 and "inactive" or "active"
+      return v == 0 and "inactive" or "active"
     end,
   },
   occupancySensor = {
@@ -287,10 +291,11 @@ local defaults = {
     attribute = "occupancy",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "occupied" or "unoccupied"
+        return v == 0 and "occupied" or "unoccupied"
       end
-      return to_number(value) == 0 and "unoccupied" or "occupied"
+      return v == 0 and "unoccupied" or "occupied"
     end,
   },
   powerMeter = {
@@ -308,10 +313,11 @@ local defaults = {
     attribute = "presence",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "present" or "not present"
+        return v == 0 and "present" or "not present"
       end
-      return to_number(value) == 0 and "not present" or "present"
+      return v == 0 and "not present" or "present"
     end,
   },
   relativeHumidityMeasurement = {
@@ -401,10 +407,11 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "open" or "closed"
+        return v == 0 and "open" or "closed"
       end
-      return to_number(value) == 0 and "closed" or "open"
+      return v == 0 and "closed" or "open"
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
   },
@@ -434,11 +441,55 @@ local defaults = {
     attribute = "water",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
       if pref.reverse then
-        return to_number(value) == 0 and "wet" or "dry"
+        return v == 0 and "wet" or "dry"
       end
-      return to_number(value) == 0 and "dry" or "wet"
+      return v == 0 and "dry" or "wet"
     end,
+  },
+  windowShade = {
+    capability = "windowShade",
+    attribute = "windowShade",
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      if pref.reverse then
+        return data_types.Enum8(value == "closed" and 2 or value == "partially open" and 1 or 0)
+      end
+      return data_types.Enum8(value == "open" and 2 or value == "partially open" and 1 or 0)
+    end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
+      if pref.reverse then
+        return v == 0 and "open" or v == 1 and "partially open" or "closed"
+      end
+      return v == 0 and "closed" or v == 1 and "partially open" or "open"
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or command.command == "pause" and "partially open" or "closed", device) end,
+  },
+  windowShadeLevel = {
+    capability = "windowShadeLevel",
+    attribute = "shadeLevel",
+    rate_name = "rate",
+    rate = 100,
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+    end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  windowShadePreset = {
+    capability = "windowShadePreset",
+    attribute = "presetPosition",
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return tuya_types.Uint32(pref.reverse and (100 - pref.presetPosition) or pref.presetPosition)
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
   },
   value = {
     capability = "valleyboard16460.datapointValue",

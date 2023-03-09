@@ -177,7 +177,7 @@ local function send_command(datapoints, device, command, value_fn)
       local group = device:get_endpoint_for_component_id(command.component)
       for dpid, def in pairs(datapoints) do
         if group == def.group and command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, get_dp(dpid, def, device), def:command_handler(command, device)))
+          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, math.abs(get_dp(dpid, def, device)), def:command_handler(command, device)))
           break
         end
       end
@@ -185,7 +185,7 @@ local function send_command(datapoints, device, command, value_fn)
       -- log.info("entrou 2")
       for dpid, def in pairs(datapoints) do
         if command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, get_dp(dpid, def, device), def:command_handler(command, device)))
+          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, math.abs(get_dp(dpid, def, device)), def:command_handler(command, device)))
         end
       end
     end
@@ -194,7 +194,7 @@ local function send_command(datapoints, device, command, value_fn)
     for dpid, def in pairs(datapoints) do
       if group == def.group and command.capability == def.capability then
         -- este comando abaixo delega pro get_parent_device()
-        device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device:get_parent_device(), get_dp(dpid, def, device), def:command_handler(command, device)))
+        device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device:get_parent_device(), math.abs(get_dp(dpid, def, device)), def:command_handler(command, device)))
       end
     end
   end

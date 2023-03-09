@@ -51,6 +51,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_2hf7x9n3
     deviceProfileName: normal-multi-switch-v3
     deviceLabel: Multi Switch
+  - id: TS0601/_TZE200_3i3exuay
+    model: TS0601
+    manufacturer: _TZE200_3i3exuay
+    deviceProfileName: normal-windowShade-v1
+    deviceLabel: Window Shade
   - id: TS0601/_TZE200_4hbx5cvx
     model: TS0601
     manufacturer: _TZE200_4hbx5cvx
@@ -124,7 +129,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_sh1btabb
     model: TS0601
     manufacturer: _TZE200_sh1btabb
-    deviceProfileName: normal-irrigation-v1
+    deviceProfileName: normal-irrigation-v2
     deviceLabel: Irrigation
   - id: TS0601/_TZE200_v6ossqfy
     model: TS0601

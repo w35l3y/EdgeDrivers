@@ -110,7 +110,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "receive",
-      message = { mock_parent_device.id, { capability = "valleyboard16460.datapointValue", component = "main02", command = "setValue", args = {14} } }
+      message = { mock_parent_device.id, { capability = "valleyboard16460.datapointValue", component = "main", command = "setValue", args = {14} } }
     },
     {
       channel = "zigbee",
@@ -125,7 +125,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main02", capabilities["valleyboard16460.datapointValue"].value(4))
+      message = mock_parent_device:generate_test_message("main", capabilities["valleyboard16460.datapointValue"].value(4))
     },
   }, {
     test_init = test_init_parent
