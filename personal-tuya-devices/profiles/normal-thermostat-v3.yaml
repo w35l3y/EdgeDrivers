@@ -28,12 +28,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         normal_thermostat_v3: Normal
+        normal_thermostat_v4: No floor temp
         normal_thermostat_v2: No switch
         normal_temphumi_v1: Only sensors
         generic_ef00_v1: Generic
@@ -48,8 +49,17 @@ preferences:
   #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
   - preferenceId: tempOffset
     explicit: true
-  # - preferenceId: reverse
-  #   explicit: true
+  - preferenceId: reverse
+    explicit: true
+  - name: rate
+    title: Rate
+    description: Set 0 to use default value
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 100000
+      default: 0
   - name: timezoneOffset
     title: Timezone in minutes
     description: Currently, ST doesn't report local timezone
