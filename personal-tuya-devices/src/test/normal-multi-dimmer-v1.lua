@@ -54,12 +54,12 @@ test.register_coroutine_test("device_lifecycle added", function ()
     type = "EDGE_CHILD",
     -- device_network_id = nil,
     parent_assigned_child_key = "02",
-    label = "Child 2",
+    label = "child dimmer 02",
     profile = "child-dimmer-v1",
     parent_device_id = mock_parent_device.id,
     manufacturer = "personal-tuya-devices",
     model = "child-dimmer-v1",
-    -- vendor_provided_label = "Child 2",
+    -- vendor_provided_label = "child dimmer 02",
   })
 
   utils.send_spell(mock_parent_device)

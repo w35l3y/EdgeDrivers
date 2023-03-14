@@ -6,9 +6,9 @@ components:
   - id: main
     label: Irrigation
     capabilities:
-      - id: switch
-        version: 1
       - id: valve
+        version: 1
+      - id: switch
         version: 1
       - id: battery
         version: 1

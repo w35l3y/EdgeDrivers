@@ -52,7 +52,7 @@ preferences:
       maximum: 255
       default: 0
   - name: dpWindowShadeLevelMain01
-    title: DP for Window Shade
+    title: DP for Window Shade Level
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -61,7 +61,7 @@ preferences:
       maximum: 255
       default: 0
   - name: dpWindowShadePreseMain01
-    title: DP for Window Shade
+    title: DP for Window Shade Preset
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
