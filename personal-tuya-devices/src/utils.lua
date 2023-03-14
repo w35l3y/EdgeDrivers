@@ -211,7 +211,7 @@ end
 function utils.create_child(driver, device, ngroup, profile)
   log.info("Creating child...", profile, ngroup)
   local group = string.format("%02X", ngroup)
-  local label = profile:gsub("v1$", group):gsub("_", " ")
+  local label = profile:gsub("v1$", group):gsub("-", " ")
   local created = device:get_child_by_parent_assigned_key(group)
   if not created then
     driver:try_create_device({
