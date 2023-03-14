@@ -8,11 +8,9 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: thermostatHeatingSetpoint
-        version: 1
       - id: temperatureMeasurement
         version: 1
-      - id: contactSensor
+      - id: thermostatHeatingSetpoint
         version: 1
       - id: signalStrength
         version: 1
@@ -81,15 +79,6 @@ preferences:
       default: 0
   - name: dpTemperatureMeasuMain01
     title: DP for Temperature Measurement
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpContactSensorMain01
-    title: DP for Contact Sensor
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

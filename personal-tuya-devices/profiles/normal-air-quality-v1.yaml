@@ -6,11 +6,11 @@ components:
   - id: main
     label: Air Quality Detector
     capabilities:
-      - id: carbonDioxideMeasurement
-        version: 1
       - id: temperatureMeasurement
         version: 1
       - id: relativeHumidityMeasurement
+        version: 1
+      - id: carbonDioxideMeasurement
         version: 1
       - id: tvocMeasurement
         version: 1

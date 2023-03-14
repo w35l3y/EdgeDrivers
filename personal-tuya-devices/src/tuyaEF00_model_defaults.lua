@@ -67,23 +67,32 @@ function lifecycle_handlers.added(driver, device, event, ...)
   end
 end
 
+local map_pref_to_child = {
+  _temp_mea = "_temperatureMeasurement",
+  _rel_hum_mea = "_relativeHumidityMeasurement",
+}
+
 function lifecycle_handlers.infoChanged(driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
+    log.info("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     device:try_update_metadata({
       profile = device.preferences.profile:gsub("_", "-")
     })
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
+    log.info("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
     device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, device.preferences.timezoneOffset))
   end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do
-      if value and value ~= args.old_st_store.preferences[name] then
+      if value and args.old_st_store.preferences[name] ~= value then
+        log.info("Preference changed...", name, args.old_st_store.preferences[name], value)
         local normalized_id = utils.snake_case(name)
-        local match, _length, pref, component, group = string.find(normalized_id, "^child(_?%w*)_(main(%x+))$")
+        local match, _length, pref, component, group = string.find(normalized_id, "^child(_?[%w_]*)_(main(%x+))$")
+        log.info("Pref", normalized_id, match, pref, component, group)
         if match then
-          local profile = ("child" .. (pref ~= "" and pref or "_switch") .. "-v1"):gsub("_", "-")
+          local profile = ("child" .. (pref ~= "" and map_pref_to_child[pref] or pref or "_switch") .. "-v1"):gsub("_", "-")
           myutils.create_child(driver, device, tonumber(group, 16), profile)
           goto next
         end
@@ -118,9 +127,9 @@ function defaults.can_handle (opts, driver, device, ...)
   if prf then
     return true
   elseif device.parent_assigned_child_key then
-    log.warn("Similar device not found (child)", device.preferences.profile, device:get_parent_device().preferences.profile)
+    log.warn("Similar device not found (child)", device:get_model(), device:get_manufacturer(), device.preferences.profile, device:get_parent_device().preferences.profile)
   elseif device.preferences.profile then
-    log.warn("Similar device not found (parent)", device.preferences.profile)
+    log.warn("Similar device not found (parent)", device:get_model(), device:get_manufacturer(), device.preferences.profile)
   end
   return false
 end
