@@ -38,7 +38,7 @@ local map_cap_to_pref = {
 }
 
 local function get_dp(dp, def, device)
-  local cap = string.sub(utils.pascal_case(map_cap_to_pref[def.capability] or def.capability), 1, 16)
+  local cap = string.sub(utils.pascal_case(utils.snake_case(map_cap_to_pref[def.capability] or def.capability)), 1, 16)
   local pref_name = "dp" .. cap .. "Main" .. string.format("%02X", def.group)
   if device.parent_assigned_child_key then
     local pdp = device:get_parent_device().preferences[pref_name]
