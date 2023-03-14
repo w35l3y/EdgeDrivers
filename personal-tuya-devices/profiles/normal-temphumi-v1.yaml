@@ -19,15 +19,15 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         normal_temphumi_v1: Normal
-        normal_temphumibatt_v1: Normal + Battery
-        normal_thermostat_v2: Normal + Setpoint
-        normal_thermostat_v3: Normal + Setpoint + Switch
+        normal_temphumibatt_v1: +Battery
+        normal_thermostat_v2: +Setpoint
+        normal_thermostat_v3: +Setpoint+Switch
         generic_ef00_v1: Generic
       default: normal_temphumi_v1
   - preferenceId: tempOffset

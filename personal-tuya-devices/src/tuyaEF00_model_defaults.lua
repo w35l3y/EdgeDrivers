@@ -74,29 +74,30 @@ local map_pref_to_child = {
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
-    log.info("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
+    log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     device:try_update_metadata({
       profile = device.preferences.profile:gsub("_", "-")
     })
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
-    log.info("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
+    log.debug("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
     device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, device.preferences.timezoneOffset))
   end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do
       if value and args.old_st_store.preferences[name] ~= value then
-        log.info("Preference changed...", name, args.old_st_store.preferences[name], value)
+        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
         local normalized_id = utils.snake_case(name)
         local match, _length, pref, component, group = string.find(normalized_id, "^child(_?[%w_]*)_(main(%x+))$")
-        log.info("Pref", normalized_id, match, pref, component, group)
+        log.debug("Is it child?", match, pref, component, group, normalized_id)
         if match then
           local profile = ("child" .. (pref ~= "" and map_pref_to_child[pref] or pref or "_switch") .. "-v1"):gsub("_", "-")
           myutils.create_child(driver, device, tonumber(group, 16), profile)
           goto next
         end
         local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
+        log.debug("Is it settings?", match, key, normalized_id)
         if match then
           send_command(tuyaEF00_defaults.update_data, driver, device, key, value)
           goto next

@@ -1,16 +1,16 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-temphumibatt-v1"
+name: "normal-thermostat-v4"
 components:
   - id: main
     label: Thermostat
     capabilities:
+      - id: switch
+        version: 1
       - id: temperatureMeasurement
         version: 1
-      - id: relativeHumidityMeasurement
-        version: 1
-      - id: battery
+      - id: thermostatHeatingSetpoint
         version: 1
       - id: signalStrength
         version: 1
@@ -26,16 +26,33 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_temphumibatt_v1: Normal
-        normal_thermostat_v2: +Setpoint
-        normal_thermostat_v3: +Setpoint+Switch
-        normal_temphumi_v1: No battery
+        normal_thermostat_v4: Normal
+        normal_thermostat_v3: +Floor temp
+        normal_thermostat_v2: No switch
+        normal_temphumi_v1: Only sensors
         generic_ef00_v1: Generic
-      default: normal_temphumibatt_v1
+      default: normal_thermostat_v4
+  # - name: manufacturer
+  #   title: Manufacturer
+  #   required: false
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
+  #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
   - preferenceId: tempOffset
     explicit: true
-  - preferenceId: humidityOffset
+  - preferenceId: reverse
     explicit: true
+  - name: rate
+    title: Rate
+    description: Set 0 to use default value
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 100000
+      default: 0
   - name: timezoneOffset
     title: Timezone in minutes
     description: Currently, ST doesn't report local timezone
@@ -45,8 +62,17 @@ preferences:
       minimum: -720
       maximum: 720
       default: 0
-  - name: dpRelativeHumidityMain01
-    title: DP for Relative Humidity Measurement
+  - name: dpSwitchMain01
+    title: DP for Switch
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatHeatinMain01
+    title: DP for Thermostat Heating Setpoint
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

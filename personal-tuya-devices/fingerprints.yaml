@@ -101,6 +101,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_e3oitdyu
     deviceProfileName: normal-multi-dimmer-v2
     deviceLabel: Multi Dimmer
+  - id: TS0601/_TZE200_gd4rvykv
+    model: TS0601
+    manufacturer: _TZE200_gd4rvykv
+    deviceProfileName: normal-thermostat-v4
+    deviceLabel: Thermostat
   - id: TS0601/_TZE200_go3tvswy
     model: TS0601
     manufacturer: _TZE200_go3tvswy
