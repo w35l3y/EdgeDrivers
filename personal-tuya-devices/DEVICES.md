@@ -16,6 +16,7 @@
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    | normal-multi-dimmer-v2   |
 | TS0601 | \_TZE200_gd4rvykv | Thermostat      | normal-thermostat-v4     |
 | TS0601 | \_TZE200_go3tvswy | Multi Switch    | normal-multi-switch-v3   |
+| TS0601 | \_TZE200_h4cgnbzg | Thermostat      | normal-thermostat-v4     |
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |
