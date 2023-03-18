@@ -14,7 +14,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main01
     label: Dimmer 1
     capabilities:
@@ -27,7 +27,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main02
     label: Dimmer 2
     capabilities:
@@ -40,7 +40,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
 preferences:
   - name: profile
     title: Profile
@@ -121,9 +121,9 @@ preferences:
       maximum: 255
       default: 0
 metadata:
-  deviceType: Switch
-  ocfDeviceType: oic.d.switch
-  deviceTypeId: Switch
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug
   mnmn: SmartThingsCommunity
   vid: 94459380-339b-3a1a-951b-b010e0a9e54c
 owner:

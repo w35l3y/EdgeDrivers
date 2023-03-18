@@ -12,7 +12,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main01
     label: Switch 1
     capabilities:
@@ -21,7 +21,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main02
     label: Switch 2
     capabilities:
@@ -30,7 +30,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main03
     label: Switch 3
     capabilities:
@@ -39,7 +39,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main04
     label: Switch 4
     capabilities:
@@ -48,7 +48,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main05
     label: Switch 5
     capabilities:
@@ -57,7 +57,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
   - id: main06
     label: Switch 6
     capabilities:
@@ -66,7 +66,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Switch
+      - name: SmartPlug
 preferences:
   - name: profile
     title: Profile
@@ -171,9 +171,9 @@ preferences:
       maximum: 255
       default: 0
 metadata:
-  deviceType: Switch
-  ocfDeviceType: oic.d.switch
-  deviceTypeId: Switch
+  deviceType: SmartPlug
+  ocfDeviceType: oic.d.smartplug
+  deviceTypeId: SmartPlug
   mnmn: SmartThingsCommunity
   vid: 8fc322df-f598-3d3e-bd97-d3fbfd3a2acf # 4 switches dashboard
   #vid: 13ab6200-93c2-39a7-a0b7-e283e7b76da6 # 6 switches dashboard
