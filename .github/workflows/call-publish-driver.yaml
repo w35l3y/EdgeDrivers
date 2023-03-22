@@ -80,8 +80,8 @@ jobs:
           key: capabilities
   test:
     needs: setup
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    # runs-on: ubuntu-latest
+    # environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
       matrix:
@@ -116,8 +116,8 @@ jobs:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
   publish:
     needs: test
-    runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    # runs-on: ubuntu-latest
+    # environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
     steps:
