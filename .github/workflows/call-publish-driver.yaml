@@ -26,6 +26,11 @@ on:
 
 jobs:
   publish:
+    strategy:
+      matrix:
+        stapi:
+          - apiv4_47_beta/lua_libs-api_v4_47X_beta
+          - apiv3_46_beta/lua_libs-api_v3_46X_beta
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
@@ -68,10 +73,10 @@ jobs:
         id: stapi
         with:
           path: lua_libs-api_v*
-          key: stapi-lua_libs-api_v3_46X
+          key: stapi-${{ matrix.stapi }}
       - name: Download SmartThings API
         if: steps.stapi.outputs.cache-hit != 'true'
-        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/latest/download/lua_libs-api_v3_46X.tar.gz -O - | tar -xz --skip-old-files
+        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.stapi }}.tar.gz -O - | tar -xz --skip-old-files
       - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
