@@ -25,20 +25,11 @@ on:
         default: beta
 
 jobs:
-  publish:
+  setup:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
-      matrix:
-        stapi:
-          - apiv4_47_beta/lua_libs-api_v4_47X_beta
-          - apiv3_46_beta/lua_libs-api_v3_46X_beta
-        include:
-          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
-            vdir: lua_libs-api_v3
-          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
-            vdir: lua_libs-api_v4
     steps:
       - uses: actions/checkout@v3
       - name: Load node
@@ -72,15 +63,6 @@ jobs:
       #   run: |
       #     sudo apt update
       #     sudo apt install lua5.3
-      - name: Load SmartThings API from cache
-        uses: actions/cache@v3
-        id: stapi
-        with:
-          path: lua_libs-api_v*
-          key: stapi-${{ matrix.stapi }}
-      - name: Download SmartThings API
-        if: steps.stapi.outputs.cache-hit != 'true'
-        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.stapi }}.tar.gz -O - | tar -xz --skip-old-files
       - name: Load SmartThings CLI from cache
         uses: actions/cache@v3
         id: stcli
@@ -96,9 +78,34 @@ jobs:
         with:
           path: capabilities
           key: capabilities
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        stapi:
+          - apiv4_47_beta/lua_libs-api_v4_47X_beta
+          - apiv3_46_beta/lua_libs-api_v3_46X_beta
+        include:
+          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
+            path: lua_libs-api_v3
+          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
+            path: lua_libs-api_v4
+    steps:
+      - name: Load SmartThings API from cache
+        uses: actions/cache@v3
+        id: stapi
+        with:
+          path: ${{ matrix.path }}
+          key: stapi-${{ matrix.stapi }}
+      - name: Download SmartThings API
+        if: steps.stapi.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.stapi }}.tar.gz -O - | tar -xz --skip-old-files
       - name: Set Environment Variables
         run: |
-          echo "LUA_PATH=$(pwd)/${{ matrix.vdir }}/?.lua;$(pwd)/${{ matrix.vdir }}/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "LUA_PATH=$(pwd)/${{ matrix.path }}/?.lua;$(pwd)/${{ matrix.path }}/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
           echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
           echo "$(pwd)" >> $GITHUB_PATH
       - name: Run tests
@@ -107,6 +114,13 @@ jobs:
         run: lua test/init.lua
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+    steps:
       - name: Remove unwanted files before packaging
         working-directory: ${{ inputs.driver }}/src
         run: |
