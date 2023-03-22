@@ -32,12 +32,14 @@ jobs:
       fail-fast: false
       matrix:
         stapi:
-          - apiv4_47_beta/lua_libs-api_v4_47X_beta
-          - apiv3_46_beta/lua_libs-api_v3_46X_beta
+          - v4_47
+          - v3_46
         include:
-          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
+          - stapi: v3_46
+            release: apiv3_46_beta/lua_libs-api_v3_46X_beta
             path: lua_libs-api_v3
-          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
+          - stapi: v4_47
+            release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
     steps:
       - uses: actions/checkout@v3
@@ -95,7 +97,7 @@ jobs:
           key: stapi-${{ matrix.stapi }}
       - name: Download SmartThings API
         if: steps.stapi.outputs.cache-hit != 'true'
-        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.stapi }}.tar.gz -O - | tar -xz --skip-old-files
+        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.release }}.tar.gz -O - | tar -xz --skip-old-files
       - name: Set Environment Variables
         run: |
           echo "LUA_PATH=$(pwd)/${{ matrix.path }}/?.lua;$(pwd)/${{ matrix.path }}/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
