@@ -34,6 +34,11 @@ jobs:
         stapi:
           - apiv4_47_beta/lua_libs-api_v4_47X_beta
           - apiv3_46_beta/lua_libs-api_v3_46X_beta
+        include:
+          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
+            vdir: lua_libs-api_v3
+          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
+            vdir: lua_libs-api_v4
     steps:
       - uses: actions/checkout@v3
       - name: Load node
@@ -93,7 +98,7 @@ jobs:
           key: capabilities
       - name: Set Environment Variables
         run: |
-          echo "LUA_PATH=$(pwd)/lua_libs-api_v3/?.lua;$(pwd)/lua_libs-api_v3/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "LUA_PATH=$(pwd)/${{ matrix.vdir }}/?.lua;$(pwd)/${{ matrix.vdir }}/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
           echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
           echo "$(pwd)" >> $GITHUB_PATH
       - name: Run tests
