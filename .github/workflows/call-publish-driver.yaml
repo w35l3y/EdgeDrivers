@@ -25,11 +25,20 @@ on:
         default: beta
 
 jobs:
-  setup:
+  publish:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
       fail-fast: false
+      matrix:
+        stapi:
+          - apiv4_47_beta/lua_libs-api_v4_47X_beta
+          - apiv3_46_beta/lua_libs-api_v3_46X_beta
+        include:
+          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
+            path: lua_libs-api_v3
+          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
+            path: lua_libs-api_v4
     steps:
       - uses: actions/checkout@v3
       - name: Load node
@@ -78,22 +87,6 @@ jobs:
         with:
           path: capabilities
           key: capabilities
-  test:
-    needs: setup
-    # runs-on: ubuntu-latest
-    # environment: ${{ inputs.environment }}
-    strategy:
-      fail-fast: false
-      matrix:
-        stapi:
-          - apiv4_47_beta/lua_libs-api_v4_47X_beta
-          - apiv3_46_beta/lua_libs-api_v3_46X_beta
-        include:
-          - stapi: apiv3_46_beta/lua_libs-api_v3_46X_beta
-            path: lua_libs-api_v3
-          - stapi: apiv4_47_beta/lua_libs-api_v4_47X_beta
-            path: lua_libs-api_v4
-    steps:
       - name: Load SmartThings API from cache
         uses: actions/cache@v3
         id: stapi
@@ -114,13 +107,6 @@ jobs:
         run: lua test/init.lua
         env:
           SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
-  publish:
-    needs: test
-    # runs-on: ubuntu-latest
-    # environment: ${{ inputs.environment }}
-    strategy:
-      fail-fast: false
-    steps:
       - name: Remove unwanted files before packaging
         working-directory: ${{ inputs.driver }}/src
         run: |
