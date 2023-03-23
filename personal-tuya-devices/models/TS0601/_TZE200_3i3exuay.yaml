@@ -1,6 +1,13 @@
 deviceLabel: Window Shade
 profiles:
   - normal_windowShade_v1
+# added:
+#   - capability: windowShade
+#     attribute: supportedWindowShadeCommands
+#     value:
+#       - close
+#       - open
+#       - pause
 datapoints:
   - id: 1
     command: windowShade

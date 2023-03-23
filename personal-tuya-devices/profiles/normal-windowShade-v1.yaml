@@ -8,6 +8,13 @@ components:
     capabilities:
       - id: windowShade
         version: 1
+        config:
+          values:
+            - key: "{{enumCommands}}"
+              enabledValues:
+                - close
+                - open
+                - pause
       - id: windowShadeLevel
         version: 1
       - id: windowShadePreset
