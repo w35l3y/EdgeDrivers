@@ -1,5 +1,7 @@
 local log = require "log"
 local utils = require "st.utils"
+
+local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local device_lib = require "st.device"
 
@@ -64,6 +66,19 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    
+    -- local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+    -- -- if dp == nil or dp.default then
+    -- --   dp = get_default_by_profile(device, true)
+    -- -- end
+
+    -- log.info("ADDED", device:get_model(), device:get_manufacturer(), utils.stringify_table(dp and dp.added, "table", true))
+    -- if dp and dp.added then
+    --   for i, action in ipairs(dp.added) do
+    --     log.info("Emit", action.capability, action.attribute)
+    --     device:emit_event(capabilities[action.capability][action.attribute](action.value))
+    --   end
+    -- end
   end
 end
 
