@@ -35,11 +35,11 @@ jobs:
           - v4_47_B
           - v3_46
           - v3_46_B
-          - v2_45
-          - v1_44
-          - v1_43
-          - v0_42
-          - v0_41
+          # - v2_45
+          # - v1_44
+          # - v1_43
+          # - v0_42
+          # - v0_41
         include:
           - stapi: v0_41
             release: apiv0_41/lua_libs-api_v0_OPEN_BETA_41X
