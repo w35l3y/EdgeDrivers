@@ -25,7 +25,7 @@ on:
         default: beta
 
 jobs:
-  test:
+  test_latest:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     strategy:
@@ -33,38 +33,94 @@ jobs:
       matrix:
         stapi:
           - v4_47_B
-          - v3_46
-          - v3_46_B
-          # - v2_45
-          # - v1_44
-          # - v1_43
-          # - v0_42
-          # - v0_41
         include:
           - stapi: v4_47_B
             release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
+    steps:
+      - uses: actions/checkout@v3
+      - name: Load node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+      - name: Execute helpers
+        run: |
+          npm ci
+          npm start
+      - name: Load/Install Lua
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: lua5.3
+          version: 1.0
+      - name: Create symbolic link
+        run: sudo ln -fs /usr/bin/lua5.3 /usr/bin/lua
+      # - name: Load Lua from cache
+      #   uses: actions/cache@v3
+      #   id: lua
+      #   with:
+      #     path: |
+      #       /usr/bin/lua*
+      #       /usr/share/doc/lua*
+      #       /usr/share/man/man1/lua*.gz
+      #     key: lua-5.3
+      # - name: Install Lua
+      #   if: steps.lua.outputs.cache-hit != 'true'
+      #   run: |
+      #     sudo apt update
+      #     sudo apt install lua5.3
+      - name: Load SmartThings CLI from cache
+        uses: actions/cache@v3
+        id: stcli
+        with:
+          path: smartthings
+          key: stcli-latest
+      - name: Download SmartThings CLI
+        if: steps.stcli.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
+      - name: Load capabilities from cache
+        uses: actions/cache@v3
+        id: capabilities
+        with:
+          path: capabilities
+          key: capabilities
+      - name: Load SmartThings API from cache
+        uses: actions/cache@v3
+        id: stapi
+        with:
+          path: ${{ matrix.path }}
+          key: stapi-${{ matrix.stapi }}
+      - name: Download SmartThings API
+        if: steps.stapi.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/SmartThingsEdgeDrivers/releases/download/${{ matrix.release }}.tar.gz -O - | tar -xz --skip-old-files
+      - name: Set Environment Variables
+        run: |
+          echo "LUA_PATH=$(pwd)/${{ matrix.path }}/?.lua;$(pwd)/${{ matrix.path }}/?/init.lua;./?.lua;./?/init.lua;;" >> $GITHUB_ENV
+          echo "ST_CAPABILITY_CACHE=$(pwd)/capabilities/" >> $GITHUB_ENV
+          echo "$(pwd)" >> $GITHUB_PATH
+      - name: Run tests
+        id: test
+        working-directory: ${{ inputs.driver }}/src
+        run: lua test/init.lua
+        env:
+          SMARTTHINGS_TOKEN: ${{ secrets.SMARTTHINGS_TOKEN }}
+  test:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    strategy:
+      fail-fast: false
+      matrix:
+        stapi:
+          - v3_46
+          - v3_46_B
+        include:
           - stapi: v3_46
             release: apiv3_46/lua_libs-api_v3_46X
             path: lua_libs-api_v3
           - stapi: v3_46_B
             release: apiv3_46_beta/lua_libs-api_v3_46X_beta
             path: lua_libs-api_v3
-          # - stapi: v2_45
-          #   release: apiv2_45_1/lua_libs-api_v2_45X
-          #   path: lua_libs-api_v2
-          # - stapi: v1_44
-          #   release: apiv1_44/lua_libs-api_v1_44X
-          #   path: lua_libs-api_v1
-          # - stapi: v1_43
-          #   release: apiv1_43/lua_libs-api_v1_43X
-          #   path: lua_libs-api_v1
-          # - stapi: v0_42
-          #   release: apiv0_42/lua_libs-api_v0_OPEN_BETA_42X
-          #   path: lua_libs-api_v0
-          # - stapi: v0_41
-          #   release: apiv0_41/lua_libs-api_v0_OPEN_BETA_41X
-          #   path: lua_libs-api_v0
     steps:
       - uses: actions/checkout@v3
       - name: Load node
