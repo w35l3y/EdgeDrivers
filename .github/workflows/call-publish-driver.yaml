@@ -41,30 +41,30 @@ jobs:
           # - v0_42
           # - v0_41
         include:
-          - stapi: v0_41
-            release: apiv0_41/lua_libs-api_v0_OPEN_BETA_41X
-            path: lua_libs-api_v0
-          - stapi: v0_42
-            release: apiv0_42/lua_libs-api_v0_OPEN_BETA_42X
-            path: lua_libs-api_v0
-          - stapi: v1_43
-            release: apiv1_43/lua_libs-api_v1_43X
-            path: lua_libs-api_v1
-          - stapi: v1_44
-            release: apiv1_44/lua_libs-api_v1_44X
-            path: lua_libs-api_v1
-          - stapi: v2_45
-            release: apiv2_45_1/lua_libs-api_v2_45X
-            path: lua_libs-api_v2
-          - stapi: v3_46_B
-            release: apiv3_46_beta/lua_libs-api_v3_46X_beta
-            path: lua_libs-api_v3
-          - stapi: v3_46
-            release: apiv3_46/lua_libs-api_v3_46X
-            path: lua_libs-api_v3
           - stapi: v4_47_B
             release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
+          - stapi: v3_46
+            release: apiv3_46/lua_libs-api_v3_46X
+            path: lua_libs-api_v3
+          - stapi: v3_46_B
+            release: apiv3_46_beta/lua_libs-api_v3_46X_beta
+            path: lua_libs-api_v3
+          # - stapi: v2_45
+          #   release: apiv2_45_1/lua_libs-api_v2_45X
+          #   path: lua_libs-api_v2
+          # - stapi: v1_44
+          #   release: apiv1_44/lua_libs-api_v1_44X
+          #   path: lua_libs-api_v1
+          # - stapi: v1_43
+          #   release: apiv1_43/lua_libs-api_v1_43X
+          #   path: lua_libs-api_v1
+          # - stapi: v0_42
+          #   release: apiv0_42/lua_libs-api_v0_OPEN_BETA_42X
+          #   path: lua_libs-api_v0
+          # - stapi: v0_41
+          #   release: apiv0_41/lua_libs-api_v0_OPEN_BETA_41X
+          #   path: lua_libs-api_v0
     steps:
       - uses: actions/checkout@v3
       - name: Load node
