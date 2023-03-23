@@ -32,13 +32,17 @@ jobs:
       fail-fast: false
       matrix:
         stapi:
-          - v4_47
+          - v4_47_B
           - v3_46
+          - v3_46_B
         include:
-          - stapi: v3_46
+          - stapi: v3_46_B
             release: apiv3_46_beta/lua_libs-api_v3_46X_beta
             path: lua_libs-api_v3
-          - stapi: v4_47
+          - stapi: v3_46
+            release: apiv3_46/lua_libs-api_v3_46X
+            path: lua_libs-api_v3
+          - stapi: v4_47_B
             release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
     steps:
