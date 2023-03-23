@@ -211,6 +211,18 @@ jobs:
         working-directory: ${{ inputs.driver }}/src
         run: |
           find . -name "*.md" -type f -delete
+      - name: Load SmartThings CLI from cache
+        uses: actions/cache@v3
+        id: stcli
+        with:
+          path: smartthings
+          key: stcli-latest
+      - name: Download SmartThings CLI
+        if: steps.stcli.outputs.cache-hit != 'true'
+        run: wget https://github.com/SmartThingsCommunity/smartthings-cli/releases/latest/download/smartthings-linux-x64.tar.gz -O - | tar -xz
+      - name: Set Environment Variables
+        run: |
+          echo "$(pwd)" >> $GITHUB_PATH
       - name: Publish
         run: smartthings edge:drivers:package ${{ inputs.driver }} --channel=${{ vars.SMARTTHINGS_CHANNEL }}
         env:
