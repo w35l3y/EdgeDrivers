@@ -161,6 +161,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_yvx5lh6k
     deviceProfileName: normal-air-quality-v1
     deviceLabel: Air Quality
+  - id: TS0601/_TZE200_zl1kmjqx
+    model: TS0601
+    manufacturer: _TZE200_zl1kmjqx
+    deviceProfileName: normal-temphumibatt-v1
+    deviceLabel: LCD T+H Sensor
   - id: TS0601/_TZE200_znbl8dj5
     model: TS0601
     manufacturer: _TZE200_znbl8dj5
