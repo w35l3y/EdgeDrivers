@@ -1,0 +1,23 @@
+# Temperature & Humidity Sensor with LCD
+deviceLabel: LCD T+H Sensor
+profiles:
+  - normal_temphumibatt_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/lib/tuya.js#L732-L736
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/converters/fromZigbee.js#L1978-L2006
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/devices/tuya.js#L817
+  - id: 1
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 2
+    command: relativeHumidityMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 4
+    command: battery
+    base:
+      group: 1
+      rate: 100
