@@ -44,6 +44,7 @@ local template = {
         [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.McuSyncTime.ID] = tuyaEF00_generic_defaults.command_synctime_handler,
+        [zcl_clusters.TuyaEF00.commands.GatewayStatusResponse.ID] = tuyaEF00_generic_defaults.command_gatestatus_handler,
       },
     },
   },
