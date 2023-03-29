@@ -11,16 +11,6 @@ on:
       - "default-clusters/config-TEMPLATE.yml"
       - "personal-tuya-devices/TEMPLATE.md"
       - "personal-tuya-devices/config-TEMPLATE.yml"
-  pull_request:
-    branches:
-      - main
-      - beta
-    paths:
-      - "TEMPLATE.md"
-      - "default-clusters/TEMPLATE.md"
-      - "default-clusters/config-TEMPLATE.yml"
-      - "personal-tuya-devices/TEMPLATE.md"
-      - "personal-tuya-devices/config-TEMPLATE.yml"
 
 jobs:
   common:

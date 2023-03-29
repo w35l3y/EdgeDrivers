@@ -1,7 +1,7 @@
 name: publish-default-clusters
 
 on:
-  push:
+  pull_request:
     branches:
       - main
       - beta
@@ -11,7 +11,7 @@ on:
 
 jobs:
   call:
-    uses: ./.github/workflows/call-publish-driver.yaml
+    uses: ./.github/workflows/call-test-driver.yaml
     with:
       driver: default-clusters
       environment: ${{ github.head_ref || github.ref_name }}

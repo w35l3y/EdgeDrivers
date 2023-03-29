@@ -63,6 +63,15 @@ function defaults.command_synctime_handler(driver, device, zb_rx)
   log.info("McuSyncTime", zb_rx:pretty_print())
 end
 
+function defaults.command_gatestatus_handler(driver, device, zb_rx)
+  device:send(zcl_clusters.TuyaEF00.commands.GatewayStatusResponse(device, zb_rx.body.zcl_body.data.value))
+  log.info("GatewayStatusRequest", zb_rx:pretty_print())
+end
+
+function defaults.fallback_handler (driver, device, zb_rx)
+  log.debug("Default fallback", zb_rx:pretty_print())
+end
+
 function defaults.command_response_handler(datapoints)
   return function (driver, device, zb_rx)
     -- device.parent_assigned_child_key chega sempre nulo

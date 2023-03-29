@@ -28,6 +28,9 @@ local template = {
         [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function() end,
       },
     },
+    fallback = function (driver, device, zb_rx)
+      log.debug("Default fallback", zb_rx:pretty_print())
+    end,
   },
   health_check = true,
   additional_zcl_profiles = {
