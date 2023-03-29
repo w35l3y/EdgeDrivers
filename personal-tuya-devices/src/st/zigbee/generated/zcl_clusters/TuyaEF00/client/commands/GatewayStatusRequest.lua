@@ -4,10 +4,10 @@ local log = require "log"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
 
-local GatewayStatusResponse = {}
-GatewayStatusResponse.NAME = "GatewayStatusResponse"
-GatewayStatusResponse.ID = 0x25
-GatewayStatusResponse.args_def = {
+local GatewayStatusRequest = {}
+GatewayStatusRequest.NAME = "GatewayStatusRequest"
+GatewayStatusRequest.ID = 0x25
+GatewayStatusRequest.args_def = {
   {
     name = "data",
     optional = false,
@@ -16,17 +16,9 @@ GatewayStatusResponse.args_def = {
     is_array = false,
     default = 0x00,
   },
-  {
-    name = "rsp",
-    optional = false,
-    data_type = data_types.Uint8,
-    is_complex = false,
-    is_array = false,
-    default = 0x01, -- 0=offline / 1=online / 2=timeout
-  },
 }
 
-function GatewayStatusResponse:get_fields()
+function GatewayStatusRequest:get_fields()
   local fields = {}
   for _, v in ipairs(self.args_def) do
     if v.is_array then
@@ -47,17 +39,17 @@ function GatewayStatusResponse:get_fields()
   return fields
 end
 
-GatewayStatusResponse.get_length = utils.length_from_fields
-GatewayStatusResponse._serialize = utils.serialize_from_fields
-GatewayStatusResponse.pretty_print = utils.print_from_fields
+GatewayStatusRequest.get_length = utils.length_from_fields
+GatewayStatusRequest._serialize = utils.serialize_from_fields
+GatewayStatusRequest.pretty_print = utils.print_from_fields
 
 --- Deserialize this command
 ---
 --- @param buf buf the bytes of the command body
---- @return GatewayStatusResponse
-function GatewayStatusResponse.deserialize(buf)
+--- @return GatewayStatusRequest
+function GatewayStatusRequest.deserialize(buf)
   local out = {}
-  for _, v in ipairs(GatewayStatusResponse.args_def) do
+  for _, v in ipairs(GatewayStatusRequest.args_def) do
     if buf:remain() > 0 then
       if v.is_array then
         if v.array_length_size ~= 0 then
@@ -76,15 +68,15 @@ function GatewayStatusResponse.deserialize(buf)
         out[v.name] = v.data_type.deserialize(buf)
       end
     elseif not v.optional then
-      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayStatusResponse")
+      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayStatusRequest")
     end
   end
-  setmetatable(out, {__index = GatewayStatusResponse})
+  setmetatable(out, {__index = GatewayStatusRequest})
   out:set_field_names()
   return out
 end
 
-function GatewayStatusResponse:set_field_names()
+function GatewayStatusRequest:set_field_names()
   for _, v in ipairs(self.args_def) do
     if self[v.name] then
       self[v.name].field_name = v.name
@@ -96,7 +88,7 @@ end
 ---
 --- @param device st.zigbee.Device the device to build the message from
 --- @return st.zigbee.ZigbeeMessageRx The full Zigbee message containing this command body
-function GatewayStatusResponse.build_test_rx(device)
+function GatewayStatusRequest.build_test_rx(device)
   local out = {}
   local args = {}
   for i,v in ipairs(Toggle.args_def) do
@@ -121,19 +113,19 @@ function GatewayStatusResponse.build_test_rx(device)
       out[v.name] = data_types.validate_or_build_type(args[i], v.data_type, v.name)
     end
   end
-  setmetatable(out, {__index = GatewayStatusResponse})
+  setmetatable(out, {__index = GatewayStatusRequest})
   out:set_field_names()
-  return GatewayStatusResponse._cluster:build_test_rx_cluster_specific_command(device, out, "client")
+  return GatewayStatusRequest._cluster:build_test_rx_cluster_specific_command(device, out, "client")
 end
 
---- Initialize the GatewayStatusResponse command
+--- Initialize the GatewayStatusRequest command
 ---
---- @param self GatewayStatusResponse the template class for this command
+--- @param self GatewayStatusRequest the template class for this command
 --- @param device st.zigbee.Device the device to build this message to
 --- @return st.zigbee.ZigbeeMessageTx the full command addressed to the device
-function GatewayStatusResponse:init(device, data)
+function GatewayStatusRequest:init(device, data)
   local out = {}
-  local args = { data, nil }
+  local args = { data }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end
@@ -160,18 +152,18 @@ function GatewayStatusResponse:init(device, data)
     end
   end
   setmetatable(out, {
-    __index = GatewayStatusResponse,
-    __tostring = GatewayStatusResponse.pretty_print
+    __index = GatewayStatusRequest,
+    __tostring = GatewayStatusRequest.pretty_print
   })
   out:set_field_names()
   return self._cluster:build_cluster_specific_command(device, out, "client")
 end
 
-function GatewayStatusResponse:set_parent_cluster(cluster)
+function GatewayStatusRequest:set_parent_cluster(cluster)
   self._cluster = cluster
   return self
 end
 
-setmetatable(GatewayStatusResponse, {__call = GatewayStatusResponse.init})
+setmetatable(GatewayStatusRequest, {__call = GatewayStatusRequest.init})
 
-return GatewayStatusResponse
+return GatewayStatusRequest

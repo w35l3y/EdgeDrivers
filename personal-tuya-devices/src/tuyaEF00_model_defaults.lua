@@ -127,6 +127,9 @@ local defaults = {
   lifecycle_handlers = lifecycle_handlers,
   command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
   command_gatestatus_handler = tuyaEF00_defaults.command_gatestatus_handler,
+  fallback_handler = function (driver, device, zb_rx)
+    log.debug("Model fallback", zb_rx:pretty_print())
+  end,
 }
 
 function defaults.can_handle (opts, driver, device, ...)
