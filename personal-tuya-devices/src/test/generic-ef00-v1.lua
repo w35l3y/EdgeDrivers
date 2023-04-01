@@ -1134,7 +1134,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "receive",
-      message = { mock_child_33.id, { capability = "thermostatMode", component = "main", command = "setThermostatMode", args = { mode = "heat" } } }
+      message = { mock_child_33.id, { capability = "thermostatMode", component = "main", command = "setThermostatMode", args = {"heat"} } }
     },
     {
       channel = "zigbee",
