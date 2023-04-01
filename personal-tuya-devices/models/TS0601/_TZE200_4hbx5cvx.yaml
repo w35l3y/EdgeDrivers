@@ -7,6 +7,10 @@ datapoints:
     command: switch
     base:
       group: 1
+  - id: 2
+    command: thermostatMode
+    base:
+      group: 1
   - id: 16
     command: thermostatHeatingSetpoint
     base:
@@ -17,6 +21,10 @@ datapoints:
     base:
       group: 1
       rate: 100
+  - id: 104
+    command: thermostatOperatingState
+    base:
+      group: 1
   - id: 101
     command: temperatureMeasurement
     base:

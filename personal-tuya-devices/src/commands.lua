@@ -376,6 +376,33 @@ local defaults = {
       return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
   },
+  thermostatMode = {
+    capability = "thermostatMode",
+    attribute = "thermostatMode",
+    command_arg = "mode",
+    supported_values = { "manual", "heat", "away", "auto", "eco" },
+    to_zigbee = function (self, value, device)
+      for i, v in ipairs(self.supported_values) do
+        if v == value then
+          return data_types.Enum8(i - 1)
+        end
+      end
+      log.warn("thermostatMode : unsupported value", value)
+      return data_types.Enum8(0)
+    end,
+    from_zigbee = function (self, value, device)
+      local v = to_number(value)
+      return self.supported_values[1 + v] or "custom"
+    end
+  },
+  thermostatOperatingState = {
+    capability = "thermostatOperatingState",
+    attribute = "thermostatOperatingState",
+    from_zigbee = function (self, value, device)
+      local v = to_number(value)
+      return v == 0 and "idle" or "heating"
+    end
+  },
   tvocMeasurement = {
     capability = "tvocMeasurement",
     attribute = "tvocLevel",

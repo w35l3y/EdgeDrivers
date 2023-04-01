@@ -235,6 +235,18 @@ local mock_child_32 = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 32)
 })
 
+local mock_child_33 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-thermostatMode-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 33)
+})
+
+local mock_child_34 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-thermostatOperatingState-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 34)
+})
+
 local test_init_parent = function ()
   test.mock_device.add_test_device(mock_parent_device)
 
@@ -280,6 +292,8 @@ local test_init = function ()
       batteryDatapoints = "30",
       thermostatCoolDatapoints = "31",
       thermostatHeatDatapoints = "32",
+      thermostatModeDatapoints = "33",
+      thermostatOperDatapoints = "34",
     }
   }))
 
@@ -315,6 +329,8 @@ local test_init = function ()
   test.mock_device.add_test_device(mock_child_30)
   test.mock_device.add_test_device(mock_child_31)
   test.mock_device.add_test_device(mock_child_32)
+  test.mock_device.add_test_device(mock_child_33)
+  test.mock_device.add_test_device(mock_child_34)
 end
 
 test.register_message_test("device_lifecycle added", {
@@ -1106,6 +1122,72 @@ test.register_message_test(
       channel = "capability",
       direction = "send",
       message = mock_child_32:generate_test_message("main", capabilities.thermostatHeatingSetpoint.heatingSetpoint(4))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "thermostatMode",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_33.id, { capability = "thermostatMode", component = "main", command = "setThermostatMode", args = { mode = "heat" } } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 33, data_types.Enum8(1)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 33, data_types.Enum8(2)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_33:generate_test_message("main", capabilities.thermostatMode.thermostatMode("away"))
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 33, data_types.Enum8(0xFF)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_33:generate_test_message("main", capabilities.thermostatMode.thermostatMode("custom"))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "thermostatOperatingState",
+  {
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 34, data_types.Boolean(true)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_34:generate_test_message("main", capabilities.thermostatOperatingState.thermostatOperatingState("heating"))
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 34, data_types.Boolean(false)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_34:generate_test_message("main", capabilities.thermostatOperatingState.thermostatOperatingState("idle"))
     },
   }, {
     test_init = test_init
