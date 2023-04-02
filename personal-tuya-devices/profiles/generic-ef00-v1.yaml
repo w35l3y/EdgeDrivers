@@ -244,6 +244,22 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: thermostatModeDatapoints
+    title: Thermostat Mode
+    description: List of datapoints used for thermostat modes (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: thermostatOperDatapoints
+    title: Thermostat Operating State
+    description: List of datapoints used for thermostat operating states (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: tvocMeasuremenDatapoints
     title: VOC sensors
     description: List of datapoints used for VOC sensors (comma-separated)

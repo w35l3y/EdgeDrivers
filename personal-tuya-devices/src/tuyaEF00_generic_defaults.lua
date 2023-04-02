@@ -36,6 +36,8 @@ local datapoint_types_to_fn = {
   temperatureMeaDatapoints = commands.temperatureMeasurement,
   thermostatCoolDatapoints = commands.thermostatCoolingSetpoint,
   thermostatHeatDatapoints = commands.thermostatHeatingSetpoint,
+  thermostatModeDatapoints = commands.thermostatMode,
+  thermostatOperDatapoints = commands.thermostatOperatingState,
   tvocMeasuremenDatapoints = commands.tvocMeasurement,
   valveDatapoints = commands.valve,
   voltageMeasureDatapoints = commands.voltageMeasurement,
@@ -74,6 +76,8 @@ local child_types_to_profile = {
   temperatureMeaDatapoints = "child-temperatureMeasurement-v1",
   thermostatCoolDatapoints = "child-thermostatCoolingSetpoint-v1",
   thermostatHeatDatapoints = "child-thermostatHeatingSetpoint-v1",
+  thermostatModeDatapoints = "child-thermostatMode-v1",
+  thermostatOperDatapoints = "child-thermostatOperatingState-v1",
   tvocMeasuremenDatapoints = "child-tvocMeasurement-v1",
   valveDatapoints = "child-valve-v1",
   voltageMeasureDatapoints = "child-voltageMeasurement-v1",
@@ -188,7 +192,7 @@ local defaults = {
   command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
   command_gatestatus_handler = tuyaEF00_defaults.command_gatestatus_handler,
   fallback_handler = function (driver, device, zb_rx)
-    log.debug("Generic fallback", zb_rx:pretty_print())
+    log.debug("GENERIC FALLBACK", zb_rx:pretty_print())
   end,
 }
 

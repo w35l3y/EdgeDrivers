@@ -23,13 +23,18 @@ local template = {
     capabilities.refresh,
   },
   zigbee_handlers = {
+    global = {
+      [zcl_clusters.TuyaEF00.ID] = {
+        [zcl_global_commands.DEFAULT_RESPONSE_ID] = function() end,
+      },
+    },
     attr = {
       [zcl_clusters.Basic.ID] = {
         [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function() end,
       },
     },
     fallback = function (driver, device, zb_rx)
-      log.debug("Default fallback", zb_rx:pretty_print())
+      log.debug("FALLBACK", zb_rx:pretty_print())
     end,
   },
   health_check = true,

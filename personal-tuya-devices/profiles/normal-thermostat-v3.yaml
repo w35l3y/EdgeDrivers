@@ -8,9 +8,30 @@ components:
     capabilities:
       - id: switch
         version: 1
+      - id: thermostatMode
+        version: 1
+        config:
+          values:
+            - key: thermostatMode.value #read
+              enabledValues:
+                - manual
+                - heat
+                - away
+                - auto
+                - eco
+                - custom
+            - key: setThermostatMode #write
+              enabledValues:
+                - manual
+                - heat
+                - away
+                - auto
+                - eco
       - id: temperatureMeasurement
         version: 1
       - id: thermostatHeatingSetpoint
+        version: 1
+      - id: thermostatOperatingState
         version: 1
       - id: signalStrength
         version: 1
@@ -78,8 +99,26 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
+  - name: dpThermostatModeMain01
+    title: DP for Thermostat Mode
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
   - name: dpThermostatHeatinMain01
     title: DP for Thermostat Heating Setpoint
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatOperatMain01
+    title: DP for Thermostat Operating State
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

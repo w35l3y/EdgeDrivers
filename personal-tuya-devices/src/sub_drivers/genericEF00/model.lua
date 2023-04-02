@@ -20,6 +20,7 @@ local template = {
     capabilities.switchLevel,
     capabilities.thermostatCoolingSetpoint,
     capabilities.thermostatHeatingSetpoint,
+    capabilities.thermostatMode,
     capabilities.valve,
     capabilities.windowShade,
     capabilities.windowShadeLevel,

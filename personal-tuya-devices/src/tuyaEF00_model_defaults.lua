@@ -128,7 +128,7 @@ local defaults = {
   command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
   command_gatestatus_handler = tuyaEF00_defaults.command_gatestatus_handler,
   fallback_handler = function (driver, device, zb_rx)
-    log.debug("Model fallback", zb_rx:pretty_print())
+    log.debug("MODEL FALLBACK", zb_rx:pretty_print())
   end,
 }
 
