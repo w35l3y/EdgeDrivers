@@ -99,8 +99,26 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
+  - name: dpThermostatModeMain01
+    title: DP for Thermostat Mode
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
   - name: dpThermostatHeatinMain01
     title: DP for Thermostat Heating Setpoint
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatOperatMain01
+    title: DP for Thermostat Operating State
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
