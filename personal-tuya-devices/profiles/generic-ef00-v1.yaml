@@ -76,6 +76,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: audioVolumeDatapoints
+    title: Audio volumes
+    description: List of datapoints used for audio volumes (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: batteryDatapoints
     title: Batteries
     description: List of datapoints used for batteries (comma-separated)
