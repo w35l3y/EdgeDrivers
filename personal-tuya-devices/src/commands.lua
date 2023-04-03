@@ -105,6 +105,18 @@ local defaults = {
       return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
+  alarm = {
+    capability = "alarm",
+    attribute = "alarm",
+    to_zigbee = function (self, value, device)
+      return data_types.Boolean(value ~= "off")
+    end,
+    from_zigbee = function (self, value, device)
+      local v = to_number(value)
+      return v == 0 and "off" or "both"
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+  },
   battery = {
     capability = "battery",
     attribute = "battery",

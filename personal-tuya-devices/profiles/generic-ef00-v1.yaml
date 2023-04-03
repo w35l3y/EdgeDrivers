@@ -68,6 +68,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: alarmDatapoints
+    title: Alarms
+    description: List of datapoints used for alarms (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: batteryDatapoints
     title: Batteries
     description: List of datapoints used for batteries (comma-separated)

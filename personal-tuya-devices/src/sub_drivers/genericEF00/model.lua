@@ -12,6 +12,7 @@ local template = {
   can_handle = tuyaEF00_model_defaults.can_handle,
   lifecycle_handlers = tuyaEF00_model_defaults.lifecycle_handlers,
   supported_capabilities = {
+    capabilities.alarm,
     -- capabilities.colorControl,
     -- capabilities.colorTemperature,
     capabilities.doorControl,
