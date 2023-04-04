@@ -105,6 +105,30 @@ local defaults = {
       return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
   },
+  alarm = {
+    capability = "alarm",
+    attribute = "alarm",
+    to_zigbee = function (self, value, device)
+      return data_types.Boolean(value ~= "off")
+    end,
+    from_zigbee = function (self, value, device)
+      local v = to_number(value)
+      return v == 0 and "off" or "both"
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+  },
+  audioVolume = {
+    capability = "audioVolume",
+    attribute = "volume",
+    to_zigbee = function (self, value, device)
+      return tuya_types.Uint32(to_number(value))
+    end,
+    from_zigbee = function (self, value, device)
+      return to_number(value)
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1), device) end,
+    -- component_id, capability_id, attribute_name, default_value, default_state_table
+  },
   battery = {
     capability = "battery",
     attribute = "battery",

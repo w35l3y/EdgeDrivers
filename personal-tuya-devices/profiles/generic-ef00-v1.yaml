@@ -17,7 +17,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.  "
+    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.   "
     required: true
     preferenceType: enumeration
     definition:
@@ -36,7 +36,7 @@ preferences:
         normal_presenceSensor_v2: Presence sensor
         normal_temphumi_v1: Temperature & Humidity
         normal_thermostat_v2: Thermostat
-        normal_windowShade_v1: Window Shade
+        normal_windowShade_v2: Window Shade
       default: generic_ef00_v1
   - name: updateInfo
     title: Update info with datapoints
@@ -63,6 +63,22 @@ preferences:
   - name: airQualitySensDatapoints
     title: Air quality sensors
     description: List of datapoints used for air quality sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: alarmDatapoints
+    title: Alarms
+    description: List of datapoints used for alarms (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: audioVolumeDatapoints
+    title: Audio volumes
+    description: List of datapoints used for audio volumes (comma-separated)
     required: true
     preferenceType: string
     definition:

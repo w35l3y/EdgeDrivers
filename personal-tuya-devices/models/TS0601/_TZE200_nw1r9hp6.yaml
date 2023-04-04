@@ -1,6 +1,6 @@
 deviceLabel: Window Shade
 profiles:
-  - normal_windowShade_v1
+  - normal_windowShade_v2
 datapoints:
   - id: 1
     command: windowShade
@@ -15,3 +15,7 @@ datapoints:
     base:
       group: 1
       name: preset_position
+  - id: 13
+    command: battery
+    base:
+      group: 1

@@ -247,6 +247,18 @@ local mock_child_34 = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 34)
 })
 
+local mock_child_35 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-alarm-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 35)
+})
+
+local mock_child_36 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-audioVolume-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 36)
+})
+
 local test_init_parent = function ()
   test.mock_device.add_test_device(mock_parent_device)
 
@@ -294,6 +306,8 @@ local test_init = function ()
       thermostatHeatDatapoints = "32",
       thermostatModeDatapoints = "33",
       thermostatOperDatapoints = "34",
+      alarmDatapoints = "35",
+      audioVolumeDatapoints = "36",
     }
   }))
 
@@ -331,6 +345,8 @@ local test_init = function ()
   test.mock_device.add_test_device(mock_child_32)
   test.mock_device.add_test_device(mock_child_33)
   test.mock_device.add_test_device(mock_child_34)
+  test.mock_device.add_test_device(mock_child_35)
+  test.mock_device.add_test_device(mock_child_36)
 end
 
 test.register_message_test("device_lifecycle added", {
@@ -1189,6 +1205,102 @@ test.register_message_test(
       direction = "send",
       message = mock_child_34:generate_test_message("main", capabilities.thermostatOperatingState.thermostatOperatingState("idle"))
     },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "alarm",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_35.id, { capability = "alarm", component = "main", command = "strobe", args = {} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 35, data_types.Boolean(true)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 35, data_types.Boolean(true)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_35:generate_test_message("main", capabilities.alarm.alarm("both"))
+    },
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_35.id, { capability = "alarm", component = "main", command = "off", args = {} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 35, data_types.Boolean(false)) }
+    },
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 35, data_types.Boolean(false)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_35:generate_test_message("main", capabilities.alarm.alarm("off"))
+    },
+  }, {
+    test_init = test_init
+  }
+)
+
+test.register_message_test(
+  "audioVolume",
+  {
+    {
+      channel = "zigbee",
+      direction = "receive",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 36, tuya_types.Uint32(100)) }
+    },
+    {
+      channel = "capability",
+      direction = "send",
+      message = mock_child_36:generate_test_message("main", capabilities.audioVolume.volume(100))
+    },
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_36.id, { capability = "audioVolume", component = "main", command = "setVolume", args = {50} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 36, tuya_types.Uint32(50)) }
+    },
+    -- {
+    --   channel = "capability",
+    --   direction = "receive",
+    --   message = { mock_child_36.id, { capability = "alarm", component = "main", command = "volumeDown", args = {} } }
+    -- },
+    -- {
+    --   channel = "zigbee",
+    --   direction = "send",
+    --   message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 36, tuya_types.Uint32(49)) }
+    -- },
+    -- {
+    --   channel = "capability",
+    --   direction = "receive",
+    --   message = { mock_child_36.id, { capability = "alarm", component = "main", command = "volumeUp", args = {} } }
+    -- },
+    -- {
+    --   channel = "zigbee",
+    --   direction = "send",
+    --   message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 36, tuya_types.Uint32(50)) }
+    -- },
   }, {
     test_init = test_init
   }

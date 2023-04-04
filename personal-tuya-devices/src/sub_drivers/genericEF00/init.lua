@@ -11,6 +11,8 @@ local template = {
   NAME = "GenericEF00",
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
+    capabilities.alarm,
+    capabilities.audioVolume,
     -- capabilities.colorControl,
     -- capabilities.colorTemperature,
     capabilities.doorControl,
