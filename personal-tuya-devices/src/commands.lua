@@ -120,11 +120,22 @@ local defaults = {
   audioVolume = {
     capability = "audioVolume",
     attribute = "volume",
+    supported_values = {},
+    -- supported_values = {0,34,67,100}, -- off,low,medium,high
+    -- supported_values = {0,50,100}, -- low,medium,high
     to_zigbee = function (self, value, device)
+      if #self.supported_values > 1 then
+        local m = 100 / (#self.supported_values - 1)
+        return data_types.Enum8(math.floor(to_number(value) / m))
+      end
       return tuya_types.Uint32(to_number(value))
     end,
     from_zigbee = function (self, value, device)
-      return to_number(value)
+      local v = to_number(value)
+      if #self.supported_values > 1 then
+        return self.supported_values[1 + v]
+      end
+      return v
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1), device) end,
     -- component_id, capability_id, attribute_name, default_value, default_state_table
