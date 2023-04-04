@@ -309,6 +309,26 @@ local defaults = {
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
     from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
   },
+  keypadInput = {
+    capability = "keypadInput",
+    attribute = "keyCode",
+    -- supported_values = {},
+    -- supported_values = {"NUMBER0","NUMBER1","NUMBER2","NUMBER3","NUMBER4","NUMBER5","NUMBER6","NUMBER7","NUMBER8","NUMBER9","UP","RIGHT","DOWN","LEFT","SELECT","EXIT","MENU","BACK","SETTINGS","HOME"},
+    supported_values = {"UP","DOWN","LEFT","RIGHT","SELECT","BACK","EXIT","MENU","SETTINGS","HOME","NUMBER0","NUMBER1","NUMBER2","NUMBER3","NUMBER4","NUMBER5","NUMBER6","NUMBER7","NUMBER8","NUMBER9"},
+    to_zigbee = function (self, value, device)
+      -- log.info("keypadInput", value)
+      if #self.supported_values == 0 then
+        return tuya_types.Uint32(string.byte(value))
+      end
+      for i, v in ipairs(self.supported_values) do
+        if v == value then
+          return data_types.Enum8(i - 1)
+        end
+      end
+      log.warn("keypadInput : unsupported value", value)
+      return data_types.Enum8(string.byte(value))
+    end,
+  },
   motionSensor = {
     capability = "motionSensor",
     attribute = "motion",

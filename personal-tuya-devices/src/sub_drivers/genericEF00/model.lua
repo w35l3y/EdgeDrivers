@@ -18,6 +18,7 @@ local template = {
     -- capabilities.colorTemperature,
     capabilities.doorControl,
     capabilities.energyMeter,
+    capabilities.keypadInput,
     capabilities.switch,
     capabilities.switchLevel,
     capabilities.thermostatCoolingSetpoint,

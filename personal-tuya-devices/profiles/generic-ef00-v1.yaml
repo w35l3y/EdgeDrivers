@@ -133,7 +133,7 @@ preferences:
       stringType: text
       default: ""
   - name: currentMeasureDatapoints
-    title: Current sensors
+    title: Current sensors (proposed)
     description: List of datapoints used for current sensors (comma-separated)
     required: true
     preferenceType: string
@@ -204,6 +204,14 @@ preferences:
     definition:
       stringType: text
       default: ""
+  - name: keypadInputDatapoints
+    title: Keypad inputs (proposed)
+    description: List of datapoints used for keypad inputs (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
   - name: motionSensorDatapoints
     title: Motion sensors
     description: List of datapoints used for motion sensors (comma-separated)
@@ -213,7 +221,7 @@ preferences:
       stringType: text
       default: ""
   - name: occupancySensoDatapoints
-    title: Occupancy sensors
+    title: Occupancy sensors (proposed)
     description: List of datapoints used for occupancy sensors (comma-separated)
     required: true
     preferenceType: string
