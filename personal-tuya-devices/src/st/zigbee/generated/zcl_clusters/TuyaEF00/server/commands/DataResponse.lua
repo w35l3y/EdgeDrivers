@@ -1,4 +1,4 @@
-local TuyaCommand = require "st.zigbee.generated.zcl_clusters.TuyaEF00.client.commands.TuyaCommand"
+local TuyaCommand = require "st.zigbee.generated.zcl_clusters.TuyaEF00.server.commands.TuyaCommand"
 
 local DataResponse = {}
 function DataResponse.deserialize (buf)

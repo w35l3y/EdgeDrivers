@@ -23,6 +23,7 @@ TuyaEF00.types = Types
 TuyaEF00.attr_id_map = {}
 TuyaEF00.server_id_map = {
   [0x00] = "DataRequest",
+  [0x01] = "DataResponse",
   [0x02] = "DataReport",  -- GenericBody:  00 1A 01 01 00 01 00 / 00 1B 02 01 00 01 01 / 00 1C 03 01 00 01 01 / 00 1D 04 01 00 01 01 / 00 1E 05 01 00 01 01 / 00 1F 06 01 00 01 01
   [0x03] = "DataQuery",
   [0x10] = "McuVersionRequest",
@@ -32,7 +33,6 @@ TuyaEF00.server_id_map = {
   [0x25] = "GatewayStatusResponse",
 }
 TuyaEF00.client_id_map = {
-  [0x01] = "DataResponse",
   [0x02] = "DataReport",  -- 00 1B 02 01 00 01 01
   [0x11] = "McuVersionResponse", -- 02 9C 40
   [0x14] = "OtaBlockDataResponse", -- server or client ?
@@ -44,7 +44,7 @@ TuyaEF00.attribute_direction_map = {
 }
 TuyaEF00.command_direction_map = {
   ["DataRequest"] = "server",
-  ["DataResponse"] = "client",
+  ["DataResponse"] = "server",
   ["DataReport"] = "server",
   ["DataQuery"] = "server",
   ["McuVersionRequest"] = "server",
