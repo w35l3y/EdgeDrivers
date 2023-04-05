@@ -20,7 +20,7 @@ TuyaE000.server.commands = ServerCommands:set_parent_cluster(TuyaE000)
 TuyaE000.client.commands = ClientCommands:set_parent_cluster(TuyaE000)
 TuyaE000.types = Types
 TuyaE000.attr_id_map = {}
-TuyaE000.server_id_map = {
+TuyaE000.server_id_map = { -- ATENÇÃO: precisa estar NESTA lista para incluir em `zigbee_handlers`
   [0x0A] = "Generic",
 }
 TuyaE000.client_id_map = {

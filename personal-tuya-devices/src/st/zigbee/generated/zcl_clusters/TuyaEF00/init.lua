@@ -21,7 +21,7 @@ TuyaEF00.server.commands = ServerCommands:set_parent_cluster(TuyaEF00)
 TuyaEF00.client.commands = ClientCommands:set_parent_cluster(TuyaEF00)
 TuyaEF00.types = Types
 TuyaEF00.attr_id_map = {}
-TuyaEF00.server_id_map = {
+TuyaEF00.server_id_map = { -- ATENÇÃO: precisa estar NESTA lista para incluir em `zigbee_handlers`
   [0x00] = "DataRequest",
   [0x01] = "DataResponse",
   [0x02] = "DataReport",  -- GenericBody:  00 1A 01 01 00 01 00 / 00 1B 02 01 00 01 01 / 00 1C 03 01 00 01 01 / 00 1D 04 01 00 01 01 / 00 1E 05 01 00 01 01 / 00 1F 06 01 00 01 01
@@ -30,7 +30,7 @@ TuyaEF00.server_id_map = {
   [0x12] = "McuOtaNotify",
   [0x13] = "OtaBlockDataRequest", -- server or client ?
   [0x24] = "McuSyncTime",
-  [0x25] = "GatewayStatusResponse",
+  [0x25] = "GatewayStatus",
 }
 TuyaEF00.client_id_map = {
   [0x02] = "DataReport",  -- 00 1B 02 01 00 01 01
@@ -38,7 +38,7 @@ TuyaEF00.client_id_map = {
   [0x14] = "OtaBlockDataResponse", -- server or client ?
   [0x15] = "McuOtaResult",
   [0x24] = "McuSyncTime",
-  [0x25] = "GatewayStatusRequest",
+  [0x25] = "GatewayStatus",
 }
 TuyaEF00.attribute_direction_map = {
 }
@@ -54,8 +54,7 @@ TuyaEF00.command_direction_map = {
   ["OtaBlockDataResponse"] = "client",
   ["McuOtaResult"] = "client",
   ["McuSyncTime"] = "server",
-  ["GatewayStatusRequest"] = "client",
-  ["GatewayStatusResponse"] = "server",
+  ["GatewayStatus"] = "server",
 }
 TuyaEF00.attributes = {}
 TuyaEF00.commands = {}

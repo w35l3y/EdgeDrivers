@@ -64,8 +64,8 @@ function defaults.command_synctime_handler(driver, device, zb_rx)
 end
 
 function defaults.command_gatestatus_handler(driver, device, zb_rx)
-  device:send(zcl_clusters.TuyaEF00.commands.GatewayStatusResponse(device, zb_rx.body.zcl_body.data.value))
-  -- log.info("GatewayStatusRequest", zb_rx:pretty_print())
+  device:send(zcl_clusters.TuyaEF00.commands.GatewayStatus(device, zb_rx.body.zcl_body.data.value))
+  -- log.info("GatewayStatus", zb_rx:pretty_print())
 end
 
 function defaults.fallback_handler (driver, device, zb_rx)
