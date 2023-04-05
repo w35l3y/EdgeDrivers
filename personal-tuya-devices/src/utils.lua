@@ -61,28 +61,6 @@ function utils.is_profile(device, profile, mfr)
   return device.parent_assigned_child_key and utils.is_same_profile(device:get_parent_device(), profile, mfr) or utils.is_same_profile(device, profile, mfr)
 end
 
-local ep_supports_server_cluster = function(cluster_id, ep)
-  -- if not ep then return false end
-  for _, cluster in ipairs(ep.server_clusters) do
-    if cluster == cluster_id then
-      return true
-    end
-  end
-  return false
-end
-
-function utils.create_child_devices (global_profile, child_profile, child_cluster)
-  return function (driver, device, ...)
-    if device.preferences.profile == global_profile then
-      for _, ep in pairs(device.zigbee_endpoints) do
-        if ep.id ~= device.fingerprinted_endpoint_id and ep_supports_server_cluster(child_cluster.ID, ep) then
-          myutils.create_child(driver, device, ep.id, child_profile)
-        end
-      end
-    end
-  end
-end
-
 local function hexa(value, length)
   return string.format("0x%0"..(length or 4).."X", value or 0)
 end
@@ -250,6 +228,28 @@ function utils.create_child(driver, device, ngroup, profile)
       model = profile,
       vendor_provided_label = label,
     })
+  end
+end
+
+local ep_supports_server_cluster = function(cluster_id, ep)
+  -- if not ep then return false end
+  for _, cluster in ipairs(ep.server_clusters) do
+    if cluster == cluster_id then
+      return true
+    end
+  end
+  return false
+end
+
+function utils.create_child_devices (global_profile, child_profile, child_cluster)
+  return function (driver, device, ...)
+    if device.preferences.profile == global_profile then
+      for _, ep in pairs(device.zigbee_endpoints) do
+        if ep.id ~= device.fingerprinted_endpoint_id and ep_supports_server_cluster(child_cluster.ID, ep) then
+          utils.create_child(driver, device, ep.id, child_profile)
+        end
+      end
+    end
   end
 end
 
