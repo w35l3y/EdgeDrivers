@@ -1,0 +1,19 @@
+deviceLabel: Contact Sensor
+profiles:
+  - normal_contactSensor_v2
+  - normal_contactSensor_v1 # remover assim que existir um dispositivo para este perfil
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/d7e739f608b2217651cfc851c560c257a99718ca/devices/tuya.js#L3949-L3965
+  - id: 1
+    command: contactSensor
+    base:
+      group: 1
+      reverse: true
+  - id: 101
+    command: illuminanceMeasurement
+    base:
+      group: 1
+  - id: 2
+    command: battery
+    base:
+      group: 1

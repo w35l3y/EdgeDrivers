@@ -20,6 +20,14 @@ local function to_number (value)
   return value
 end
 
+local function to_bool (value)
+  return value ~= nil and value ~= false
+end
+
+local function xor (a, b)
+  return to_bool(a) ~= to_bool(b)
+end
+
 -- tries to make it partially work with firmware below 45.1
 local function get_child_or_parent(device, group)
   if (device.get_child_by_parent_assigned_key == nil) then
@@ -215,10 +223,11 @@ local defaults = {
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",
+    reverse = false,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       local v = to_number(value)
-      if pref.reverse then
+      if xor(self.reverse, pref.reverse) then
         return v == 0 and "open" or "closed"
       end
       return v == 0 and "closed" or "open"

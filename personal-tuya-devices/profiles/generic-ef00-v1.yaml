@@ -17,7 +17,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.   "
+    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.    "
     required: true
     preferenceType: enumeration
     definition:
@@ -30,6 +30,7 @@ preferences:
         normal_multi_dimmer_v2: 2 dimmers
         normal_single_dimmer_v1: 1 dimmer
         normal_air_quality_v2: Air Quality
+        normal_contactSensor_v2: Contact Sensor
         normal_garage_door_v1: Garage Door
         normal_irrigation_v1: Irrigation
         normal_powerMeter_v1: Power meter

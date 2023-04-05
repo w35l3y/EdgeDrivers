@@ -131,6 +131,16 @@ zigbeeManufacturer:
     manufacturer: _TZE200_nklqjk62
     deviceProfileName: normal-garage-door-v1
     deviceLabel: Garage Door
+  - id: TS0601/_TZE200_nw1r9hp6
+    model: TS0601
+    manufacturer: _TZE200_nw1r9hp6
+    deviceProfileName: normal-windowShade-v2
+    deviceLabel: Window Shade
+  - id: TS0601/_TZE200_pay2byax
+    model: TS0601
+    manufacturer: _TZE200_pay2byax
+    deviceProfileName: normal-contactSensor-v2
+    deviceLabel: Contact Sensor
   - id: TS0601/_TZE200_qoy0ekbd
     model: TS0601
     manufacturer: _TZE200_qoy0ekbd

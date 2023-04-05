@@ -162,6 +162,7 @@ end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile then
+    log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     device:try_update_metadata({
       profile = device.preferences.profile:gsub("_", "-")
     })
@@ -174,6 +175,12 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
         for ndpid in value:gmatch("[^,]+") do
           myutils.create_child(driver, device, tonumber(ndpid, 10), profile)
         end
+      end
+    end
+  else
+    for name, value in utils.pairs_by_key(device.preferences) do
+      if value ~= nil and args.old_st_store.preferences[name] ~= value then
+        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
       end
     end
   end

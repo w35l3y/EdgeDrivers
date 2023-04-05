@@ -20,6 +20,8 @@
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |
+| TS0601 | \_TZE200_nw1r9hp6 | Window Shade    | normal-windowShade-v2    |
+| TS0601 | \_TZE200_pay2byax | Contact Sensor  | normal-contactSensor-v2  |
 | TS0601 | \_TZE200_qoy0ekbd | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_r731zlxk | Multi Switch    | normal-multi-switch-v6   |
 | TS0601 | \_TZE200_sh1btabb | Irrigation      | normal-irrigation-v2     |

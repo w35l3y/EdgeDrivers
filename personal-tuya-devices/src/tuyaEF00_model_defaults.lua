@@ -120,6 +120,12 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       end
       ::next::
     end
+  else
+    for name, value in utils.pairs_by_key(device.preferences) do
+      if value ~= nil and args.old_st_store.preferences[name] ~= value then
+        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+      end
+    end
   end
 end
 

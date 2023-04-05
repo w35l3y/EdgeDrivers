@@ -1,0 +1,66 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-contactSensor-v2"
+components:
+  - id: main
+    label: Contact Sensor
+    capabilities:
+      - id: contactSensor
+        version: 1
+      - id: illuminanceMeasurement
+        version: 1
+      - id: battery
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Contact Sensor
+preferences:
+  - name: profile
+    title: Profile
+    description: Choose the profile
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_contactSensor_v2: Normal
+        normal_contactSensor_v1: No battery
+        generic_ef00_v1: Generic
+      default: normal_contactSensor_v2
+  - preferenceId: reverse
+    explicit: true
+  - name: dpContactSensorMain01
+    title: DP for Contact Sensor
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpIlluminanceMeasuMain01
+    title: DP for Illuminance Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpBatteryMain01
+    title: DP for Battery
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+metadata:
+  deviceType: ContactSensor
+  ocfDeviceType: x.com.st.d.sensor.contact
+  deviceTypeId: ContactSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043
