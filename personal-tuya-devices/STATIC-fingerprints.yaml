@@ -68,3 +68,8 @@ zigbeeGeneric:
         - 0x0006
         # - 0xE000
         # - 0xE001
+zigbeeThing:
+  - id: "GenericThingEF00"
+    deviceProfileName: generic-ef00-v1
+    deviceLabel: Generic Thing EF00 Device
+    isJoinable: false
