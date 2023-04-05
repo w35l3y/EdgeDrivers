@@ -219,3 +219,8 @@ zigbeeGeneric:
       server:
         - 0x0
         - 0x6
+zigbeeThing:
+  - id: GenericThingEF00
+    deviceProfileName: generic-ef00-v1
+    deviceLabel: Generic Thing EF00 Device
+    isJoinable: false
