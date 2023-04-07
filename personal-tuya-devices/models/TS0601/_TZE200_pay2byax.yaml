@@ -8,9 +8,8 @@ datapoints:
     command: contactSensor
     base:
       group: 1
-      reverse: true
   - id: 101
-    command: illuminanceMeasurement
+    command: illuminanceMeasurementRaw
     base:
       group: 1
   - id: 2

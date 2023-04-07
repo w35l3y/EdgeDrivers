@@ -314,9 +314,27 @@ local defaults = {
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
     attribute = "illuminance",
+    rate_name = "rate",
+    rate = 100,
     reportingInterval = 0.2,
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
-    from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
+    from_zigbee = function (self, value)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local v = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return math.floor(1000 * math.log(1 + v, 0x14))
+    end,
+  },
+  illuminanceMeasurementRaw = {
+    capability = "illuminanceMeasurement",
+    attribute = "illuminance",
+    rate_name = "rate",
+    rate = 100,
+    reportingInterval = 0.2,
+    -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
+    from_zigbee = function (self, value)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
   },
   keypadInput = {
     capability = "keypadInput",
