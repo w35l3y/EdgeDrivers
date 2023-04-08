@@ -319,7 +319,7 @@ local defaults = {
     rate = 100,
     reportingInterval = 0.2,
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
-    from_zigbee = function (self, value)
+    from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       local v = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
       return math.floor(1000 * math.log(1 + v, 0x14))
@@ -332,7 +332,7 @@ local defaults = {
     rate = 100,
     reportingInterval = 0.2,
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
-    from_zigbee = function (self, value)
+    from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
     end,
