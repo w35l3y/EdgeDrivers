@@ -32,6 +32,7 @@
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE204_cjbofhxw | Power Meter     | normal-powerMeter-v1     |
+| TS0601 | \_TZE204_t1blo2bj | Alarm           | normal-alarm-v1          |
 | TS0601 | \_TZE204_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
