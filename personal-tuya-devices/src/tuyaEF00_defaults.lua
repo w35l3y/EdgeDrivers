@@ -59,13 +59,13 @@ local function get_dp(dp, def, device)
 end
 
 function defaults.command_synctime_handler(driver, device, zb_rx)
-  -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
-  log.info("McuSyncTime", zb_rx:pretty_print())
+  log.debug("--- McuSyncTime -----------------------------------")
+  device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, zb_rx.body.zcl_body.transid.value))
 end
 
 function defaults.command_gatestatus_handler(driver, device, zb_rx)
-  device:send(zcl_clusters.TuyaEF00.commands.GatewayStatus(device, zb_rx.body.zcl_body.data.value))
-  -- log.info("GatewayStatus", zb_rx:pretty_print())
+  -- log.info("--- GatewayStatus ---------------------------------")
+  device:send(zcl_clusters.TuyaEF00.commands.GatewayStatus(device, zb_rx.body.zcl_body.transid.value))
 end
 
 function defaults.fallback_handler (driver, device, zb_rx)

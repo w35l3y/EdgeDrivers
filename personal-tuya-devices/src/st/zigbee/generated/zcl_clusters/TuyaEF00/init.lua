@@ -31,6 +31,7 @@ TuyaEF00.server_id_map = { -- ATENÇÃO: precisa estar NESTA lista para incluir 
   [0x13] = "OtaBlockDataRequest", -- server or client ?
   [0x24] = "McuSyncTime",
   [0x25] = "GatewayStatus",
+  [0x28] = "GatewayData",
 }
 TuyaEF00.client_id_map = {
   [0x02] = "DataReport",  -- 00 1B 02 01 00 01 01
@@ -39,6 +40,7 @@ TuyaEF00.client_id_map = {
   [0x15] = "McuOtaResult",
   [0x24] = "McuSyncTime",
   [0x25] = "GatewayStatus",
+  [0x28] = "GatewayData",
 }
 TuyaEF00.attribute_direction_map = {
 }
@@ -55,6 +57,7 @@ TuyaEF00.command_direction_map = {
   ["McuOtaResult"] = "client",
   ["McuSyncTime"] = "server",
   ["GatewayStatus"] = "server",
+  ["GatewayData"] = "client",
 }
 TuyaEF00.attributes = {}
 TuyaEF00.commands = {}

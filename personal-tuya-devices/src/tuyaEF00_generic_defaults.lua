@@ -152,7 +152,11 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    device.thread:call_with_delay(15, function()
+      log.debug("--- GatewayData -----------------------------------")
+      device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
+    end)
     device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
   elseif device.network_type == device_lib.NETWORK_TYPE_CHILD then
     local tmp = temporary_datapoints[device.parent_device_id]

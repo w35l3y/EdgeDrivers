@@ -65,7 +65,11 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    device.thread:call_with_delay(15, function()
+      log.debug("--- GatewayData -----------------------------------")
+      device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
+    end)
     
     -- local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
     -- -- if dp == nil or dp.default then
@@ -96,7 +100,8 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
     log.debug("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, device.preferences.timezoneOffset))
+    log.debug("It will need to wait the next request from the device as we don't have 'transid'")
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
   end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then

@@ -7,7 +7,7 @@ McuVersionRequest.NAME = "McuVersionRequest"
 McuVersionRequest.ID = 0x10
 McuVersionRequest.args_def = {
   {
-    name = "seqno",
+    name = "transid",
     optional = false,
     data_type = tuya_types.Uint16,
     is_complex = false,
@@ -78,9 +78,9 @@ function McuVersionRequest:set_field_names()
   end
 end
 
-function McuVersionRequest.build_test_rx(device)
+function McuVersionRequest.build_test_rx(device, transid)
   local out = {}
-  local args = {}
+  local args = { transid }
   for i,v in ipairs(McuVersionRequest.args_def) do
     if v.optional and args[i] == nil then
       out[v.name] = nil
@@ -108,9 +108,9 @@ function McuVersionRequest.build_test_rx(device)
   return McuVersionRequest._cluster:build_test_rx_cluster_specific_command(device, out, "server")
 end
 
-function McuVersionRequest:init(device)
+function McuVersionRequest:init(device, transid)
   local out = {}
-  local args = {}
+  local args = { transid }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end
