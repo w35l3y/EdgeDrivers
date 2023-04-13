@@ -729,7 +729,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_18:generate_test_message("main", capabilities.tvocMeasurement.tvocLevel(23.0))
+      message = mock_child_18:generate_test_message("main", capabilities.tvocMeasurement.tvocLevel({value=23.0,unit="ppm"}))
     },
   }, {
     test_init = test_init
