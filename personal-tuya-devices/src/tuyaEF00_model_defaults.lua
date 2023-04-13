@@ -65,7 +65,11 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    device.thread:call_with_delay(15, function()
+      log.debug("--- GatewayData -----------------------------------")
+      device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
+    end)
     
     -- local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
     -- -- if dp == nil or dp.default then
@@ -85,6 +89,7 @@ end
 local map_pref_to_child = {
   _temp_mea = "_temperatureMeasurement",
   _rel_hum_mea = "_relativeHumidityMeasurement",
+  _contact_sensor = "_contactSensor",
 }
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)
@@ -96,7 +101,8 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
     log.debug("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, device.preferences.timezoneOffset))
+    log.debug("It will need to wait the next request from the device as we don't have 'transid'")
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
   end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
@@ -120,6 +126,12 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
       end
       ::next::
     end
+  else
+    for name, value in utils.pairs_by_key(device.preferences) do
+      if value ~= nil and args.old_st_store.preferences[name] ~= value then
+        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+      end
+    end
   end
 end
 
@@ -133,7 +145,7 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  if myutils.is_profile(device, "generic_ef00_v1") or myutils.is_profile(device, "normal_multi_switch_v1") then
+  if myutils.is_profile(device, "generic_ef00_v1") or myutils.is_profile(device, "normal_multi_switch_v1") or myutils.is_profile(device, "normal_multi_dimmer_v1") then
     return false
   end
   -- log.info(device:get_model(), device:get_manufacturer())

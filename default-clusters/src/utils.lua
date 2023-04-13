@@ -162,7 +162,7 @@ local function map(endpoints, key)
     for index, cluster in ipairs(clusters[key]) do
       if not o[cluster] then
         o[cluster] = {
-          name = zcl_clusters.id_to_name_map[cluster],
+          name = zcl_clusters.id_to_name_map[cluster] or "?",
           endpoints = {}
         }
       end
@@ -174,7 +174,7 @@ local function map(endpoints, key)
     __tostring = function (self)
       local output = {}
       for cluster,info in pairs(self) do
-        output[#output+1] = string.format('<tr><th align="left">%s</th><td>0x%04X</td><td>%s</td></tr>', info.name or "?", cluster, table.concat(info.endpoints, ", "))
+        output[#output+1] = string.format('<tr><th align="left">%s</th><td>0x%04X</td><td>%s</td></tr>', info.name, cluster, table.concat(info.endpoints, ", "))
       end
       if #output==0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'

@@ -4,8 +4,17 @@ local zcl_clusters = require "st.zigbee.zcl.clusters"
 
 zb_const.ZGP_PROFILE_ID = 0xA1E0
 
-zcl_clusters.green_power_id = 0x0021
-zcl_clusters.id_to_name_map[zcl_clusters.green_power_id] = "GreenPowerProxy"
+zcl_clusters.bind_request_id = 0x0021
+zcl_clusters.id_to_name_map[zcl_clusters.bind_request_id] = "BindRequest"
+
+zcl_clusters.bind_request_response_id = 0x8021
+zcl_clusters.id_to_name_map[zcl_clusters.bind_request_response_id] = "BindRequestResponse"
+
+zcl_clusters.mgmt_bind_request_id = 0x0033
+zcl_clusters.id_to_name_map[zcl_clusters.mgmt_bind_request_id] = "MgmtBindRequest"
+
+zcl_clusters.binding_table_list_record_id = 0x8033
+zcl_clusters.id_to_name_map[zcl_clusters.binding_table_list_record_id] = "BindingTableListRecord"
 
 zcl_clusters.tuya_e000_id = 0xE000
 zcl_clusters.id_to_name_map[zcl_clusters.tuya_e000_id] = "TuyaE000"

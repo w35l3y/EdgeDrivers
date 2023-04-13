@@ -12,18 +12,15 @@ local utils = require "utils"
 
 zb_const.ZGP_PROFILE_ID = 0xA1E0
 
-zcl_clusters.green_power_id = 0x0021
-zcl_clusters.id_to_name_map[zcl_clusters.green_power_id] = "GreenPowerProxy"
+-- zcl_clusters.tuya_e000_id = 0xE000
+-- zcl_clusters.id_to_name_map[zcl_clusters.tuya_e000_id] = "TuyaCommon"
+-- -- data_types.id_to_name_map[0x48] = "CharString"  -- override Array data type (0xE000 attributes)
 
-zcl_clusters.tuya_e000_id = 0xE000
-zcl_clusters.id_to_name_map[zcl_clusters.tuya_e000_id] = "TuyaCommon"
--- data_types.id_to_name_map[0x48] = "CharString"  -- override Array data type (0xE000 attributes)
+-- zcl_clusters.tuya_e001_id = 0xE001
+-- zcl_clusters.id_to_name_map[zcl_clusters.tuya_e001_id] = "TuyaElectrician"
 
-zcl_clusters.tuya_e001_id = 0xE001
-zcl_clusters.id_to_name_map[zcl_clusters.tuya_e001_id] = "TuyaElectrician"
-
-zcl_clusters.tuya_ef00_id = 0xEF00
-zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaGeneral"
+-- zcl_clusters.tuya_ef00_id = 0xEF00
+-- zcl_clusters.id_to_name_map[zcl_clusters.tuya_ef00_id] = "TuyaGeneral"
 
 local template = {
   supported_capabilities = {

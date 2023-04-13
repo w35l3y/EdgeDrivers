@@ -31,6 +31,7 @@ local datapoint_types_to_fn = {
   formaldehydeMeDatapoints = commands.formaldehydeMeasurement,
   humidityMeasurDatapoints = commands.relativeHumidityMeasurement,
   illuminanceMeaDatapoints = commands.illuminanceMeasurement,
+  keypadInputDatapoints = commands.keypadInput,
   motionSensorDatapoints = commands.motionSensor,
   occupancySensoDatapoints = commands.occupancySensor,
   powerMeterDatapoints = commands.powerMeter,
@@ -73,6 +74,7 @@ local child_types_to_profile = {
   formaldehydeMeDatapoints = "child-formaldehydeMeasurement-v1",
   humidityMeasurDatapoints = "child-relativeHumidityMeasurement-v1",
   illuminanceMeaDatapoints = "child-illuminanceMeasurement-v1",
+  keypadInputDatapoints = "child-keypadInput-v1",
   motionSensorDatapoints = "child-motionSensor-v1",
   occupancySensoDatapoints = "child-occupancySensor-v1",
   powerMeterDatapoints = "child-powerMeter-v1",
@@ -103,6 +105,10 @@ local type_to_configuration = {
   [tuya_types.DatapointSegmentType.ENUM] = "enumerationDatapoints",
   [tuya_types.DatapointSegmentType.BITMAP] = "bitmapDatapoints",
   [tuya_types.DatapointSegmentType.RAW] = "rawDatapoints",
+}
+
+local constants = {
+  FORCE_EF00_CLUSTER = "FORCE_EF00_CLUSTER",
 }
 
 local function get_datapoints_from_device (device)
@@ -146,7 +152,12 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
-    device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
+    device.thread:call_with_delay(15, function()
+      log.debug("--- GatewayData -----------------------------------")
+      device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
+    end)
+    device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
   elseif device.network_type == device_lib.NETWORK_TYPE_CHILD then
     local tmp = temporary_datapoints[device.parent_device_id]
     local dpid = tonumber(device.parent_assigned_child_key, 16)
@@ -160,6 +171,7 @@ end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile then
+    log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     device:try_update_metadata({
       profile = device.preferences.profile:gsub("_", "-")
     })
@@ -174,11 +186,18 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
         end
       end
     end
+  else
+    for name, value in utils.pairs_by_key(device.preferences) do
+      if value ~= nil and args.old_st_store.preferences[name] ~= value then
+        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+      end
+    end
   end
 end
 
 -- devices that use 0xEF00 but doesn't expose it
 local exceptions = {
+  "_TZE200_pay2byax",
   "_TZE200_znbl8dj5"
 }
 
@@ -201,7 +220,7 @@ local defaults = {
 }
 
 function defaults.can_handle (opts, driver, device, ...)
-  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id) or in_exception_list(device)
+  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id) or in_exception_list(device) or myutils.is_profile(device, "generic_ef00_v1") or device:get_field(constants.FORCE_EF00_CLUSTER)
 end
 
 function defaults.command_response_handler(driver, device, zb_rx)

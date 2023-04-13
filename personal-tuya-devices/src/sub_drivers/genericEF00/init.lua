@@ -17,6 +17,7 @@ local template = {
     -- capabilities.colorTemperature,
     capabilities.doorControl,
     capabilities.energyMeter,
+    capabilities.keypadInput,
     capabilities.switch,  -- boolean
     capabilities.switchLevel,
     capabilities.thermostatCoolingSetpoint,
@@ -47,7 +48,7 @@ local template = {
         [zcl_clusters.TuyaEF00.commands.DataResponse.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_generic_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.McuSyncTime.ID] = tuyaEF00_generic_defaults.command_synctime_handler,
-        [zcl_clusters.TuyaEF00.commands.GatewayStatusRequest.ID] = tuyaEF00_generic_defaults.command_gatestatus_handler,
+        [zcl_clusters.TuyaEF00.commands.GatewayStatus.ID] = tuyaEF00_generic_defaults.command_gatestatus_handler,
       },
     },
     fallback = tuyaEF00_generic_defaults.fallback_handler,

@@ -95,7 +95,7 @@ end
 -- untested
 McuSyncTimeData.init = function(self, tzOffset)
   local out = {}
-  local args = { os.time(os.date('!*t')), os.time(os.date('*t')) + 60 * (tzOffset or 0) }
+  local args = { os.time(os.date('!*t')), os.time(os.date('*t')) + 60 * (type(tzOffset) ~= "userdata" and tzOffset or 0) }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end

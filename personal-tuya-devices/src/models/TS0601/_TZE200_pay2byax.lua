@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Contact Sensor","profiles":["normal_contactSensor_v2","normal_contactSensor_v1"],"datapoints":[{"id":1,"command":"contactSensor","base":{"group":1}},{"id":101,"command":"illuminanceMeasurementRaw","base":{"group":1}},{"id":2,"command":"battery","base":{"group":1}}]}]]

@@ -20,22 +20,37 @@ local function to_number (value)
   return value
 end
 
+local function to_bool (value)
+  return value ~= nil and value ~= false
+end
+
+local function xor (a, b)
+  return to_bool(a) ~= to_bool(b)
+end
+
 -- tries to make it partially work with firmware below 45.1
-local function get_child_or_parent(device, group)
+local function get_child_or_parent(device, group, force_child)
   if (device.get_child_by_parent_assigned_key == nil) then
     log.warn("Driver requires firmware 45.1+ to work properly")
     return device
   end
-  return device:get_child_by_parent_assigned_key(string.format("%02X", group)) or device
+  local child = device:get_child_by_parent_assigned_key(string.format("%02X", group))
+  -- if not child or group == 1 and not force_child then
+  --   return device
+  -- end
+  -- return child or device
+
+  return (not child or (group == 1 and not force_child)) and device or child
 end
 
 local default_generic = {
+  additional = {},
   attribute = "value",
-  to_zigbee = function (self, value, device) error("to_zigbee must be implemented") end,
-  from_zigbee = function (self, value, device) return value end,
+  to_zigbee = function (self, value, device) error("to_zigbee must be implemented", self.capability, self.attribute) end,
+  from_zigbee = function (self, value, device, force_child) return value end,
   command_handler = function (self, command, device) return self:to_zigbee(command.args[self.command_arg or self.attribute], device) end,
-  create_event = function (self, value, device)
-    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
+  create_event = function (self, value, device, force_child)
+    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child)) or nil
   end,
 }
 
@@ -120,11 +135,23 @@ local defaults = {
   audioVolume = {
     capability = "audioVolume",
     attribute = "volume",
+    supported_values = {},
+    -- supported_values = {0,34,67,100}, -- off,low,medium,high
+    -- supported_values = {0,50,100}, -- low,medium,high
     to_zigbee = function (self, value, device)
+      if #self.supported_values > 1 then
+        local m = 100 / (#self.supported_values - 1) -- 50          33.333333
+        local x = 100 / #self.supported_values       -- 33.333333   25
+        return data_types.Enum8(math.min(100, math.floor(m * math.floor(to_number(value) / x) + 0.5)))
+      end
       return tuya_types.Uint32(to_number(value))
     end,
     from_zigbee = function (self, value, device)
-      return to_number(value)
+      local v = to_number(value)
+      if #self.supported_values > 1 then
+        return self.supported_values[1 + v]
+      end
+      return v
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1), device) end,
     -- component_id, capability_id, attribute_name, default_value, default_state_table
@@ -204,10 +231,12 @@ local defaults = {
   contactSensor = {
     capability = "contactSensor",
     attribute = "contact",
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
+    reverse = false,
+    from_zigbee = function (self, value, device, force_child)
+      local pref = get_child_or_parent(device, self.group, force_child).preferences
+      -- log.info(self.capability, pref.reverse)
       local v = to_number(value)
-      if pref.reverse then
+      if xor(self.reverse, pref.reverse) then
         return v == 0 and "open" or "closed"
       end
       return v == 0 and "closed" or "open"
@@ -288,15 +317,56 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return {
+        value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
+        unit = "ppm"
+      }
     end,
   },
   illuminanceMeasurement = {
     capability = "illuminanceMeasurement",
     attribute = "illuminance",
+    rate_name = "rate",
+    rate = 100,
     reportingInterval = 0.2,
     -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
-    from_zigbee = function (self, value) return math.floor(1000 * math.log(1 + to_number(value), 0x14)) end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local v = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return math.floor(1000 * math.log(1 + v, 0x14))
+    end,
+  },
+  illuminanceMeasurementRaw = {
+    capability = "illuminanceMeasurement",
+    attribute = "illuminance",
+    rate_name = "rate",
+    rate = 100,
+    reportingInterval = 0.2,
+    -- from_zigbee = function (self, value) return math.floor(math.pow(10, (to_number(value) / 10000))) end,
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  keypadInput = {
+    capability = "keypadInput",
+    attribute = "keyCode",
+    -- supported_values = {},
+    -- supported_values = {"NUMBER0","NUMBER1","NUMBER2","NUMBER3","NUMBER4","NUMBER5","NUMBER6","NUMBER7","NUMBER8","NUMBER9","UP","RIGHT","DOWN","LEFT","SELECT","EXIT","MENU","BACK","SETTINGS","HOME"},
+    supported_values = {"UP","DOWN","LEFT","RIGHT","SELECT","BACK","EXIT","MENU","SETTINGS","HOME","NUMBER0","NUMBER1","NUMBER2","NUMBER3","NUMBER4","NUMBER5","NUMBER6","NUMBER7","NUMBER8","NUMBER9"},
+    to_zigbee = function (self, value, device)
+      -- log.info("keypadInput", value)
+      if #self.supported_values == 0 then
+        return tuya_types.Uint32(string.byte(value))
+      end
+      for i, v in ipairs(self.supported_values) do
+        if v == value then
+          return data_types.Enum8(i - 1)
+        end
+      end
+      log.warn("keypadInput : unsupported value", value)
+      return data_types.Enum8(string.byte(value))
+    end,
   },
   motionSensor = {
     capability = "motionSensor",
@@ -335,14 +405,21 @@ local defaults = {
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
+    reverse = false,
+    from_zigbee = function (self, value, device, force_child)
+      local pref = get_child_or_parent(device, self.group, force_child).preferences
+      -- log.info(self.capability, pref.reverse)
       local v = to_number(value)
-      if pref.reverse then
+      if xor(self.reverse, pref.reverse) then
         return v == 0 and "present" or "not present"
       end
       return v == 0 and "not present" or "present"
     end,
+    additional = {
+      {
+        command = "contactSensor",
+      }
+    },
   },
   relativeHumidityMeasurement = {
     capability = "relativeHumidityMeasurement",
@@ -367,7 +444,10 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset)
+      return {
+        value = (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset),
+        unit = "C"
+      }
     end,
   },
   thermostatCoolingSetpoint = {
@@ -382,7 +462,10 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      return {
+        value = math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)),
+        unit = "C"
+      }
     end,
   },
   thermostatHeatingSetpoint = {
@@ -397,7 +480,10 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      return {
+        value = math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)),
+        unit = "C"
+      }
     end,
   },
   thermostatMode = {
@@ -435,7 +521,10 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return {
+        value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
+        unit = "ppm"
+      }
     end,
   },
   valve = {

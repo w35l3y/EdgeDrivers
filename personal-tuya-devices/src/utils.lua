@@ -71,7 +71,7 @@ local function map(endpoints, key)
     for index, cluster in ipairs(clusters[key]) do
       if not o[cluster] then
         o[cluster] = {
-          name = zcl_clusters.id_to_name_map[cluster],
+          name = zcl_clusters.id_to_name_map[cluster] or "?",
           endpoints = {}
         }
       end
@@ -83,7 +83,7 @@ local function map(endpoints, key)
     __tostring = function (self)
       local output = {}
       for cluster,info in pairs(self) do
-        output[#output+1] = string.format('<tr><th align="left">%s</th><td>0x%04X</td><td>%s</td></tr>', info.name or "?", cluster, table.concat(info.endpoints, ", "))
+        output[#output+1] = string.format('<tr><th align="left">%s</th><td>0x%04X</td><td>%s</td></tr>', info.name, cluster, table.concat(info.endpoints, ", "))
       end
       if #output==0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'
@@ -110,6 +110,9 @@ function utils.info(device, datapoints)
       end
       if #output == 0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'
+      end
+      if not device:supports_server_cluster(zcl_clusters.tuya_ef00_id) then
+        output[#output+1] = '<tr><td colspan="3">Your device didn\'t expose 0xEF00 cluster.</td></tr>'
       end
       return '<tr><th colspan="3">Datapoints</th></tr>' .. table.concat(output)
     end
@@ -225,6 +228,28 @@ function utils.create_child(driver, device, ngroup, profile)
       model = profile,
       vendor_provided_label = label,
     })
+  end
+end
+
+local ep_supports_server_cluster = function(cluster_id, ep)
+  -- if not ep then return false end
+  for _, cluster in ipairs(ep.server_clusters) do
+    if cluster == cluster_id then
+      return true
+    end
+  end
+  return false
+end
+
+function utils.create_child_devices (global_profile, child_profile, child_cluster)
+  return function (driver, device, ...)
+    if device.preferences.profile == global_profile then
+      for _, ep in pairs(device.zigbee_endpoints) do
+        if ep.id ~= device.fingerprinted_endpoint_id and ep_supports_server_cluster(child_cluster.ID, ep) then
+          utils.create_child(driver, device, ep.id, child_profile)
+        end
+      end
+    end
   end
 end
 

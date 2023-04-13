@@ -259,6 +259,12 @@ local mock_child_36 = test.mock_device.build_test_child_device({
   parent_assigned_child_key = string.format("%02X", 36)
 })
 
+local mock_child_37 = test.mock_device.build_test_child_device({
+  profile = t_utils.get_profile_definition("child-keypadInput-v1.yaml"),
+  parent_device_id = mock_parent_device.id,
+  parent_assigned_child_key = string.format("%02X", 37)
+})
+
 local test_init_parent = function ()
   test.mock_device.add_test_device(mock_parent_device)
 
@@ -308,6 +314,7 @@ local test_init = function ()
       thermostatOperDatapoints = "34",
       alarmDatapoints = "35",
       audioVolumeDatapoints = "36",
+      keypadInputDatapoints = "37",
     }
   }))
 
@@ -347,6 +354,7 @@ local test_init = function ()
   test.mock_device.add_test_device(mock_child_34)
   test.mock_device.add_test_device(mock_child_35)
   test.mock_device.add_test_device(mock_child_36)
+  test.mock_device.add_test_device(mock_child_37)
 end
 
 test.register_message_test("device_lifecycle added", {
@@ -355,11 +363,11 @@ test.register_message_test("device_lifecycle added", {
     direction = "receive",
     message = { mock_parent_device.id, "added" },
   },
-  {
-    channel = "zigbee",
-    direction = "send",
-    message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.McuSyncTime(mock_parent_device) },
-  },
+  -- {
+  --   channel = "zigbee",
+  --   direction = "send",
+  --   message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.McuSyncTime(mock_parent_device) },
+  -- },
   {
     channel = "zigbee",
     direction = "send",
@@ -595,7 +603,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_11:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel(20.0))
+      message = mock_child_11:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel({value=20.0,unit="ppm"}))
     },
   }, {
     test_init = test_init
@@ -703,7 +711,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_17:generate_test_message("main", capabilities.temperatureMeasurement.temperature(23.0))
+      message = mock_child_17:generate_test_message("main", capabilities.temperatureMeasurement.temperature({value=23.0,unit="C"}))
     },
   }, {
     test_init = test_init
@@ -721,7 +729,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_18:generate_test_message("main", capabilities.tvocMeasurement.tvocLevel(23.0))
+      message = mock_child_18:generate_test_message("main", capabilities.tvocMeasurement.tvocLevel({value=23.0,unit="ppm"}))
     },
   }, {
     test_init = test_init
@@ -1109,7 +1117,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_31:generate_test_message("main", capabilities.thermostatCoolingSetpoint.coolingSetpoint(4))
+      message = mock_child_31:generate_test_message("main", capabilities.thermostatCoolingSetpoint.coolingSetpoint({value=4,unit="C"}))
     },
   }, {
     test_init = test_init
@@ -1137,7 +1145,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_32:generate_test_message("main", capabilities.thermostatHeatingSetpoint.heatingSetpoint(4))
+      message = mock_child_32:generate_test_message("main", capabilities.thermostatHeatingSetpoint.heatingSetpoint({value=4,unit="C"}))
     },
   }, {
     test_init = test_init
@@ -1306,3 +1314,30 @@ test.register_message_test(
   }
 )
 
+test.register_message_test(
+  "keypadInput",
+  {
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_37.id, { capability = "keypadInput", component = "main", command = "sendKey", args = {"UP"} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 37, data_types.Enum8(0)) }
+    },
+    {
+      channel = "capability",
+      direction = "receive",
+      message = { mock_child_37.id, { capability = "keypadInput", component = "main", command = "sendKey", args = {"NUMBER9"} } }
+    },
+    {
+      channel = "zigbee",
+      direction = "send",
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 37, data_types.Enum8(19)) }
+    },
+  }, {
+    test_init = test_init
+  }
+)

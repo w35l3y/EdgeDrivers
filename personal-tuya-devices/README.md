@@ -39,7 +39,7 @@ If it doesn't update the profile, please read Known issues.
    - You will find the same device or very similar ones working on other systems (Home Assistant, Hubitat, old Groovy DTHs, ...)
    - Similar devices usually use the same datapoints (it is NOT a rule!)
    - There are configurations for some stock capabilities<br />
-     Currently: switch, switchLevel, airQualitySensor, alarm, audioVolume, battery, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, thermostatCoolingSetpoint, thermostatHeatingSetpoint, thermostatMode, thermostatOperatingState, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement, waterSensor/leakSensor, windowShade, windowShadeLevel and windowShadePreset
+     Currently: switch, switchLevel, airQualitySensor, alarm, audioVolume, battery, button, carbonDioxideMeasurement, contactSensor, currentMeasurement, doorControl, dustSensor, energyMeter, fineDustSensor, formaldehydeMeasurement, illuminanceMeasurement, keypadInput, motionSensor, occupancySensor, powerMeter, presenceSensor, relativeHumidityMeasurement, temperatureMeasurement, thermostatCoolingSetpoint, thermostatHeatingSetpoint, thermostatMode, thermostatOperatingState, tvocMeasurement, valve, veryFineDustSensor, voltageMeasurement, waterSensor/leakSensor, windowShade, windowShadeLevel and windowShadePreset
    - Also, there are configurations for generic Tuya Data Types<br />
      Currently: boolean (switch/binary sensors), enumeration, value, string, bitmap and raw
    - For example:
