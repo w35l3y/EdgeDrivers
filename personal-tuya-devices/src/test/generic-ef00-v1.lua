@@ -1117,7 +1117,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_31:generate_test_message("main", capabilities.thermostatCoolingSetpoint.coolingSetpoint(4))
+      message = mock_child_31:generate_test_message("main", capabilities.thermostatCoolingSetpoint.coolingSetpoint({value=4,unit="C"}))
     },
   }, {
     test_init = test_init
