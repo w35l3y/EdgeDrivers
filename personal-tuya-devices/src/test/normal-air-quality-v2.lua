@@ -80,7 +80,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.temperatureMeasurement.temperature(23.0))
+      message = mock_parent_device:generate_test_message("main", capabilities.temperatureMeasurement.temperature({value=23.0,unit="C"}))
     },
     {
       channel = "zigbee",

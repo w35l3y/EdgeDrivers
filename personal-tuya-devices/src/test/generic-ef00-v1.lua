@@ -711,7 +711,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_17:generate_test_message("main", capabilities.temperatureMeasurement.temperature(23.0))
+      message = mock_child_17:generate_test_message("main", capabilities.temperatureMeasurement.temperature({value=23.0,unit="C"}))
     },
   }, {
     test_init = test_init
