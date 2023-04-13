@@ -106,6 +106,8 @@ Once you include/modify your model file, execute the command `npm start` to gene
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |
+| TS0601 | \_TZE200_nw1r9hp6 | Window Shade    | normal-windowShade-v2    |
+| TS0601 | \_TZE200_pay2byax | Contact Sensor  | normal-contactSensor-v2  |
 | TS0601 | \_TZE200_qoy0ekbd | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_r731zlxk | Multi Switch    | normal-multi-switch-v6   |
 | TS0601 | \_TZE200_sh1btabb | Irrigation      | normal-irrigation-v2     |
@@ -116,6 +118,7 @@ Once you include/modify your model file, execute the command `npm start` to gene
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE204_cjbofhxw | Power Meter     | normal-powerMeter-v1     |
+| TS0601 | \_TZE204_t1blo2bj | Alarm           | normal-alarm-v1          |
 | TS0601 | \_TZE204_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
