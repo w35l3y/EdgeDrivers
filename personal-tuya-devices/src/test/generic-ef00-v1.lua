@@ -1145,7 +1145,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_32:generate_test_message("main", capabilities.thermostatHeatingSetpoint.heatingSetpoint(4))
+      message = mock_child_32:generate_test_message("main", capabilities.thermostatHeatingSetpoint.heatingSetpoint({value=4,unit="C"}))
     },
   }, {
     test_init = test_init

@@ -480,7 +480,10 @@ local defaults = {
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      return {
+        value = math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)),
+        unit = "C"
+      }
     end,
   },
   thermostatMode = {
