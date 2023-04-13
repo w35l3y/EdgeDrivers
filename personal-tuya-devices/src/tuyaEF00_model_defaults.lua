@@ -89,6 +89,7 @@ end
 local map_pref_to_child = {
   _temp_mea = "_temperatureMeasurement",
   _rel_hum_mea = "_relativeHumidityMeasurement",
+  _contact_sensor = "_contactSensor",
 }
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)

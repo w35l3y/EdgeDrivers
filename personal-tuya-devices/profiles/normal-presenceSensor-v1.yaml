@@ -30,6 +30,8 @@ preferences:
         normal_presenceSensor_v2: No illuminance
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v1
+  - preferenceId: reverse
+    explicit: true
   - name: prefSensitivity
     title: Sensitivity
     description: An integer between 0 and 9

@@ -7,6 +7,8 @@ components:
     capabilities:
       - id: contactSensor
         version: 1
+      - id: signalStrength
+        version: 1
       - id: refresh
         version: 1
     categories:
