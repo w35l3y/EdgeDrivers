@@ -29,21 +29,28 @@ local function xor (a, b)
 end
 
 -- tries to make it partially work with firmware below 45.1
-local function get_child_or_parent(device, group)
+local function get_child_or_parent(device, group, force_child)
   if (device.get_child_by_parent_assigned_key == nil) then
     log.warn("Driver requires firmware 45.1+ to work properly")
     return device
   end
-  return device:get_child_by_parent_assigned_key(string.format("%02X", group)) or device
+  local child = device:get_child_by_parent_assigned_key(string.format("%02X", group))
+  -- if not child or group == 1 and not force_child then
+  --   return device
+  -- end
+  -- return child or device
+
+  return (not child or (group == 1 and not force_child)) and device or child
 end
 
 local default_generic = {
+  additional = {},
   attribute = "value",
-  to_zigbee = function (self, value, device) error("to_zigbee must be implemented") end,
-  from_zigbee = function (self, value, device) return value end,
+  to_zigbee = function (self, value, device) error("to_zigbee must be implemented", self.capability, self.attribute) end,
+  from_zigbee = function (self, value, device, force_child) return value end,
   command_handler = function (self, command, device) return self:to_zigbee(command.args[self.command_arg or self.attribute], device) end,
-  create_event = function (self, value, device)
-    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device)) or nil
+  create_event = function (self, value, device, force_child)
+    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child)) or nil
   end,
 }
 
@@ -225,8 +232,9 @@ local defaults = {
     capability = "contactSensor",
     attribute = "contact",
     reverse = false,
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
+    from_zigbee = function (self, value, device, force_child)
+      local pref = get_child_or_parent(device, self.group, force_child).preferences
+      -- log.info(self.capability, pref.reverse)
       local v = to_number(value)
       if xor(self.reverse, pref.reverse) then
         return v == 0 and "open" or "closed"
@@ -309,7 +317,10 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return {
+        value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
+        unit = "ppm"
+      }
     end,
   },
   illuminanceMeasurement = {
@@ -394,14 +405,21 @@ local defaults = {
   presenceSensor = {
     capability = "presenceSensor",
     attribute = "presence",
-    from_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
+    reverse = false,
+    from_zigbee = function (self, value, device, force_child)
+      local pref = get_child_or_parent(device, self.group, force_child).preferences
+      -- log.info(self.capability, pref.reverse)
       local v = to_number(value)
-      if pref.reverse then
+      if xor(self.reverse, pref.reverse) then
         return v == 0 and "present" or "not present"
       end
       return v == 0 and "not present" or "present"
     end,
+    additional = {
+      {
+        command = "contactSensor",
+      }
+    },
   },
   relativeHumidityMeasurement = {
     capability = "relativeHumidityMeasurement",
@@ -426,7 +444,10 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset)
+      return {
+        value = (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset),
+        unit = "C"
+      }
     end,
   },
   thermostatCoolingSetpoint = {

@@ -603,7 +603,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_11:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel(20.0))
+      message = mock_child_11:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel({value=20.0,unit="ppm"}))
     },
   }, {
     test_init = test_init
