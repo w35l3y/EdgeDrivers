@@ -70,6 +70,15 @@ preferences:
   #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
   - preferenceId: tempOffset
     explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        F: Fahrenheit
+        C: Celsius
+      default: C
   - preferenceId: reverse
     explicit: true
   - name: rate

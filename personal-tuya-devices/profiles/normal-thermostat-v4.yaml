@@ -40,10 +40,19 @@ preferences:
   #     options:
   #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
   #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
-  - preferenceId: tempOffset
-    explicit: true
   - preferenceId: reverse
     explicit: true
+  - preferenceId: tempOffset
+    explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        F: Fahrenheit
+        C: Celsius
+      default: C
   - name: rate
     title: Rate
     description: Set 0 to use default value
