@@ -58,7 +58,7 @@ preferences:
     definition:
       options:
         normal_multi_switch_v4: Normal
-        switch_all_multi_switch_v4: Normal + Switch All
+        switch_all_multi_switch_v4: +Switch All
         custom_multi_switch_v4: Custom
         generic_ef00_v1: Generic
       default: switch_all_multi_switch_v4
