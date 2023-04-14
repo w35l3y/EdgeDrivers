@@ -1,0 +1,22 @@
+deviceLabel: Irrigation
+profiles:
+  - normal_irrigation_v2
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/077d83a3d4f02c97ca7043af6be5422c987a0498/devices/giex.js#L108-L109
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/2e2c21f08916fc17727a108adc2306d952c53288/devices/giex.js#L39-L53
+  - id: 1
+    command: switch
+    base:
+      group: 1
+  - id: 2
+    command: valve
+    base:
+      group: 1
+  - id: 108
+    command: battery
+    base:
+      group: 1
+  - id: 104
+    command: value
+    base:
+      group: 1

@@ -8,6 +8,7 @@
 | TS0601 | \_TZE200_4hbx5cvx | Thermostat      | normal-thermostat-v3     |
 | TS0601 | \_TZE200_8ygsuhe1 | Air Quality     | normal-air-quality-v1    |
 | TS0601 | \_TZE200_9mahtqtg | Multi Switch    | normal-multi-switch-v6   |
+| TS0601 | \_TZE200_a7sghmms | Irrigation      | normal-irrigation-v2     |
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_akjefhj5 | Irrigation      | normal-irrigation-v1     |
 | TS0601 | \_TZE200_aoclfnxz | Thermostat      | normal-thermostat-v2     |
