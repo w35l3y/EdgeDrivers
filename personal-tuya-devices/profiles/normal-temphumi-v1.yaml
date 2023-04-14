@@ -30,10 +30,19 @@ preferences:
         normal_thermostat_v3: +Setpoint+Switch
         generic_ef00_v1: Generic
       default: normal_temphumi_v1
-  - preferenceId: tempOffset
-    explicit: true
   - preferenceId: humidityOffset
     explicit: true
+  - preferenceId: tempOffset
+    explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        F: Fahrenheit
+        C: Celsius
+      default: C
   - name: timezoneOffset
     title: Timezone in minutes
     description: Currently, ST doesn't report local timezone

@@ -40,10 +40,19 @@ preferences:
       options:
         _TZE200_myd45weu: _TZE200_myd45weu (5,3,15)
         _TZE200_zl1kmjqx: _TZE200_zl1kmjqx (1,2,4)
-  - preferenceId: tempOffset
-    explicit: true
   - preferenceId: humidityOffset
     explicit: true
+  - preferenceId: tempOffset
+    explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        F: Fahrenheit
+        C: Celsius
+      default: C
   - name: timezoneOffset
     title: Timezone in minutes
     description: Currently, ST doesn't report local timezone

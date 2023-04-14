@@ -74,6 +74,25 @@ local function unescape (str)
   return output
 end
 
+local function get_temp_unit(value)
+  return type(value) ~= "userdata" and value or "C"
+end
+
+local function get_app_temp_unit (pref)
+  return get_temp_unit(pref.temperatureUnit)
+end
+
+local function get_dev_temp_unit(device)
+  return get_temp_unit(device:get_field("prefTemperatureUnit"))
+end
+
+local function get_temp (value, from_unit, to_unit)
+  return {
+    value = from_unit == to_unit and value or (to_unit == "F" and utils.c_to_f(value) or utils.f_to_c(value)),
+    unit = to_unit
+  }
+end
+
 local defaults = {
   switch = {
     capability = "switch",
@@ -444,10 +463,7 @@ local defaults = {
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return {
-        value = (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset),
-        unit = "C"
-      }
+      return get_temp((100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.tempOffset_name], self.tempOffset), get_dev_temp_unit(device), get_app_temp_unit(pref))
     end,
   },
   thermostatCoolingSetpoint = {
@@ -458,14 +474,12 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Uint32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
+      -- return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return {
-        value = math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)),
-        unit = "C"
-      }
+      return get_temp(math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)), get_dev_temp_unit(device), get_app_temp_unit(pref))
     end,
   },
   thermostatHeatingSetpoint = {
@@ -476,14 +490,12 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Uint32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
+      -- return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return {
-        value = math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)),
-        unit = "C"
-      }
+      return get_temp(math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate)), get_dev_temp_unit(device), get_app_temp_unit(pref))
     end,
   },
   thermostatMode = {

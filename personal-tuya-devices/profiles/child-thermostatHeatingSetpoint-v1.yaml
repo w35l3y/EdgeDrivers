@@ -12,6 +12,15 @@ components:
     categories:
       - name: Thermostat
 preferences:
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        F: Fahrenheit
+        C: Celsius
+      default: C
   - name: rate
     title: Rate
     description: Set 0 to use default value

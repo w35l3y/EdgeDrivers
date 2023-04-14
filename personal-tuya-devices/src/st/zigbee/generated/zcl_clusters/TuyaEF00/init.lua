@@ -34,6 +34,7 @@ TuyaEF00.server_id_map = { -- ATENÇÃO: precisa estar NESTA lista para incluir 
   [0x28] = "GatewayData",
 }
 TuyaEF00.client_id_map = {
+  [0x01] = "DataResponse",
   [0x02] = "DataReport",  -- 00 1B 02 01 00 01 01
   [0x11] = "McuVersionResponse", -- 02 9C 40
   [0x14] = "OtaBlockDataResponse", -- server or client ?
