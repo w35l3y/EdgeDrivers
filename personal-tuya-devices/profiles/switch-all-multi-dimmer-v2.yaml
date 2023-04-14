@@ -46,7 +46,7 @@ preferences:
     definition:
       options:
         normal_multi_dimmer_v2: Normal
-        switch_all_multi_dimmer_v2: Normal + Dimmer All
+        switch_all_multi_dimmer_v2: +Dimmer All
         custom_multi_dimmer_v2: Custom
         generic_ef00_v1: Generic
       default: switch_all_multi_dimmer_v2

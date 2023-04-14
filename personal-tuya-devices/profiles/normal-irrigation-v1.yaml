@@ -27,7 +27,7 @@ preferences:
     definition:
       options:
         normal_irrigation_v1: Normal
-        normal_irrigation_v2: Normal + Mode (switch)
+        normal_irrigation_v2: +Mode (switch)
         generic_ef00_v1: Generic
       default: normal_irrigation_v1
   # - name: manufacturer

@@ -23,7 +23,7 @@ preferences:
     definition:
       options:
         normal_presenceSensor_v2: Normal
-        normal_presenceSensor_v1: "Normal + illuminance"
+        normal_presenceSensor_v1: +Illuminance
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v2
   - name: dpPresenceSensorMain01

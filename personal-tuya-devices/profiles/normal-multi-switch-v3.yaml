@@ -40,7 +40,7 @@ preferences:
     definition:
       options:
         normal_multi_switch_v3: Normal
-        switch_all_multi_switch_v3: Normal + Switch All
+        switch_all_multi_switch_v3: +Switch All
         custom_multi_switch_v3: Custom
         generic_ef00_v1: Generic
       default: normal_multi_switch_v3

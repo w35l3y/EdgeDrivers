@@ -76,7 +76,7 @@ preferences:
     definition:
       options:
         normal_multi_switch_v6: Normal
-        switch_all_multi_switch_v6: Normal + Switch All
+        switch_all_multi_switch_v6: +Switch All
         custom_multi_switch_v6: Custom
         generic_ef00_v1: Generic
       default: switch_all_multi_switch_v6
