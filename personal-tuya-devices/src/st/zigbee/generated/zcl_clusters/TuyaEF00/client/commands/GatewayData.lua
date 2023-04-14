@@ -3,7 +3,7 @@ local utils = require "st.zigbee.utils"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
 local GatewayData = {}
-GatewayData.NAME = "GatewayData"
+GatewayData.NAME = "GatewayDataClient"
 GatewayData.ID = 0x28
 GatewayData.args_def = {
   {

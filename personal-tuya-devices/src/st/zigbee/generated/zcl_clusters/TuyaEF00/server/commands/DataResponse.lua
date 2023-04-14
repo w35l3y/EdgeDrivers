@@ -4,5 +4,5 @@ local DataResponse = {}
 function DataResponse.deserialize (buf)
   return TuyaCommand.deserialize(buf, DataResponse)
 end
-setmetatable(DataResponse, TuyaCommand.new_mt("DataResponse", 0x01))
+setmetatable(DataResponse, TuyaCommand.new_mt("DataResponseServer", 0x01))
 return DataResponse
