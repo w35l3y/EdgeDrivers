@@ -77,7 +77,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
     {
       channel = "capability",
@@ -113,7 +113,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 4, data_types.Boolean(false)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 4, data_types.Boolean(false) } }) }
     },
     {
       channel = "capability",
@@ -164,7 +164,7 @@ test.register_coroutine_test("infoChanged child 02", function ()
   test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(true) } }) })
 
   -- from device
-  test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 2, data_types.Boolean(false)) })
+  test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 2, data_types.Boolean(false) } }) })
 
   test.socket.capability:__expect_send(mock_first_child:generate_test_message("main", capabilities.switch.switch.off()))
 
@@ -198,7 +198,7 @@ test.register_coroutine_test("infoChanged child 02 - reverse", function ()
   test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(false) } }) })
 
   -- from device
-  test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 2, data_types.Boolean(false)) })
+  test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 2, data_types.Boolean(false) } }) })
 
   test.socket.capability:__expect_send(mock_first_child:generate_test_message("main", capabilities.switch.switch.on()))
 
