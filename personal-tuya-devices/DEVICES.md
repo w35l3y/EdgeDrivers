@@ -12,6 +12,7 @@
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_akjefhj5 | Irrigation      | normal-irrigation-v1     |
 | TS0601 | \_TZE200_aoclfnxz | Thermostat      | normal-thermostat-v2     |
+| TS0601 | \_TZE200_d0ypnbvn | Smart Valve     | normal-valve-v1          |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          | normal-single-dimmer-v1  |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     | normal-air-quality-v2    |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    | normal-multi-dimmer-v2   |
