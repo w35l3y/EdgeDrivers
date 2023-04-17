@@ -19,7 +19,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile  "
+    description: "Choose the profile   "
     required: true
     preferenceType: enumeration
     definition:
@@ -28,6 +28,7 @@ preferences:
         normal_thermostat_v2: +Setpoint
         normal_thermostat_v4: +Setpoint+Switch
         normal_thermostat_v3: +Setpoint+Switch+Floor temp
+        normal_thermostat_v5: +Setpoint+Battery
         generic_ef00_v1: Generic
       default: normal_temphumi_v1
   - preferenceId: humidityOffset

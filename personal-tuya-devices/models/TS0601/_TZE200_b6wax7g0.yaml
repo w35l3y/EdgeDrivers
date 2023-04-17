@@ -1,0 +1,25 @@
+deviceLabel: Thermostat
+profiles:
+  - normal_thermostat_v5
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/devices/moes.js#L273-L316
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/lib/tuya.js#L464-L485
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/converters/fromZigbee.js#L4106-L4173
+  - id: 2
+    command: thermostatHeatingSetpoint
+    base:
+      group: 1
+      rate: 100
+  - id: 3
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 1
+    command: thermostatOperatingState
+    base:
+      group: 1
+  - id: 14
+    command: battery
+    base:
+      group: 1

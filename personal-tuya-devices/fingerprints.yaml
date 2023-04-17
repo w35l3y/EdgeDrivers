@@ -91,6 +91,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_aoclfnxz
     deviceProfileName: normal-thermostat-v2
     deviceLabel: Thermostat
+  - id: TS0601/_TZE200_b6wax7g0
+    model: TS0601
+    manufacturer: _TZE200_b6wax7g0
+    deviceProfileName: normal-thermostat-v5
+    deviceLabel: Thermostat
   - id: TS0601/_TZE200_d0ypnbvn
     model: TS0601
     manufacturer: _TZE200_d0ypnbvn
