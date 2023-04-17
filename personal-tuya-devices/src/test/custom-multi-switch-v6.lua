@@ -81,32 +81,32 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 3, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 3, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 4, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 4, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 5, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 5, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 6, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 6, data_types.Boolean(true) } }) }
     },
   }, {
     test_init = test_init
@@ -142,7 +142,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
   }, {
     test_init = test_init
@@ -178,7 +178,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 6, data_types.Boolean(false)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 6, data_types.Boolean(false) } }) }
     },
   }, {
     test_init = test_init
@@ -198,12 +198,12 @@ test.register_coroutine_test("infoChanged child 02", function ()
   -- from parent
   test.socket.capability:__queue_receive({ mock_parent_device.id, { capability = "switch", component = "main02", command = "off", args = {} } })
 
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, data_types.Boolean(false)) })
+  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(false) } }) })
 
   -- from child
   test.socket.capability:__queue_receive({ mock_first_child.id, { capability = "switch", component = "main", command = "on", args = {} } })
 
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, data_types.Boolean(true)) })
+  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(true) } }) })
 
   -- from device
   test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 2, data_types.Boolean(false)) })
@@ -232,12 +232,12 @@ test.register_coroutine_test("infoChanged child 02 - reverse", function ()
   -- from parent
   test.socket.capability:__queue_receive({ mock_parent_device.id, { capability = "switch", component = "main02", command = "off", args = {} } })
 
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, data_types.Boolean(true)) })
+  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(true) } }) })
 
   -- from child
   test.socket.capability:__queue_receive({ mock_first_child.id, { capability = "switch", component = "main", command = "on", args = {} } })
 
-  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, data_types.Boolean(false)) })
+  test.socket.zigbee:__expect_send({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, data_types.Boolean(false) } }) })
 
   -- from device
   test.socket.zigbee:__queue_receive({ mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 2, data_types.Boolean(false)) })
