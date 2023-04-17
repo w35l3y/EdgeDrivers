@@ -20,7 +20,8 @@ TuyaCommand.args_def = {
     optional = false,
     data_type = tuya_types.DatapointSegment,
     is_complex = false,
-    is_array = false,
+    is_array = true,
+    array_length_size = 0,
   },
 }
 
@@ -85,9 +86,13 @@ function TuyaCommand:set_field_names()
   end
 end
 
-function TuyaCommand:build_test_rx(device, dpid, value)
+function TuyaCommand:build_test_rx(device, datapoints)
   local out = {}
-  local args = { nil, tuya_types.DatapointSegment(dpid, value) }
+  local segments = {}
+  for i,data in ipairs(datapoints) do
+    segments[#segments + 1] = tuya_types.DatapointSegment(data[1], data[2])
+  end
+  local args = { nil, segments }
   for i,v in ipairs(TuyaCommand.args_def) do
     if v.optional and args[i] == nil then
       out[v.name] = nil
@@ -114,9 +119,13 @@ function TuyaCommand:build_test_rx(device, dpid, value)
   return self._cluster:build_test_rx_cluster_specific_command(device, out, "client")
 end
 
-function TuyaCommand:init(device, component, _value)
+function TuyaCommand:init(device, datapoints)
   local out = {}
-  local args = { nil, tuya_types.DatapointSegment(device:get_endpoint_for_component_id(component), _value) }
+  local segments = {}
+  for i,data in ipairs(datapoints) do
+    segments[#segments + 1] = tuya_types.DatapointSegment(device:get_endpoint_for_component_id(data[1]), data[2])
+  end
+  local args = { nil, segments }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end

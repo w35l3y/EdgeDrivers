@@ -12,6 +12,8 @@
 | TS0601 | \_TZE200_a8sdabtg | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_akjefhj5 | Irrigation      | normal-irrigation-v1     |
 | TS0601 | \_TZE200_aoclfnxz | Thermostat      | normal-thermostat-v2     |
+| TS0601 | \_TZE200_b6wax7g0 | Thermostat      | normal-thermostat-v5     |
+| TS0601 | \_TZE200_d0ypnbvn | Smart Valve     | normal-valve-v1          |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          | normal-single-dimmer-v1  |
 | TS0601 | \_TZE200_dwcarsat | Air Quality     | normal-air-quality-v2    |
 | TS0601 | \_TZE200_e3oitdyu | Multi Dimmer    | normal-multi-dimmer-v2   |
@@ -28,6 +30,7 @@
 | TS0601 | \_TZE200_sh1btabb | Irrigation      | normal-irrigation-v2     |
 | TS0601 | \_TZE200_v6ossqfy | Presence Sensor | normal-presenceSensor-v2 |
 | TS0601 | \_TZE200_wfxuhoea | Garage Door     | normal-garage-door-v1    |
+| TS0601 | \_TZE200_whkgqxse | LCD T+H Sensor  | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_yvx5lh6k | Air Quality     | normal-air-quality-v1    |
 | TS0601 | \_TZE200_zl1kmjqx | LCD T+H Sensor  | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |

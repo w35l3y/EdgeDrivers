@@ -1,0 +1,20 @@
+deviceLabel: LCD T+H Sensor
+profiles:
+  - normal_temphumibatt_v1
+datapoints:
+  # https://github.com/zigpy/zha-device-handlers/blob/25cf57dc29bf38dc8a004454a1da90de8eef7030/zhaquirks/tuya/ts0601_sensor.py#L129
+  - id: 1
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 2
+    command: relativeHumidityMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 4
+    command: battery
+    base:
+      group: 1
+      rate: 100

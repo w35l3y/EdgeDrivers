@@ -69,7 +69,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
     {
       channel = "capability",
@@ -87,7 +87,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 104, tuya_types.Uint32(234)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 104, tuya_types.Uint32(234) } }) }
     },
     {
       channel = "capability",
@@ -119,27 +119,27 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 101, tuya_types.Uint32(4)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 101, tuya_types.Uint32(4) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 102, tuya_types.Uint32(10)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 102, tuya_types.Uint32(10) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 4, tuya_types.Uint32(0x0217)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 4, tuya_types.Uint32(0x0217) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 3, tuya_types.Uint32(0x005E)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 3, tuya_types.Uint32(0x005E) } }) }
     },
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 2, tuya_types.Uint32(4)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 2, tuya_types.Uint32(4) } }) }
     },
   }, {
     test_init = test_init

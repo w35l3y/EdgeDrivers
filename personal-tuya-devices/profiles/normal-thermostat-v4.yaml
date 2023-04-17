@@ -21,12 +21,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
       options:
         normal_thermostat_v4: Normal
+        normal_thermostat_v5: +Battery
         normal_thermostat_v3: +Floor temp
         normal_thermostat_v2: No switch
         normal_temphumi_v1: Only sensors

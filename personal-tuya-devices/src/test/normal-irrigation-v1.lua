@@ -69,12 +69,12 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 1, data_types.Boolean(true)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 1, data_types.Boolean(true) } }) }
     },
     {
       channel = "capability",
@@ -92,7 +92,7 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 7, tuya_types.Uint32(86)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 7, tuya_types.Uint32(86) } }) }
     },
     {
       channel = "capability",
@@ -115,12 +115,12 @@ test.register_message_test(
     {
       channel = "zigbee",
       direction = "send",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, 11, tuya_types.Uint32(14)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataRequest(mock_parent_device, { { 11, tuya_types.Uint32(14) } }) }
     },
     {
       channel = "zigbee",
       direction = "receive",
-      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, 11, tuya_types.Uint32(4)) }
+      message = { mock_parent_device.id, zcl_clusters.TuyaEF00.commands.DataReport:build_test_rx(mock_parent_device, { { 11, tuya_types.Uint32(4) } }) }
     },
     {
       channel = "capability",

@@ -104,8 +104,7 @@ function utils.info(device, datapoints)
         return ""
       end
       local output = {}
-      for _index, zb_rx in st_utils.pairs_by_key(self) do
-        local _data = zb_rx.body.zcl_body.data
+      for _index, _data in st_utils.pairs_by_key(self) do
         output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, _data.value.value)
       end
       if #output == 0 then

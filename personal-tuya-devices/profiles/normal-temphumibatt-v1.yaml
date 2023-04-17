@@ -34,12 +34,14 @@ preferences:
       default: normal_temphumibatt_v1
   - name: manufacturer
     title: Manufacturer
+    description: "Choose the manufacturer"
     required: false
     preferenceType: enumeration
     definition:
       options:
         _TZE200_myd45weu: _TZE200_myd45weu (5,3,15)
-        _TZE200_zl1kmjqx: _TZE200_zl1kmjqx (1,2,4)
+        _TZE200_whkgqxse: _TZE200_whkgqxse (1*,2,4)
+        _TZE200_zl1kmjqx: _TZE200_zl1kmjqx (1*,2*,4)
   - preferenceId: humidityOffset
     explicit: true
   - preferenceId: tempOffset
@@ -73,6 +75,15 @@ preferences:
       default: 0
   - name: dpTemperatureMeasuMain01
     title: DP for Temperature Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpBatteryMain01
+    title: DP for Battery
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

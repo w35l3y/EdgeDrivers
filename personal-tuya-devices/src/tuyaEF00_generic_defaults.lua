@@ -130,11 +130,12 @@ end
 local function get_datapoints_from_messages (list)
   local output,num = {},0
   for _, zb_rx in pairs(list) do
-    local body = zb_rx.body.zcl_body.data
-    if output[body.dpid.value] == nil then
-      num=num+1
+    for i, body in ipairs(zb_rx.body.zcl_body.data_list) do
+      if output[body.dpid.value] == nil then
+        num=num+1
+      end
+      output[body.dpid.value] = datapoint_types_to_fn[type_to_configuration[body.type.value]]({group=body.dpid.value})
     end
-    output[body.dpid.value] = datapoint_types_to_fn[type_to_configuration[body.type.value]]({group=body.dpid.value})
   end
   return output,num
 end
@@ -228,11 +229,11 @@ function defaults.command_response_handler(driver, device, zb_rx)
     temporary_datapoints[device.id] = {}
   end
   if device.preferences and device.preferences.updateInfo then
-    local ndpid = zb_rx.body.zcl_body.data.dpid.value
-    -- local _type = zb_rx.body.zcl_body.data.type
-    -- local value = zb_rx.body.zcl_body.data.value.value
-    temporary_datapoints[device.id][ndpid] = zb_rx
-    device:emit_event(info.value(tostring(myutils.info(device, temporary_datapoints[device.id])), { visibility = { displayed = false } }))
+    for i,data in ipairs(zb_rx.body.zcl_body.data_list) do
+      local ndpid = data.dpid.value
+      temporary_datapoints[device.id][ndpid] = data
+      device:emit_event(info.value(tostring(myutils.info(device, temporary_datapoints[device.id])), { visibility = { displayed = false } }))
+    end
   end
 
   send_command(tuyaEF00_defaults.command_response_handler, driver, device, zb_rx)

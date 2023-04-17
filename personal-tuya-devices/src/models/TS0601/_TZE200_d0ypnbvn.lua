@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Smart Valve","profiles":["normal_valve_v1"],"datapoints":[{"id":1,"command":"valve","base":{"group":1}}]}]]
