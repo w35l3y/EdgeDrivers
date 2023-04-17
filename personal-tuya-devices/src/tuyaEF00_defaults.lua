@@ -141,8 +141,8 @@ local function execute_dp(datapoints, device, data, dpid)
       log.info("Datapoint negative.", dpid)
       return
     end
-    log.warn("Datapoint not found. Using default", dpid)
     local _type = data.type.value
+    log.warn("Datapoint not found. Using default", dpid, _type)
     event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
   end
   local value = get_value(data.value)
@@ -174,7 +174,7 @@ local function execute_dp(datapoints, device, data, dpid)
         execute_event(datapoints, x:create_event(value, device, true), device, x.group, dpid)
       end
     else
-      log.info("Too quick! Do nothing.", dpid, value, event_dp.reportingInterval, cur_time, event_dp.last_heard_time, "-")
+      log.info("Too quick! Do nothing.", dpid, value, cur_time, event_dp.last_heard_time, 60 * event_dp.reportingInterval, cur_time - event_dp.last_heard_time)
     end
   else
     log.warn("Unexpected datapoint.", dpid, value)
