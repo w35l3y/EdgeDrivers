@@ -21,6 +21,7 @@
 | TS0601 | \_TZE200_go3tvswy | Multi Switch    | normal-multi-switch-v3   |
 | TS0601 | \_TZE200_h4cgnbzg | Thermostat      | normal-thermostat-v4     |
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |
+| TS0601 | \_TZE200_mby4kbtq | Gas Detector    | normal-gasDetector-v1    |
 | TS0601 | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |
 | TS0601 | \_TZE200_nw1r9hp6 | Window Shade    | normal-windowShade-v2    |

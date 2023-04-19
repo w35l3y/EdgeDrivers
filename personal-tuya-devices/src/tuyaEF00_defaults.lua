@@ -119,7 +119,7 @@ local function execute_dp(datapoints, device, data, dpid)
     local pref_found = false
     for index_pref, event_pref in pairs(datapoints) do
       local dp_pref = get_dp(nil, event_pref, device)
-      if adpid == dp_pref then
+      if dpid == dp_pref then
         pref_found = true
         if dp_pref_temp and index_pref ~= dp_pref_temp then
           log.warn("Datapoint overridden", dpid, dp_pref_temp, index_pref)

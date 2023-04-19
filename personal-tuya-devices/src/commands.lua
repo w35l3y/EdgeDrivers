@@ -151,6 +151,18 @@ local defaults = {
     end,
     command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
   },
+  audioMute = {
+    capability = "audioMute",
+    attribute = "mute",
+    to_zigbee = function (self, value, device)
+      return data_types.Boolean(value ~= "unmuted")
+    end,
+    from_zigbee = function (self, value, device)
+      local v = to_number(value)
+      return v == 0 and "unmuted" or "muted"
+    end,
+    command_handler = function (self, command, device) return self:to_zigbee(command.command == "mute" and "muted" or "unmuted", device) end,
+  },
   audioVolume = {
     capability = "audioVolume",
     attribute = "volume",
@@ -326,6 +338,18 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+    end,
+  },
+  gasDetector = {
+    capability = "gasDetector",
+    attribute = "gas",
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
+      if pref.reverse then
+        return v == 0 and "clear" or "detected"
+      end
+      return v == 0 and "detected" or "clear"
     end,
   },
   formaldehydeMeasurement = {

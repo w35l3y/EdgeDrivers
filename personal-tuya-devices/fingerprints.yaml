@@ -136,6 +136,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_ikvncluo
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE200_mby4kbtq
+    model: TS0601
+    manufacturer: _TZE200_mby4kbtq
+    deviceProfileName: normal-gasDetector-v1
+    deviceLabel: Gas Detector
   - id: TS0601/_TZE200_myd45weu
     model: TS0601
     manufacturer: _TZE200_myd45weu
