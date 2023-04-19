@@ -7,7 +7,7 @@ datapoints:
     command: gasDetector
     base:
       group: 1
-  - id: 6 #16
+  - id: 16
     command: audioMute
     base:
       group: 1
