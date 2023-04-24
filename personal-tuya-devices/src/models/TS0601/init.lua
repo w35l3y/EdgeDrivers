@@ -20,6 +20,7 @@ return {
   ["_TZE200_go3tvswy"] = myutils.load_model_from_json("TS0601", "_TZE200_go3tvswy"),
   ["_TZE200_h4cgnbzg"] = myutils.load_model_from_json("TS0601", "_TZE200_h4cgnbzg"),
   ["_TZE200_ikvncluo"] = myutils.load_model_from_json("TS0601", "_TZE200_ikvncluo"),
+  ["_TZE200_mby4kbtq"] = myutils.load_model_from_json("TS0601", "_TZE200_mby4kbtq"),
   ["_TZE200_myd45weu"] = myutils.load_model_from_json("TS0601", "_TZE200_myd45weu"),
   ["_TZE200_nklqjk62"] = myutils.load_model_from_json("TS0601", "_TZE200_nklqjk62"),
   ["_TZE200_nw1r9hp6"] = myutils.load_model_from_json("TS0601", "_TZE200_nw1r9hp6"),

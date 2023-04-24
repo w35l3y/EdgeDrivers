@@ -12,6 +12,7 @@ local template = {
   can_handle = tuyaEF00_generic_defaults.can_handle,
   supported_capabilities = {
     capabilities.alarm,
+    capabilities.audioMute,
     capabilities.audioVolume,
     -- capabilities.colorControl,
     -- capabilities.colorTemperature,

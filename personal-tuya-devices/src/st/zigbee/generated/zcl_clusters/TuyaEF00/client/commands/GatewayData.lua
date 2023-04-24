@@ -70,7 +70,7 @@ function GatewayData.deserialize(buf)
         out[v.name] = v.data_type.deserialize(buf)
       end
     elseif not v.optional then
-      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayData")
+      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayDataClient")
     end
   end
   setmetatable(out, {__index = GatewayData})

@@ -1,0 +1,13 @@
+deviceLabel: Gas Detector
+profiles:
+  - normal_gasDetector_v1
+datapoints:
+  # https://github.com/zigpy/zha-device-handlers/blob/dev/zhaquirks/tuya/ts0601_switch.py#L492
+  - id: 1
+    command: gasDetector
+    base:
+      group: 1
+  - id: 16
+    command: audioMute
+    base:
+      group: 1

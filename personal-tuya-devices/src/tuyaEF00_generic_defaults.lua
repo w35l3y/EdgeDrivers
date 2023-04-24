@@ -17,6 +17,7 @@ local datapoint_types_to_fn = {
   switchLevelDatapoints = commands.switchLevel,
   airQualitySensDatapoints = commands.airQualitySensor,
   alarmDatapoints = commands.alarm,
+  audioMuteDatapoints = commands.audioMute,
   audioVolumeDatapoints = commands.audioVolume,
   batteryDatapoints = commands.battery,
   buttonDatapoints = commands.button,
@@ -27,6 +28,7 @@ local datapoint_types_to_fn = {
   dustSensorDatapoints = commands.dustSensor,
   energyMeterDatapoints = commands.energyMeter,
   fineDustSensorDatapoints = commands.fineDustSensor,
+  gasDetectorDatapoints = commands.gasDetector,
   veryFineDustSeDatapoints = commands.veryFineDustSensor,
   formaldehydeMeDatapoints = commands.formaldehydeMeasurement,
   humidityMeasurDatapoints = commands.relativeHumidityMeasurement,
@@ -60,6 +62,7 @@ local child_types_to_profile = {
   switchLevelDatapoints = "child-switchLevel-v1",
   airQualitySensDatapoints = "child-airQualitySensor-v1",
   alarmDatapoints = "child-alarm-v1",
+  audioMuteDatapoints = "child-audioMute-v1",
   audioVolumeDatapoints = "child-audioVolume-v1",
   batteryDatapoints = "child-battery-v1",
   buttonDatapoints = "child-button-v1",
@@ -70,6 +73,7 @@ local child_types_to_profile = {
   dustSensorDatapoints = "child-dustSensor-v1",
   energyMeterDatapoints = "child-energyMeter-v1",
   fineDustSensorDatapoints = "child-fineDustSensor-v1",
+  gasDetectorDatapoints = "child-gasDetector-v1",
   veryFineDustSeDatapoints = "child-veryFineDustSensor-v1",
   formaldehydeMeDatapoints = "child-formaldehydeMeasurement-v1",
   humidityMeasurDatapoints = "child-relativeHumidityMeasurement-v1",
@@ -163,7 +167,7 @@ function lifecycle_handlers.added(driver, device, event, ...)
     local tmp = temporary_datapoints[device.parent_device_id]
     local dpid = tonumber(device.parent_assigned_child_key, 16)
     if tmp and tmp[dpid] then
-      send_command(tuyaEF00_defaults.command_response_handler, driver, device:get_parent_device(), tmp[dpid])
+      send_command(tuyaEF00_defaults.command_response_handler, driver, device:get_parent_device(), {body={zcl_body={data_list={tmp[dpid]}}}})
     else
       log.warn("Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, dpid, tmp and true or false)
     end

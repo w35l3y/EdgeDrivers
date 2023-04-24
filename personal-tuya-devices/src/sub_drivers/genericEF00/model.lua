@@ -13,6 +13,7 @@ local template = {
   lifecycle_handlers = tuyaEF00_model_defaults.lifecycle_handlers,
   supported_capabilities = {
     capabilities.alarm,
+    capabilities.audioMute,
     capabilities.audioVolume,
     -- capabilities.colorControl,
     -- capabilities.colorTemperature,
