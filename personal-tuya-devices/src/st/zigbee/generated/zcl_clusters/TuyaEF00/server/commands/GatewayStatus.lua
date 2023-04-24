@@ -5,7 +5,7 @@ local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
 
 local GatewayStatus = {}
-GatewayStatus.NAME = "GatewayStatus"
+GatewayStatus.NAME = "GatewayStatusServer"
 GatewayStatus.ID = 0x25
 GatewayStatus.args_def = {
   {
@@ -76,7 +76,7 @@ function GatewayStatus.deserialize(buf)
         out[v.name] = v.data_type.deserialize(buf)
       end
     elseif not v.optional then
-      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayStatus")
+      log.debug("Missing command arg " .. v.name .. " for deserializing GatewayStatusServer")
     end
   end
   setmetatable(out, {__index = GatewayStatus})

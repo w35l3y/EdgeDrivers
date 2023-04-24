@@ -154,6 +154,7 @@ local defaults = {
   audioMute = {
     capability = "audioMute",
     attribute = "mute",
+    command_arg = "state",
     to_zigbee = function (self, value, device)
       return data_types.Boolean(value ~= "unmuted")
     end,
