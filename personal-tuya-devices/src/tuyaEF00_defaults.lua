@@ -112,13 +112,13 @@ end
 local function execute_dp(datapoints, device, data, dpid)
   local adpid = math.abs(dpid)
   local event_dp = datapoints[dpid]
-  local dp_pref_temp = event_dp and get_dp(nil, event_dp, device) or nil
+  local dp_pref_temp = event_dp and event_dp:get_dp(nil, device) or nil
   if dp_pref_temp == 0 or dp_pref_temp == adpid then
     log.info("Default datapoint", dpid, dp_pref_temp)
   else
     local pref_found = false
     for index_pref, event_pref in pairs(datapoints) do
-      local dp_pref = get_dp(nil, event_pref, device)
+      local dp_pref = event_pref:get_dp(nil, device)
       if dpid == dp_pref then
         pref_found = true
         if dp_pref_temp and index_pref ~= dp_pref_temp then
@@ -147,7 +147,7 @@ local function execute_dp(datapoints, device, data, dpid)
   end
   local value = get_value(data.value)
 
-  local event = event_dp:create_event(value, device)
+  local event = event_dp:create_event(value, device, nil, datapoints)
   local cur_time = os.time()
   
   --log.info("device.preferences.profile", device.preferences.profile)
@@ -198,7 +198,7 @@ function defaults.update_data(datapoints)
   return function (driver, device, name, value)
     for dpid, def in pairs(datapoints) do
       if def.name == name then
-        device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { { get_dp(dpid, def, device), def:to_zigbee(value, device) } }))
+        device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { { def:get_dp(dpid, device), def:to_zigbee(value, device) } }))
         break
       end
     end
@@ -214,7 +214,7 @@ local function send_command(datapoints, device, command, value_fn)
       for dpid, def in pairs(datapoints) do
         -- log.info("Datapoint 1", def.capability, command.capability, dpid, def.group, group)
         if group == def.group and command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { { math.abs(get_dp(dpid, def, device)), def:command_handler(command, device) } }))
+          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { def:command_handler(dpid, command, device, datapoints) }))
           break
         end
       end
@@ -224,7 +224,7 @@ local function send_command(datapoints, device, command, value_fn)
       for dpid, def in pairs(datapoints) do
         -- log.info("Datapoint 2", def.capability, command.capability, dpid, def.group)
         if command.capability == def.capability then
-          segments[#segments + 1] = { math.abs(get_dp(dpid, def, device)), def:command_handler(command, device) }
+          segments[#segments + 1] = def:command_handler(dpid, command, device, datapoints)
         end
       end
       if #segments > 0 then
@@ -237,7 +237,7 @@ local function send_command(datapoints, device, command, value_fn)
     local segments = {}
     for dpid, def in pairs(datapoints) do
       if group == def.group and command.capability == def.capability then
-        segments[#segments + 1] = { math.abs(get_dp(dpid, def, device)), def:command_handler(command, device) }
+        segments[#segments + 1] = def:command_handler(dpid, command, device, datapoints)
         -- este comando abaixo delega pro get_parent_device()
       end
     end

@@ -43,14 +43,43 @@ local function get_child_or_parent(device, group, force_child)
   return (not child or (group == 1 and not force_child)) and device or child
 end
 
+local map_cap_to_pref = {
+  ["valleyboard16460.datapointValue"] = "value",
+  ["valleyboard16460.datapointString"] = "string",
+  ["valleyboard16460.datapointEnum"] = "enum",
+  ["valleyboard16460.datapointBitmap"] = "bitmap",
+  ["valleyboard16460.datapointRaw"] = "raw",
+}
+
 local default_generic = {
   additional = {},
   attribute = "value",
+  get_dp = function (def, dp, device)
+    local cap = string.sub(utils.pascal_case(utils.snake_case(map_cap_to_pref[def.capability] or def.capability)), 1, 16)
+    local pref_name = "dp" .. cap .. "Main" .. string.format("%02X", def.group)
+    if device.parent_assigned_child_key then
+      local pdp = device:get_parent_device().preferences[pref_name]
+      if type(pdp) == "userdata" then
+        log.warn("1 Unexpected config type", pref_name, pdp, cap)
+        pdp = 0
+      end
+      -- log.info("PREFNAME 1", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
+      return (not dp or pdp ~= 0) and pdp or dp
+    end
+    local pdp = device.preferences[pref_name]
+    if type(pdp) == "userdata" then
+      log.warn("2 Unexpected config type", pref_name, pdp, cap)
+      pdp = 0
+    end
+    -- log.info("PREFNAME 2", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
+    return (not dp or pdp ~= 0) and pdp or dp
+  end,
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented", self.capability, self.attribute) end,
-  from_zigbee = function (self, value, device, force_child) return value end,
-  command_handler = function (self, command, device) return self:to_zigbee(command.args[self.command_arg or self.attribute], device) end,
-  create_event = function (self, value, device, force_child)
-    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child)) or nil
+  from_zigbee = function (self, value, device, force_child, datapoints) return value end,
+  command_handler = function (self, dpid, command, device) return { math.abs(self:get_dp(dpid, device)), self:to_zigbee(self:command_to_value(command, device), device) } end,
+  command_to_value = function (self, command, device) return command.args[self.command_arg or self.attribute] end,
+  create_event = function (self, value, device, force_child, datapoints)
+    return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child, datapoints)) or nil
   end,
 }
 
@@ -112,7 +141,7 @@ local defaults = {
       end
       return v == 0 and "off" or "on"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+    command_to_value = function (self, command) return command.command end,
   },
   switchLevel = {
     capability = "switchLevel",
@@ -149,7 +178,7 @@ local defaults = {
       local v = to_number(value)
       return v == 0 and "off" or "both"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+    command_to_value = function (self, command) return command.command end,
   },
   audioMute = {
     capability = "audioMute",
@@ -162,7 +191,7 @@ local defaults = {
       local v = to_number(value)
       return v == 0 and "unmuted" or "muted"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command == "mute" and "muted" or "unmuted", device) end,
+    command_to_value = function (self, command) return command.command == "mute" and "muted" or "unmuted" end,
   },
   audioVolume = {
     capability = "audioVolume",
@@ -185,8 +214,7 @@ local defaults = {
       end
       return v
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1), device) end,
-    -- component_id, capability_id, attribute_name, default_value, default_state_table
+    command_to_value = function (self, command, device) return command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1) end,
   },
   battery = {
     capability = "battery",
@@ -302,7 +330,7 @@ local defaults = {
       end
       return v == 0 and "closed" or "open"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
+    command_to_value = function (self, command) return command.command == "open" and "open" or "closed" end,
   },
   dustSensor = {
     capability = "dustSensor",
@@ -328,7 +356,7 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return 10 * to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+    command_to_value = function (self, command) return command.command end,
   },
   fineDustSensor = {
     capability = "fineDustSensor",
@@ -352,6 +380,28 @@ local defaults = {
       end
       return v == 0 and "detected" or "clear"
     end,
+  },
+  testCapability = {
+    create_event = function (self, value, device, force_child)
+      return self.capability and self.attribute and capabilities[self.capability][self.attribute](to_number(value) == 1 and self.on or self.off) or nil
+    end,
+  },
+  momentaryAudioMuteTestCapability = {
+    capability = "momentary",
+    create_event = function (self, value, device, force_child, datapoints)
+      return nil
+    end,
+    command_handler = function (self, dpid, command, device, datapoints)
+      local cmd = datapoints[self.testCapability]
+      local state = device:get_latest_state(command.component, cmd.capability, cmd.attribute, "clear", "clear")
+      if state == "detected" then
+        return { math.abs(self:get_dp(dpid, device)), data_types.Boolean(true) }  -- mute
+      else
+        return { math.abs(self:get_dp(self.testCapability, device)), data_types.Boolean(state ~= "tested") }  -- tested
+      end
+    end,
+    -- Device:get_latest_state(component_id, capability_id, attribute_name, default_value, default_state_table)
+    -- command_to_value = function (self, command, device) return command.args[self.attribute] or device:get_latest_state(command.component, self.capability, self.attribute, 0, 0)+(command.command == "volumeUp" and 1 or -1) end,
   },
   formaldehydeMeasurement = {
     capability = "formaldehydeMeasurement",
@@ -590,7 +640,7 @@ local defaults = {
       end
       return v == 0 and "closed" or "open"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or "closed", device) end,
+    command_to_value = function (self, command) return command.command == "open" and "open" or "closed" end,
   },
   veryFineDustSensor = {
     capability = "veryFineDustSensor",
@@ -643,7 +693,7 @@ local defaults = {
       end
       return v == 0 and "closed" or v == 1 and "partially open" or "open"
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command == "open" and "open" or command.command == "pause" and "partially open" or "closed", device) end,
+    command_to_value = function (self, command) return command.command == "open" and "open" or command.command == "pause" and "partially open" or "closed" end,
   },
   windowShadeLevel = {
     capability = "windowShadeLevel",
@@ -666,7 +716,7 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return tuya_types.Uint32(pref.reverse and (100 - pref.presetPosition) or pref.presetPosition)
     end,
-    command_handler = function (self, command, device) return self:to_zigbee(command.command, device) end,
+    command_to_value = function (self, command) return command.command end,
   },
   value = {
     capability = "valleyboard16460.datapointValue",
