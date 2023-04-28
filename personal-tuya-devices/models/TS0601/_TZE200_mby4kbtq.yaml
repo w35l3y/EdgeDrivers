@@ -7,7 +7,22 @@ datapoints:
     command: gasDetector
     base:
       group: 1
-  - id: 16
+  - id: 13 # 13
+    command: testCapability
+    base:
+      group: 1
+      capability: gasDetector
+      attribute: gas
+      on: tested
+      off: clear
+  - id: 16 # 16
     command: audioMute
     base:
       group: 1
+  - id: -16 # 16
+    command: momentaryAudioMuteTestCapability
+    base:
+      group: 1
+      # capability: gasDetector
+      # attribute: gas
+      testCapability: 13 # 13

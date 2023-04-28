@@ -11,7 +11,7 @@ GatewayStatus.args_def = {
   {
     name = "transid",
     optional = false,
-    data_type = tuya_types.Uint16,
+    data_type = data_types.Uint16,
     is_complex = false,
     is_array = false,
     default = 0x00,

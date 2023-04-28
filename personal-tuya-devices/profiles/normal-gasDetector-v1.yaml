@@ -7,7 +7,15 @@ components:
     capabilities:
       - id: gasDetector
         version: 1
-      - id: audioMute
+      # - id: audioMute
+      #   version: 1
+      #   config:
+      #     values:
+      #       - key: "{{enumCommands}}"
+      #         enabledValues:
+      #           []
+      #           # - "mute"
+      - id: momentary
         version: 1
       - id: signalStrength
         version: 1
@@ -39,6 +47,15 @@ preferences:
       default: 0
   - name: dpAudioMuteMain01
     title: DP for Audio Mute
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTestCapabilityMain01
+    title: DP for Test Mode
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
