@@ -375,28 +375,35 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       local v = to_number(value)
+      local output = nil
       if pref.reverse then
-        return v == 0 and "clear" or "detected"
+        output = v == 0 and "clear" or (device:get_field("tested") and "tested" or "detected")
+      else
+        output = v == 0 and (device:get_field("tested") and "tested" or "detected") or "clear"
       end
-      return v == 0 and "detected" or "clear"
+      if output == "clear" then
+        device:set_field("tested", nil)
+      end
+      return output
     end,
   },
   testCapability = {
-    create_event = function (self, value, device, force_child)
+    create_event = function (self, value, device, force_child)  -- from_zigbee
       return self.capability and self.attribute and capabilities[self.capability][self.attribute](to_number(value) == 1 and self.on or self.off) or nil
     end,
   },
   momentaryAudioMuteTestCapability = {
     capability = "momentary",
-    create_event = function (self, value, device, force_child, datapoints)
+    create_event = function (self, value, device, force_child, datapoints)  -- from_zigbee
       return nil
     end,
-    command_handler = function (self, dpid, command, device, datapoints)
+    command_handler = function (self, dpid, command, device, datapoints)  -- to_zigbee
       local cmd = datapoints[self.testCapability]
       local state = device:get_latest_state(command.component, cmd.capability, cmd.attribute, "clear", "clear")
       if state == "detected" then
         return { math.abs(self:get_dp(dpid, device)), data_types.Boolean(true) }  -- mute
       else
+        device:set_field("tested", state ~= "tested")
         return { math.abs(self:get_dp(self.testCapability, device)), data_types.Boolean(state ~= "tested") }  -- tested
       end
     end,

@@ -214,7 +214,10 @@ local function send_command(datapoints, device, command, value_fn)
       for dpid, def in pairs(datapoints) do
         -- log.info("Datapoint 1", def.capability, command.capability, dpid, def.group, group)
         if group == def.group and command.capability == def.capability then
-          device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { def:command_handler(dpid, command, device, datapoints) }))
+          local cmd = def:command_handler(dpid, command, device, datapoints)
+          if cmd then
+            device:send(zcl_clusters.TuyaEF00.commands.DataRequest(device, { cmd }))
+          end
           break
         end
       end
@@ -224,7 +227,11 @@ local function send_command(datapoints, device, command, value_fn)
       for dpid, def in pairs(datapoints) do
         -- log.info("Datapoint 2", def.capability, command.capability, dpid, def.group)
         if command.capability == def.capability then
-          segments[#segments + 1] = def:command_handler(dpid, command, device, datapoints)
+          local cmd = def:command_handler(dpid, command, device, datapoints)
+          if cmd then
+            table.insert(segments, cmd)
+            -- segments[#segments + 1] = cmd
+          end
         end
       end
       if #segments > 0 then
@@ -237,8 +244,12 @@ local function send_command(datapoints, device, command, value_fn)
     local segments = {}
     for dpid, def in pairs(datapoints) do
       if group == def.group and command.capability == def.capability then
-        segments[#segments + 1] = def:command_handler(dpid, command, device, datapoints)
-        -- este comando abaixo delega pro get_parent_device()
+        local cmd = def:command_handler(dpid, command, device, datapoints)
+        if cmd then
+          table.insert(segments, cmd)
+          -- segments[#segments + 1] = cmd
+          -- este comando abaixo delega pro get_parent_device()
+        end
       end
     end
     if #segments > 0 then
