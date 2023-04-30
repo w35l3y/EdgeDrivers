@@ -11,6 +11,7 @@ local read_attribute = require "st.zigbee.zcl.global_commands.read_attribute"
 local zcl_messages = require "st.zigbee.zcl"
 local messages = require "st.zigbee.messages"
 local zb_const = require "st.zigbee.constants"
+local generic_body = require "st.zigbee.generic_body"
 
 function cluster_base.read_attributes(device, cluster_id, attr_ids)
   local read_body = read_attribute.ReadAttribute(attr_ids)
@@ -36,6 +37,13 @@ function cluster_base.read_attributes(device, cluster_id, attr_ids)
 end
 
 local utils = {}
+
+function utils.get_value(data)
+  if getmetatable(data) == generic_body.GenericBody then
+    return data:_serialize()
+  end
+  return data.value
+end
 
 function utils.spell_magic_trick (device)
   device:send(cluster_base.read_attributes(device, data_types.ClusterId(zcl_clusters.Basic.ID), {
@@ -105,7 +113,7 @@ function utils.info(device, datapoints)
       end
       local output = {}
       for _index, _data in st_utils.pairs_by_key(self) do
-        output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, _data.value.value)
+        output[#output+1] = string.format('<tr><th align="left">%s</th><td>%d</td><td>%s</td></tr>', _data.type:name(), _data.dpid.value, st_utils.stringify_table(utils.get_value(_data.value)))
       end
       if #output == 0 then
         output[#output+1] = '<tr><td colspan="3">None</td></tr>'
