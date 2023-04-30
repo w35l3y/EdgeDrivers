@@ -4,7 +4,6 @@ local utils = require "st.utils"
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
-local generic_body = require "st.zigbee.generic_body"
 
 local commands = require "commands"
 local settings = capabilities["valleyboard16460.settings"]
@@ -21,13 +20,6 @@ local map_to_fn = {
 }
 
 local defaults = {}
-
-local function get_value(data)
-  if getmetatable(data) == generic_body.GenericBody then
-    return data:_serialize()
-  end
-  return data.value
-end
 
 local map_cap_to_pref = {
   ["valleyboard16460.datapointValue"] = "value",
@@ -145,7 +137,7 @@ local function execute_dp(datapoints, device, data, dpid)
     log.warn("Datapoint not found. Using default", dpid, _type)
     event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
   end
-  local value = get_value(data.value)
+  local value = myutils.get_value(data.value)
 
   local event = event_dp:create_event(value, device, nil, datapoints)
   local cur_time = os.time()
