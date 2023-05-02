@@ -11,7 +11,7 @@ GatewayStatus.args_def = {
   {
     name = "transid",
     optional = false,
-    data_type = data_types.Uint16,
+    data_type = tuya_types.Uint16,
     is_complex = false,
     is_array = false,
     default = 0x00,
@@ -133,7 +133,7 @@ end
 --- @return st.zigbee.ZigbeeMessageTx the full command addressed to the device
 function GatewayStatus:init(device, transid, status)
   local out = {}
-  local args = { transid, status or 1 }
+  local args = { 1, status or 1 }
   if #args > #self.args_def then
     error(self.NAME .. " received too many arguments")
   end
