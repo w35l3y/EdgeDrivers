@@ -40,13 +40,13 @@ jobs:
     steps:
       - name: Check SMARTTHINGS_TOKEN
         uses: actions/github-script@v3
-        if: ! secrets.SMARTTHINGS_TOKEN
+        if: !secrets.SMARTTHINGS_TOKEN
         with:
           script: |
             core.setFailed("Missing SMARTTHINGS_TOKEN")
       - name: Check SMARTTHINGS_CHANNEL
         uses: actions/github-script@v3
-        if: ! secrets.SMARTTHINGS_CHANNEL
+        if: !secrets.SMARTTHINGS_CHANNEL
         with:
           script: |
             core.setFailed("Missing SMARTTHINGS_CHANNEL")
