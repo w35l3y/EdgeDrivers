@@ -30,7 +30,9 @@ jobs:
     steps:
       - name: Check SMARTTHINGS_TOKEN
         uses: actions/github-script@v3
-        if: ${{ secrets.SMARTTHINGS_TOKEN }} == ''
+        env:
+          VALUE: ${{ secrets.SMARTTHINGS_TOKEN }}
+        if: env.VALUE == ''
         with:
           script: |
             core.setFailed("Missing SMARTTHINGS_TOKEN")
@@ -120,7 +122,9 @@ jobs:
     steps:
       - name: Check SMARTTHINGS_TOKEN
         uses: actions/github-script@v3
-        if: ${{ secrets.SMARTTHINGS_TOKEN }} == ''
+        env:
+          VALUE: ${{ secrets.SMARTTHINGS_TOKEN }}
+        if: env.VALUE == ''
         with:
           script: |
             core.setFailed("Missing SMARTTHINGS_TOKEN")
