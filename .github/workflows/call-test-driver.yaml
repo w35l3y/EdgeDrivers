@@ -1,4 +1,4 @@
-name: call-publish-driver
+name: call-test-driver
 
 on:
   workflow_call:
