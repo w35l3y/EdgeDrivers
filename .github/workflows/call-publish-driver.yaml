@@ -45,15 +45,15 @@ jobs:
         if: env.VALUE == ''
         with:
           script: |
-            core.setFailed("Missing SMARTTHINGS_TOKEN")
+            core.setFailed("Missing secrets.SMARTTHINGS_TOKEN")
       - name: Check SMARTTHINGS_CHANNEL
         uses: actions/github-script@v3
         env:
-          VALUE: ${{ secrets.SMARTTHINGS_CHANNEL }}
+          VALUE: ${{ vars.SMARTTHINGS_CHANNEL }}
         if: env.VALUE == ''
         with:
           script: |
-            core.setFailed("Missing SMARTTHINGS_CHANNEL")
+            core.setFailed("Missing vars.SMARTTHINGS_CHANNEL")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3

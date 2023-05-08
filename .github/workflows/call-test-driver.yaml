@@ -35,7 +35,7 @@ jobs:
         if: env.VALUE == ''
         with:
           script: |
-            core.setFailed("Missing SMARTTHINGS_TOKEN")
+            core.setFailed("Missing secrets.SMARTTHINGS_TOKEN")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3
@@ -127,7 +127,7 @@ jobs:
         if: env.VALUE == ''
         with:
           script: |
-            core.setFailed("Missing SMARTTHINGS_TOKEN")
+            core.setFailed("Missing secrets.SMARTTHINGS_TOKEN")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3
