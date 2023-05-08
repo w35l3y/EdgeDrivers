@@ -28,6 +28,12 @@ jobs:
             release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
     steps:
+      - name: Check SMARTTHINGS_TOKEN
+        uses: actions/github-script@v3
+        if: ! secrets.SMARTTHINGS_TOKEN
+        with:
+          script: |
+            core.setFailed("Missing SMARTTHINGS_TOKEN")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3
@@ -112,6 +118,12 @@ jobs:
             release: apiv3_46_beta/lua_libs-api_v3_46X_beta
             path: lua_libs-api_v3
     steps:
+      - name: Check SMARTTHINGS_TOKEN
+        uses: actions/github-script@v3
+        if: ! secrets.SMARTTHINGS_TOKEN
+        with:
+          script: |
+            core.setFailed("Missing SMARTTHINGS_TOKEN")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3
