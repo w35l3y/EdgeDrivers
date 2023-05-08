@@ -1,4 +1,4 @@
-name: publish-default-clusters
+name: test-default-clusters
 
 on:
   pull_request:

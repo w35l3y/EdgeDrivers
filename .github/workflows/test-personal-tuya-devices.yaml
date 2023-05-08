@@ -1,4 +1,4 @@
-name: publish-personal-tuya-devices
+name: test-personal-tuya-devices
 
 on:
   pull_request:
