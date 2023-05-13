@@ -1,12 +1,18 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivity.org/specs/OCF_SmartHome_Device_Specification_v1.0.0.pdf
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-valve-v1"
+name: "normal-valve-v2"
 components:
   - id: main
     label: Valve
     capabilities:
       - id: valve
+        version: 1
+      - id: currentMeasurement
+        version: 1
+      - id: powerMeter
+        version: 1
+      - id: voltageMeasurement
         version: 1
       - id: signalStrength
         version: 1
@@ -22,10 +28,10 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_valve_v1: Normal
-        normal_valve_v2: +Power Meter
+        normal_valve_v2: Normal
+        normal_valve_v1: No Power Meter
         generic_ef00_v1: Generic
-      default: normal_valve_v1
+      default: normal_valve_v2
   - preferenceId: reverse
     explicit: true
   - name: valveType
@@ -40,6 +46,33 @@ preferences:
       default: bool
   - name: dpValveMain01
     title: DP for Valve
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpCurrentMeasuremeMain01
+    title: DP for Current Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpPowerMeterMain01
+    title: DP for Power Meter
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpVoltageMeasuremeMain01
+    title: DP for Voltage Measurement
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
