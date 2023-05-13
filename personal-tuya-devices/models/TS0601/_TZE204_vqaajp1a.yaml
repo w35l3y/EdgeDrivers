@@ -6,6 +6,11 @@ datapoints:
     command: valve
     base:
       group: 1
+  - id: 20
+    command: energyMeter
+    base:
+      group: 1
+      rate: 10000
   - id: 21
     command: currentMeasurement
     base:
@@ -20,4 +25,4 @@ datapoints:
     command: voltageMeasurement
     base:
       group: 1
-      rate: 10000
+      rate: 1000
