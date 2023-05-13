@@ -96,6 +96,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_b6wax7g0
     deviceProfileName: normal-thermostat-v5
     deviceLabel: Thermostat
+  - id: TS0601/_TZE200_cxu0jkjk
+    model: TS0601
+    manufacturer: _TZE200_cxu0jkjk
+    deviceProfileName: normal-windowShade-v1
+    deviceLabel: Window Shade
   - id: TS0601/_TZE200_d0ypnbvn
     model: TS0601
     manufacturer: _TZE200_d0ypnbvn
@@ -221,6 +226,11 @@ zigbeeManufacturer:
     manufacturer: _TZE204_t1blo2bj
     deviceProfileName: normal-alarm-v1
     deviceLabel: Alarm
+  - id: TS0601/_TZE204_vqaajp1a
+    model: TS0601
+    manufacturer: _TZE204_vqaajp1a
+    deviceProfileName: normal-valve-v2
+    deviceLabel: Smart Valve
   - id: TS0601/_TZE204_ztc6ggyl
     model: TS0601
     manufacturer: _TZE204_ztc6ggyl
