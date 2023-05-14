@@ -8,6 +8,8 @@ components:
     capabilities:
       - id: valve
         version: 1
+      - id: energyMeter
+        version: 1
       - id: currentMeasurement
         version: 1
       - id: powerMeter
@@ -46,6 +48,15 @@ preferences:
       default: bool
   - name: dpValveMain01
     title: DP for Valve
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpEnergyMeterMain01
+    title: DP for Energy Meter
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
