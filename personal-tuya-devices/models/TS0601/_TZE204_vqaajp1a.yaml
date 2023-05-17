@@ -26,3 +26,13 @@ datapoints:
     base:
       group: 1
       rate: 1000
+  - id: 101
+    command: value
+    base:
+      group: 1
+      name: delay_time
+  - id: 103
+    command: value
+    base:
+      group: 2
+      name: elapsed_time

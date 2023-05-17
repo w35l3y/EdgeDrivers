@@ -16,6 +16,8 @@ components:
         version: 1
       - id: voltageMeasurement
         version: 1
+      - id: valleyboard16460.settings
+        version: 1
       - id: signalStrength
         version: 1
       - id: refresh
