@@ -45,16 +45,20 @@ local function get_default_by_profile (device, warn)
           if warn then
             log.warn("Simulating device", model, mfr)
           end
+          device:set_field("expects", mfr)
           return dp
         end
       end
     end
   end
+  device:set_field("expects", nil)
 end
 local function send_command(fn, driver, device, ...)
   local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
   if dp == nil or dp.default then
     dp = get_default_by_profile(device, true)
+  else
+    device:set_field("expects", device:get_manufacturer())
   end
   if dp then
     fn(dp.datapoints)(driver, device, ...)
@@ -95,8 +99,10 @@ local map_pref_to_child = {
 function lifecycle_handlers.infoChanged(driver, device, event, args)
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
     log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
+    local p = device.preferences.profile:gsub("_", "-")
+    device:set_field("profile", p, { persist = true })
     device:try_update_metadata({
-      profile = device.preferences.profile:gsub("_", "-")
+      profile = p
     })
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
@@ -152,6 +158,7 @@ function defaults.can_handle (opts, driver, device, ...)
   local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
   if x and x.default == nil then
     -- `default == nil` means a profile was found for the model+mfr
+    device:set_field("expects", device:get_manufacturer())
     return true
   end
   mt.__cache = require "models"

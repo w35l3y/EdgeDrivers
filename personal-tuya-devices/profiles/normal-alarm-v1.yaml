@@ -33,6 +33,8 @@ components:
         version: 1
       - id: refresh
         version: 1
+      - id: valleyboard16460.debug
+        version: 1
     categories:
       - name: Siren
 preferences:
@@ -64,6 +66,16 @@ preferences:
       minimum: 0
       maximum: 1800
       default: 5
+  - name: batteryMode
+    title: Battery Mode
+    description: "Choose the battery mode"
+    required: false
+    preferenceType: enumeration
+    definition:
+      default: auto
+      options:
+        auto: auto (x25%)
+        value: value (0-100%)
   - name: dpAlarmMain01
     title: DP for Alarm
     description: Only if you want to override the default DataPoint

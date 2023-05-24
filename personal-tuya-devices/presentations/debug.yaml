@@ -1,0 +1,12 @@
+# ./smartthings capabilities:presentation:create valleyboard16460.debug 1 -y -i=personal-tuya-devices/presentations/debug.yaml -o=personal-tuya-devices/presentations/debug.yaml
+# ./smartthings capabilities:presentation:update valleyboard16460.debug 1 -y -i=personal-tuya-devices/presentations/debug.yaml -o=personal-tuya-devices/presentations/debug.yaml
+dashboard:
+  states: []
+  actions: []
+detailView:
+  - label: Debug
+    displayType: state
+    state:
+      label: "{{value.value}}"
+id: valleyboard16460.debug
+version: 1

@@ -1,0 +1,30 @@
+# ./smartthings capabilities:create --yaml --input=personal-tuya-devices/capabilities/debug.yaml --output=personal-tuya-devices/capabilities/debug.yaml
+# ./smartthings capabilities:update valleyboard16460.debug 1 --yaml --input=personal-tuya-devices/capabilities/debug.yaml --output=personal-tuya-devices/capabilities/debug.yaml
+id: valleyboard16460.debug
+version: 1
+status: proposed
+name: Debug
+ephemeral: false
+attributes:
+  value:
+    schema:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+      required:
+        - value
+    setter: setValue
+    enumCommands: []
+commands:
+  setValue:
+    name: setValue
+    arguments:
+      - name: value
+        optional: false
+        schema:
+          type: string
+  clear:
+    name: clear
+    arguments: []

@@ -15,6 +15,8 @@ components:
         version: 1
       - id: refresh
         version: 1
+      - id: valleyboard16460.debug
+        version: 1
     categories:
       - name: Contact Sensor
 preferences:
@@ -31,6 +33,16 @@ preferences:
       default: normal_contactSensor_v2
   - preferenceId: reverse
     explicit: true
+  - name: batteryMode
+    title: Battery Mode
+    description: "Choose the battery mode"
+    required: false
+    preferenceType: enumeration
+    definition:
+      default: auto
+      options:
+        auto: auto (x25%)
+        value: value (0-100%)
   - name: dpContactSensorMain01
     title: DP for Contact Sensor
     description: Only if you want to override the default DataPoint
