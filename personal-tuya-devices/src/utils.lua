@@ -174,7 +174,7 @@ function utils.debug(device)
     default_profile = p == nil,
     profile = p or (device.preferences.profile and device.preferences.profile:gsub("_", "-")),
     expects = device:get_field("expects"),
-    customDp = false,
+    default_dp = true,
     mode = "Custom",
   }
   if o.profile == "generic-ef00-v1" then
@@ -188,7 +188,7 @@ function utils.debug(device)
     -- log.debug(normalized_id, value, type(value))
     local match, _length = string.find(normalized_id, "^dp_[%w_]+_main%x%x$")
     if match and value and value ~= 0 then
-      o.customDp = true
+      o.default_dp = false
       break
     end
   end
@@ -203,7 +203,7 @@ function utils.debug(device)
         <tr><th align="left">Mode</th><td>%s</td></tr>
         <tr><th align="left">Preferences</th><td>%s</td></tr>
         <tr><th align="left">Exposes EF00</th><td>%s</td></tr>
-        <tr><th align="left">Custom DP</th><td>%s</td></tr>
+        <tr><th align="left">Default DP</th><td>%s</td></tr>
         </tbody></table>]],
         self.manufacturer,
         self.expects or "-",
@@ -211,7 +211,7 @@ function utils.debug(device)
         self.mode or "-",
         self.default_profile and "Default" or "Modified",
         self.exposes and "Yes" or "No",
-        self.customDp and "Yes" or "No"
+        self.default_dp and "Yes" or "No"
       )
     end
   })
