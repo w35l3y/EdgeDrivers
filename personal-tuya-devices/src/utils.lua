@@ -203,9 +203,9 @@ function utils.debug(device)
         <tr><th align="left">Custom DP</th><td>%s</td></tr>
         </tbody></table>]],
         self.manufacturer,
-        self.expects or "Unknown",
-        self.mode or "Unknown",
-        self.profile or "Unknown",
+        self.expects or "-",
+        self.mode or "-",
+        self.profile or "-",
         self.exposes and "Yes" or "No",
         self.customDp and "Yes" or "No"
       )
