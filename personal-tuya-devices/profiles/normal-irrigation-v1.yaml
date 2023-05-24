@@ -48,7 +48,8 @@ preferences:
     definition:
       default: auto
       options:
-        auto: auto (x25%)
+        auto: auto
+        enum: enum
         value: value (0-100%)
   - name: dpValveMain01
     title: DP for Valve

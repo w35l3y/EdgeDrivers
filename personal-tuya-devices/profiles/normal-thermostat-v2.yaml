@@ -51,8 +51,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        F: Fahrenheit
         C: Celsius
+        F: Fahrenheit
       default: C
   # - preferenceId: reverse
   #   explicit: true

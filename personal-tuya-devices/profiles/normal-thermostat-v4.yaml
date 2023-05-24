@@ -53,8 +53,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        F: Fahrenheit
         C: Celsius
+        F: Fahrenheit
       default: C
   - name: rate
     title: Rate

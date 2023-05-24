@@ -46,8 +46,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        F: Fahrenheit
         C: Celsius
+        F: Fahrenheit
       default: C
   - name: dpCarbonDioxideMeaMain01
     title: DP for Carbon Dioxide Measurement
