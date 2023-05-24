@@ -197,15 +197,15 @@ function utils.debug(device)
         [[<table style="font-size:0.6em;min-width:100%%"><tbody>
         <tr><th align="left" style="width:40%%">Actual</th><td style="width:60%%">%s</td></tr>
         <tr><th align="left">Expected</th><td>%s</td></tr>
-        <tr><th align="left">Mode</th><td>%s</td></tr>
         <tr><th align="left">Profile</th><td>%s</td></tr>
+        <tr><th align="left">Mode</th><td>%s</td></tr>
         <tr><th align="left">Exposes EF00</th><td>%s</td></tr>
         <tr><th align="left">Custom DP</th><td>%s</td></tr>
         </tbody></table>]],
         self.manufacturer,
         self.expects or "-",
-        self.mode or "-",
         self.profile or "-",
+        self.mode or "-",
         self.exposes and "Yes" or "No",
         self.customDp and "Yes" or "No"
       )
