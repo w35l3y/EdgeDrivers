@@ -38,6 +38,22 @@ jobs:
     strategy:
       fail-fast: false
     steps:
+      - name: Check SMARTTHINGS_TOKEN
+        uses: actions/github-script@v3
+        env:
+          VALUE: ${{ secrets.SMARTTHINGS_TOKEN }}
+        if: env.VALUE == ''
+        with:
+          script: |
+            core.setFailed("Missing secrets.SMARTTHINGS_TOKEN")
+      - name: Check SMARTTHINGS_CHANNEL
+        uses: actions/github-script@v3
+        env:
+          VALUE: ${{ vars.SMARTTHINGS_CHANNEL }}
+        if: env.VALUE == ''
+        with:
+          script: |
+            core.setFailed("Missing vars.SMARTTHINGS_CHANNEL")
       - uses: actions/checkout@v3
       - name: Load node
         uses: actions/setup-node@v3

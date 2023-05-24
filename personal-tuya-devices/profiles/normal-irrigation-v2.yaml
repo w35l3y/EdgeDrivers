@@ -18,6 +18,8 @@ components:
         version: 1
       - id: valleyboard16460.datapointValue
         version: 1
+      - id: valleyboard16460.debug
+        version: 1
     categories:
       - name: Irrigation
 preferences:
@@ -40,6 +42,16 @@ preferences:
   #     options:
   #       _TZE200_akjefhj5: _TZE200_akjefhj5 (1,7,11)
   #       _TZE200_sh1btabb: _TZE200_sh1btabb (2,108,104)
+  - name: batteryMode
+    title: Battery Mode
+    description: "Choose the battery mode"
+    required: false
+    preferenceType: enumeration
+    definition:
+      default: auto
+      options:
+        auto: auto (x25%)
+        value: value (0-100%)
   - name: dpSwitchMain01
     title: DP for Switch
     description: Only if you want to override the default DataPoint

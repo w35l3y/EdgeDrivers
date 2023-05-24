@@ -16,6 +16,8 @@ components:
         version: 1
       - id: refresh
         version: 1
+      - id: valleyboard16460.debug
+        version: 1
     categories:
       - name: Thermostat
 preferences:
@@ -64,6 +66,16 @@ preferences:
       minimum: -720
       maximum: 720
       default: 0
+  - name: batteryMode
+    title: Battery Mode
+    description: "Choose the battery mode"
+    required: false
+    preferenceType: enumeration
+    definition:
+      default: auto
+      options:
+        auto: auto (x25%)
+        value: value (0-100%)
   - name: dpRelativeHumidityMain01
     title: DP for Relative Humidity Measurement
     description: Only if you want to override the default DataPoint

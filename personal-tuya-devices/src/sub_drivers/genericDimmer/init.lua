@@ -27,8 +27,10 @@ local template = {
     infoChanged = function (driver, device, event, args)
       if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
         log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
+        local p = device.preferences.profile:gsub("_", "-")
+        device:set_field("profile", p, { persist = true })
         device:try_update_metadata({
-          profile = device.preferences.profile:gsub("_", "-")
+          profile = p
         })
       end
 

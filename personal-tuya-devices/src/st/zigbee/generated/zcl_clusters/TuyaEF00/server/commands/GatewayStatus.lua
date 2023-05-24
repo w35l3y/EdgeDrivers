@@ -167,6 +167,7 @@ function GatewayStatus:init(device, transid, status)
   local msg = self._cluster:build_cluster_specific_command(device, out, "server")
   -- msg.body.zcl_header.seqno = data_types.Uint8(0x01)
   msg.body.zcl_header.frame_ctrl:set_disable_default_response()
+  -- msg.body.zcl_header.frame_ctrl:set_mfg_specific()
   return msg
 end
 

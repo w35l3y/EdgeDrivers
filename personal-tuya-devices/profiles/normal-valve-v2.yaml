@@ -1,25 +1,29 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
-# https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
+# https://openconnectivity.org/specs/OCF_SmartHome_Device_Specification_v1.0.0.pdf
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-irrigation-v1"
+name: "normal-valve-v2"
 components:
   - id: main
-    label: Irrigation
+    label: Valve
     capabilities:
       - id: valve
         version: 1
-      - id: battery
+      - id: energyMeter
+        version: 1
+      - id: currentMeasurement
+        version: 1
+      - id: powerMeter
+        version: 1
+      - id: voltageMeasurement
         version: 1
       - id: signalStrength
         version: 1
       - id: refresh
         version: 1
-      - id: valleyboard16460.datapointValue
-        version: 1
       - id: valleyboard16460.debug
         version: 1
     categories:
-      - name: Irrigation
+      - name: WaterValve
 preferences:
   - name: profile
     title: Profile
@@ -28,28 +32,22 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_irrigation_v1: Normal
-        normal_irrigation_v2: +Mode (switch)
+        normal_valve_v2: Normal
+        normal_valve_v1: No Power Meter
         generic_ef00_v1: Generic
-      default: normal_irrigation_v1
-  # - name: manufacturer
-  #   title: Manufacturer
-  #   required: false
-  #   preferenceType: enumeration
-  #   definition:
-  #     options:
-  #       _TZE200_akjefhj5: _TZE200_akjefhj5 (1,7,11)
-  #       _TZE200_sh1btabb: _TZE200_sh1btabb (2,108,104)
-  - name: batteryMode
-    title: Battery Mode
-    description: "Choose the battery mode"
-    required: false
+      default: normal_valve_v2
+  - preferenceId: reverse
+    explicit: true
+  - name: valveType
+    title: Type
+    description: Expected type by the device
+    required: true
     preferenceType: enumeration
     definition:
-      default: auto
       options:
-        auto: auto (x25%)
-        value: value (0-100%)
+        bool: Boolean
+        enum: Enum
+      default: bool
   - name: dpValveMain01
     title: DP for Valve
     description: Only if you want to override the default DataPoint
@@ -59,8 +57,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpBatteryMain01
-    title: DP for Battery
+  - name: dpEnergyMeterMain01
+    title: DP for Energy Meter
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -68,8 +66,26 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpValueMain01
-    title: DP for Timer
+  - name: dpCurrentMeasuremeMain01
+    title: DP for Current Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpPowerMeterMain01
+    title: DP for Power Meter
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpVoltageMeasuremeMain01
+    title: DP for Voltage Measurement
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -78,9 +94,9 @@ preferences:
       maximum: 255
       default: 0
 metadata:
-  deviceType: Irrigation
-  ocfDeviceType: x.com.st.d.irrigation
-  deviceTypeId: Irrigation
+  deviceType: Water Valve
+  ocfDeviceType: oic.d.watervalve
+  deviceTypeId: Water Valve
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER
