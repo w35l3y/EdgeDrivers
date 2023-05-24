@@ -195,7 +195,7 @@ function utils.debug(device)
     __tostring = function (self)
       return string.format(
         [[<table style="font-size:0.6em;min-width:100%%"><tbody>
-        <tr><th align="left" style="width:40%%">Actual</th><td style="width:60%%">%s</td></tr>
+        <tr><th align="left" style="width:35%%">Actual</th><td style="width:65%%">%s</td></tr>
         <tr><th align="left">Expected</th><td>%s</td></tr>
         <tr><th align="left">Profile</th><td>%s</td></tr>
         <tr><th align="left">Mode</th><td>%s</td></tr>

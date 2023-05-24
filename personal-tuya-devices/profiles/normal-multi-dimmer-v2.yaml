@@ -30,8 +30,6 @@ components:
         version: 1
       - id: valleyboard16460.datapointEnum
         version: 1
-      - id: refresh
-        version: 1
     categories:
       - name: SmartPlug
 preferences:

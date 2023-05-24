@@ -20,16 +20,12 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: refresh
-        version: 1
     categories:
       - name: SmartPlug
   - id: main03
     label: Switch 3
     capabilities:
       - id: switch
-        version: 1
-      - id: refresh
         version: 1
     categories:
       - name: SmartPlug
