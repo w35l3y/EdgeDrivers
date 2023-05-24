@@ -172,7 +172,6 @@ function utils.debug(device)
     exposes = map(device.zigbee_endpoints, "server_clusters")[0xEF00],
     profile = device:get_field("profile"),
     expects = device:get_field("expects"),
-    mode = device:get_field("mode"),
     customDp = false,
     mode = "Custom",
   }
