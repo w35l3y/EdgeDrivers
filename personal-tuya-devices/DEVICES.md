@@ -34,6 +34,7 @@
 | TS0601 | \_TZE200_v6ossqfy | Presence Sensor | normal-presenceSensor-v2 |
 | TS0601 | \_TZE200_wfxuhoea | Garage Door     | normal-garage-door-v1    |
 | TS0601 | \_TZE200_whkgqxse | LCD T+H Sensor  | normal-temphumibatt-v1   |
+| TS0601 | \_TZE200_yjjdcqsq | Thermostat      | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_yvx5lh6k | Air Quality     | normal-air-quality-v1    |
 | TS0601 | \_TZE200_zl1kmjqx | LCD T+H Sensor  | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |

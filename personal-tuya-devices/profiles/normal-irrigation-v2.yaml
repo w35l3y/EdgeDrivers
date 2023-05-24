@@ -50,7 +50,8 @@ preferences:
     definition:
       default: auto
       options:
-        auto: auto (x25%)
+        auto: auto
+        enum: enum
         value: value (0-100%)
   - name: dpSwitchMain01
     title: DP for Switch

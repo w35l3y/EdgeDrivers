@@ -221,13 +221,15 @@ local defaults = {
     attribute = "battery",
     rate_name = "rate",
     rate = 100,
+    type = "auto",
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      local mode = pref.batteryMode or "auto"
-      if value < 3 and mode == "auto" then
-        value = 25 * (1+value)
+      local mode = pref.batteryMode ~= "auto" and pref.batteryMode or self.type
+      local r = get_value(pref[self.rate_name], self.rate)
+      if mode == "enum" or (r < 6 and mode == "auto") then
+        value = 1 + value
       end
-      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      return math.floor(100 * to_number(value) / r)
     end,
   },
   button = {

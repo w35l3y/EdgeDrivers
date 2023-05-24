@@ -1,0 +1,21 @@
+deviceLabel: Thermostat
+profiles:
+  - normal_temphumibatt_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/556e8b86803f26a0ae3be88d3efdee33a9796af0/src/devices/tuya.js#L2157,L2160
+  - id: 1
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 2
+    command: relativeHumidityMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 3
+    command: battery
+    base:
+      group: 1
+      rate: 3
+      type: enum

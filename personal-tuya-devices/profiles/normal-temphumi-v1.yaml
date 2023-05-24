@@ -42,8 +42,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        F: Fahrenheit
         C: Celsius
+        F: Fahrenheit
       default: C
   - name: timezoneOffset
     title: Timezone in minutes

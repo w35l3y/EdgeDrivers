@@ -36,13 +36,15 @@ preferences:
       default: normal_temphumibatt_v1
   - name: manufacturer
     title: Manufacturer
-    description: "Choose the manufacturer"
+    description: "Choose the manufacturer "
     required: false
     preferenceType: enumeration
     definition:
       options:
+        _TZE200_locansqn: _TZE200_locansqn (1*,2,4)
         _TZE200_myd45weu: _TZE200_myd45weu (5,3,15)
         _TZE200_whkgqxse: _TZE200_whkgqxse (1*,2,4)
+        _TZE200_yjjdcqsq: _TZE200_yjjdcqsq (1*,2,3*)
         _TZE200_zl1kmjqx: _TZE200_zl1kmjqx (1*,2*,4)
   - preferenceId: humidityOffset
     explicit: true
@@ -54,8 +56,8 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        F: Fahrenheit
         C: Celsius
+        F: Fahrenheit
       default: C
   - name: timezoneOffset
     title: Timezone in minutes
@@ -74,7 +76,8 @@ preferences:
     definition:
       default: auto
       options:
-        auto: auto (x25%)
+        auto: auto
+        enum: enum
         value: value (0-100%)
   - name: dpRelativeHumidityMain01
     title: DP for Relative Humidity Measurement
