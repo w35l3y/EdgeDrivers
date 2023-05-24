@@ -184,7 +184,7 @@ function utils.debug(device)
 
   for name,value in st_utils.pairs_by_key(device.preferences) do
     local normalized_id = st_utils.snake_case(name)
-    log.debug(normalized_id, value, type(value))
+    -- log.debug(normalized_id, value, type(value))
     local match, _length = string.find(normalized_id, "^dp_[%w_]+_main%x%x$")
     if match and value and value ~= 0 then
       o.customDp = true
