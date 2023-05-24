@@ -167,15 +167,17 @@ function utils.info(device, datapoints)
 end
 
 function utils.debug(device)
+  local p = device:get_field("profile")
   local o = {
     manufacturer = device:get_manufacturer(),
     exposes = map(device.zigbee_endpoints, "server_clusters")[0xEF00],
-    profile = device:get_field("profile"),
+    default_profile = p == nil,
+    profile = p or (device.preferences.profile and device.preferences.profile:gsub("_", "-")),
     expects = device:get_field("expects"),
     customDp = false,
     mode = "Custom",
   }
-  if not o.profile or o.profile == "generic-ef00-v1" then
+  if o.profile == "generic-ef00-v1" then
     o.mode = "Generic"
   elseif o.manufacturer ~= o.expects then
     o.mode = "Similarity"
@@ -199,6 +201,7 @@ function utils.debug(device)
         <tr><th align="left">Expected</th><td>%s</td></tr>
         <tr><th align="left">Profile</th><td>%s</td></tr>
         <tr><th align="left">Mode</th><td>%s</td></tr>
+        <tr><th align="left">Preferences</th><td>%s</td></tr>
         <tr><th align="left">Exposes EF00</th><td>%s</td></tr>
         <tr><th align="left">Custom DP</th><td>%s</td></tr>
         </tbody></table>]],
@@ -206,6 +209,7 @@ function utils.debug(device)
         self.expects or "-",
         self.profile or "-",
         self.mode or "-",
+        self.default_profile and "Default" or "Modified",
         self.exposes and "Yes" or "No",
         self.customDp and "Yes" or "No"
       )
