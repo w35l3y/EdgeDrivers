@@ -40,6 +40,7 @@
 | TS0601 | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |
 | TS0601 | \_TZE200_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE204_cjbofhxw | Power Meter     | normal-powerMeter-v1     |
+| TS0601 | \_TZE204_sxm7l9xa | Presense Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE204_t1blo2bj | Alarm           | normal-alarm-v1          |
 | TS0601 | \_TZE204_vqaajp1a | Smart Valve     | normal-valve-v2          |
 | TS0601 | \_TZE204_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
