@@ -167,15 +167,17 @@ function utils.info(device, datapoints)
 end
 
 function utils.debug(device)
+  local p = device:get_field("profile")
   local o = {
     manufacturer = device:get_manufacturer(),
     exposes = map(device.zigbee_endpoints, "server_clusters")[0xEF00],
-    profile = device:get_field("profile"),
+    default_profile = p == nil,
+    profile = p or (device.preferences.profile and device.preferences.profile:gsub("_", "-")),
     expects = device:get_field("expects"),
-    customDp = false,
+    default_dp = true,
     mode = "Custom",
   }
-  if not o.profile or o.profile == "generic-ef00-v1" then
+  if o.profile == "generic-ef00-v1" then
     o.mode = "Generic"
   elseif o.manufacturer ~= o.expects then
     o.mode = "Similarity"
@@ -186,7 +188,7 @@ function utils.debug(device)
     -- log.debug(normalized_id, value, type(value))
     local match, _length = string.find(normalized_id, "^dp_[%w_]+_main%x%x$")
     if match and value and value ~= 0 then
-      o.customDp = true
+      o.default_dp = false
       break
     end
   end
@@ -195,19 +197,21 @@ function utils.debug(device)
     __tostring = function (self)
       return string.format(
         [[<table style="font-size:0.6em;min-width:100%%"><tbody>
-        <tr><th align="left" style="width:40%%">Actual</th><td style="width:60%%">%s</td></tr>
+        <tr><th align="left" style="width:35%%">Actual</th><td style="width:65%%">%s</td></tr>
         <tr><th align="left">Expected</th><td>%s</td></tr>
-        <tr><th align="left">Mode</th><td>%s</td></tr>
         <tr><th align="left">Profile</th><td>%s</td></tr>
+        <tr><th align="left">Mode</th><td>%s</td></tr>
+        <tr><th align="left">Preferences</th><td>%s</td></tr>
         <tr><th align="left">Exposes EF00</th><td>%s</td></tr>
-        <tr><th align="left">Custom DP</th><td>%s</td></tr>
+        <tr><th align="left">Default DP</th><td>%s</td></tr>
         </tbody></table>]],
         self.manufacturer,
         self.expects or "-",
-        self.mode or "-",
         self.profile or "-",
+        self.mode or "-",
+        self.default_profile and "Default" or "Modified",
         self.exposes and "Yes" or "No",
-        self.customDp and "Yes" or "No"
+        self.default_dp and "Yes" or "No"
       )
     end
   })

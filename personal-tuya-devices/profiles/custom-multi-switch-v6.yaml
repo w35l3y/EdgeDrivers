@@ -20,16 +20,12 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: refresh
-        version: 1
     categories:
       - name: SmartPlug
   - id: main02
     label: Switch 2
     capabilities:
       - id: switch
-        version: 1
-      - id: refresh
         version: 1
     categories:
       - name: SmartPlug
@@ -38,16 +34,12 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: refresh
-        version: 1
     categories:
       - name: SmartPlug
   - id: main04
     label: Switch 4
     capabilities:
       - id: switch
-        version: 1
-      - id: refresh
         version: 1
     categories:
       - name: SmartPlug
@@ -56,16 +48,12 @@ components:
     capabilities:
       - id: switch
         version: 1
-      - id: refresh
-        version: 1
     categories:
       - name: SmartPlug
   - id: main06
     label: Switch 6
     capabilities:
       - id: switch
-        version: 1
-      - id: refresh
         version: 1
     categories:
       - name: SmartPlug
