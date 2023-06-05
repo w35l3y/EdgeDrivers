@@ -144,7 +144,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel({value=25.0,unit="ppm"}))
+      message = mock_parent_device:generate_test_message("main", capabilities.formaldehydeMeasurement.formaldehydeLevel({value=25.0,unit="mg/m^3"}))
     },
   }, {
     test_init = test_init_parent
