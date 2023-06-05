@@ -421,12 +421,13 @@ local defaults = {
     attribute = "formaldehydeLevel",
     rate_name = "rate",
     rate = 10000,
+    unit = "ppm",
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return {
         value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
-        unit = "ppm"
+        unit = self.unit
       }
     end,
   },

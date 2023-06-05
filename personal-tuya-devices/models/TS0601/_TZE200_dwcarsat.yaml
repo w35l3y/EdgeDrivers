@@ -20,6 +20,8 @@ datapoints:
     command: formaldehydeMeasurement
     base:
       group: 1
+      unit: mg/m^3
+      rate: 10000
   - id: 21
     command: tvocMeasurement
     base:
