@@ -13,6 +13,7 @@
 | TS0601 | \_TZE200_akjefhj5 | Irrigation      | normal-irrigation-v1     |
 | TS0601 | \_TZE200_aoclfnxz | Thermostat      | normal-thermostat-v2     |
 | TS0601 | \_TZE200_b6wax7g0 | Thermostat      | normal-thermostat-v5     |
+| TS0601 | \_TZE200_bcusnqt8 | Power Meter     | normal-powerMeter-v1     |
 | TS0601 | \_TZE200_cxu0jkjk | Window Shade    | normal-windowShade-v1    |
 | TS0601 | \_TZE200_d0ypnbvn | Smart Valve     | normal-valve-v1          |
 | TS0601 | \_TZE200_dfxkcots | Dimmer          | normal-single-dimmer-v1  |
@@ -23,6 +24,7 @@
 | TS0601 | \_TZE200_h4cgnbzg | Thermostat      | normal-thermostat-v4     |
 | TS0601 | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |
 | TS0601 | \_TZE200_locansqn | LCD T+H Sensor  | normal-temphumibatt-v1   |
+| TS0601 | \_TZE200_lsanae15 | Power Meter     | normal-powerMeter-v1     |
 | TS0601 | \_TZE200_mby4kbtq | Gas Detector    | normal-gasDetector-v1    |
 | TS0601 | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |
 | TS0601 | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |
