@@ -1,0 +1,14 @@
+deviceLabel: Power Meter
+profiles:
+  - normal_powerMeter_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/e1f8b3c537a99891dfb451734e52bfd2da643a20/src/devices/tuya.ts#L4748-L4779
+  - id: 6
+    command: voltCurrPowerRaw # voltageMeasurement + currentMeasurement + powerMeter
+    base:
+      group: 1
+  - id: 1
+    command: energyMeter
+    base:
+      group: 1
+      rate: 100000

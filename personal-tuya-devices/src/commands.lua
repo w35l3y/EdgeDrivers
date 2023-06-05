@@ -526,6 +526,7 @@ local defaults = {
     additional = {
       {
         command = "contactSensor",
+        group = 1
       }
     },
   },
@@ -676,6 +677,33 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
+  },
+  voltCurrPowerRaw = {
+    capability = "voltageMeasurement",
+    attribute = "voltage",
+    from_zigbee = function (self, value, device)
+      return (value[1] << 8 | value[2]) / 10  -- Big Endian
+    end,
+    additional = {
+      {
+        command = "currentMeasurement",
+        base = {
+          group = 1,
+          from_zigbee = function (self, value, device)
+            return (value[3] << 16 | value[4] << 8 | value[5]) / 1000  -- Big Endian
+          end,
+        }
+      },
+      {
+        command = "powerMeter",
+        base = {
+          group = 1,
+          from_zigbee = function (self, value, device)
+            return value[6] << 16 | value[7] << 8 | value[8]  -- Big Endian
+          end,
+        }
+      }
+    }
   },
   waterSensor = {
     capability = "waterSensor",
