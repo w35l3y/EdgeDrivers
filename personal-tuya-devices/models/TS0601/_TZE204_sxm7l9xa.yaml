@@ -35,6 +35,6 @@ datapoints:
       group: 6
       name: fading_time
   - id: 104
-    command: illuminanceMeasurement
+    command: illuminanceMeasurementRaw
     base:
       group: 1
