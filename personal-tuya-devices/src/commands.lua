@@ -682,7 +682,7 @@ local defaults = {
     capability = "voltageMeasurement",
     attribute = "voltage",
     from_zigbee = function (self, value, device)
-      return (value[1] << 8 | value[2]) / 10  -- Big Endian
+      return (value:byte(1) << 8 | value:byte(2)) / 10  -- Big Endian
     end,
     additional = {
       {
@@ -690,7 +690,7 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return (value[3] << 16 | value[4] << 8 | value[5]) / 1000  -- Big Endian
+            return (value:byte(3) << 16 | value:byte(4) << 8 | value:byte(5)) / 1000  -- Big Endian
           end,
         }
       },
@@ -699,7 +699,7 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return value[6] << 16 | value[7] << 8 | value[8]  -- Big Endian
+            return value:byte(6) << 16 | value:byte(7) << 8 | value:byte(8)  -- Big Endian
           end,
         }
       }
