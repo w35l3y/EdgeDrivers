@@ -12,6 +12,17 @@ on:
         required: true
         type: string
         default: beta
+  workflow_dispatch:
+    inputs:
+      driver:
+        description: "Folder name of the driver"
+        required: true
+        type: string
+      environment:
+        description: Environment
+        required: true
+        type: string
+        default: beta
 
 jobs:
   test_latest:
@@ -112,7 +123,7 @@ jobs:
         stapi:
           - v3_46
           - v3_46_B
-          - v3_47_B
+          - v4_47_B
         include:
           - stapi: v3_46
             release: apiv3_46/lua_libs-api_v3_46X
