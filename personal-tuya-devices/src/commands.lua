@@ -28,6 +28,10 @@ local function xor (a, b)
   return to_bool(a) ~= to_bool(b)
 end
 
+local function uint (value)
+  return string.unpack(">I" .. value:len(),value)
+end
+
 -- tries to make it partially work with firmware below 45.1
 local function get_child_or_parent(device, group, force_child)
   if (device.get_child_by_parent_assigned_key == nil) then
@@ -682,7 +686,7 @@ local defaults = {
     capability = "voltageMeasurement",
     attribute = "voltage",
     from_zigbee = function (self, value, device)
-      return (value:byte(1) << 8 | value:byte(2)) / 10  -- Big Endian
+      return uint(value:sub(1, 2)) / 10  -- BigEndian unsigned integer 2-width
     end,
     additional = {
       {
@@ -690,7 +694,7 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return (value:byte(3) << 16 | value:byte(4) << 8 | value:byte(5)) / 1000  -- Big Endian
+            return uint(value:sub(3, 5)) / 1000  -- BigEndian unsigned integer 3-width
           end,
         }
       },
@@ -699,7 +703,7 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return value:byte(6) << 16 | value:byte(7) << 8 | value:byte(8)  -- Big Endian
+            return uint(value:sub(6, 8))  -- BigEndian unsigned integer 3-width
           end,
         }
       }
