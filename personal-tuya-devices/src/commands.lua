@@ -28,6 +28,10 @@ local function xor (a, b)
   return to_bool(a) ~= to_bool(b)
 end
 
+local function uint (value)
+  return string.unpack(">I" .. value:len(),value)
+end
+
 -- tries to make it partially work with firmware below 45.1
 local function get_child_or_parent(device, group, force_child)
   if (device.get_child_by_parent_assigned_key == nil) then
@@ -421,12 +425,13 @@ local defaults = {
     attribute = "formaldehydeLevel",
     rate_name = "rate",
     rate = 10000,
+    unit = "ppm",
     reportingInterval = 1,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       return {
         value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
-        unit = "ppm"
+        unit = self.unit
       }
     end,
   },
@@ -525,6 +530,7 @@ local defaults = {
     additional = {
       {
         command = "contactSensor",
+        group = 1
       }
     },
   },
@@ -675,6 +681,33 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
     end,
+  },
+  voltCurrPowerRaw = {
+    capability = "voltageMeasurement",
+    attribute = "voltage",
+    from_zigbee = function (self, value, device)
+      return uint(value:sub(1, 2)) / 10  -- BigEndian unsigned integer 2-width
+    end,
+    additional = {
+      {
+        command = "currentMeasurement",
+        base = {
+          group = 1,
+          from_zigbee = function (self, value, device)
+            return uint(value:sub(3, 5)) / 1000  -- BigEndian unsigned integer 3-width
+          end,
+        }
+      },
+      {
+        command = "powerMeter",
+        base = {
+          group = 1,
+          from_zigbee = function (self, value, device)
+            return uint(value:sub(6, 8))  -- BigEndian unsigned integer 3-width
+          end,
+        }
+      }
+    }
   },
   waterSensor = {
     capability = "waterSensor",
