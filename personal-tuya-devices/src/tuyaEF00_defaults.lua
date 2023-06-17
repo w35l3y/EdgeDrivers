@@ -134,7 +134,7 @@ local function execute_dp(datapoints, device, data, dpid)
       return
     end
     local _type = data.type.value
-    log.warn("Datapoint not found. Using default", dpid, _type)
+    log.warn("Datapoint not found. Using default", dpid, "datatype", _type)
     event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
   end
   local value = myutils.get_value(data.value)
