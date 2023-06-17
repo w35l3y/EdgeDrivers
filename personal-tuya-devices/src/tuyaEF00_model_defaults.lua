@@ -8,6 +8,10 @@ local device_lib = require "st.device"
 local tuyaEF00_defaults = require "tuyaEF00_defaults"
 local myutils = require "utils"
 
+local constants = {
+  FORCE_EF00_CLUSTER = "FORCE_EF00_CLUSTER",
+}
+
 local REPORT_BY_DP = {}
 
 local mt = {}
@@ -69,6 +73,7 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
     -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
     device.thread:call_with_delay(15, function()
       log.debug("--- GatewayData -----------------------------------")

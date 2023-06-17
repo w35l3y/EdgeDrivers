@@ -157,12 +157,12 @@ local lifecycle_handlers = utils.merge({}, require "lifecycles")
 
 function lifecycle_handlers.added(driver, device, event, ...)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
+    device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
     -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
     device.thread:call_with_delay(15, function()
       log.debug("--- GatewayData -----------------------------------")
       device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
     end)
-    device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
   elseif device.network_type == device_lib.NETWORK_TYPE_CHILD then
     local tmp = temporary_datapoints[device.parent_device_id]
     local dpid = tonumber(device.parent_assigned_child_key, 16)
@@ -226,8 +226,9 @@ local defaults = {
   end,
 }
 
-function defaults.can_handle (opts, driver, device, ...)
-  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id) or in_exception_list(device) or myutils.is_profile(device, "generic_ef00_v1") or device:get_field(constants.FORCE_EF00_CLUSTER)
+function defaults.can_handle (opts, driver, device, o, ...)
+  -- log.debug("can_handle", device:get_field(constants.FORCE_EF00_CLUSTER), o, utils.stringify_table({...}))
+  return device:supports_server_cluster(zcl_clusters.tuya_ef00_id) or in_exception_list(device) or myutils.is_profile(device, "generic_ef00_v1") or device:get_field(constants.FORCE_EF00_CLUSTER) or not (myutils.is_profile(device, "normal_multi_switch_v1") or myutils.is_profile(device, "normal_multi_dimmer_v1"))
 end
 
 function defaults.command_response_handler(driver, device, zb_rx)
