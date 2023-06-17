@@ -261,6 +261,11 @@ zigbeeManufacturer:
     manufacturer: _TZE204_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presense Sensor
+  - id: mcdj3aq/_TYST11_wmcdj3aq
+    model: mcdj3aq
+    manufacturer: _TYST11_wmcdj3aq
+    deviceProfileName: normal-windowShade-v1
+    deviceLabel: Window Shade
 zigbeeGeneric:
   - id: GenericEF00
     deviceProfileName: generic-ef00-v1

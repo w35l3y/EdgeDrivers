@@ -1,4 +1,4 @@
--- local log = require "log"
+local log = require "log"
 -- local utils = require "st.utils"
 
 local defaults = require "st.zigbee.defaults"
@@ -14,6 +14,10 @@ local child_cluster = zcl_clusters.OnOff
 
 local create_child_devices = myutils.create_child_devices(global_profile, child_profile, child_cluster)
 
+local constants = {
+  FORCE_EF00_CLUSTER = "FORCE_EF00_CLUSTER",
+}
+
 local template = {
   NAME = "GenericSwitch",
   can_handle = function (opts, driver, device, ...)
@@ -28,6 +32,7 @@ local template = {
         log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
         local p = device.preferences.profile:gsub("_", "-")
         device:set_field("profile", p, { persist = true })
+        device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
         device:try_update_metadata({
           profile = p
         })

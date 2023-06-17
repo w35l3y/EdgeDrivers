@@ -726,6 +726,7 @@ local defaults = {
     attribute = "windowShade",
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      log.debug("to_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return data_types.Enum8(value == "closed" and 2 or value == "partially open" and 1 or 0)
       end
@@ -734,6 +735,7 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       local v = to_number(value)
+      log.debug("from_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return v == 0 and "open" or v == 1 and "partially open" or "closed"
       end
@@ -746,21 +748,34 @@ local defaults = {
     attribute = "shadeLevel",
     rate_name = "rate",
     rate = 100,
-    to_zigbee = function (self, value, device)
-      local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
-    end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      log.debug("from_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref))
+      if pref.reverse then
+        return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
+      end
+      return math.floor(100 - (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)))
+    end,
+    to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      log.debug("to_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref)) 
+      if pref.reverse then
+        return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      end
+      return tuya_types.Uint32(math.floor((100 - to_number(value)) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
   },
   windowShadePreset = {
     capability = "windowShadePreset",
     attribute = "presetPosition",
+    rate_name = "rate",
+    rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(pref.reverse and (100 - pref.presetPosition) or pref.presetPosition)
+      if pref.reverse then
+        return tuya_types.Uint32(math.floor(pref.presetPosition * get_value(pref[self.rate_name], self.rate) / 100))
+      end
+      return tuya_types.Uint32(math.floor((100 - pref.presetPosition) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     command_to_value = function (self, command) return command.command end,
   },
