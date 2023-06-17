@@ -19,3 +19,8 @@ datapoints:
     command: windowShadeLevel
     base:
       group: 1
+  - id: 7 # read only
+    command: windowShade
+    base:
+      group: 1
+      supported_values: [2, 0, 1, 0, 2, 1]
