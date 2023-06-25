@@ -65,6 +65,7 @@ function update_models_zigbee(path = ".") {
         zigbeeProfiles: obj.zigbeeProfiles,
         deviceIdentifiers: obj.deviceIdentifiers,
         clusters: obj.clusters,
+        datapoints: obj.datapoints || [],
       });
       // console.log(file, JSON.stringify(obj, null, 2));
       manufacturers.push({
@@ -92,16 +93,23 @@ function update_models_zigbee(path = ".") {
     );
   });
   let maxLength = fingerprints.zigbeeManufacturer.reduce(
-    (acc, { model, manufacturer, deviceLabel, deviceProfileName }) => {
+    (
+      acc,
+      { model, manufacturer, deviceLabel, deviceProfileName, datapoints = [] }
+    ) => {
       const t = [
         model,
         manufacturer.replace(/^_/, "\\_"),
         deviceLabel,
         deviceProfileName,
+        datapoints
+          .map(({ id }) => ("" + id).padStart(3, " "))
+          .filter((v) => v > 0)
+          .join(", "),
       ];
       return acc.map((v, i) => Math.max(v, t[i].length));
     },
-    [0, 0, 0, 0]
+    [0, 0, 0, 0, 0]
   );
 
   fs.writeFileSync(
@@ -112,6 +120,7 @@ function update_models_zigbee(path = ".") {
       "Manufacturer".padEnd(maxLength[1], " "),
       "Label".padEnd(maxLength[2], " "),
       "Default profile".padEnd(maxLength[3], " "),
+      "Endpoints".padEnd(maxLength[4], " "),
       "",
     ]
       .join(" | ")
@@ -123,23 +132,37 @@ function update_models_zigbee(path = ".") {
         "".padEnd(maxLength[1], "-"),
         "".padEnd(maxLength[2], "-"),
         "".padEnd(maxLength[3], "-"),
+        "".padEnd(maxLength[4], "-"),
         "",
       ]
         .join(" | ")
         .trim() +
       "\n" +
       fingerprints.zigbeeManufacturer
-        .map(({ model, manufacturer, deviceLabel, deviceProfileName }) =>
-          [
-            "",
-            model.padEnd(maxLength[0], " "),
-            manufacturer.replace(/^_/, "\\_").padEnd(maxLength[1], " "),
-            deviceLabel.padEnd(maxLength[2], " "),
-            deviceProfileName.padEnd(maxLength[3], " "),
-            "",
-          ]
-            .join(" | ")
-            .trim()
+        .map(
+          ({
+            model,
+            manufacturer,
+            deviceLabel,
+            deviceProfileName,
+            datapoints = [],
+          }) =>
+            [
+              "",
+              model.padEnd(maxLength[0], " "),
+              manufacturer.replace(/^_/, "\\_").padEnd(maxLength[1], " "),
+              deviceLabel.padEnd(maxLength[2], " "),
+              deviceProfileName.padEnd(maxLength[3], " "),
+              datapoints
+                .map(({ id }) => ("" + id).padStart(3, " "))
+                .filter((v) => v > 0)
+                // .sort((a, b) => -(a < b) || +(a !== b))
+                .join(", ")
+                .padEnd(maxLength[4], " "),
+              "",
+            ]
+              .join(" | ")
+              .trim()
         )
         .join("\n") +
       "\n\n- This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.\n"
@@ -154,11 +177,20 @@ function update_models_zigbee(path = ".") {
   );
   fs.writeFileSync(
     path + "/fingerprints.yaml",
-    yaml.dump(fingerprints, {
-      styles: {
-        "!!int": "hexadecimal",
+    yaml.dump(
+      {
+        zigbeeManufacturer: fingerprints.zigbeeManufacturer.map(
+          ({ datapoints, ...o }) => o
+        ),
+        zigbeeGeneric: fingerprints.zigbeeGeneric,
+        zigbeeThing: fingerprints.zigbeeThing,
       },
-    })
+      {
+        styles: {
+          "!!int": "hexadecimal",
+        },
+      }
+    )
   );
 }
 
