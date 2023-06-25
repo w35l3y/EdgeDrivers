@@ -229,8 +229,8 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_znbl8dj5
     model: TS0601
     manufacturer: _TZE200_znbl8dj5
-    deviceProfileName: normal-temphumi-v1
-    deviceLabel: Thermostat
+    deviceProfileName: normal-temphumibatt-v1
+    deviceLabel: LCD T+H Sensor
   - id: TS0601/_TZE200_ztc6ggyl
     model: TS0601
     manufacturer: _TZE200_ztc6ggyl

@@ -39,7 +39,7 @@
 | TS0601  | \_TZE200_yjjdcqsq | Thermostat      | normal-temphumibatt-v1   |
 | TS0601  | \_TZE200_yvx5lh6k | Air Quality     | normal-air-quality-v1    |
 | TS0601  | \_TZE200_zl1kmjqx | LCD T+H Sensor  | normal-temphumibatt-v1   |
-| TS0601  | \_TZE200_znbl8dj5 | Thermostat      | normal-temphumi-v1       |
+| TS0601  | \_TZE200_znbl8dj5 | LCD T+H Sensor  | normal-temphumibatt-v1   |
 | TS0601  | \_TZE200_ztc6ggyl | Presense Sensor | normal-presenceSensor-v1 |
 | TS0601  | \_TZE204_cjbofhxw | Power Meter     | normal-powerMeter-v1     |
 | TS0601  | \_TZE204_sxm7l9xa | Presense Sensor | normal-presenceSensor-v1 |
