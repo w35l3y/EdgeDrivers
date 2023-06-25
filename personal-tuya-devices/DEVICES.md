@@ -25,7 +25,9 @@
 | TS0601  | \_TZE200_ikvncluo | Presence Sensor | normal-presenceSensor-v1 |   1,   2,   3,   4, 101, 102, 104      |
 | TS0601  | \_TZE200_locansqn | LCD T+H Sensor  | normal-temphumibatt-v1   |   1,   2,   4                          |
 | TS0601  | \_TZE200_lsanae15 | Power Meter     | normal-powerMeter-v1     |   6,   1                               |
+| TS0601  | \_TZE200_m9skfctm | Smoke Detector  | normal-smokeDetector-v1  |   1, 101,  15                          |
 | TS0601  | \_TZE200_mby4kbtq | Gas Detector    | normal-gasDetector-v1    |   1,  13,  16                          |
+| TS0601  | \_TZE200_mudxchsu | Thermostat      | normal-thermostat-v5     |  16,  24, 115,  35                     |
 | TS0601  | \_TZE200_myd45weu | Soil sensor     | normal-temphumibatt-v1   |   5,   3,  15                          |
 | TS0601  | \_TZE200_nklqjk62 | Garage Door     | normal-garage-door-v1    |   1,   3                               |
 | TS0601  | \_TZE200_nw1r9hp6 | Window Shade    | normal-windowShade-v2    |   1,   2,  13                          |

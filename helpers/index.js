@@ -51,28 +51,30 @@ function update_models_zigbee(path = ".") {
           encoding: "utf-8",
         })
       );
-      let mfr = file.replace(".yaml", "");
-      fs.writeFileSync(
-        path + "/src/models/" + SPECIFIC_MODEL + mfr + ".lua",
-        "return [[" + JSON.stringify(obj) + "]]"
-      );
-      fingerprints.zigbeeManufacturer.push({
-        id: directory + "/" + mfr,
-        model: directory,
-        manufacturer: mfr,
-        deviceProfileName: obj.profiles[0].replace(/_/g, "-"),
-        deviceLabel: obj.deviceLabel || "Generic Device",
-        zigbeeProfiles: obj.zigbeeProfiles,
-        deviceIdentifiers: obj.deviceIdentifiers,
-        clusters: obj.clusters,
-        datapoints: obj.datapoints || [],
-      });
-      // console.log(file, JSON.stringify(obj, null, 2));
-      manufacturers.push({
-        mfr,
-        mdl: directory,
-        req: "models." + directory + "." + obj.manufacturer,
-      });
+      if (obj) {
+        let mfr = file.replace(".yaml", "");
+        fs.writeFileSync(
+          path + "/src/models/" + SPECIFIC_MODEL + mfr + ".lua",
+          "return [[" + JSON.stringify(obj) + "]]"
+        );
+        fingerprints.zigbeeManufacturer.push({
+          id: directory + "/" + mfr,
+          model: directory,
+          manufacturer: mfr,
+          deviceProfileName: obj.profiles[0].replace(/_/g, "-"),
+          deviceLabel: obj.deviceLabel || "Generic Device",
+          zigbeeProfiles: obj.zigbeeProfiles,
+          deviceIdentifiers: obj.deviceIdentifiers,
+          clusters: obj.clusters,
+          datapoints: obj.datapoints || [],
+        });
+        // console.log(file, JSON.stringify(obj, null, 2));
+        manufacturers.push({
+          mfr,
+          mdl: directory,
+          req: "models." + directory + "." + obj.manufacturer,
+        });
+      }
     });
     fs.writeFileSync(
       path + "/src/models/" + SPECIFIC_MODEL + "init.lua",

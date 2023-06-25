@@ -39,6 +39,7 @@ preferences:
         normal_irrigation_v1: Irrigation
         normal_powerMeter_v1: Power meter
         normal_presenceSensor_v2: Presence sensor
+        normal_smokeDetector_v1: Smoke Detector
         normal_temphumi_v1: Temperature & Humidity
         normal_thermostat_v2: Thermostat
         normal_valve_v1: Valve
@@ -188,7 +189,7 @@ preferences:
       default: ""
   - name: gasDetectorDatapoints
     title: Gas Detectors (proposed)
-    description: List of datapoints used for fine dust sensors (comma-separated)
+    description: List of datapoints used for gas sensors (comma-separated)
     required: true
     preferenceType: string
     definition:
@@ -261,6 +262,14 @@ preferences:
   - name: presenceSensorDatapoints
     title: Presence sensors
     description: List of datapoints used for presence sensors (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: smokeDetectorDatapoints
+    title: Smoke Detectors
+    description: List of datapoints used for smoke sensors (comma-separated)
     required: true
     preferenceType: string
     definition:

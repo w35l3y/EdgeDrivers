@@ -37,14 +37,14 @@ preferences:
         normal_temphumi_v1: Only sensors
         generic_ef00_v1: Generic
       default: normal_thermostat_v5
-  # - name: manufacturer
-  #   title: Manufacturer
-  #   required: false
-  #   preferenceType: enumeration
-  #   definition:
-  #     options:
-  #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
-  #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
+  - name: manufacturer
+    title: Manufacturer
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        _TZE200_b6wax7g0: _TZE200_b6wax7g0 (2,3*,1,14)
+        _TZE200_mudxchsu: _TZE200_mudxchsu (16*,24*,115,35)
   - preferenceId: tempOffset
     explicit: true
   - name: temperatureUnit

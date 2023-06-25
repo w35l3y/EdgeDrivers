@@ -553,6 +553,24 @@ local defaults = {
       return (100 * to_number(value) / get_value(pref[self.rate_name], self.rate)) + get_value(pref[self.humidityOffset_name], self.humidityOffset)
     end,
   },
+  smokeDetector = {
+    capability = "smokeDetector",
+    attribute = "smoke",
+    from_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local v = to_number(value)
+      local output = nil
+      if pref.reverse then
+        output = v == 0 and "clear" or (device:get_field("tested") and "tested" or "detected")
+      else
+        output = v == 0 and (device:get_field("tested") and "tested" or "detected") or "clear"
+      end
+      if output == "clear" then
+        device:set_field("tested", nil)
+      end
+      return output
+    end,
+  },
   temperatureMeasurement = {
     capability = "temperatureMeasurement",
     attribute = "temperature",

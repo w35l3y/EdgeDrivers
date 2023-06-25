@@ -41,8 +41,9 @@ preferences:
   #   preferenceType: enumeration
   #   definition:
   #     options:
-  #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
-  #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
+  #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx (16,24)
+  #       _TZE200_aoclfnxz: _TZE200_aoclfnxz (16,24*)
+  #       _TZE200_mudxchsu: _TZE200_mudxchsu (16*,24*)
   - preferenceId: tempOffset
     explicit: true
   - name: temperatureUnit
