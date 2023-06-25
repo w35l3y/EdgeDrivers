@@ -17,6 +17,8 @@ components:
       #           # - "mute"
       - id: momentary
         version: 1
+      - id: battery
+        version: 1
       - id: signalStrength
         version: 1
       - id: refresh
@@ -36,6 +38,17 @@ preferences:
         normal_smokeDetector_v1: Normal
         generic_ef00_v1: Generic
       default: normal_smokeDetector_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - preferenceId: reverse
     explicit: true
   - name: dpSmokeDetectorMain01

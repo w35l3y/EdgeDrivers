@@ -162,7 +162,7 @@ function lifecycle_handlers.added(driver, device, event, ...)
     device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
     -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
     device.thread:call_with_delay(15, function()
-      log.debug("--- GatewayData -----------------------------------")
+      myutils.log(device, "debug", "--- GatewayData -----------------------------------")
       device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
     end)
   elseif device.network_type == device_lib.NETWORK_TYPE_CHILD then
@@ -171,14 +171,17 @@ function lifecycle_handlers.added(driver, device, event, ...)
     if tmp and tmp[dpid] then
       send_command(tuyaEF00_defaults.command_response_handler, driver, device:get_parent_device(), {body={zcl_body={data_list={tmp[dpid]}}}})
     else
-      log.warn("Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, dpid, tmp and true or false)
+      myutils.log(device, "warn", "Unable to update status of newly added child device", device.parent_assigned_child_key, device.parent_device_id, dpid, tmp and true or false)
     end
   end
 end
 
 function lifecycle_handlers.infoChanged (driver, device, event, args)
+  -- if args.old_st_store.preferences.logLevel ~= device.preferences.logLevel then
+  --   log.set_log_level(device.preferences.logLevel)
+  -- end
   if args.old_st_store.preferences.profile ~= device.preferences.profile then
-    log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
+    myutils.log(device, "debug", "Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     local p = device.preferences.profile:gsub("_", "-")
     device:set_field("profile", p, { persist = true })
     device:try_update_metadata({
@@ -198,7 +201,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   else
     for name, value in utils.pairs_by_key(device.preferences) do
       if value ~= nil and args.old_st_store.preferences[name] ~= value then
-        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+        myutils.log(device, "debug", "Preference changed...", name, args.old_st_store.preferences[name], value)
       end
     end
   end
@@ -224,7 +227,7 @@ local defaults = {
   command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
   command_gatestatus_handler = tuyaEF00_defaults.command_gatestatus_handler,
   fallback_handler = function (driver, device, zb_rx)
-    log.debug("GENERIC FALLBACK", zb_rx:pretty_print())
+    myutils.log(device, "debug", "GENERIC FALLBACK", zb_rx:pretty_print())
   end,
 }
 

@@ -28,6 +28,9 @@ local template = {
   },
   lifecycle_handlers = utils.merge({
     infoChanged = function (driver, device, event, args)
+      -- if args.old_st_store.preferences.logLevel ~= device.preferences.logLevel then
+      --   log.set_log_level(device.preferences.logLevel)
+      -- end
       if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
         log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
         local p = device.preferences.profile:gsub("_", "-")

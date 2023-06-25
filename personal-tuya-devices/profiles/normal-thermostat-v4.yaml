@@ -35,6 +35,17 @@ preferences:
         normal_temphumi_v1: Only sensors
         generic_ef00_v1: Generic
       default: normal_thermostat_v4
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   # - name: manufacturer
   #   title: Manufacturer
   #   required: false

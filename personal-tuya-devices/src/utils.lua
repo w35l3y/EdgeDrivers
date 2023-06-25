@@ -13,6 +13,8 @@ local messages = require "st.zigbee.messages"
 local zb_const = require "st.zigbee.constants"
 local generic_body = require "st.zigbee.generic_body"
 
+local mylogs = require "mylogs"
+
 function cluster_base.read_attributes(device, cluster_id, attr_ids)
   local read_body = read_attribute.ReadAttribute(attr_ids)
   local zclh = zcl_messages.ZclHeader({
@@ -272,7 +274,7 @@ function utils.load_model_from_json(model, manufacturer)
 end
 
 function utils.create_child(driver, device, ngroup, profile)
-  log.info("Creating child...", profile, ngroup)
+  mylogs.log(device, "info", "Creating child...", profile, ngroup)
   local group = string.format("%02X", ngroup)
   local label = profile:gsub("v1$", group):gsub("-", " ")
   local created = device:get_child_by_parent_assigned_key(group)
@@ -326,6 +328,10 @@ function utils.details(driver)
     -- local l = os.time(os.date('*t'))
     -- print("L", os.date('%c', l), l, string.format("%X", l))
   end)
+end
+
+function utils.log (...)
+  return mylogs.log(...)
 end
 
 return utils

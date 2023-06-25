@@ -48,6 +48,17 @@ preferences:
         custom_multi_dimmer_v2: Custom
         generic_ef00_v1: Generic
       default: switch_all_multi_dimmer_v2
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - name: childDimmerMain01
     title: Create child device for Dimmer 1
     required: true

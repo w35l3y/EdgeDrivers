@@ -28,6 +28,17 @@ preferences:
         normal_presenceSensor_v1: +Illuminance
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v2
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - preferenceId: reverse
     explicit: true
   - name: dpPresenceSensorMain01

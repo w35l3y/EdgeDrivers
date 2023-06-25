@@ -13,7 +13,7 @@ local defaults = require "st.zigbee.defaults"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zcl_global_commands = require "st.zigbee.zcl.global_commands"
 
-local utils = require "utils"
+local myutils = require "utils"
 
 require "overridden"
 
@@ -34,7 +34,7 @@ local template = {
       },
     },
     fallback = function (driver, device, zb_rx)
-      log.debug("FALLBACK", zb_rx:pretty_print())
+      myutils.log(device, "debug", "FALLBACK", zb_rx:pretty_print())
     end,
   },
   health_check = true,
@@ -57,6 +57,6 @@ local template = {
 
 local driver = require("st.zigbee")("personal-tuya-devices", template)
 
-utils.details(driver)
+myutils.details(driver)
 
 driver:run()

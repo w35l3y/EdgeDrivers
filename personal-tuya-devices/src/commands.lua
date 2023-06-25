@@ -1,3 +1,5 @@
+-- ESTE ARQUIVO NÃO PODE INCLUIR "utils" POIS DÁ REFERÊNCIA CRUZADA
+
 local log = require "log"
 local utils = require "st.utils"
 
@@ -5,6 +7,8 @@ local capabilities = require "st.capabilities"
 local data_types = require "st.zigbee.data_types"
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 local generic_body = require "st.zigbee.generic_body"
+
+local mylogs = require "mylogs"
 
 -- local json = require('dkjson')
 
@@ -35,7 +39,7 @@ end
 -- tries to make it partially work with firmware below 45.1
 local function get_child_or_parent(device, group, force_child)
   if (device.get_child_by_parent_assigned_key == nil) then
-    log.warn("Driver requires firmware 45.1+ to work properly")
+    mylogs.log(device, "warn", "Driver requires firmware 45.1+ to work properly")
     return device
   end
   local child = device:get_child_by_parent_assigned_key(string.format("%02X", group))
@@ -64,7 +68,7 @@ local default_generic = {
     if device.parent_assigned_child_key then
       local pdp = device:get_parent_device().preferences[pref_name]
       if type(pdp) == "userdata" then
-        log.warn("1 Unexpected config type", pref_name, pdp, cap)
+        mylogs.log(device, "warn", "1 Unexpected config type", pref_name, pdp, cap)
         pdp = 0
       end
       -- log.info("PREFNAME 1", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
@@ -72,7 +76,7 @@ local default_generic = {
     end
     local pdp = device.preferences[pref_name]
     if type(pdp) == "userdata" then
-      log.warn("2 Unexpected config type", pref_name, pdp, cap)
+      mylogs.log(device, "warn", "2 Unexpected config type", pref_name, pdp, cap)
       pdp = 0
     end
     -- log.info("PREFNAME 2", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
@@ -482,7 +486,7 @@ local defaults = {
           return data_types.Enum8(i - 1)
         end
       end
-      log.warn("keypadInput : unsupported value", value)
+      mylogs.log(device, "warn", "keypadInput : unsupported value", value)
       return data_types.Enum8(string.byte(value))
     end,
   },
@@ -627,7 +631,7 @@ local defaults = {
           return data_types.Enum8(i - 1)
         end
       end
-      log.warn("thermostatMode : unsupported value", value)
+      mylogs.log(device, "warn", "thermostatMode : unsupported value", value)
       return data_types.Enum8(0)
     end,
     from_zigbee = function (self, value, device)
@@ -751,7 +755,7 @@ local defaults = {
     supported_values = {WindowShadeStatus.OPEN, WindowShadeStatus.PAUSE, WindowShadeStatus.CLOSE, WindowShadeStatus.OPEN, WindowShadeStatus.PAUSE, WindowShadeStatus.CLOSE},  -- normal open, normal pause, normal close, reverse close, pause, reverse open
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      log.debug("to_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
+      mylogs.log(device, "debug", "to_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return data_types.Enum8(value == "closed" and self.supported_values[6] or value == "partially open" and self.supported_values[5] or self.supported_values[4])
       end
@@ -760,7 +764,7 @@ local defaults = {
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences 
       local v = self.supported_values[(pref.reverse and 4 or 1) + to_number(value)]
-      log.debug("from_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
+      mylogs.log(device, "debug", "from_zigbee windowShade", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return v == WindowShadeStatus.OPEN and "open" or v == WindowShadeStatus.PAUSE and "partially open" or "closed"
       end
@@ -775,7 +779,7 @@ local defaults = {
     rate = 100,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      log.debug("from_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref))
+      mylogs.log(device, "debug", "from_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return math.floor(100 * to_number(value) / get_value(pref[self.rate_name], self.rate))
       end
@@ -783,7 +787,7 @@ local defaults = {
     end,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      log.debug("to_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref)) 
+      mylogs.log(device, "debug", "to_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
         return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
       end

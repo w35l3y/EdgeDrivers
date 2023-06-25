@@ -45,6 +45,17 @@ preferences:
         normal_valve_v1: Valve
         normal_windowShade_v2: Window Shade
       default: generic_ef00_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: debug
   - name: updateInfo
     title: Update info with datapoints
     required: true
