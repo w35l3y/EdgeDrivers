@@ -66,25 +66,25 @@ preferences:
       maximum: 9
       default: 7
   - name: prefNearDetection
-    title: Near Detection
-    description: A integer between 0 and 95
+    title: Near Detection (cm)
+    description: A integer between 0 and 950
     required: true
     preferenceType: integer
     definition:
       minimum: 0
-      maximum: 95
+      maximum: 950
       default: 0
   - name: prefFarDetection
-    title: Far Detection
-    description: A integer between 0 and 95
+    title: Far Detection (cm)
+    description: A integer between 0 and 950
     required: true
     preferenceType: integer
     definition:
       minimum: 0
-      maximum: 95
-      default: 95
+      maximum: 950
+      default: 950
   - name: prefDetectionDelay
-    title: Detection Delay
+    title: Detection Delay (s)
     description: A integer between 0 and 100
     required: true
     preferenceType: integer
@@ -93,7 +93,7 @@ preferences:
       maximum: 100
       default: 1
   - name: prefFadingTime
-    title: Fading Time
+    title: Fading Time (s)
     description: A integer between 10 and 1500
     required: true
     preferenceType: integer

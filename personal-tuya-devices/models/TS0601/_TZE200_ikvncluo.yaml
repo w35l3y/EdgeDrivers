@@ -19,13 +19,11 @@ datapoints:
     base:
       group: 3
       name: near_detection
-      rate: 630
   - id: 4
     command: value
     base:
       group: 4
       name: far_detection
-      rate: 630
   - id: 101
     command: value
     base:
