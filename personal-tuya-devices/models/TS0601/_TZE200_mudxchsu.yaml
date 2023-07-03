@@ -1,0 +1,24 @@
+# https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270/461?u=w35l3y
+deviceLabel: Thermostat
+profiles:
+  - normal_thermostat_v5
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/143bc6ff7500b3f85c35dd3c5a18f4d17b078de1/src/devices/tuya.ts#L2414-L2443
+  - id: 16
+    command: thermostatHeatingSetpoint
+    base:
+      group: 1
+      rate: 1000
+  - id: 24
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 115
+    command: thermostatOperatingState
+    base:
+      group: 1
+  - id: 35
+    command: battery
+    base:
+      group: 1

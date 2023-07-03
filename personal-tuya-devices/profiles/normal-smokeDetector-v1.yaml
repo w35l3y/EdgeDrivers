@@ -1,13 +1,23 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-single-dimmer-v1"
+name: "normal-smokeDetector-v1"
 components:
   - id: main
-    label: Dimmer
+    label: Detector
     capabilities:
-      - id: switch
+      - id: smokeDetector
         version: 1
-      - id: switchLevel
+      # - id: audioMute
+      #   version: 1
+      #   config:
+      #     values:
+      #       - key: "{{enumCommands}}"
+      #         enabledValues:
+      #           []
+      #           # - "mute"
+      - id: momentary
+        version: 1
+      - id: battery
         version: 1
       - id: signalStrength
         version: 1
@@ -16,7 +26,7 @@ components:
       - id: valleyboard16460.debug
         version: 1
     categories:
-      - name: SmartPlug
+      - name: Siren
 preferences:
   - name: profile
     title: Profile
@@ -25,9 +35,9 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_single_dimmer_v1: Normal
+        normal_smokeDetector_v1: Normal
         generic_ef00_v1: Generic
-      default: normal_single_dimmer_v1
+      default: normal_smokeDetector_v1
   - name: logLevel
     title: Log level
     required: true
@@ -39,17 +49,10 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
-  - name: prefMinimumLevel
-    title: Minimum Level
-    description: A integer between 0 and 100
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 100
-      default: 0
-  - name: dpSwitchMain01
-    title: DP for Switch
+  - preferenceId: reverse
+    explicit: true
+  - name: dpSmokeDetectorMain01
+    title: DP for Smoke Detector
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -57,8 +60,26 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpSwitchLevelMain01
-    title: DP for Switch Level
+  # - name: dpAudioMuteMain01
+  #   title: DP for Audio Mute
+  #   description: Only if you want to override the default DataPoint
+  #   required: true
+  #   preferenceType: integer
+  #   definition:
+  #     minimum: 0
+  #     maximum: 255
+  #     default: 0
+  - name: dpTestCapabilityMain01
+    title: DP for Test Mode
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpBatteryMain01
+    title: DP for Battery
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -67,9 +88,9 @@ preferences:
       maximum: 255
       default: 0
 metadata:
-  deviceType: SmartPlug
-  ocfDeviceType: oic.d.smartplug
-  deviceTypeId: SmartPlug
+  deviceType: SmokeDetector
+  ocfDeviceType: x.com.st.d.sensor.smoke
+  deviceTypeId: SmokeDetector
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

@@ -35,7 +35,7 @@ local function get_dp(dp, def, device)
   if device.parent_assigned_child_key then
     local pdp = device:get_parent_device().preferences[pref_name]
     if type(pdp) == "userdata" then
-      log.warn("1 Unexpected config type", pref_name, pdp, cap)
+      myutils.log(device, "warn", "1 Unexpected config type", pref_name, pdp, cap)
       pdp = 0
     end
     -- log.info("PREFNAME 1", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
@@ -43,7 +43,7 @@ local function get_dp(dp, def, device)
   end
   local pdp = device.preferences[pref_name]
   if type(pdp) == "userdata" then
-    log.warn("2 Unexpected config type", pref_name, pdp, cap)
+    myutils.log(device, "warn", "2 Unexpected config type", pref_name, pdp, cap)
     pdp = 0
   end
   -- log.info("PREFNAME 2", pref_name, pdp, dp, pdp == nil, type(pdp), cap)
@@ -51,7 +51,7 @@ local function get_dp(dp, def, device)
 end
 
 function defaults.command_synctime_handler(driver, device, zb_rx)
-  log.debug("--- McuSyncTime -----------------------------------")
+  myutils.log(device, "debug", "--- McuSyncTime -----------------------------------")
   device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device, zb_rx.body.zcl_body.transid.value))
 end
 
@@ -61,7 +61,7 @@ function defaults.command_gatestatus_handler(driver, device, zb_rx)
 end
 
 function defaults.fallback_handler (driver, device, zb_rx)
-  log.debug("DEFAULT FALLBACK", zb_rx:pretty_print())
+  myutils.log(device, "debug", "DEFAULT FALLBACK", zb_rx:pretty_print())
 end
 
 local function execute_event(datapoints, event, device, group, dpid)
@@ -77,11 +77,11 @@ local function execute_event(datapoints, event, device, group, dpid)
       device:emit_component_event(comp, event)
     end
   elseif not status or err then
-    log.warn("Unexpected component for datapoint", group, dpid, value, e, err)
+    myutils.log(device, "warn", "Unexpected component for datapoint", group, dpid, value, e, err)
     --device:emit_event(event)
   end
   if device.profile.components.main == nil then
-    log.warn("Profile wasn't applied properly")
+    myutils.log(device, "warn", "Profile wasn't applied properly")
   elseif not myutils.is_normal(device) then
     local updateAll = 0
     for cdpid, v in pairs(datapoints) do
@@ -106,7 +106,7 @@ local function execute_dp(datapoints, device, data, dpid)
   local event_dp = datapoints[dpid]
   local dp_pref_temp = event_dp and event_dp:get_dp(nil, device) or nil
   if dp_pref_temp == 0 or dp_pref_temp == adpid then
-    log.info("Default datapoint", dpid, dp_pref_temp)
+    myutils.log(device, "info", "Default datapoint", dpid, dp_pref_temp)
   else
     local pref_found = false
     for index_pref, event_pref in pairs(datapoints) do
@@ -114,9 +114,9 @@ local function execute_dp(datapoints, device, data, dpid)
       if dpid == dp_pref then
         pref_found = true
         if dp_pref_temp and index_pref ~= dp_pref_temp then
-          log.warn("Datapoint overridden", dpid, dp_pref_temp, index_pref)
+          myutils.log(device, "warn", "Datapoint overridden", dpid, dp_pref_temp, index_pref)
         else
-          log.info("Datapoint overridden", dpid, dp_pref_temp, index_pref)
+          myutils.log(device, "warn", "Datapoint overridden", dpid, dp_pref_temp, index_pref)
         end
         event_dp = event_pref
         break
@@ -124,17 +124,17 @@ local function execute_dp(datapoints, device, data, dpid)
     end
     if not pref_found and dp_pref_temp then
       event_dp = nil
-      log.warn("Datapoint settings rejected", dpid, dp_pref_temp)
+      myutils.log(device, "warn", "Datapoint settings rejected", dpid, dp_pref_temp)
     end
   end
 
   if not event_dp then
     if dpid < 0 then
-      log.info("Datapoint negative.", dpid)
+      myutils.log(device, "info", "Datapoint negative.", dpid)
       return
     end
     local _type = data.type.value
-    log.warn("Datapoint not found. Using default", dpid, "datatype", _type)
+    myutils.log(device, "warn", "Datapoint not found. Using default", dpid, "datatype", _type)
     event_dp = map_to_fn[_type]({group=dpid}) or commands.generic
   end
   local value = myutils.get_value(data.value)
@@ -148,7 +148,7 @@ local function execute_dp(datapoints, device, data, dpid)
       event_dp.last_heard_time = cur_time
       if event_dp.name then
         local pref_name = utils.camel_case("pref_"..event_dp.name)
-        log.info("pref_name", pref_name, device:get_field(pref_name), "-")
+        myutils.log(device, "info", "pref_name", pref_name, device:get_field(pref_name), "-")
         device:set_field(pref_name, event_dp:from_zigbee(value, device))
         -- device.st_store.preferences[pref_name] = event_dp:from_zigbee(value, device)
         if device:supports_capability_by_id(settings.ID) then
@@ -162,14 +162,14 @@ local function execute_dp(datapoints, device, data, dpid)
           group = event_dp.group or adpid
         }
         local x = commands[v.command](base)
-        log.info("Additional event...", x.group, adpid, v.command)
+        myutils.log(device, "info", "Additional event...", x.group, adpid, v.command)
         execute_event(datapoints, x:create_event(value, device, true), device, x.group, dpid)
       end
     else
-      log.info("Too quick! Do nothing.", dpid, value, cur_time, event_dp.last_heard_time, 60 * event_dp.reportingInterval, cur_time - event_dp.last_heard_time)
+      myutils.log(device, "info", "Too quick! Do nothing.", dpid, value, cur_time, event_dp.last_heard_time, 60 * event_dp.reportingInterval, cur_time - event_dp.last_heard_time)
     end
   else
-    log.warn("Unexpected datapoint.", dpid, value)
+    myutils.log(device, "warn", "Unexpected datapoint.", dpid, value)
   end
 end
 

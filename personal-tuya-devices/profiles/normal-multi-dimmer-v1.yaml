@@ -30,6 +30,17 @@ preferences:
         normal_multi_dimmer_v1: Normal
         normal_multi_switch_v1: Switch only
       default: normal_multi_dimmer_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - preferenceId: reverse
     explicit: true
   - name: rate

@@ -32,6 +32,17 @@ preferences:
         normal_irrigation_v2: +Mode (switch)
         generic_ef00_v1: Generic
       default: normal_irrigation_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   # - name: manufacturer
   #   title: Manufacturer
   #   required: false

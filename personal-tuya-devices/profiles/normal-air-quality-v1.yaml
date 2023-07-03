@@ -36,6 +36,17 @@ preferences:
         normal_air_quality_v2: "+ fine dust sensor"
         generic_ef00_v1: Generic
       default: normal_air_quality_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - preferenceId: humidityOffset
     explicit: true
   - preferenceId: tempOffset

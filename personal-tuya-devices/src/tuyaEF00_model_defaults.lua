@@ -47,7 +47,7 @@ local function get_default_by_profile (device, warn)
       for _, profile in ipairs(dp.profiles) do
         if myutils.is_profile(device, profile, mfr) then
           if warn then
-            log.warn("Simulating device", model, mfr)
+            myutils.log(device, "warn", "Simulating device", model, mfr)
           end
           device:set_field("expects", mfr)
           return dp
@@ -76,7 +76,7 @@ function lifecycle_handlers.added(driver, device, event, ...)
     device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
     -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
     device.thread:call_with_delay(15, function()
-      log.debug("--- GatewayData -----------------------------------")
+      myutils.log(device, "debug", "--- GatewayData -----------------------------------")
       device:send(zcl_clusters.TuyaEF00.commands.GatewayData(device))
     end)
     
@@ -102,8 +102,11 @@ local map_pref_to_child = {
 }
 
 function lifecycle_handlers.infoChanged(driver, device, event, args)
+  -- if args.old_st_store.preferences.logLevel ~= device.preferences.logLevel then
+  --   log.set_log_level(device.preferences.logLevel)
+  -- end
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
-    log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
+    myutils.log(device, "debug", "Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
     local p = device.preferences.profile:gsub("_", "-")
     device:set_field("profile", p, { persist = true })
     device:try_update_metadata({
@@ -111,25 +114,25 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
     })
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
-    log.debug("Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
-    log.debug("It will need to wait the next request from the device as we don't have 'transid'")
+    myutils.log(device, "debug", "Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)
+    myutils.log(device, "debug", "It will need to wait the next request from the device as we don't have 'transid'")
     -- device:send(zcl_clusters.TuyaEF00.commands.McuSyncTime(device))
   end
   
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do
       if value and args.old_st_store.preferences[name] ~= value then
-        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+        myutils.log(device, "debug", "Preference changed...", name, args.old_st_store.preferences[name], value)
         local normalized_id = utils.snake_case(name)
         local match, _length, pref, component, group = string.find(normalized_id, "^child(_?[%w_]*)_(main(%x+))$")
-        log.debug("Is it child?", match, pref, component, group, normalized_id)
+        myutils.log(device, "debug", "Is it child?", match, pref, component, group, normalized_id)
         if match then
           local profile = ("child" .. (pref ~= "" and map_pref_to_child[pref] or pref or "_switch") .. "-v1"):gsub("_", "-")
           myutils.create_child(driver, device, tonumber(group, 16), profile)
           goto next
         end
         local match, _length, key = string.find(normalized_id, "^pref_([%w_]+)$")
-        log.debug("Is it settings?", match, key, normalized_id)
+        myutils.log(device, "debug", "Is it settings?", match, key, normalized_id)
         if match then
           send_command(tuyaEF00_defaults.update_data, driver, device, key, value)
           goto next
@@ -140,7 +143,7 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
   else
     for name, value in utils.pairs_by_key(device.preferences) do
       if value ~= nil and args.old_st_store.preferences[name] ~= value then
-        log.debug("Preference changed...", name, args.old_st_store.preferences[name], value)
+        myutils.log(device, "debug", "Preference changed...", name, args.old_st_store.preferences[name], value)
       end
     end
   end
@@ -151,7 +154,7 @@ local defaults = {
   command_synctime_handler = tuyaEF00_defaults.command_synctime_handler,
   command_gatestatus_handler = tuyaEF00_defaults.command_gatestatus_handler,
   fallback_handler = function (driver, device, zb_rx)
-    log.debug("MODEL FALLBACK", zb_rx:pretty_print())
+    myutils.log(device, "debug", "MODEL FALLBACK", zb_rx:pretty_print())
   end,
 }
 
@@ -171,9 +174,9 @@ function defaults.can_handle (opts, driver, device, ...)
   if prf then
     return true
   elseif device.parent_assigned_child_key then
-    log.warn("Similar device not found (child)", device:get_model(), device:get_manufacturer(), device.preferences.profile, device:get_parent_device().preferences.profile)
+    myutils.log(device, "warn", "Similar device not found (child)", device:get_model(), device:get_manufacturer(), device.preferences.profile, device:get_parent_device().preferences.profile)
   elseif device.preferences.profile then
-    log.warn("Similar device not found (parent)", device:get_model(), device:get_manufacturer(), device.preferences.profile)
+    myutils.log(device, "warn", "Similar device not found (parent)", device:get_model(), device:get_manufacturer(), device.preferences.profile)
   end
   return false
 end

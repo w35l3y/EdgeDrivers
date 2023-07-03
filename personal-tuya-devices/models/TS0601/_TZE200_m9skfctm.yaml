@@ -1,0 +1,44 @@
+# https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270/468?u=w35l3y
+# _TZE200_m9skfctm - smoke detector
+# similar _TZE200_mby4kbtq ? - gas detector
+# 1   enum   1
+# 2   value  0
+# 11  bool   false
+# 15  value  100
+# 101 bool   false
+
+# quando tem fumaça, datapoint 2 aumentou para 248
+#
+
+deviceLabel: Smoke Detector
+profiles:
+  - normal_smokeDetector_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/143bc6ff7500b3f85c35dd3c5a18f4d17b078de1/src/devices/tuya.ts#L2858-L2862
+  - id: 1
+    command: smokeDetector
+    base:
+      group: 1
+  - id: 101
+    command: testCapability
+    base:
+      group: 1
+      capability: smokeDetector
+      attribute: smoke
+      on: tested
+      off: clear
+  # - id: 11
+  #   command: audioMute
+  #   base:
+  #     group: 1
+  - id: -1 # should be audio datapoint!
+    command: momentaryAudioMuteTestCapability
+    base:
+      group: 1
+      # capability: smokeDetector
+      # attribute: smoke
+      testCapability: 101
+  - id: 15
+    command: battery
+    base:
+      group: 1

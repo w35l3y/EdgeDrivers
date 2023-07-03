@@ -9,7 +9,7 @@ local utils = require "test.utils"
 
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
-local profile = t_utils.get_profile_definition("normal-temphumi-v1.yaml")
+local profile = t_utils.get_profile_definition("normal-temphumibatt-v1.yaml")
 
 test.load_all_caps_from_profile(profile)
 
@@ -18,7 +18,7 @@ local mock_parent_device = test.mock_device.build_test_zigbee_device({
   zigbee_endpoints = {
     [1] = {
       id = 1,
-      manufacturer = "_TZE200_a8sdabtg",
+      manufacturer = "_TZE200_znbl8dj5",
       model = "TS0601",
       server_clusters = { 0x0000, 0xEF00 },
       client_clusters = { }
@@ -66,7 +66,7 @@ test.register_message_test(
       direction = "receive",
       message = mock_parent_device:generate_info_changed({
         preferences = {
-          profile = "normal_temphumi_v1",
+          profile = "normal_temphumibatt_v1",
           tempOffset = -2.0,
           humidityOffset = 3.0,
           timezoneOffset = 0,

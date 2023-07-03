@@ -156,11 +156,21 @@ zigbeeManufacturer:
     manufacturer: _TZE200_lsanae15
     deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
+  - id: TS0601/_TZE200_m9skfctm
+    model: TS0601
+    manufacturer: _TZE200_m9skfctm
+    deviceProfileName: normal-smokeDetector-v1
+    deviceLabel: Smoke Detector
   - id: TS0601/_TZE200_mby4kbtq
     model: TS0601
     manufacturer: _TZE200_mby4kbtq
     deviceProfileName: normal-gasDetector-v1
     deviceLabel: Gas Detector
+  - id: TS0601/_TZE200_mudxchsu
+    model: TS0601
+    manufacturer: _TZE200_mudxchsu
+    deviceProfileName: normal-thermostat-v5
+    deviceLabel: Thermostat
   - id: TS0601/_TZE200_myd45weu
     model: TS0601
     manufacturer: _TZE200_myd45weu
@@ -229,8 +239,8 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_znbl8dj5
     model: TS0601
     manufacturer: _TZE200_znbl8dj5
-    deviceProfileName: normal-temphumi-v1
-    deviceLabel: Thermostat
+    deviceProfileName: normal-temphumibatt-v1
+    deviceLabel: LCD T+H Sensor
   - id: TS0601/_TZE200_ztc6ggyl
     model: TS0601
     manufacturer: _TZE200_ztc6ggyl

@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Thermostat","profiles":["normal_thermostat_v5"],"datapoints":[{"id":16,"command":"thermostatHeatingSetpoint","base":{"group":1,"rate":1000}},{"id":24,"command":"temperatureMeasurement","base":{"group":1,"rate":1000}},{"id":115,"command":"thermostatOperatingState","base":{"group":1}},{"id":35,"command":"battery","base":{"group":1}}]}]]

@@ -86,6 +86,8 @@ Once you include/modify your model file, execute the command `npm start` to gene
 
 <!-- include ./DEVICES.md -->
 
+<!-- include ./BREAKING.md -->
+
 ## Known issues
 
 - **Some child devices weren't created**<br />

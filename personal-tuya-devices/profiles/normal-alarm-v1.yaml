@@ -48,6 +48,17 @@ preferences:
         normal_alarm_v1: Normal
         generic_ef00_v1: Generic
       default: normal_alarm_v1
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
   - name: prefMelody
     title: Melody
     description: An integer between 1 and 18
