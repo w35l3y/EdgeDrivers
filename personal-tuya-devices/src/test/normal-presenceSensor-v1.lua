@@ -52,7 +52,7 @@ test.register_message_test("device_lifecycle added", {
   {
     channel = "capability",
     direction = "send",
-    message = utils.expect_settings(mock_parent_device, "<table style=\"font-size:0.6em;min-width:100%\"><tbody><tr><th align=\"left\" style=\"width:50%\">detection_delay</th><td style=\"width:50%\">1</td></tr><tr><th align=\"left\" style=\"width:50%\">fading_time</th><td style=\"width:50%\">1500</td></tr><tr><th align=\"left\" style=\"width:50%\">far_detection</th><td style=\"width:50%\">950</td></tr><tr><th align=\"left\" style=\"width:50%\">near_detection</th><td style=\"width:50%\">0</td></tr><tr><th align=\"left\" style=\"width:50%\">sensitivity</th><td style=\"width:50%\">7</td></tr></tbody></table>"),
+    message = utils.expect_settings(mock_parent_device, '<table style="font-size:0.6em;min-width:100%"><tbody><tr><th align="left" style="width:50%">detection_delay</th><td style="width:50%">1</td></tr><tr><th align="left" style="width:50%">fading_time</th><td style="width:50%">90</td></tr><tr><th align="left" style="width:50%">far_detection</th><td style="width:50%">1000</td></tr><tr><th align="left" style="width:50%">near_detection</th><td style="width:50%">0</td></tr><tr><th align="left" style="width:50%">sensitivity</th><td style="width:50%">7</td></tr></tbody></table>'),
   },
   {
     channel = "device_lifecycle",
