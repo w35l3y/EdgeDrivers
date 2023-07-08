@@ -94,7 +94,7 @@ preferences:
       default: 1
   - name: prefFadingTime
     title: Fading Time (s) !
-    description: A integer between 0 and 15000. ATTENTION: Lower values may jam the zigbee network
+    description: "A integer between 0 and 15000. ATTENTION: Lower values may jam the zigbee network"
     required: true
     preferenceType: integer
     definition:
