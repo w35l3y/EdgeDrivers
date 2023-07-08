@@ -67,22 +67,22 @@ preferences:
       default: 7
   - name: prefNearDetection
     title: Near Detection (cm)
-    description: A integer between 0 and 950
+    description: A integer between 0 and 1000
     required: true
     preferenceType: integer
     definition:
       minimum: 0
-      maximum: 950
+      maximum: 1000
       default: 0
   - name: prefFarDetection
     title: Far Detection (cm)
-    description: A integer between 0 and 950
+    description: A integer between 0 and 1000
     required: true
     preferenceType: integer
     definition:
       minimum: 0
-      maximum: 950
-      default: 950
+      maximum: 1000
+      default: 1000
   - name: prefDetectionDelay
     title: Detection Delay (s)
     description: A integer between 0 and 100
@@ -90,17 +90,17 @@ preferences:
     preferenceType: integer
     definition:
       minimum: 0
-      maximum: 100
+      maximum: 100 # max value!
       default: 1
   - name: prefFadingTime
-    title: Fading Time (s)
-    description: A integer between 10 and 1500
+    title: Fading Time (s) !
+    description: "A integer between 0 and 15000. ATTENTION: Lower values may jam the zigbee network"
     required: true
     preferenceType: integer
     definition:
-      minimum: 10
-      maximum: 1500
-      default: 1500
+      minimum: 0
+      maximum: 15000
+      default: 90
   - name: dpPresenceSensorMain01
     title: DP for Presence Sensor
     description: Only if you want to override the default DataPoint
