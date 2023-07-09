@@ -731,7 +731,7 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return {power=uint(value:sub(6, 8)),value=uint(value:sub(6, 8)),unit="W"}  -- BigEndian unsigned integer 3-width
+            return {value=uint(value:sub(6, 8)),unit="W"}  -- BigEndian unsigned integer 3-width
           end,
         }
       }
