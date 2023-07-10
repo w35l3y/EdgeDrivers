@@ -521,7 +521,10 @@ local defaults = {
     rate = 1000,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return 100 * to_number(value) / get_value(pref[self.rate_name], self.rate)
+      return {
+        value = 100 * to_number(value) / get_value(pref[self.rate_name], self.rate),
+        unit = "W"
+      }
     end,
   },
   presenceSensor = {
@@ -731,7 +734,10 @@ local defaults = {
         base = {
           group = 1,
           from_zigbee = function (self, value, device)
-            return {value=uint(value:sub(6, 8)),unit="W"}  -- BigEndian unsigned integer 3-width
+            return {
+              value = uint(value:sub(6, 8)),  -- BigEndian unsigned integer 3-width
+              unit = "W"
+            }
           end,
         }
       }
