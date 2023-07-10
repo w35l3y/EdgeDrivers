@@ -1053,7 +1053,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_child_28:generate_test_message("main", capabilities.powerMeter.power(12.3))
+      message = mock_child_28:generate_test_message("main", capabilities.powerMeter.power({value=12.3,unit="W"}))
     },
   }, {
     test_init = test_init
