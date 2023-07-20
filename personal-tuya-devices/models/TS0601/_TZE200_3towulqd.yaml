@@ -24,6 +24,6 @@ datapoints:
       group: 3
       name: keep_time
   - id: 12
-    command: illuminanceMeasurement
+    command: illuminanceMeasurementRaw
     base:
       group: 1
