@@ -1,20 +1,20 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivity.org/specs/OIC_SmartHome_Device_Specification_v1.1.0.pdf
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-irrigation-v1"
+name: "normal-irrigation-v3"
 components:
   - id: main
     label: Irrigation
     capabilities:
       - id: valve
         version: 1
+      - id: switchLevel
+        version: 1
       - id: battery
         version: 1
       - id: signalStrength
         version: 1
       - id: refresh
-        version: 1
-      - id: valleyboard16460.datapointValue
         version: 1
       - id: valleyboard16460.debug
         version: 1
@@ -23,16 +23,16 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: Choose the profile
     required: true
     preferenceType: enumeration
     definition:
       options:
-        normal_irrigation_v1: Normal
+        normal_irrigation_v3: Normal
+        normal_irrigation_v1: No mode (switch)
         normal_irrigation_v2: +Mode (switch)
-        normal_irrigation_v3: +Percentage
         generic_ef00_v1: Generic
-      default: normal_irrigation_v1
+      default: normal_irrigation_v3
   - name: logLevel
     title: Log level
     required: true
@@ -63,6 +63,15 @@ preferences:
         auto: auto
         enum: enum
         value: value (0-100%)
+  - name: dpSwitchLevelMain01
+    title: DP for Switch Level
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
   - name: dpValveMain01
     title: DP for Valve
     description: Only if you want to override the default DataPoint
@@ -74,15 +83,6 @@ preferences:
       default: 0
   - name: dpBatteryMain01
     title: DP for Battery
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpValueMain01
-    title: DP for Timer
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
