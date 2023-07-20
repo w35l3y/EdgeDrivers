@@ -1,0 +1,29 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v3
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/3272df965a0f23dbf4fc3b8ac13b2aa0ecd6d434/src/lib/legacy.ts#L8533
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/3272df965a0f23dbf4fc3b8ac13b2aa0ecd6d434/src/devices/tuya.ts#L4222
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/3272df965a0f23dbf4fc3b8ac13b2aa0ecd6d434/src/lib/legacy.ts#L965-L969
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1
+  - id: 4
+    command: battery
+    base:
+      group: 1
+  - id: 9
+    command: enum
+    base:
+      group: 2
+      name: sensitivity
+  - id: 10
+    command: enum
+    base:
+      group: 3
+      name: keep_time
+  - id: 12
+    command: illuminanceMeasurement
+    base:
+      group: 1
