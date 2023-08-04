@@ -1,0 +1,19 @@
+# https://community.smartthings.com/t/st-edge-personal-tuya-devices-generic-ef00-device/255270/459?u=w35l3y
+deviceLabel: Irrigation
+profiles:
+  - normal_irrigation_v1
+datapoints:
+  # https://github.com/zigpy/zha-device-handlers/issues/2377#issuecomment-1659615818
+  - id: 101
+    command: valve
+    base:
+      group: 1
+  - id: 115
+    command: battery
+    base:
+      group: 1
+  - id: 111
+    command: value
+    base:
+      group: 1
+      tuya_command: SendData

@@ -1,0 +1,8 @@
+local TuyaCommand = require "st.zigbee.generated.zcl_clusters.TuyaEF00.client.commands.TuyaCommand"
+
+local StatusReportAlt = {}
+function StatusReportAlt.deserialize (buf)
+  return TuyaCommand.deserialize(buf, StatusReportAlt)
+end
+setmetatable(StatusReportAlt, TuyaCommand.new_mt("StatusReportAltClient", 0x05))
+return StatusReportAlt
