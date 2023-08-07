@@ -1,13 +1,4 @@
 zigbeeGeneric:
-  - id: "GenericColorDimmer"
-    deviceProfileName: colordimmer_v1
-    deviceLabel: Generic Dimmer
-    clusters:
-      server:
-        - 0x0000
-        - 0x0006
-        - 0x0008
-        - 0x0300
   - id: "GenericThermostat"
     deviceProfileName: thermostat_v1
     deviceLabel: Generic Thermostat
@@ -34,14 +25,6 @@ zigbeeGeneric:
         - 0x0000
         - 0x0402
         - 0x0405
-  - id: "GenericDimmer"
-    deviceProfileName: dimmer_v1
-    deviceLabel: Generic Dimmer
-    clusters:
-      server:
-        - 0x0000
-        - 0x0006
-        - 0x0008
   - id: "GenericWindowShade"
     deviceProfileName: windowshade_v1
     deviceLabel: Generic Window Shade
@@ -77,6 +60,23 @@ zigbeeGeneric:
       server:
         - 0x0000
         - 0x0405
+  - id: "GenericColorDimmer"
+    deviceProfileName: colordimmer_v1
+    deviceLabel: Generic Dimmer
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+        - 0x0008
+        - 0x0300
+  - id: "GenericDimmer"
+    deviceProfileName: dimmer_v1
+    deviceLabel: Generic Dimmer
+    clusters:
+      server:
+        - 0x0000
+        - 0x0006
+        - 0x0008
   - id: "GenericSwitch"
     deviceProfileName: switch_v1
     deviceLabel: Generic Switch
