@@ -31,7 +31,6 @@ preferences:
     definition:
       options:
         normal_powerMeter_v1: Normal
-        normal_multi_powerMeter_v1: 3 phases
         generic_ef00_v1: Generic
       default: normal_powerMeter_v1
   - name: logLevel
@@ -46,7 +45,7 @@ preferences:
         debug: Debug, Info, Warn, Error
       default: error
   - name: dpPowerMeterMain01
-    title: DP for Power Meter A
+    title: DP for Power Meter
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -55,7 +54,7 @@ preferences:
       maximum: 255
       default: 0
   - name: dpCurrentMeasuremeMain01
-    title: DP for Current Measurement A
+    title: DP for Current Measurement
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -64,7 +63,7 @@ preferences:
       maximum: 255
       default: 0
   - name: dpVoltageMeasuremeMain01
-    title: DP for Voltage Measurement A
+    title: DP for Voltage Measurement
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -74,15 +73,6 @@ preferences:
       default: 0
   - name: dpEnergyMeterMain01
     title: DP for Energy Meter
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpVoltCurrPowerRawMain01
-    title: DP for Volt/Curr/Power A
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
