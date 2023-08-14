@@ -158,11 +158,10 @@ local function execute_dp(datapoints, device, data, dpid)
 
       execute_event(datapoints, event, device, event_dp.group or adpid, dpid)
       for k, v in ipairs(event_dp.additional) do
-        local base = v.base or {
-          group = event_dp.group or adpid
-        }
+        local base = v.base or {}
+        base.group = event_dp.group or adpid
         local x = commands[v.command](base)
-        myutils.log(device, "info", "Additional event...", x.group, adpid, v.command)
+        myutils.log(device, "info", "Additional event...", x.group, event_dp.group, adpid, v.command)
         execute_event(datapoints, x:create_event(value, device, true), device, x.group, dpid)
       end
     else
