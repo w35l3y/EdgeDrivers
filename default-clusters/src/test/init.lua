@@ -1,7 +1,12 @@
-require "test.carbonmonoxide" -- dni 0x0001
-require "test.colordimmer"    -- dni 0x0002
-require "test.dimmer"         -- dni 0x0003
-require "test.switch"         -- dni 0x0004
+require "test.carbonmonoxide"   -- dni 0x0001
+require "test.colordimmer"      -- dni 0x0002
+require "test.dimmer"           -- dni 0x0003
+require "test.switch"           -- dni 0x0004
+require "test.contact"          -- dni 0x0005
+require "test.motion"           -- dni 0x0006
+require "test.smoke"            -- dni 0x0007
+require "test.sound"            -- dni 0x0008
+require "test.water"            -- dni 0x0009
 
 local test = require "integration_test"
 local zigbee_test_utils = require "integration_test.zigbee_test_utils"
