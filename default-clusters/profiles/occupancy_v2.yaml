@@ -29,6 +29,7 @@ preferences:
       options:
         occupancy_v2: Normal
         occupancy_v1: No battery
+        occupancy_v4: +Illuminance
         default_v1: Default
       default: occupancy_v2
 metadata:
