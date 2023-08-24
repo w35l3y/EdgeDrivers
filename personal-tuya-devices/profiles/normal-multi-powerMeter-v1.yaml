@@ -6,13 +6,13 @@ components:
   - id: main
     label: Power Meter
     capabilities:
+      - id: energyMeter
+        version: 1
       - id: powerMeter
         version: 1
       - id: currentMeasurement
         version: 1
       - id: voltageMeasurement
-        version: 1
-      - id: energyMeter
         version: 1
       - id: signalStrength
         version: 1
