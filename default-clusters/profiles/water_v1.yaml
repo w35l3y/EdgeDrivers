@@ -20,12 +20,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         water_v1: Normal
+        water_v2: +Battery
         default_v1: Default
       default: water_v1
 metadata:

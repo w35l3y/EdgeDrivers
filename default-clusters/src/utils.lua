@@ -52,6 +52,10 @@ local profiles = {
   occupancy_v1 = {
     zcl_clusters.OccupancySensing,
   },
+  power_v1 = {
+    zcl_clusters.SimpleMetering,
+    zcl_clusters.ElectricalMeasurement,
+  },
   switch_v1 = {
     zcl_clusters.OnOff,
   },
