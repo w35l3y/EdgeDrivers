@@ -27,7 +27,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        smoke_v1: Normal
+        power_v1: Normal
         default_v1: Default
       default: power_v1
 metadata:
