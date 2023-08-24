@@ -84,7 +84,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee (clear)",
+  "From zigbee (not_detected)",
   {
     {
       channel = "zigbee",
@@ -95,7 +95,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.soundSensor.sound.clear())
+      message = mock_parent_device:generate_test_message("main", capabilities.soundSensor.sound.not_detected())
     },
   }, {
     test_init = test_init_parent
