@@ -76,6 +76,23 @@ zigbeeGeneric:
       server:
         - 0x0000
         - 0x0405
+  - id: "GenericMotionBatt"
+    deviceProfileName: motion_v4
+    deviceLabel: Generic Motion
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0400
+        - 0x0500
+  - id: "GenericMotion"
+    deviceProfileName: motion_v3
+    deviceLabel: Generic Motion
+    clusters:
+      server:
+        - 0x0000
+        - 0x0400
+        - 0x0500
   - id: "GenericIASZoneBatt"
     deviceProfileName: contact_v2
     deviceLabel: Generic IAS Zone
