@@ -56,13 +56,23 @@ local template = {
   additional_zcl_profiles = {
     [zb_const.ZGP_PROFILE_ID] = true,
   },
-  attr = {
-    [zcl_clusters.Basic.ID] = {
-      [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function ()
-        local mt = { visibility = { displayed = false } }
-        device:emit_event(capabilities.signalStrength.rssi({ value = zb_rx.rssi.value }, mt))
-        device:emit_event(capabilities.signalStrength.lqi({ value = zb_rx.lqi.value }, mt))
-      end,
+  zigbee_handlers = {
+    cluster = {
+      [zcl_clusters.IASZone.ID] = {
+        [zcl_clusters.IASZone.client.commands.ZoneStatusChangeNotification.ID] = utils.ias_zone_status_change_handler
+      }
+    },
+    attr = {
+      [zcl_clusters.Basic.ID] = {
+        [zcl_clusters.Basic.attributes.ZCLVersion.ID] = function (driver, device, value, zb_rx)
+          local mt = { visibility = { displayed = false } }
+          device:emit_event(capabilities.signalStrength.rssi({ value = zb_rx.rssi.value }, mt))
+          device:emit_event(capabilities.signalStrength.lqi({ value = zb_rx.lqi.value }, mt))
+        end,
+      },
+      [zcl_clusters.IASZone.ID] = {
+        [zcl_clusters.IASZone.attributes.ZoneStatus.ID] = utils.ias_zone_status_attr_handler
+      },
     },
   },
   lifecycle_handlers = {

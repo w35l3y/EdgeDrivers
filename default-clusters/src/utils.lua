@@ -238,4 +238,29 @@ function utils.details(driver)
   end)
 end
 
+local carbonMonoxideDetector_defaults = require "st.zigbee.defaults.carbonMonoxideDetector_defaults"
+local contactSensor_defaults = require "st.zigbee.defaults.contactSensor_defaults"
+local motionSensor_defaults = require "st.zigbee.defaults.motionSensor_defaults"
+local smokeDetector_defaults = require "st.zigbee.defaults.smokeDetector_defaults"
+local soundSensor_defaults = require "st.zigbee.defaults.soundSensor_defaults"
+local waterSensor_defaults = require "st.zigbee.defaults.waterSensor_defaults"
+
+function utils.ias_zone_status_change_handler(...)
+  pcall(carbonMonoxideDetector_defaults.ias_zone_status_change_handler, ...)
+  pcall(contactSensor_defaults.ias_zone_status_change_handler, ...)
+  pcall(motionSensor_defaults.ias_zone_status_change_handler, ...)
+  pcall(smokeDetector_defaults.ias_zone_status_change_handler, ...)
+  pcall(soundSensor_defaults.ias_zone_status_change_handler, ...)
+  pcall(waterSensor_defaults.ias_zone_status_change_handler, ...)
+end
+
+function utils.ias_zone_status_attr_handler(...)
+  pcall(carbonMonoxideDetector_defaults.ias_zone_status_attr_handler, ...)
+  pcall(contactSensor_defaults.ias_zone_status_attr_handler, ...)
+  pcall(motionSensor_defaults.ias_zone_status_attr_handler, ...)
+  pcall(smokeDetector_defaults.ias_zone_status_attr_handler, ...)
+  pcall(soundSensor_defaults.ias_zone_status_attr_handler, ...)
+  pcall(waterSensor_defaults.ias_zone_status_attr_handler, ...)
+end
+
 return utils
