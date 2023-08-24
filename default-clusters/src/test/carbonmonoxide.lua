@@ -65,7 +65,7 @@ test.register_message_test("device_lifecycle added", {
 })
 
 test.register_message_test(
-  "From zigbee (detected)",
+  "carbonmonoxide - From zigbee (detected)",
   {
     {
       channel = "zigbee",
@@ -84,7 +84,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee (clear)",
+  "carbonmonoxide - From zigbee (clear)",
   {
     {
       channel = "zigbee",

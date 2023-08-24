@@ -76,7 +76,7 @@ end, {
 })
 
 test.register_message_test(
-  "From zigbee",
+  "switch - From zigbee",
   {
     {
       channel = "zigbee",
@@ -95,7 +95,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee",
+  "switch - To zigbee",
   {
     {
       channel = "capability",
@@ -113,7 +113,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee",
+  "switch - From zigbee",
   {
     {
       channel = "zigbee",
@@ -132,7 +132,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee",
+  "switch - To zigbee",
   {
     {
       channel = "capability",
