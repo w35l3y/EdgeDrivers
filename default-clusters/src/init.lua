@@ -25,11 +25,11 @@ zb_const.ZGP_PROFILE_ID = 0xA1E0
 local template = {
   supported_capabilities = {
     capabilities["valleyboard16460.info"],
+    capabilities.contactSensor, -- fica no início só por causa da configuração do intervalo do atributo ZoneStatus
     capabilities.battery,
     capabilities.carbonMonoxideDetector,
     capabilities.colorControl,
     capabilities.colorTemperature,
-    capabilities.contactSensor,
     capabilities.energyMeter,
     capabilities.illuminanceMeasurement,
     capabilities.lock,
