@@ -25,6 +25,14 @@ zigbeeGeneric:
         - 0x0000
         - 0x0402
         - 0x0405
+  - id: "GenericWindowShadeBatt"
+    deviceProfileName: windowshade_v2
+    deviceLabel: Generic Window Shade
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0102
   - id: "GenericWindowShade"
     deviceProfileName: windowshade_v1
     deviceLabel: Generic Window Shade
@@ -32,6 +40,31 @@ zigbeeGeneric:
       server:
         - 0x0000
         - 0x0102
+  - id: "GenericOccupancyIlluBatt"
+    deviceProfileName: occupancy_v4
+    deviceLabel: Generic Occupancy
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0400
+        - 0x0406
+  - id: "GenericOccupancyBatt"
+    deviceProfileName: occupancy_v2
+    deviceLabel: Generic Occupancy
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0406
+  - id: "GenericOccupancyIllu"
+    deviceProfileName: occupancy_v3
+    deviceLabel: Generic Occupancy
+    clusters:
+      server:
+        - 0x0000
+        - 0x0400
+        - 0x0406
   - id: "GenericOccupancy"
     deviceProfileName: occupancy_v1
     deviceLabel: Generic Occupancy
@@ -60,6 +93,38 @@ zigbeeGeneric:
       server:
         - 0x0000
         - 0x0405
+  - id: "GenericMotionBatt"
+    deviceProfileName: motion_v4
+    deviceLabel: Generic Motion
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0400
+        - 0x0500
+  - id: "GenericMotion"
+    deviceProfileName: motion_v3
+    deviceLabel: Generic Motion
+    clusters:
+      server:
+        - 0x0000
+        - 0x0400
+        - 0x0500
+  - id: "GenericIASZoneBatt"
+    deviceProfileName: contact_v2
+    deviceLabel: Generic IAS Zone
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0500
+  - id: "GenericIASZone"
+    deviceProfileName: contact_v1
+    deviceLabel: Generic IAS Zone
+    clusters:
+      server:
+        - 0x0000
+        - 0x0500
   - id: "GenericColorDimmer"
     deviceProfileName: colordimmer_v1
     deviceLabel: Generic Dimmer
@@ -91,6 +156,14 @@ zigbeeGeneric:
       server:
         - 0x0000
         - 0x0006
+  - id: "GenericPower"
+    deviceProfileName: power_v1
+    deviceLabel: Generic Power
+    clusters:
+      server:
+        - 0x0000
+        - 0x0702
+        - 0x0B04
   - id: "GenericDevice"
     deviceProfileName: default_v1
     deviceLabel: Generic Device

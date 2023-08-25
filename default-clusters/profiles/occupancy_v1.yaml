@@ -20,12 +20,14 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
       options:
         occupancy_v1: Normal
+        occupancy_v2: +Battery
+        occupancy_v3: +Illuminance
         default_v1: Default
       default: occupancy_v1
 metadata:

@@ -8,7 +8,7 @@ local t_utils = require "integration_test.utils"
 
 local utils = require "test.utils"
 
-local profile = t_utils.get_profile_definition("carbonmonoxide_v1.yaml")
+local profile = t_utils.get_profile_definition("water_v1.yaml")
 
 test.load_all_caps_from_profile(profile)
 
@@ -17,16 +17,16 @@ local mock_parent_device = test.mock_device.build_test_zigbee_device({
   zigbee_endpoints = {
     [1] = {
       id = 1,
-      manufacturer = "carbonMonoxide",
-      model = "carbonMonoxide",
-      server_clusters = { 0x0000, 0x040C, 0x0500 },
+      manufacturer = "waterSensor",
+      model = "waterSensor",
+      server_clusters = { 0x0000, 0x0500 },
       client_clusters = { }
     },
   },
   fingerprinted_endpoint_id = 0x01
 })
 
-local INFO = "<table style=\"font-size:0.6em;min-width:100%\"><tbody>\n        <tr><th align=\"left\" style=\"width:40%\">Manufacturer</th><td colspan=\"2\" style=\"width:60%\">carbonMonoxide</td></tr>\n        <tr><th align=\"left\">Model</th><td colspan=\"2\">carbonMonoxide</td></tr>\n        <tr><th align=\"left\">Endpoint</th><td colspan=\"2\">0x01</td></tr>\n        <tr><th align=\"left\">Device ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th align=\"left\">Network ID</th><td colspan=\"2\">0x0001</td></tr>\n        <tr><th align=\"left\">Profile ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th colspan=\"3\">Server Clusters</th></tr>\n        <tr><th align=\"left\">CarbonMonoxide</th><td>0x040C</td><td>0x01</td></tr><tr><th align=\"left\">IASZone</th><td>0x0500</td><td>0x01</td></tr><tr><th align=\"left\">Basic</th><td>0x0000</td><td>0x01</td></tr>\n        <tr><th colspan=\"3\">Client Clusters</th></tr>\n        <tr><td colspan=\"3\">None</td></tr>\n      </tbody></table>"
+local INFO = "<table style=\"font-size:0.6em;min-width:100%\"><tbody>\n        <tr><th align=\"left\" style=\"width:40%\">Manufacturer</th><td colspan=\"2\" style=\"width:60%\">waterSensor</td></tr>\n        <tr><th align=\"left\">Model</th><td colspan=\"2\">waterSensor</td></tr>\n        <tr><th align=\"left\">Endpoint</th><td colspan=\"2\">0x01</td></tr>\n        <tr><th align=\"left\">Device ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th align=\"left\">Network ID</th><td colspan=\"2\">0x0009</td></tr>\n        <tr><th align=\"left\">Profile ID</th><td colspan=\"2\">0x0000</td></tr>\n        <tr><th colspan=\"3\">Server Clusters</th></tr>\n        <tr><th align=\"left\">Basic</th><td>0x0000</td><td>0x01</td></tr><tr><th align=\"left\">IASZone</th><td>0x0500</td><td>0x01</td></tr>\n        <tr><th colspan=\"3\">Client Clusters</th></tr>\n        <tr><td colspan=\"3\">None</td></tr>\n      </tbody></table>"
 
 local function expect_send_init()
   utils.send_spell(mock_parent_device)
@@ -65,7 +65,7 @@ test.register_message_test("device_lifecycle added", {
 })
 
 test.register_message_test(
-  "carbonmonoxide - From zigbee (detected)",
+  "water - From zigbee (wet)",
   {
     {
       channel = "zigbee",
@@ -76,7 +76,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.carbonMonoxideDetector.carbonMonoxide.detected())
+      message = mock_parent_device:generate_test_message("main", capabilities.waterSensor.water.wet())
     },
   }, {
     test_init = test_init_parent
@@ -84,7 +84,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "carbonmonoxide - From zigbee (clear)",
+  "water - From zigbee (dry)",
   {
     {
       channel = "zigbee",
@@ -95,7 +95,7 @@ test.register_message_test(
     {
       channel = "capability",
       direction = "send",
-      message = mock_parent_device:generate_test_message("main", capabilities.carbonMonoxideDetector.carbonMonoxide.clear())
+      message = mock_parent_device:generate_test_message("main", capabilities.waterSensor.water.dry())
     },
   }, {
     test_init = test_init_parent

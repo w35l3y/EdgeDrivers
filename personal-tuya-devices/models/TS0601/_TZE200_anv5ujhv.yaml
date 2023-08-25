@@ -1,0 +1,18 @@
+deviceLabel: Irrigation
+profiles:
+  - normal_irrigation_v3
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/3272df965a0f23dbf4fc3b8ac13b2aa0ecd6d434/src/devices/qoto.ts#L11
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/3272df965a0f23dbf4fc3b8ac13b2aa0ecd6d434/src/lib/legacy.ts#L541,L547
+  - id: 102
+    command: switchLevel
+    base:
+      group: 1
+  - id: 108
+    command: valve
+    base:
+      group: 1
+  - id: 110
+    command: battery
+    base:
+      group: 1

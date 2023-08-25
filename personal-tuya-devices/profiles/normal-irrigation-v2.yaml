@@ -25,13 +25,14 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         normal_irrigation_v2: Normal
         normal_irrigation_v1: No mode (switch)
+        normal_irrigation_v3: +Percentage
         generic_ef00_v1: Generic
       default: normal_irrigation_v2
   - name: logLevel

@@ -1,11 +1,11 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "contact_v1"
+name: "sound_v1"
 components:
   - id: main
-    label: Contact Sensor
+    label: Sound Sensor
     capabilities:
-      - id: contactSensor
+      - id: soundSensor
         version: 1
       - id: signalStrength
         version: 1
@@ -16,23 +16,22 @@ components:
       - id: valleyboard16460.info
         version: 1
     categories:
-      - name: Contact Sensor
+      - name: Sound Sensor
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: Choose the profile
     required: true
     preferenceType: enumeration
     definition:
       options:
-        contact_v1: Normal
-        contact_v2: +Battery
+        smoke_v1: Normal
         default_v1: Default
-      default: contact_v1
+      default: smoke_v1
 metadata:
-  deviceType: ContactSensor
-  ocfDeviceType: x.com.st.d.sensor.contact
-  deviceTypeId: ContactSensor
+  deviceType: SoundSensor
+  ocfDeviceType: x.com.st.d.sensor.sound
+  deviceTypeId: SoundSensor
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

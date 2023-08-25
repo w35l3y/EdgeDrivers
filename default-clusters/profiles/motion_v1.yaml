@@ -20,12 +20,14 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
       options:
         motion_v1: Normal
+        motion_v2: +Battery
+        motion_v3: +Illuminance
         default_v1: Default
       default: motion_v1
 metadata:

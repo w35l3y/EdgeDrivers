@@ -27,8 +27,6 @@ components:
         version: 1
       - id: powerMeter
         version: 1
-      - id: powerSource
-        version: 1
       - id: relativeHumidityMeasurement
         version: 1
       - id: smokeDetector
@@ -66,6 +64,7 @@ components:
 preferences:
   - name: profile
     title: Profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
@@ -79,12 +78,16 @@ preferences:
         lock_v1: Lock
         motion_v1: Motion Sensor
         occupancy_v1: Occupancy Sensor
+        power_v1: Power Meter
+        smoke_v1: Smoke Detector
+        sound_v1: Sound Sensor
         switch_v1: Switch
         temperature_v1: Temperature Sensor
         temphumi_v1: Temperature + Humidity
         temphumibatt_v1: Temperature + Humidity + Battery
         thermostat_v1: Thermostat
         valve_v1: Water Valve
+        water_v1: Water Sensor
         windowshade_v1: Window Shade
       default: default_v1
 metadata:

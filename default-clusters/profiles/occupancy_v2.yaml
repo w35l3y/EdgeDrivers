@@ -1,11 +1,13 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "contact_v1"
+name: "occupancy_v2"
 components:
   - id: main
-    label: Contact Sensor
+    label: Occupancy Sensor
     capabilities:
-      - id: contactSensor
+      - id: occupancySensor
+        version: 1
+      - id: battery
         version: 1
       - id: signalStrength
         version: 1
@@ -16,23 +18,24 @@ components:
       - id: valleyboard16460.info
         version: 1
     categories:
-      - name: Contact Sensor
+      - name: Occupancy Sensor
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: Choose the profile
     required: true
     preferenceType: enumeration
     definition:
       options:
-        contact_v1: Normal
-        contact_v2: +Battery
+        occupancy_v2: Normal
+        occupancy_v1: No battery
+        occupancy_v4: +Illuminance
         default_v1: Default
-      default: contact_v1
+      default: occupancy_v2
 metadata:
-  deviceType: ContactSensor
-  ocfDeviceType: x.com.st.d.sensor.contact
-  deviceTypeId: ContactSensor
+  deviceType: OccupancySensor
+  ocfDeviceType: x.com.st.d.mobile.presence
+  deviceTypeId: OccupancySensor
   mnmn: SmartThingsCommunity
 owner:
   ownerType: USER

@@ -22,12 +22,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         temphumi_v1: Normal
+        temphumibatt_v1: +Battery
         default_v1: Default
       default: temphumi_v1
   - preferenceId: tempOffset

@@ -76,7 +76,7 @@ end, {
 })
 
 test.register_message_test(
-  "From zigbee (on)",
+  "colordimmer - From zigbee (on)",
   {
     {
       channel = "zigbee",
@@ -95,7 +95,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee (on)",
+  "colordimmer - To zigbee (on)",
   {
     {
       channel = "capability",
@@ -113,7 +113,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee (off)",
+  "colordimmer - From zigbee (off)",
   {
     {
       channel = "zigbee",
@@ -132,7 +132,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee (off)",
+  "colordimmer - To zigbee (off)",
   {
     {
       channel = "capability",
@@ -150,7 +150,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee (10%)",
+  "colordimmer - From zigbee (10%)",
   {
     {
       channel = "zigbee",
@@ -169,7 +169,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee (73%)",
+  "colordimmer - To zigbee (73%)",
   {
     {
       channel = "capability",
@@ -187,7 +187,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "From zigbee (hue=100)",
+  "colordimmer - From zigbee (hue=100)",
   {
     {
       channel = "zigbee",
@@ -206,7 +206,7 @@ test.register_message_test(
 )
 
 test.register_message_test(
-  "To zigbee (hue=0,sat=100)",
+  "colordimmer - To zigbee (hue=0,sat=100)",
   {
     {
       channel = "capability",

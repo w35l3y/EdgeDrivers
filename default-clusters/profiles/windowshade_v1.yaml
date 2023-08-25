@@ -24,14 +24,19 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         windowshade_v1: Normal
+        windowshade_v2: +Battery
         default_v1: Default
       default: windowshade_v1
+  - preferenceId: presetPosition
+    explicit: true
+  - preferenceId: reverse
+    explicit: true
 metadata:
   deviceType: Blind
   ocfDeviceType: oic.d.blind

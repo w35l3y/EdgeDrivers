@@ -723,7 +723,6 @@ local defaults = {
       {
         command = "currentMeasurement",
         base = {
-          group = 1,
           from_zigbee = function (self, value, device)
             return uint(value:sub(3, 5)) / 1000  -- BigEndian unsigned integer 3-width
           end,
@@ -732,7 +731,6 @@ local defaults = {
       {
         command = "powerMeter",
         base = {
-          group = 1,
           from_zigbee = function (self, value, device)
             return {
               value = uint(value:sub(6, 8)),  -- BigEndian unsigned integer 3-width
