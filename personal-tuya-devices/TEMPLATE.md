@@ -121,11 +121,5 @@ Once you include/modify your model file, execute the command `npm start` to gene
 ## Currently untested configurations
 
 - Door Control
-- Illuminance Sensor
-- Motion Sensor
-- Occupancy Sensor
-- Water Valve
-- Water Sensor
 - String Tuya Data Type
 - Bitmap Tuya Data Type
-- Raw Tuya Data Type
