@@ -1,3 +1,4 @@
+require "test.myutils"
 require "test.generic-ef00-v1"
 require "test.normal-multi-switch-v1"
 require "test.custom-multi-switch-v4"

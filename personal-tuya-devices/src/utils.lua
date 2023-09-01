@@ -64,7 +64,7 @@ function utils.is_normal(device)
 end
 
 function utils.is_same_profile(device, profile, mfr)
-  return device.preferences and ((mfr and mfr == device.preferences.manufacturer) or (device.preferences.profile == profile and not (device.preferences.manufacturer and mfr))) or false
+  return device.preferences and ((mfr and mfr == device.preferences.manufacturer) or (device.preferences.profile == profile and not (device.preferences.manufacturer and device.preferences.manufacturer ~= "_" and mfr))) or false
 end
 
 function utils.is_profile(device, profile, mfr)
@@ -332,6 +332,15 @@ end
 
 function utils.log (...)
   return mylogs.log(...)
+end
+
+function utils.update_profile (device, new_profile, old_profile)
+  mylogs.log(device, "debug", "Profile changed...", old_profile, new_profile)
+  local p = new_profile:gsub("_", "-")
+  device:set_field("profile", p, { persist = true })
+  device:try_update_metadata({
+    profile = p
+  })
 end
 
 return utils

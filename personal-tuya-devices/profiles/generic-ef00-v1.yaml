@@ -37,6 +37,7 @@ preferences:
         normal_garage_door_v1: Garage Door
         normal_gasDetector_v1: Gas Detector
         normal_irrigation_v1: Irrigation
+        normal_momentary_v1: Momentary
         normal_powerMeter_v1: Power meter
         normal_presenceSensor_v2: Presence sensor
         normal_smokeDetector_v1: Smoke Detector
@@ -241,6 +242,14 @@ preferences:
   - name: keypadInputDatapoints
     title: Keypad inputs (proposed)
     description: List of datapoints used for keypad inputs (comma-separated)
+    required: true
+    preferenceType: string
+    definition:
+      stringType: text
+      default: ""
+  - name: momentaryStdDatapoints
+    title: Momentary button
+    description: List of datapoints used for momentary buttons (comma-separated)
     required: true
     preferenceType: string
     definition:

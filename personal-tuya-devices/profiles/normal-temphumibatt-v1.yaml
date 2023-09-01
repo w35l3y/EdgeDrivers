@@ -52,6 +52,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
+        _: Auto
         _TZE200_locansqn: _TZE200_locansqn (1*,2,4)
         _TZE200_myd45weu: _TZE200_myd45weu (5,3,15)
         _TZE200_whkgqxse: _TZE200_whkgqxse (1*,2,4)

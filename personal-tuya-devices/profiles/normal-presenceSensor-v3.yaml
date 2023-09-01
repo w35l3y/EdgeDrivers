@@ -53,6 +53,7 @@ preferences:
   #   preferenceType: enumeration
   #   definition:
   #     options:
+  #        _: Auto
   #       _TZE200_3towulqd: _TZE200_3towulqd (1,12)
   #       _TZE200_ikvncluo: _TZE200_ikvncluo (1,104)
   #       _TZE200_ztc6ggyl: _TZE200_ztc6ggyl (1,104)

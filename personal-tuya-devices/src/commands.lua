@@ -490,6 +490,17 @@ local defaults = {
       return data_types.Enum8(string.byte(value))
     end,
   },
+  momentaryStd = {
+    capability = "momentary",
+    attribute = "push",
+    cluster = "OnOff",
+    custom_command = "Toggle",
+    command_handler = function () return {} end,
+    create_event = function () end,
+  },
+  standardVoid = {
+    command_handler = function () return {} end,
+  },
   motionSensor = {
     capability = "motionSensor",
     attribute = "motion",

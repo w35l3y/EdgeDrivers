@@ -54,6 +54,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
+        _: Auto
         _TZE200_b6wax7g0: _TZE200_b6wax7g0 (2,3*,1,14)
         _TZE200_mudxchsu: _TZE200_mudxchsu (16*,24*,115,35)
   - preferenceId: tempOffset

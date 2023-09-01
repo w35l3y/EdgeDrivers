@@ -106,12 +106,7 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
   --   log.set_log_level(device.preferences.logLevel)
   -- end
   if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
-    myutils.log(device, "debug", "Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
-    local p = device.preferences.profile:gsub("_", "-")
-    device:set_field("profile", p, { persist = true })
-    device:try_update_metadata({
-      profile = p
-    })
+    myutils.update_profile(device, device.preferences.profile, args.old_st_store.preferences.profile)
   end
   if args.old_st_store.preferences.timezoneOffset ~= device.preferences.timezoneOffset then
     myutils.log(device, "debug", "Timezone changed...", args.old_st_store.preferences.timezoneOffset, device.preferences.timezoneOffset)

@@ -1,0 +1,31 @@
+deviceLabel: Alarm
+profiles:
+  - normal_alarm_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bcdb6b3c593cac61741cbe9f5254606de73f67f7/devices/neo.js#L37-L59
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bcdb6b3c593cac61741cbe9f5254606de73f67f7/lib/tuya.js#L506-L511
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bcdb6b3c593cac61741cbe9f5254606de73f67f7/converters/toZigbee.js#L5124-L5149
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/bcdb6b3c593cac61741cbe9f5254606de73f67f7/converters/fromZigbee.js#L2766-L2789
+  - id: 13
+    command: alarm
+    base:
+      group: 1
+  - id: 5
+    command: audioVolume
+    base:
+      group: 1
+      supported_values: [0, 50, 100]
+  - id: 15
+    command: battery
+    base:
+      group: 1
+  - id: 21
+    command: enum
+    base:
+      group: 2
+      name: melody
+  - id: 7
+    command: value
+    base:
+      group: 2
+      name: duration

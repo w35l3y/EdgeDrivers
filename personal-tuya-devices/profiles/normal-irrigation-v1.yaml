@@ -50,6 +50,7 @@ preferences:
   #   preferenceType: enumeration
   #   definition:
   #     options:
+  #        _: Auto
   #       _TZE200_akjefhj5: _TZE200_akjefhj5 (1,7,11)
   #       _TZE200_sh1btabb: _TZE200_sh1btabb (2,108,104)
   - name: batteryMode
