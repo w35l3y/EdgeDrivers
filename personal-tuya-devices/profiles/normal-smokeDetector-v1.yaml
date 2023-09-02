@@ -49,8 +49,29 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
+  - name: manufacturer
+    title: Manufacturer
+    description: Choose the manufacturer
+    required: false
+    preferenceType: enumeration
+    definition:
+      options:
+        _: Auto
+        _TZE200_m9skfctm: _TZE200_m9skfctm (1,15)
+        _TZE204_ntcy3xu1: _TZE204_ntcy3xu1 (1,14*)
   - preferenceId: reverse
     explicit: true
+  - name: batteryMode
+    title: Battery Mode
+    description: "Choose the battery mode"
+    required: false
+    preferenceType: enumeration
+    definition:
+      default: auto
+      options:
+        auto: auto
+        enum: enum
+        value: value (0-100%)
   - name: dpSmokeDetectorMain01
     title: DP for Smoke Detector
     description: Only if you want to override the default DataPoint
