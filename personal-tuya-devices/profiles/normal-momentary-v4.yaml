@@ -1,13 +1,11 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-momentary-v2"
+name: "normal-momentary-v4"
 components:
   - id: main
     label: Switch
     capabilities:
       - id: switch
-        version: 1
-      - id: battery
         version: 1
       - id: signalStrength
         version: 1
@@ -25,10 +23,10 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_momentary_v2: Normal
-        normal_momentary_v4: No battery
+        normal_momentary_v4: Normal
+        normal_momentary_v2: +Battery
         generic_ef00_v1: Generic
-      default: normal_momentary_v2
+      default: normal_momentary_v4
   - name: logLevel
     title: Log level
     required: true
@@ -53,15 +51,6 @@ preferences:
       default: 1
   - name: dpSwitchMain01
     title: DP for Switch
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpBatteryMain01
-    title: DP for Battery
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

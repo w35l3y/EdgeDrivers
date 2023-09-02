@@ -26,7 +26,7 @@ preferences:
     definition:
       options:
         normal_momentary_v1: Normal
-        # normal_momentary_v2: Switch
+        normal_momentary_v3: No battery
         generic_ef00_v1: Generic
       default: normal_momentary_v1
   - name: logLevel

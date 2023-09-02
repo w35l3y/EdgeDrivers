@@ -1,5 +1,7 @@
 deviceLabel: Momentary
 profiles:
+  - normal_momentary_v3
+  - normal_momentary_v4
   - normal_momentary_v1
   - normal_momentary_v2
 datapoints:
@@ -18,8 +20,8 @@ datapoints:
       name: mode
       custom_command: SendData
       profile:
-        0: normal_momentary_v1
-        1: normal_momentary_v2
+        0: normal_momentary_v3
+        1: normal_momentary_v4
   - id: 102
     command: value
     base:
