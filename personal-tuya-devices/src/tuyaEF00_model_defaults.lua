@@ -117,7 +117,7 @@ function lifecycle_handlers.infoChanged(driver, device, event, args)
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
     for name, value in utils.pairs_by_key(device.preferences) do
       if value and args.old_st_store.preferences[name] ~= value then
-        myutils.log(device, "debug", "Preference changed...", name, args.old_st_store.preferences[name], value)
+        myutils.log(device, "debug", "Preference changed...", name, args.old_st_store.preferences[name], value, type(value))
         local normalized_id = utils.snake_case(name)
         local match, _length, pref, component, group = string.find(normalized_id, "^child(_?[%w_]*)_(main(%x+))$")
         myutils.log(device, "debug", "Is it child?", match, pref, component, group, normalized_id)

@@ -193,8 +193,8 @@ function defaults.update_data(datapoints)
   return function (driver, device, name, value)
     for dpid, def in pairs(datapoints) do
       if def.name == name then
-        send_event(device, { { def:get_dp(dpid, device), def:to_zigbee(value, device) } }, def.custom_command, def.cluster)
         myutils.log(device, "info", device.preferences.profile, name, value, def.profile and def.profile[value])
+        send_event(device, { { def:get_dp(dpid, device), def:to_zigbee(value, device) } }, def.custom_command, def.cluster)
         if def.profile and def.profile[value] then
           myutils.update_profile(device, def.profile[value], device.preferences.profile)
         end

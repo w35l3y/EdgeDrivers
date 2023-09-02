@@ -847,7 +847,7 @@ local defaults = {
   enum = {
     capability = "valleyboard16460.datapointEnum",
     attribute = "value",
-    to_zigbee = function (self, value) return data_types.Enum8(value) end,
+    to_zigbee = function (self, value) return data_types.Enum8(to_number(value)) end,
     from_zigbee = function (self, value) return to_number(value) end,
   },
   bitmap = {
