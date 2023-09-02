@@ -500,7 +500,14 @@ local defaults = {
     command_handler = function () return {} end,
     create_event = function () end,
   },
-  standardVoid = {
+  switchStd = {
+    capability = "switch",
+    attribute = "switch",
+    cluster = "OnOff",
+    custom_command = "Toggle",  -- must be dynamic according to the command received
+    command_handler = function () return {} end,
+  },
+  standard = {
     command_handler = function () return {} end,
   },
   motionSensor = {

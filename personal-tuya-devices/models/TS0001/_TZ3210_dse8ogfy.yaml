@@ -10,7 +10,7 @@ datapoints:
     base:
       group: 1
   - id: 1
-    command: switch
+    command: switchStd
     base:
       group: 1
   - id: 101
