@@ -41,6 +41,16 @@ zigbeeManufacturer:
       client:
         - 0xA
         - 0x19
+  - id: TS0001/_TZ3210_dse8ogfy
+    model: TS0001
+    manufacturer: _TZ3210_dse8ogfy
+    deviceProfileName: normal-momentary-v3
+    deviceLabel: Momentary
+  - id: TS0049/_TZ3210_0jxeoadc
+    model: TS0049
+    manufacturer: _TZ3210_0jxeoadc
+    deviceProfileName: normal-irrigation-v1
+    deviceLabel: Irrigation
   - id: TS0601/_TZE200_1n2kyphz
     model: TS0601
     manufacturer: _TZE200_1n2kyphz
@@ -56,6 +66,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_3i3exuay
     deviceProfileName: normal-windowShade-v1
     deviceLabel: Window Shade
+  - id: TS0601/_TZE200_3towulqd
+    model: TS0601
+    manufacturer: _TZE200_3towulqd
+    deviceProfileName: normal-presenceSensor-v3
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE200_4hbx5cvx
     model: TS0601
     manufacturer: _TZE200_4hbx5cvx
@@ -85,6 +100,11 @@ zigbeeManufacturer:
     model: TS0601
     manufacturer: _TZE200_akjefhj5
     deviceProfileName: normal-irrigation-v1
+    deviceLabel: Irrigation
+  - id: TS0601/_TZE200_anv5ujhv
+    model: TS0601
+    manufacturer: _TZE200_anv5ujhv
+    deviceProfileName: normal-irrigation-v3
     deviceLabel: Irrigation
   - id: TS0601/_TZE200_aoclfnxz
     model: TS0601
@@ -206,11 +226,21 @@ zigbeeManufacturer:
     manufacturer: _TZE200_sh1btabb
     deviceProfileName: normal-irrigation-v2
     deviceLabel: Irrigation
+  - id: TS0601/_TZE200_t1blo2bj
+    model: TS0601
+    manufacturer: _TZE200_t1blo2bj
+    deviceProfileName: normal-alarm-v1
+    deviceLabel: Alarm
   - id: TS0601/_TZE200_v6ossqfy
     model: TS0601
     manufacturer: _TZE200_v6ossqfy
     deviceProfileName: normal-presenceSensor-v2
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE200_ves1ycwx
+    model: TS0601
+    manufacturer: _TZE200_ves1ycwx
+    deviceProfileName: normal-multi-powerMeter-v1
+    deviceLabel: Power Meter
   - id: TS0601/_TZE200_wfxuhoea
     model: TS0601
     manufacturer: _TZE200_wfxuhoea
@@ -251,6 +281,11 @@ zigbeeManufacturer:
     manufacturer: _TZE204_cjbofhxw
     deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
+  - id: TS0601/_TZE204_ntcy3xu1
+    model: TS0601
+    manufacturer: _TZE204_ntcy3xu1
+    deviceProfileName: normal-smokeDetector-v1
+    deviceLabel: Smoke Detector
   - id: TS0601/_TZE204_sxm7l9xa
     model: TS0601
     manufacturer: _TZE204_sxm7l9xa

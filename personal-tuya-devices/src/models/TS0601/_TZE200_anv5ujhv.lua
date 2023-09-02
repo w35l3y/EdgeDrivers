@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Irrigation","profiles":["normal_irrigation_v3"],"datapoints":[{"id":102,"command":"switchLevel","base":{"group":1}},{"id":108,"command":"valve","base":{"group":1}},{"id":110,"command":"battery","base":{"group":1}}]}]]
