@@ -84,9 +84,11 @@ local default_generic = {
   end,
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented", self.capability, self.attribute) end,
   from_zigbee = function (self, value, device, force_child, datapoints) return value end,
-  command_handler = function (self, dpid, command, device) return { math.abs(self:get_dp(dpid, device)), self:to_zigbee(self:command_to_value(command, device), device) } end,
+  command_handler = function (self, dpid, command, device)  -- ao receber comando do aplicativo
+    return { math.abs(self:get_dp(dpid, device)), self:to_zigbee(self:command_to_value(command, device), device) }
+  end,
   command_to_value = function (self, command, device) return command.args[self.command_arg or self.attribute] end,
-  create_event = function (self, value, device, force_child, datapoints)
+  create_event = function (self, value, device, force_child, datapoints)  -- ao receber comando do dispositivo zigbee
     return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child, datapoints)) or nil
   end,
 }
@@ -554,7 +556,6 @@ local defaults = {
     additional = {
       {
         command = "contactSensor",
-        group = 1
       }
     },
   },

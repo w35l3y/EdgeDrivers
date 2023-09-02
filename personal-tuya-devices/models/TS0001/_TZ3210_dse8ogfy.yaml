@@ -3,16 +3,14 @@ profiles:
   - normal_momentary_v1
   - normal_momentary_v2
 datapoints:
-  - id: 1
+  - id: -1 # write only
     command: momentaryStd
-    profile: normal_momentary_v1
     base:
       group: 1
-  # - id: 1
-  #   profile: normal_momentary_v2
-  #   command: switch
-  #   base:
-  #     group: 1
+  - id: 1
+    command: switch
+    base:
+      group: 1
   - id: 101
     command: enum
     base:
