@@ -41,9 +41,9 @@ zigbeeManufacturer:
       client:
         - 0xA
         - 0x19
-  - id: TS0001/_TZ3210_dse8ogfy
+  - id: TS0001/_TZ3210_dse8ogfy_wip
     model: TS0001
-    manufacturer: _TZ3210_dse8ogfy
+    manufacturer: _TZ3210_dse8ogfy_wip
     deviceProfileName: normal-momentary-v3
     deviceLabel: Momentary
   - id: TS0049/_TZ3210_0jxeoadc
