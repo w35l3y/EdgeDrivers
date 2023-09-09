@@ -12,6 +12,8 @@ local utils = require "utils"
 
 zb_const.ZGP_PROFILE_ID = 0xA1E0
 
+require "defaults"
+
 -- zcl_clusters.tuya_e000_id = 0xE000
 -- zcl_clusters.id_to_name_map[zcl_clusters.tuya_e000_id] = "TuyaCommon"
 -- -- data_types.id_to_name_map[0x48] = "CharString"  -- override Array data type (0xE000 attributes)
