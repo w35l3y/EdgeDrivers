@@ -53,7 +53,7 @@ end
 function ButtonPress.build_test_rx(device, button_status)
   local args = { button_status }
 
-  return cluster_base.command_build_test_rx(ButtonPress, device, args, "client")
+  return cluster_base.command_build_test_rx(ButtonPress, device, args, "server")
 end
 
 --- Initialize the ButtonPress command
@@ -64,7 +64,7 @@ end
 function ButtonPress:init(device, button_status)
   local args = { button_status }
 
-  return cluster_base.command_init(self, device, args, "client")
+  return cluster_base.command_init(self, device, args, "server")
 end
 
 function ButtonPress:set_parent_cluster(cluster)

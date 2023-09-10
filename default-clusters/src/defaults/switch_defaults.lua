@@ -3,13 +3,19 @@ local capabilities = require "st.capabilities"
 
 local OnOff = zcl_clusters.OnOff
 
-function OnOff.client_id_map()
+function OnOff.server_id_map()
   return {
-    [0xFD] = "ButtonPress"
+    [0x00] = "Off",
+    [0x01] = "On",
+    [0x02] = "Toggle",
+    [0x40] = "OffWithEffect",
+    [0x41] = "OnWithRecallGlobalScene",
+    [0x42] = "OnWithTimedOff",
+    [0xFD] = "ButtonPress",
   }
 end
 
-OnOff.command_direction_map["ButtonPress"] = "client"
+OnOff.command_direction_map["ButtonPress"] = "server"
 
 -- local Status = require "st.zigbee.generated.types.ZclStatus"
 local switch_defaults = require "st.zigbee.defaults.switch_defaults"
@@ -48,7 +54,7 @@ function switch_defaults.button_pressed_handler(driver, device, zb_rx)
 end
 
 switch_defaults.zigbee_handlers.cluster[zcl_clusters.OnOff.ID] = {
-  [zcl_clusters.OnOff.client.commands.ButtonPress.ID] = switch_defaults.button_pressed_handler
+  [zcl_clusters.OnOff.server.commands.ButtonPress.ID] = switch_defaults.button_pressed_handler
 }
 
 return switch_defaults
