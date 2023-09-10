@@ -115,6 +115,18 @@ preferences:
         1: "On"
         0: "Off"
       default: 0
+  - name: prefSensor
+    title: Sensor
+    description: Sensor
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "On"
+        0: "Off"
+        2: Occupied ?
+        3: Unoccupied ?
+      default: 0
   - name: prefBreakerMode
     title: Breaker Mode
     description: Breaker Mode
