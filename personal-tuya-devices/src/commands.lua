@@ -98,6 +98,9 @@ local function get_pref (value, default, name)
     log.warn("Unexpected type for preference", name, value, default)
     return default
   end
+  if value == "auto" then
+    return default
+  end
   return value or default
 end
 
@@ -142,8 +145,16 @@ local defaults = {
   switch = {
     capability = "switch",
     attribute = "switch",
+    type_name = "switchType",
+    type = "bool",
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      if get_pref(pref[self.type_name], self.type, self.type_name) == "enum" then
+        if pref.reverse then
+          return data_types.Enum8(value == "off" and 1 or 0)
+        end
+        return data_types.Enum8(value == "on" and 1 or 0)
+      end
       if pref.reverse then
         return data_types.Boolean(value == "off")
       end

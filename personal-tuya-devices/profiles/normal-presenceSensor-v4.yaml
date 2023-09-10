@@ -6,6 +6,8 @@ components:
   - id: main
     label: Presence Sensor
     capabilities:
+      - id: switch
+        version: 1
       - id: presenceSensor
         version: 1
       - id: illuminanceMeasurement
@@ -23,7 +25,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
@@ -60,6 +62,17 @@ preferences:
   #       _TZE204_ztc6ggyl: _TZE204_ztc6ggyl (1,104)
   - preferenceId: reverse
     explicit: true
+  - name: switchType
+    title: Switch Type
+    description: Expected type by the device
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        auto: Default
+        bool: Boolean
+        enum: Enum
+      default: auto
   - name: prefSensitivity
     title: Sensitivity
     description: An integer between 0 and 9
@@ -124,8 +137,8 @@ preferences:
       options:
         1: "On"
         0: "Off"
-        2: Occupied ?
-        3: Unoccupied ?
+        2: Occupied
+        3: Unoccupied
       default: 0
   - name: prefBreakerMode
     title: Breaker Mode
@@ -136,19 +149,19 @@ preferences:
       options:
         0: Standard
         1: Local
-        3: Mandatory ?
-        4: Not support ?
+        3: Mandatory
+        4: Not support
       default: 0
-  - name: prefBreakerStatus
-    title: Breaker Status
-    description: Breaker Status
-    required: true
-    preferenceType: enumeration
-    definition:
-      options:
-        1: "On"
-        0: "Off"
-      default: 0
+  # - name: prefBreakerStatus
+  #   title: Breaker Status
+  #   description: Breaker Status
+  #   required: true
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       1: "On"
+  #       0: "Off"
+  #     default: 0
   - name: prefBreakerPolarity
     title: Breaker Polarity
     description: Breaker Polarity

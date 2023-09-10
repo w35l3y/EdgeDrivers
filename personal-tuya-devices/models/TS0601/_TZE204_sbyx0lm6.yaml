@@ -36,16 +36,18 @@ datapoints:
     command: illuminanceMeasurementRaw
     base:
       group: 1
+      rate: 1000
   - id: 107
     command: enum
     base:
       group: 2
       name: breaker_mode
   - id: 108
-    command: enum
+    command: switch
     base:
-      group: 3
+      group: 1
       name: breaker_status
+      type: enum
   - id: 109
     command: enum
     base:
