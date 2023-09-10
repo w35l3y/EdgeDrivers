@@ -1,7 +1,7 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-presenceSensor-v3"
+name: "normal-presenceSensor-v4"
 components:
   - id: main
     label: Presence Sensor
@@ -9,8 +9,6 @@ components:
       - id: presenceSensor
         version: 1
       - id: illuminanceMeasurement
-        version: 1
-      - id: battery
         version: 1
       - id: valleyboard16460.settings
         version: 1
@@ -30,12 +28,12 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_presenceSensor_v3: Normal
+        normal_presenceSensor_v4: Normal
+        normal_presenceSensor_v1: No relay
         normal_presenceSensor_v2: No illuminance
-        normal_presenceSensor_v1: No battery
-        normal_presenceSensor_v4: +Relay
+        normal_presenceSensor_v3: +Battery
         generic_ef00_v1: Generic
-      default: normal_presenceSensor_v3
+      default: normal_presenceSensor_v4
   - name: logLevel
     title: Log level
     required: true
@@ -54,43 +52,101 @@ preferences:
   #   preferenceType: enumeration
   #   definition:
   #     options:
-  #        _: Auto
-  #       _TZE200_3towulqd: _TZE200_3towulqd (1,12)
+  #       _: Auto
   #       _TZE200_ikvncluo: _TZE200_ikvncluo (1,104)
   #       _TZE200_ztc6ggyl: _TZE200_ztc6ggyl (1,104)
+  #       _TZE204_sbyx0lm6: _TZE204_sbyx0lm6 (1,104*)
   #       _TZE204_sxm7l9xa: _TZE204_sxm7l9xa (105,104)
   #       _TZE204_ztc6ggyl: _TZE204_ztc6ggyl (1,104)
   - preferenceId: reverse
     explicit: true
-  - name: batteryMode
-    title: Battery Mode
-    description: "Choose the battery mode"
-    required: false
+  - name: prefSensitivity
+    title: Sensitivity
+    description: An integer between 0 and 9
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 9
+      default: 7
+  - name: prefNearDetection
+    title: Near Detection (cm)
+    description: A integer between 0 and 1000
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 0
+  - name: prefFarDetection
+    title: Far Detection (cm)
+    description: A integer between 0 and 1000
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 1000
+  - name: prefDetectionDelay
+    title: Detection Delay (s)
+    description: A integer between 0 and 100
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 100 # max value!
+      default: 1
+  - name: prefFadingTime
+    title: Fading Time (s) !
+    description: "A integer between 0 and 15000. ATTENTION: Lower values may jam the zigbee network"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 15000
+      default: 90
+  - name: prefStatusIndication
+    title: Status Indication
+    description: Light indicator will flash when human presence is detected
+    required: true
     preferenceType: enumeration
     definition:
-      default: auto
       options:
-        auto: auto
-        enum: enum
-        value: value (0-100%)
-  - name: prefSensitivity
-    title: Sensitivity (low,medium,high)
-    description: An integer between 0 and 2
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 2
+        1: "On"
+        0: "Off"
       default: 0
-  - name: prefKeepTime
-    title: Keep Time (10,30,60,120)
-    description: A integer between 0 and 3
+  - name: prefBreakerMode
+    title: Breaker Mode
+    description: Breaker Mode
     required: true
-    preferenceType: integer
+    preferenceType: enumeration
     definition:
-      minimum: 0
-      maximum: 3
+      options:
+        0: Standard
+        1: Local
+        3: Mandatory ?
+        4: Not support ?
       default: 0
+  - name: prefBreakerStatus
+    title: Breaker Status
+    description: Breaker Status
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "On"
+        0: "Off"
+      default: 0
+  - name: prefBreakerPolarity
+    title: Breaker Polarity
+    description: Breaker Polarity
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "Normally open"
+        0: "Normally closed"
+      default: 1
   - name: dpPresenceSensorMain01
     title: DP for Presence Sensor
     description: Only if you want to override the default DataPoint
@@ -102,15 +158,6 @@ preferences:
       default: 0
   - name: dpIlluminanceMeasuMain01
     title: DP for Illuminance Measurement
-    description: Only if you want to override the default DataPoint
-    required: true
-    preferenceType: integer
-    definition:
-      minimum: 0
-      maximum: 255
-      default: 0
-  - name: dpBatteryMain01
-    title: DP for Battery
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

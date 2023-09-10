@@ -23,7 +23,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile "
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
@@ -31,6 +31,7 @@ preferences:
         normal_presenceSensor_v1: Normal
         normal_presenceSensor_v2: No illuminance
         normal_presenceSensor_v3: +Battery
+        normal_presenceSensor_v4: +Relay
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v1
   - name: logLevel
