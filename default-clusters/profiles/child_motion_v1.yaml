@@ -10,7 +10,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Motion Sensor
+      - name: MotionSensor
 preferences:
   - name: profile
     title: Profile

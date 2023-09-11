@@ -20,12 +20,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         switch_v1: Normal
+        button_v1: Button
         default_v1: Default
       default: switch_v1
 metadata:

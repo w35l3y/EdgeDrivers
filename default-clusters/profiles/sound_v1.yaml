@@ -16,7 +16,7 @@ components:
       - id: valleyboard16460.info
         version: 1
     categories:
-      - name: Sound Sensor
+      - name: SoundSensor
 preferences:
   - name: profile
     title: Profile

@@ -16,7 +16,7 @@ components:
       - id: valleyboard16460.info
         version: 1
     categories:
-      - name: Leak Sensor
+      - name: LeakSensor
 preferences:
   - name: profile
     title: Profile
