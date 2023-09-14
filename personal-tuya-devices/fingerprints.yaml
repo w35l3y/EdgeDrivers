@@ -101,6 +101,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_akjefhj5
     deviceProfileName: normal-irrigation-v1
     deviceLabel: Irrigation
+  - id: TS0601/_TZE200_amp6tsvy
+    model: TS0601
+    manufacturer: _TZE200_amp6tsvy
+    deviceProfileName: normal-switch-v1
+    deviceLabel: Switch
   - id: TS0601/_TZE200_anv5ujhv
     model: TS0601
     manufacturer: _TZE200_anv5ujhv
@@ -276,6 +281,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presense Sensor
+  - id: TS0601/_TZE204_ac0fhfiq
+    model: TS0601
+    manufacturer: _TZE204_ac0fhfiq
+    deviceProfileName: normal-powerMeter-v1
+    deviceLabel: Power Meter
   - id: TS0601/_TZE204_cjbofhxw
     model: TS0601
     manufacturer: _TZE204_cjbofhxw
@@ -286,6 +296,11 @@ zigbeeManufacturer:
     manufacturer: _TZE204_ntcy3xu1
     deviceProfileName: normal-smokeDetector-v1
     deviceLabel: Smoke Detector
+  - id: TS0601/_TZE204_sbyx0lm6
+    model: TS0601
+    manufacturer: _TZE204_sbyx0lm6
+    deviceProfileName: normal-presenceSensor-v4
+    deviceLabel: Presense Sensor
   - id: TS0601/_TZE204_sxm7l9xa
     model: TS0601
     manufacturer: _TZE204_sxm7l9xa
