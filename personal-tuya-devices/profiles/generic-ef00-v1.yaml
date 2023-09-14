@@ -19,7 +19,7 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.       "
+    description: "Recommended only for testing whether your device is compatible or not with the ones already predefined.        "
     required: true
     preferenceType: enumeration
     definition:
@@ -28,6 +28,7 @@ preferences:
         normal_multi_switch_v6: 6 switches
         normal_multi_switch_v4: 4 switches
         normal_multi_switch_v3: 3 switches
+        normal_switch_v1: 1 switch
         normal_multi_switch_v1: N switches (auto)
         normal_multi_dimmer_v2: 2 dimmers
         normal_single_dimmer_v1: 1 dimmer
