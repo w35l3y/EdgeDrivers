@@ -33,13 +33,8 @@ local template = {
       --   log.set_log_level(device.preferences.logLevel)
       -- end
       if args.old_st_store.preferences.profile ~= device.preferences.profile or (not myutils.is_normal(device) and device.profile.components.main == nil) then
-        log.debug("Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
-        local p = device.preferences.profile:gsub("_", "-")
-        device:set_field("profile", p, { persist = true })
         device:set_field(constants.FORCE_EF00_CLUSTER, true, { persist = true })
-        device:try_update_metadata({
-          profile = p
-        })
+        myutils.update_profile(device, device.preferences.profile, args.old_st_store.preferences.profile)
       end
 
       create_child_devices(driver, device, event, args)

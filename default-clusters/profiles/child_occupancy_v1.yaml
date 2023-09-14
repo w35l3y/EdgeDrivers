@@ -10,7 +10,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Occupancy Sensor
+      - name: OccupancySensor
 preferences:
   - name: profile
     title: Profile

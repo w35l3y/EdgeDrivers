@@ -1,0 +1,200 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-presenceSensor-v4"
+components:
+  - id: main
+    label: Presence Sensor
+    capabilities:
+      - id: switch
+        version: 1
+      - id: presenceSensor
+        version: 1
+      - id: illuminanceMeasurement
+        version: 1
+      - id: valleyboard16460.settings
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.debug
+        version: 1
+    categories:
+      - name: Presence Sensor
+preferences:
+  - name: profile
+    title: Profile
+    description: "Choose the profile  "
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_presenceSensor_v4: Normal
+        normal_presenceSensor_v1: No relay
+        normal_presenceSensor_v2: No illuminance
+        normal_presenceSensor_v3: +Battery
+        generic_ef00_v1: Generic
+      default: normal_presenceSensor_v4
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
+  # - name: manufacturer
+  #   title: Manufacturer
+  #   description: Choose the manufacturer
+  #   required: false
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       _: Auto
+  #       _TZE200_ikvncluo: _TZE200_ikvncluo (1,104)
+  #       _TZE200_ztc6ggyl: _TZE200_ztc6ggyl (1,104)
+  #       _TZE204_sbyx0lm6: _TZE204_sbyx0lm6 (1,104*)
+  #       _TZE204_sxm7l9xa: _TZE204_sxm7l9xa (105,104)
+  #       _TZE204_ztc6ggyl: _TZE204_ztc6ggyl (1,104)
+  - preferenceId: reverse
+    explicit: true
+  - name: switchType
+    title: Switch Type
+    description: Expected type by the device
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        auto: Default
+        bool: Boolean
+        enum: Enum
+      default: auto
+  - name: prefSensitivity
+    title: Sensitivity
+    description: An integer between 0 and 9
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 9
+      default: 7
+  - name: prefNearDetection
+    title: Near Detection (cm)
+    description: A integer between 0 and 1000
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 0
+  - name: prefFarDetection
+    title: Far Detection (cm)
+    description: A integer between 0 and 1000
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 1000
+      default: 1000
+  - name: prefDetectionDelay
+    title: Detection Delay (s)
+    description: A integer between 0 and 100
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 100 # max value!
+      default: 1
+  - name: prefFadingTime
+    title: Fading Time (s) !
+    description: "A integer between 0 and 15000. ATTENTION: Lower values may jam the zigbee network"
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 15000
+      default: 90
+  - name: prefStatusIndication
+    title: Status Indication
+    description: Light indicator will flash when human presence is detected
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "On"
+        0: "Off"
+      default: 0
+  - name: prefSensor
+    title: Sensor
+    description: Sensor
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "On"
+        0: "Off"
+        2: Occupied
+        3: Unoccupied
+      default: 0
+  - name: prefBreakerMode
+    title: Breaker Mode
+    description: Breaker Mode
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: Standard
+        1: Local
+        3: Mandatory
+        4: Not support
+      default: 0
+  # - name: prefBreakerStatus
+  #   title: Breaker Status
+  #   description: Breaker Status
+  #   required: true
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       1: "On"
+  #       0: "Off"
+  #     default: 0
+  - name: prefBreakerPolarity
+    title: Breaker Polarity
+    description: Breaker Polarity
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "Normally open"
+        0: "Normally closed"
+      default: 1
+  - name: dpPresenceSensorMain01
+    title: DP for Presence Sensor
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpIlluminanceMeasuMain01
+    title: DP for Illuminance Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+metadata:
+  deviceType: PresenceSensor
+  ocfDeviceType: x.com.st.d.sensor.presence
+  deviceTypeId: PresenceSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

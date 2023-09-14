@@ -1,0 +1,68 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-momentary-v4"
+components:
+  - id: main
+    label: Switch
+    capabilities:
+      - id: switch
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.debug
+        version: 1
+    categories:
+      - name: Switch
+preferences:
+  - name: profile
+    title: Profile
+    description: Choose the profile
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_momentary_v4: Normal
+        normal_momentary_v2: +Battery
+        generic_ef00_v1: Generic
+      default: normal_momentary_v4
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
+  - preferenceId: reverse
+    explicit: true
+  - name: prefMode
+    title: Mode
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: Click
+        1: Switch
+      default: 1
+  - name: dpSwitchMain01
+    title: DP for Switch
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+metadata:
+  deviceType: Switch
+  ocfDeviceType: oic.d.switch
+  deviceTypeId: Switch
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

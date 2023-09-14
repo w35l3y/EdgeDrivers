@@ -4,6 +4,8 @@
 local capabilities = require "st.capabilities"
 local zcl_clusters = require "st.zigbee.zcl.clusters"
 local zcl_global_commands = require "st.zigbee.zcl.global_commands"
+local defaults = require "st.zigbee.defaults"
+-- local switch_defaults = require "st.zigbee.defaults.switch_defaults"
 
 local tuyaEF00_model_defaults = require "tuyaEF00_model_defaults"
 
@@ -48,12 +50,13 @@ local template = {
         [zcl_clusters.TuyaEF00.commands.DataReport.ID] = tuyaEF00_model_defaults.command_response_handler,
         [zcl_clusters.TuyaEF00.commands.McuSyncTime.ID] = tuyaEF00_model_defaults.command_synctime_handler,
         [zcl_clusters.TuyaEF00.commands.GatewayStatus.ID] = tuyaEF00_model_defaults.command_gatestatus_handler,
-      }
+      },
     },
     fallback = tuyaEF00_model_defaults.fallback_handler,
   },
 }
 
 tuyaEF00_model_defaults.register_for_default_handlers(template, template.supported_capabilities)
+defaults.register_for_default_handlers(template, template.supported_capabilities)
 
 return template

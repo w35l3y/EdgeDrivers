@@ -50,15 +50,16 @@ preferences:
   - preferenceId: reverse
     explicit: true
   - name: valveType
-    title: Type
+    title: Valve Type
     description: Expected type by the device
     required: true
     preferenceType: enumeration
     definition:
       options:
+        auto: Default
         bool: Boolean
         enum: Enum
-      default: bool
+      default: auto
   - name: dpValveMain01
     title: DP for Valve
     description: Only if you want to override the default DataPoint

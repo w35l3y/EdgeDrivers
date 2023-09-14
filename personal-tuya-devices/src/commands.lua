@@ -84,9 +84,11 @@ local default_generic = {
   end,
   to_zigbee = function (self, value, device) error("to_zigbee must be implemented", self.capability, self.attribute) end,
   from_zigbee = function (self, value, device, force_child, datapoints) return value end,
-  command_handler = function (self, dpid, command, device) return { math.abs(self:get_dp(dpid, device)), self:to_zigbee(self:command_to_value(command, device), device) } end,
+  command_handler = function (self, dpid, command, device)  -- ao receber comando do aplicativo
+    return { math.abs(self:get_dp(dpid, device)), self:to_zigbee(self:command_to_value(command, device), device) }
+  end,
   command_to_value = function (self, command, device) return command.args[self.command_arg or self.attribute] end,
-  create_event = function (self, value, device, force_child, datapoints)
+  create_event = function (self, value, device, force_child, datapoints)  -- ao receber comando do dispositivo zigbee
     return self.capability and self.attribute and capabilities[self.capability][self.attribute](self:from_zigbee(value, device, force_child, datapoints)) or nil
   end,
 }
@@ -94,6 +96,9 @@ local default_generic = {
 local function get_pref (value, default, name)
   if type(value) == "userdata" then
     log.warn("Unexpected type for preference", name, value, default)
+    return default
+  end
+  if value == "auto" then
     return default
   end
   return value or default
@@ -140,8 +145,16 @@ local defaults = {
   switch = {
     capability = "switch",
     attribute = "switch",
+    type_name = "switchType",
+    type = "bool",
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
+      if get_pref(pref[self.type_name], self.type, self.type_name) == "enum" then
+        if pref.reverse then
+          return data_types.Enum8(value == "off" and 1 or 0)
+        end
+        return data_types.Enum8(value == "on" and 1 or 0)
+      end
       if pref.reverse then
         return data_types.Boolean(value == "off")
       end
@@ -490,6 +503,24 @@ local defaults = {
       return data_types.Enum8(string.byte(value))
     end,
   },
+  momentaryStd = {
+    capability = "momentary",
+    attribute = "push",
+    cluster = "OnOff",
+    custom_command = "Toggle",
+    command_handler = function () return {} end,
+    create_event = function () end,
+  },
+  switchStd = {
+    capability = "switch",
+    attribute = "switch",
+    cluster = "OnOff",
+    custom_command = "Toggle",  -- must be dynamic according to the command received
+    command_handler = function () return {} end,
+  },
+  standard = {
+    command_handler = function () return {} end,
+  },
   motionSensor = {
     capability = "motionSensor",
     attribute = "motion",
@@ -543,7 +574,6 @@ local defaults = {
     additional = {
       {
         command = "contactSensor",
-        group = 1
       }
     },
   },
@@ -835,7 +865,7 @@ local defaults = {
   enum = {
     capability = "valleyboard16460.datapointEnum",
     attribute = "value",
-    to_zigbee = function (self, value) return data_types.Enum8(value) end,
+    to_zigbee = function (self, value) return data_types.Enum8(to_number(value)) end,
     from_zigbee = function (self, value) return to_number(value) end,
   },
   bitmap = {

@@ -34,6 +34,7 @@ local datapoint_types_to_fn = {
   humidityMeasurDatapoints = commands.relativeHumidityMeasurement,
   illuminanceMeaDatapoints = commands.illuminanceMeasurement,
   keypadInputDatapoints = commands.keypadInput,
+  momentaryStdDatapoints = commands.momentaryStd,
   motionSensorDatapoints = commands.motionSensor,
   occupancySensoDatapoints = commands.occupancySensor,
   powerMeterDatapoints = commands.powerMeter,
@@ -80,6 +81,7 @@ local child_types_to_profile = {
   humidityMeasurDatapoints = "child-relativeHumidityMeasurement-v1",
   illuminanceMeaDatapoints = "child-illuminanceMeasurement-v1",
   keypadInputDatapoints = "child-keypadInput-v1",
+  momentaryStdDatapoints = "child-momentary-v1",
   motionSensorDatapoints = "child-motionSensor-v1",
   occupancySensoDatapoints = "child-occupancySensor-v1",
   powerMeterDatapoints = "child-powerMeter-v1",
@@ -181,12 +183,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   --   log.set_log_level(device.preferences.logLevel)
   -- end
   if args.old_st_store.preferences.profile ~= device.preferences.profile then
-    myutils.log(device, "debug", "Profile changed...", args.old_st_store.preferences.profile, device.preferences.profile)
-    local p = device.preferences.profile:gsub("_", "-")
-    device:set_field("profile", p, { persist = true })
-    device:try_update_metadata({
-      profile = p
-    })
+    myutils.update_profile(device, device.preferences.profile, args.old_st_store.preferences.profile)
   end
 
   if device.network_type == device_lib.NETWORK_TYPE_ZIGBEE then
@@ -207,7 +204,7 @@ function lifecycle_handlers.infoChanged (driver, device, event, args)
   end
 end
 
--- devices that use 0xEF00 but doesn't expose it
+-- devices that use 0xEF00 but doesn't expose it - deprecated
 local exceptions = {
   "_TZE200_pay2byax",
   "_TZE200_znbl8dj5"

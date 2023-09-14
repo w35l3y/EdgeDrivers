@@ -1,0 +1,26 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "child-momentary-v1"
+components:
+  - id: main
+    label: Momentary
+    capabilities:
+      - id: momentary
+        version: 1
+      - id: refresh
+        version: 1
+    categories:
+      - name: Switch
+# preferences:
+#   # - preferenceId: motionSensitivity
+#   #   explicit: true
+#   - preferenceId: reverse
+#     explicit: true
+metadata:
+  deviceType: Switch
+  ocfDeviceType: oic.d.switch
+  deviceTypeId: Switch
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

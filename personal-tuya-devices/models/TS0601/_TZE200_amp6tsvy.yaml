@@ -1,0 +1,9 @@
+deviceLabel: Switch
+profiles:
+  - normal_switch_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/b0bd90cc2e1e4bf2f37f5aed8c9e525e45fbcb1d/src/devices/moes.ts#L165
+  - id: 1
+    command: switch
+    base:
+      group: 1

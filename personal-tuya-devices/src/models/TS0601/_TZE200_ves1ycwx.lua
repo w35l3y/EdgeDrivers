@@ -1,0 +1,1 @@
+return [[{"deviceLabel":"Power Meter","profiles":["normal_multi_powerMeter_v1"],"datapoints":[{"id":6,"command":"voltCurrPowerRaw","base":{"group":1}},{"id":1,"command":"energyMeter","base":{"group":1,"rate":100000}},{"id":7,"command":"voltCurrPowerRaw","base":{"group":2}},{"id":8,"command":"voltCurrPowerRaw","base":{"group":3}}]}]]

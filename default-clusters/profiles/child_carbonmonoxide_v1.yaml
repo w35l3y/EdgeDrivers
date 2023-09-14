@@ -10,7 +10,7 @@ components:
       - id: refresh
         version: 1
     categories:
-      - name: Generic Sensor
+      - name: GenericSensor
 preferences:
   - name: profile
     title: Profile

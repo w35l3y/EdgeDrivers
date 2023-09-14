@@ -80,6 +80,7 @@ preferences:
   #   preferenceType: enumeration
   #   definition:
   #     options:
+  #        _: Auto
   #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
   #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
   - preferenceId: tempOffset

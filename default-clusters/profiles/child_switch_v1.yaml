@@ -14,12 +14,13 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         child_switch_v1: Normal
+        child_button_v1: Button
       default: child_switch_v1
 metadata:
   deviceType: Switch

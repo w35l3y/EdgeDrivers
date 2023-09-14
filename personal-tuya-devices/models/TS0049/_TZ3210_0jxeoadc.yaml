@@ -16,4 +16,4 @@ datapoints:
     command: value
     base:
       group: 1
-      tuya_command: SendData
+      custom_command: SendData

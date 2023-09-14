@@ -1,0 +1,34 @@
+deviceLabel: Smoke Detector
+profiles:
+  - normal_smokeDetector_v1
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/143bc6ff7500b3f85c35dd3c5a18f4d17b078de1/src/devices/tuya.ts#L2858-L2862
+  - id: 1
+    command: smokeDetector
+    base:
+      group: 1
+  - id: 101
+    command: testCapability
+    base:
+      group: 1
+      capability: smokeDetector
+      attribute: smoke
+      on: tested
+      off: clear
+  # - id: 11
+  #   command: audioMute
+  #   base:
+  #     group: 1
+  - id: -1 # should be audio datapoint!
+    command: momentaryAudioMuteTestCapability
+    base:
+      group: 1
+      # capability: smokeDetector
+      # attribute: smoke
+      testCapability: 101
+  - id: 14
+    command: battery
+    base:
+      group: 1
+      rate: 3
+      type: enum
