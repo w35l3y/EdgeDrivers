@@ -22,13 +22,18 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: Choose the profile
+    description: "Choose the profile "
     required: true
     preferenceType: enumeration
     definition:
       options:
         contact_v2: Normal
         contact_v1: No battery
+        carbonmonoxide_v1: Carbon Monoxide Sensor
+        motion_v2: Motion Sensor
+        smoke_v1: Smoke Detector
+        sound_v1: Sound Sensor
+        water_v2: Water Sensor
         default_v1: Default
       default: contact_v2
 metadata:
