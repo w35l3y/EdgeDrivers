@@ -1,0 +1,33 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v5
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/5e0b99045f6a2192558a5a602c63370256362c34/src/devices/tuya.ts#L4436,L4454
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1
+  - id: 12
+    command: value
+    base:
+      group: 2
+      name: fading_time
+  - id: 20
+    command: illuminanceMeasurementRaw
+    base:
+      group: 1
+  - id: 24
+    command: switch
+    base:
+      group: 2
+      name: light_mode
+  - id: 102
+    command: enum
+    base:
+      group: 3
+      name: alarm_volume
+  - id: 105
+    command: enum
+    base:
+      group: 2
+      name: mode
