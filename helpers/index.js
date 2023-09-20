@@ -122,7 +122,7 @@ function update_models_zigbee(path = ".") {
       "Manufacturer".padEnd(maxLength[1], " "),
       "Label".padEnd(maxLength[2], " "),
       "Default profile".padEnd(maxLength[3], " "),
-      "Endpoints".padEnd(maxLength[4], " "),
+      "Datapoints".padEnd(maxLength[4], " "),
       "",
     ]
       .join(" | ")

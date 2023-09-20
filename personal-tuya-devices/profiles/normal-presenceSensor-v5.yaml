@@ -1,12 +1,16 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-presenceSensor-v2"
+name: "normal-presenceSensor-v5"
 components:
   - id: main
     label: Presence Sensor
     capabilities:
       - id: presenceSensor
+        version: 1
+      - id: illuminanceMeasurement
+        version: 1
+      - id: valleyboard16460.settings
         version: 1
       - id: signalStrength
         version: 1
@@ -19,18 +23,18 @@ components:
 preferences:
   - name: profile
     title: Profile
-    description: "Choose the profile   "
+    description: "Choose the profile  "
     required: true
     preferenceType: enumeration
     definition:
       options:
-        normal_presenceSensor_v2: Normal
-        normal_presenceSensor_v1: +Illuminance
+        normal_presenceSensor_v5: Normal
+        normal_presenceSensor_v2: No illuminance
         normal_presenceSensor_v3: +Battery
+        normal_presenceSensor_v1: +Settings
         normal_presenceSensor_v4: +Relay
-        normal_presenceSensor_v5: No settings
         generic_ef00_v1: Generic
-      default: normal_presenceSensor_v2
+      default: normal_presenceSensor_v5
   - name: logLevel
     title: Log level
     required: true
@@ -53,12 +57,15 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: childContactSensorMain01
-    title: Create child device as ContactSensor
+  - name: dpIlluminanceMeasuMain01
+    title: DP for Illuminance Measurement
+    description: Only if you want to override the default DataPoint
     required: true
-    preferenceType: boolean
+    preferenceType: integer
     definition:
-      default: false
+      minimum: 0
+      maximum: 255
+      default: 0
 metadata:
   deviceType: PresenceSensor
   ocfDeviceType: x.com.st.d.sensor.presence

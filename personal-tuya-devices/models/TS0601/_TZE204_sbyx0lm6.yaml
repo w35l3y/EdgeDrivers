@@ -1,4 +1,4 @@
-deviceLabel: Presense Sensor
+deviceLabel: Presence Sensor
 profiles:
   - normal_presenceSensor_v4
 datapoints:

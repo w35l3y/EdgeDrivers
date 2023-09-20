@@ -51,6 +51,11 @@ zigbeeManufacturer:
     manufacturer: _TZ3210_0jxeoadc
     deviceProfileName: normal-irrigation-v1
     deviceLabel: Irrigation
+  - id: TS0225/_TZE200_hl0ss9oa
+    model: TS0225
+    manufacturer: _TZE200_hl0ss9oa
+    deviceProfileName: normal-presenceSensor-v5
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE200_1n2kyphz
     model: TS0601
     manufacturer: _TZE200_1n2kyphz
@@ -280,7 +285,7 @@ zigbeeManufacturer:
     model: TS0601
     manufacturer: _TZE200_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
-    deviceLabel: Presense Sensor
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE204_ac0fhfiq
     model: TS0601
     manufacturer: _TZE204_ac0fhfiq
@@ -300,12 +305,12 @@ zigbeeManufacturer:
     model: TS0601
     manufacturer: _TZE204_sbyx0lm6
     deviceProfileName: normal-presenceSensor-v4
-    deviceLabel: Presense Sensor
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE204_sxm7l9xa
     model: TS0601
     manufacturer: _TZE204_sxm7l9xa
     deviceProfileName: normal-presenceSensor-v1
-    deviceLabel: Presense Sensor
+    deviceLabel: Presence Sensor
   - id: TS0601/_TZE204_t1blo2bj
     model: TS0601
     manufacturer: _TZE204_t1blo2bj
@@ -320,7 +325,7 @@ zigbeeManufacturer:
     model: TS0601
     manufacturer: _TZE204_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
-    deviceLabel: Presense Sensor
+    deviceLabel: Presence Sensor
   - id: mcdj3aq/_TYST11_wmcdj3aq
     model: mcdj3aq
     manufacturer: _TYST11_wmcdj3aq
