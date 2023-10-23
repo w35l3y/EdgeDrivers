@@ -17,7 +17,7 @@
 | TS0601  | \_TZE200_akjefhj5     | Irrigation      | normal-irrigation-v1       |   1,   7,  11                                              |
 | TS0601  | \_TZE200_amp6tsvy     | Switch          | normal-switch-v1           |   1                                                        |
 | TS0601  | \_TZE200_anv5ujhv     | Irrigation      | normal-irrigation-v3       | 102, 108, 110                                              |
-| TS0601  | \_TZE200_aoclfnxz     | Thermostat      | normal-thermostat-v2       |  16,  24                                                   |
+| TS0601  | \_TZE200_aoclfnxz     | Thermostat      | normal-thermostat-v4       |   1,  16,  24                                              |
 | TS0601  | \_TZE200_b6wax7g0     | Thermostat      | normal-thermostat-v5       |   2,   3,   1,  14                                         |
 | TS0601  | \_TZE200_bcusnqt8     | Power Meter     | normal-powerMeter-v1       |   6,   1                                                   |
 | TS0601  | \_TZE200_cxu0jkjk     | Window Shade    | normal-windowShade-v1      |   1,   2,   3,   7                                         |
@@ -52,6 +52,7 @@
 | TS0601  | \_TZE200_znbl8dj5     | LCD T+H Sensor  | normal-temphumibatt-v1     |   1,   2,   4                                              |
 | TS0601  | \_TZE200_ztc6ggyl     | Presence Sensor | normal-presenceSensor-v1   |   1,   2,   3,   4, 101, 102, 104                          |
 | TS0601  | \_TZE204_ac0fhfiq     | Power Meter     | normal-powerMeter-v1       |   6,   1                                                   |
+| TS0601  | \_TZE204_aoclfnxz     | Thermostat      | normal-thermostat-v4       |   1,  16,  24                                              |
 | TS0601  | \_TZE204_cjbofhxw     | Power Meter     | normal-powerMeter-v1       |  18,  19,  20, 101                                         |
 | TS0601  | \_TZE204_ntcy3xu1     | Smoke Detector  | normal-smokeDetector-v1    |   1, 101,  14                                              |
 | TS0601  | \_TZE204_sbyx0lm6     | Presence Sensor | normal-presenceSensor-v4   |   1,   2,   3,   4, 101, 102, 104, 107, 108, 109, 111, 115 |
