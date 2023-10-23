@@ -52,7 +52,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-         _: Auto
+        _: Auto
         _TZE200_aoclfnxz: _TZE200_aoclfnxz (1,16,24*)
         _TZE200_gd4rvykv: _TZE200_gd4rvykv (101,103*,102*)
         _TZE200_h4cgnbzg: _TZE200_h4cgnbzg (101,103*,102*)
