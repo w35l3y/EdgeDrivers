@@ -2,7 +2,7 @@ deviceLabel: Thermostat
 profiles:
   - normal_thermostat_v4
 datapoints:
-  # https://github.com/zigpy/zha-device-handlers/blob/25cf57dc29bf38dc8a004454a1da90de8eef7030/zhaquirks/tuya/ts0601_sensor.py#L129
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/d69dc7a13fbf9254219c5cfda84e50f5629bf1d0/src/devices/moes.ts#L105
   - id: 1
     command: switch
     base:

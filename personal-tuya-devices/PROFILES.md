@@ -37,3 +37,18 @@
 | normal-windowShade-v2      | Window Shade                      |
 
 (\*) All these steps consider "Generic" as the origin profile
+
+Example 1:
+Changing to profile "normal-presenceSensor-v5" ( Presence sensor > No settings )
+
+1. Go to Settings and change the profile to "Presence sensor"
+2. Go to settings again and change the profile to "No settings"
+
+Example 2:
+Changing to profile "normal-windowShade-v2" ( Window Shade )
+
+1. Go to Settings and change the profile to "Window Shade"
+
+## Common questions
+
+...

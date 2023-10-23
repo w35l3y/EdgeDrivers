@@ -119,7 +119,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_aoclfnxz
     model: TS0601
     manufacturer: _TZE200_aoclfnxz
-    deviceProfileName: normal-thermostat-v2
+    deviceProfileName: normal-thermostat-v4
     deviceLabel: Thermostat
   - id: TS0601/_TZE200_b6wax7g0
     model: TS0601
@@ -291,6 +291,11 @@ zigbeeManufacturer:
     manufacturer: _TZE204_ac0fhfiq
     deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
+  - id: TS0601/_TZE204_aoclfnxz
+    model: TS0601
+    manufacturer: _TZE204_aoclfnxz
+    deviceProfileName: normal-thermostat-v4
+    deviceLabel: Thermostat
   - id: TS0601/_TZE204_cjbofhxw
     model: TS0601
     manufacturer: _TZE204_cjbofhxw
