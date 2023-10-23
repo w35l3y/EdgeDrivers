@@ -1,8 +1,12 @@
 deviceLabel: Thermostat
 profiles:
-  - normal_thermostat_v2
+  - normal_thermostat_v4
 datapoints:
   # https://github.com/zigpy/zha-device-handlers/blob/25cf57dc29bf38dc8a004454a1da90de8eef7030/zhaquirks/tuya/ts0601_sensor.py#L129
+  - id: 1
+    command: switch
+    base:
+      group: 1
   - id: 16
     command: thermostatHeatingSetpoint
     base:
@@ -13,8 +17,3 @@ datapoints:
     base:
       group: 1
       rate: 1000
-  # - id: 36
-  #   command: valve
-  #   base:
-  #     group: 1
-  #     type: enum
