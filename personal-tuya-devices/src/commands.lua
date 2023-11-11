@@ -177,7 +177,7 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -232,7 +232,7 @@ local defaults = {
         local x = 100 / #self.supported_values       -- 33.333333   25
         return data_types.Enum8(math.min(100, math.floor(m * math.floor(to_number(value) / x) + 0.5)))
       end
-      return tuya_types.Uint32(to_number(value))
+      return tuya_types.Int32(to_number(value))
     end,
     from_zigbee = function (self, value, device)
       local v = to_number(value)
@@ -383,7 +383,7 @@ local defaults = {
     rate = 10000,
     to_zigbee = function (self, value, device)  -- resetEnergyMeter (untested!)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(0)
+      return tuya_types.Int32(0)
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -492,7 +492,7 @@ local defaults = {
     to_zigbee = function (self, value, device)
       -- log.info("keypadInput", value)
       if #self.supported_values == 0 then
-        return tuya_types.Uint32(string.byte(value))
+        return tuya_types.Int32(string.byte(value))
       end
       for i, v in ipairs(self.supported_values) do
         if v == value then
@@ -629,8 +629,8 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
-      -- return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
+      -- return tuya_types.Int32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -645,8 +645,8 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
-      -- return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor(get_temp(to_number(value), get_app_temp_unit(pref), get_dev_temp_unit(device)).value * get_value(pref[self.rate_name], self.rate) / 100))
+      -- return tuya_types.Int32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
@@ -823,9 +823,9 @@ local defaults = {
       local pref = get_child_or_parent(device, self.group).preferences
       mylogs.log(device, "debug", "to_zigbee windowShadeLevel", pref.reverse, value, utils.stringify_table(pref))
       if pref.reverse then
-        return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+        return tuya_types.Int32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
       end
-      return tuya_types.Uint32(math.floor((100 - to_number(value)) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor((100 - to_number(value)) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
   },
   windowShadePreset = {
@@ -836,9 +836,9 @@ local defaults = {
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
       if pref.reverse then
-        return tuya_types.Uint32(math.floor(pref.presetPosition * get_value(pref[self.rate_name], self.rate) / 100))
+        return tuya_types.Int32(math.floor(pref.presetPosition * get_value(pref[self.rate_name], self.rate) / 100))
       end
-      return tuya_types.Uint32(math.floor((100 - pref.presetPosition) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor((100 - pref.presetPosition) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     command_to_value = function (self, command) return command.command end,
   },
@@ -849,7 +849,7 @@ local defaults = {
     rate = 100,
     to_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences
-      return tuya_types.Uint32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
+      return tuya_types.Int32(math.floor(to_number(value) * get_value(pref[self.rate_name], self.rate) / 100))
     end,
     from_zigbee = function (self, value, device)
       local pref = get_child_or_parent(device, self.group).preferences

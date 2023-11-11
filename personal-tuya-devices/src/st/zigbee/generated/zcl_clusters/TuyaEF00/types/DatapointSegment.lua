@@ -44,7 +44,7 @@ DatapointSegment.deserialize = function(buf)
     [tuya_types.DatapointSegmentType.RAW]      = generic_body.GenericBody,
     [tuya_types.DatapointSegmentType.STRING]   = data_types.CharString,
     [tuya_types.DatapointSegmentType.BOOLEAN]  = data_types.Boolean,
-    [tuya_types.DatapointSegmentType.VALUE]    = tuya_types.Uint32, -- BigEndian ?
+    [tuya_types.DatapointSegmentType.VALUE]    = tuya_types.Int32, -- BigEndian ?
     [tuya_types.DatapointSegmentType.ENUM]     = data_types.Enum8,
     [tuya_types.DatapointSegmentType.BITMAP]   = map_length_to_type[o.length.value],
   }
@@ -64,7 +64,7 @@ local types = {
   [data_types.CharString.ID] = tuya_types.DatapointSegmentType.STRING,
   [data_types.Boolean.ID] = tuya_types.DatapointSegmentType.BOOLEAN,
   [data_types.Enum8.ID] = tuya_types.DatapointSegmentType.ENUM,
-  [tuya_types.Uint32.ID] = tuya_types.DatapointSegmentType.VALUE,
+  [tuya_types.Int32.ID] = tuya_types.DatapointSegmentType.VALUE,
   [data_types.Bitmap8.ID] = tuya_types.DatapointSegmentType.BITMAP,
   [tuya_types.Bitmap16.ID] = tuya_types.DatapointSegmentType.BITMAP,
   [tuya_types.Bitmap32.ID] = tuya_types.DatapointSegmentType.BITMAP,
