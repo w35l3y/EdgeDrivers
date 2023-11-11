@@ -1,6 +1,6 @@
 # https://developer.smartthings.com/docs/devices/device-profiles#categories
 # https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
-name: "normal-alarm-v1"
+name: "normal-alarm-v2"
 components:
   - id: main
     label: Siren
@@ -27,8 +27,6 @@ components:
         #       enabledValues: [0, 50, 100]
         #     - key: setVolume
         #       enabledValues: [0, 50, 100]
-      - id: battery
-        version: 1
       - id: signalStrength
         version: 1
       - id: refresh
@@ -45,10 +43,10 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_alarm_v1: Normal
-        normal_alarm_v2: +Temp+Humidity
+        normal_alarm_v2: Normal
+        normal_alarm_v1: No temp/humidity
         generic_ef00_v1: Generic
-      default: normal_alarm_v1
+      default: normal_alarm_v2
   - name: logLevel
     title: Log level
     required: true
@@ -60,6 +58,19 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
+  - preferenceId: humidityOffset
+    explicit: true
+  - preferenceId: tempOffset
+    explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        C: Celsius
+        F: Fahrenheit
+      default: C
   - name: prefMelody
     title: Melody
     description: An integer between 1 and 18
@@ -78,17 +89,17 @@ preferences:
       minimum: 0
       maximum: 1800
       default: 5
-  - name: batteryMode
-    title: Battery Mode
-    description: "Choose the battery mode"
-    required: false
-    preferenceType: enumeration
-    definition:
-      default: auto
-      options:
-        auto: auto
-        enum: enum
-        value: value (0-100%)
+  # - name: batteryMode
+  #   title: Battery Mode
+  #   description: "Choose the battery mode"
+  #   required: false
+  #   preferenceType: enumeration
+  #   definition:
+  #     default: auto
+  #     options:
+  #       auto: auto
+  #       enum: enum
+  #       value: value (0-100%)
   - name: dpAlarmMain01
     title: DP for Alarm
     description: Only if you want to override the default DataPoint
@@ -107,8 +118,26 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpBatteryMain01
-    title: DP for Battery
+  # - name: dpBatteryMain01
+  #   title: DP for Battery
+  #   description: Only if you want to override the default DataPoint
+  #   required: true
+  #   preferenceType: integer
+  #   definition:
+  #     minimum: 0
+  #     maximum: 255
+  #     default: 0
+  - name: dpRelativeHumidityMain01
+    title: DP for Relative Humidity Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer

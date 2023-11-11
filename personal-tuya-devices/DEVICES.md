@@ -22,6 +22,7 @@
 | TS0601  | \_TZE200_bcusnqt8     | Power Meter     | normal-powerMeter-v1       |   6,   1                                                   |
 | TS0601  | \_TZE200_cxu0jkjk     | Window Shade    | normal-windowShade-v1      |   1,   2,   3,   7                                         |
 | TS0601  | \_TZE200_d0ypnbvn     | Smart Valve     | normal-valve-v1            |   1                                                        |
+| TS0601  | \_TZE200_d0yu2xgi     | Alarm           | normal-alarm-v2            | 104, 106, 105, 116, 102, 103                               |
 | TS0601  | \_TZE200_dfxkcots     | Dimmer          | normal-single-dimmer-v1    |   1,   2,   3                                              |
 | TS0601  | \_TZE200_dwcarsat     | Air Quality     | normal-air-quality-v2      |   2,  18,  19,  20,  21,  22                               |
 | TS0601  | \_TZE200_e3oitdyu     | Multi Dimmer    | normal-multi-dimmer-v2     |   1,   2,   3,   4,   7,   8,   9,  10                     |

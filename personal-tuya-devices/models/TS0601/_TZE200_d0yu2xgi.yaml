@@ -1,0 +1,34 @@
+deviceLabel: Alarm
+profiles:
+  - normal_alarm_v2
+datapoints:
+  # https://community.smartthings.com/t/neo-zigbee-siren-thing/267433/13?u=w35l3y
+  - id: 104
+    command: alarm
+    base:
+      group: 1
+  - id: 106
+    command: relativeHumidityMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 105
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 116
+    command: audioVolume
+    base:
+      group: 1
+      supported_values: [0, 50, 100]
+  - id: 102
+    command: enum
+    base:
+      group: 2
+      name: melody
+  - id: 103
+    command: value
+    base:
+      group: 2
+      name: duration

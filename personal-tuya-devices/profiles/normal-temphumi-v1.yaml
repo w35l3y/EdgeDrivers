@@ -30,6 +30,7 @@ preferences:
         normal_temphumibatt_v1: +Battery
         normal_thermostat_v2: +Setpoint
         normal_thermostat_v3: +Setpoint+Switch
+        # normal_alarm_v2: +Alarm
         generic_ef00_v1: Generic
       default: normal_temphumi_v1
   - name: logLevel
