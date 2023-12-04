@@ -228,15 +228,14 @@ local defaults = {
     -- supported_values = {0,50,100}, -- low,medium,high
     to_zigbee = function (self, value, device)
       if #self.supported_values > 1 then
-        local m = 100 / (#self.supported_values - 1) -- 50          33.333333
-        local x = 100 / #self.supported_values       -- 33.333333   25
-        return data_types.Enum8(math.min(100, math.floor(m * math.floor(to_number(value) / x) + 0.5)))
+        local divider = math.ceil(100 / #self.supported_values)
+        return data_types.Enum8(math.min(#self.supported_values - 1, math.floor(to_number(value) / divider)))
       end
       return tuya_types.Int32(to_number(value))
     end,
     from_zigbee = function (self, value, device)
       local v = to_number(value)
-      if #self.supported_values > 1 then
+      if #self.supported_values > 1 and v < #self.supported_values then
         return self.supported_values[1 + v]
       end
       return v
