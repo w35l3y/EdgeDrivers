@@ -11,6 +11,7 @@
 -- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
+local zb_utils = require "st.zigbee.utils"
 local st_utils = require "st.utils"
 
 --- @class st.zigbee.data_types.IntABC: st.zigbee.data_types.DataType
