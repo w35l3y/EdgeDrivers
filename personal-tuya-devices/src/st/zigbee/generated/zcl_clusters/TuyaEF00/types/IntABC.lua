@@ -51,7 +51,7 @@ function IntABC.new_mt(base, byte_length, little_endian)
       return "Uninitialized " .. self.NAME
     end
     local pattern = (self.little_endian and "<I" or ">I") .. self.byte_length
-    return string.format("%s: %d (%s)", self.field_name or self.NAME, zb_utils.pretty_print_hex_str(string.pack(pattern, self.value)), self.little_endian and "LE" or "BE")
+    return string.format("%s: 0x%s (%s)", self.field_name or self.NAME, zb_utils.pretty_print_hex_str(string.pack(pattern, self.value)), self.little_endian and "LE" or "BE")
   end
   mt.__call = function(orig, val)
     if type(val) ~= "number" or val ~= math.floor(val) then
