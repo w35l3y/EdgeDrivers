@@ -1,0 +1,51 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "multisensor_v1"
+components:
+  - id: main
+    label: Multi sensor
+    capabilities:
+      - id: occupancySensor # 0x0406
+        version: 1
+      - id: motionSensor # 0x0500
+        version: 1
+      - id: illuminanceMeasurement # 0x0400
+        version: 1
+      - id: temperatureMeasurement # 0x0402
+        version: 1
+      - id: relativeHumidityMeasurement # 0x0405
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: powerSource
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.info
+        version: 1
+    categories:
+      - name: MultiFunctionalSensor
+preferences:
+  - name: profile
+    title: Profile
+    description: "Choose the profile"
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        multisensor_v1: Normal
+        multisensor_v2: +Battery
+        default_v1: Default
+      default: multisensor_v1
+  - preferenceId: tempOffset
+    explicit: true
+  - preferenceId: humidityOffset
+    explicit: true
+metadata:
+  deviceType: MultiFunctionalSensor
+  ocfDeviceType: x.com.st.d.sensor.multifunction
+  deviceTypeId: MultiFunctionalSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043

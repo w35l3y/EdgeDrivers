@@ -8,6 +8,29 @@ zigbeeGeneric:
         - 0x0201
         - 0x0402
         - 0x0405
+  - id: "GenericMultiSensorV2"
+    deviceProfileName: multisensor_v2
+    deviceLabel: Generic Multi Sensor
+    clusters:
+      server:
+        - 0x0000
+        - 0x0001
+        - 0x0400
+        - 0x0402
+        - 0x0405
+        - 0x0406
+        - 0x0500
+  - id: "GenericMultiSensorV1"
+    deviceProfileName: multisensor_v1
+    deviceLabel: Generic Multi Sensor
+    clusters:
+      server:
+        - 0x0000
+        - 0x0400
+        - 0x0402
+        - 0x0405
+        - 0x0406
+        - 0x0500
   - id: "GenericTempHumiBatt"
     deviceProfileName: temphumibatt_v1
     deviceLabel: Generic Thermostat
