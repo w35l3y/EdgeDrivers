@@ -223,20 +223,40 @@ local defaults = {
   audioVolume = {
     capability = "audioVolume",
     attribute = "volume",
+    reverse = false,
     supported_values = {},
     -- supported_values = {0,34,67,100}, -- off,low,medium,high
     -- supported_values = {0,50,100}, -- low,medium,high
     to_zigbee = function (self, value, device)
+      local pref = get_child_or_parent(device, self.group).preferences
+      local r = xor(self.reverse, pref.reverse)
       if #self.supported_values > 1 then
         local divider = math.ceil(100 / #self.supported_values)
-        return data_types.Enum8(math.min(#self.supported_values - 1, math.floor(to_number(value) / divider)))
+        local t = #self.supported_values - 1
+        local v = math.min(t, math.floor(to_number(value) / divider))
+        if r then
+          return data_types.Enum8(t - v)
+        end
+        return data_types.Enum8(v)
+      end
+      if r then
+        return tuya_types.Int32(100 - to_number(value))
       end
       return tuya_types.Int32(to_number(value))
     end,
-    from_zigbee = function (self, value, device)
+    from_zigbee = function (self, value, device, force_child)
       local v = to_number(value)
-      if #self.supported_values > 1 and v < #self.supported_values then
+      local l = #self.supported_values
+      local pref = get_child_or_parent(device, self.group, force_child).preferences
+      local r = xor(self.reverse, pref.reverse)
+      if l > 1 and v < l then
+        if r then
+          return self.supported_values[l - v]
+        end
         return self.supported_values[1 + v]
+      end
+      if r then
+        return 100 - v
       end
       return v
     end,

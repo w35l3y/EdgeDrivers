@@ -62,6 +62,8 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
+  - preferenceId: reverse
+    explicit: true
   - preferenceId: humidityOffset
     explicit: true
   - preferenceId: tempOffset

@@ -60,6 +60,8 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
+  - preferenceId: reverse
+    explicit: true
   - name: prefMelody
     title: Melody
     description: An integer between 1 and 18
