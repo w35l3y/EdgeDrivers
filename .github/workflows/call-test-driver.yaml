@@ -33,11 +33,11 @@ jobs:
       fail-fast: false
       matrix:
         stapi:
-          - v6_49
+          - v8_51
         include:
-          - stapi: v6_49
-            release: apiv6_49/lua_libs-api_v6_49X
-            path: lua_libs-api_v6
+          - stapi: v8_51
+            release: apiv8_51/lua_libs-api_v8_51X
+            path: lua_libs-api_v8
     steps:
       - name: Check SMARTTHINGS_TOKEN
         uses: actions/github-script@v3
@@ -121,19 +121,19 @@ jobs:
       fail-fast: false
       matrix:
         stapi:
-          - v3_46
           - v4_47_B
           - v5_48
+          - v6_49
         include:
-          - stapi: v3_46
-            release: apiv3_46/lua_libs-api_v3_46X
-            path: lua_libs-api_v3
           - stapi: v4_47_B
             release: apiv4_47_beta/lua_libs-api_v4_47X_beta
             path: lua_libs-api_v4
           - stapi: v5_48
             release: apiv5_48/lua_libs-api_v5_48X
             path: lua_libs-api_v5
+          - stapi: v6_49
+            release: apiv6_49/lua_libs-api_v6_49X
+            path: lua_libs-api_v6
     steps:
       - name: Check SMARTTHINGS_TOKEN
         uses: actions/github-script@v3
