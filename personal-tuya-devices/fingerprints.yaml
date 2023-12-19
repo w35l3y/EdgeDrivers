@@ -141,6 +141,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_d0ypnbvn
     deviceProfileName: normal-valve-v1
     deviceLabel: Smart Valve
+  - id: TS0601/_TZE200_d0yu2xgi
+    model: TS0601
+    manufacturer: _TZE200_d0yu2xgi
+    deviceProfileName: normal-alarm-v2
+    deviceLabel: Alarm
   - id: TS0601/_TZE200_dfxkcots
     model: TS0601
     manufacturer: _TZE200_dfxkcots
