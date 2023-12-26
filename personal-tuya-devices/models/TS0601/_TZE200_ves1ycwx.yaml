@@ -12,7 +12,7 @@ datapoints:
     command: energyMeter
     base:
       group: 1
-      rate: 100000
+      rate: 1000
   - id: 7
     command: voltCurrPowerRaw # voltageMeasurement + currentMeasurement + powerMeter
     base:
