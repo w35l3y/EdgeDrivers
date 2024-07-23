@@ -1,0 +1,208 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-thermostat-v6"
+components:
+  - id: main
+    label: Thermostat
+    capabilities:
+      - id: switch
+        version: 1
+      - id: thermostatMode
+        version: 1
+        config:
+          values:
+            - key: thermostatMode.value #read
+              enabledValues:
+                - manual
+                - heat
+                - away
+                - auto
+                - eco
+                - custom
+            - key: setThermostatMode #write
+              enabledValues:
+                - manual
+                - heat
+                - away
+                - auto
+                - eco
+      - id: temperatureMeasurement
+        version: 1
+      - id: thermostatHeatingSetpoint
+        version: 1
+      - id: thermostatOperatingState
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.debug
+        version: 1
+    categories:
+      - name: Thermostat
+  - id: main02
+    label: Room
+    capabilities:
+      - id: temperatureMeasurement
+        version: 1
+    categories:
+      - name: Thermostat
+  - id: main03
+    label: Energy
+    capabilities:
+      - id: powerMeter
+        version: 1
+      - id: energyMeter
+        version: 1
+    categories:
+      - name: Thermostat
+preferences:
+  - name: profile
+    title: Profile
+    description: "Choose the profile  "
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_thermostat_v6: Normal
+        normal_thermostat_v5: +Battery
+        normal_thermostat_v4: No floor temp
+        normal_thermostat_v3: Switch+Floor temp
+        normal_thermostat_v2: No switch
+        normal_temphumi_v1: Only sensors
+        generic_ef00_v1: Generic
+      default: normal_thermostat_v6
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
+  # - name: manufacturer
+  #   title: Manufacturer
+  #   required: false
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #        _: Auto
+  #       _TZE200_4hbx5cvx: _TZE200_4hbx5cvx
+  #       _TZE200_aoclfnxz: _TZE200_aoclfnxz
+  #       _TZE204_p3lqqy2r: _TZE204_p3lqqy2r
+ 
+  - preferenceId: tempOffset
+    explicit: true
+  - name: temperatureUnit
+    title: Temperature Unit Scale
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        C: Celsius
+        F: Fahrenheit
+      default: C
+  - preferenceId: reverse
+    explicit: true
+  - name: rate
+    title: Rate
+    description: Set 0 to use default value
+    required: true
+    preferenceType: number
+    definition:
+      minimum: 0
+      maximum: 100000
+      default: 0
+  - name: timezoneOffset
+    title: Timezone in minutes
+    description: Currently, ST doesn't report local timezone
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: -720
+      maximum: 720
+      default: 0
+  - name: dpSwitchMain01
+    title: DP for Switch
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatModeMain01
+    title: DP for Thermostat Mode
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatHeatinMain01
+    title: DP for Thermostat Heating Setpoint
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpThermostatOperatMain01
+    title: DP for Thermostat Operating State
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain01
+    title: DP for Temperature Measurement
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpTemperatureMeasuMain02
+    title: DP for Temperature Measurement Room
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpPowerMeterMain03
+    title: DP for Power Meter
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpEnergyMeterMain03
+    title: DP for Energy meter
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+metadata:
+  deviceType: Thermostat
+  ocfDeviceType: oic.d.thermostat
+  deviceTypeId: Thermostat
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043
