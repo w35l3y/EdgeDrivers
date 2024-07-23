@@ -33,9 +33,9 @@ datapoints:
   - id: 122
     command: powerMeter
     base:
-      group: 2
+      group: 3
   - id: 123
     command: energyMeter
     base:
-      group: 2
+      group: 3
       rate: 100
