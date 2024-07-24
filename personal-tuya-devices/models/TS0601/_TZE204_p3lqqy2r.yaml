@@ -1,0 +1,41 @@
+deviceLabel: Thermostat
+profiles:
+  - normal_thermostat_v6
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/348dc94d3daaba5d7041410e1dda274af236b23f/lib/tuya.js#L796-L808
+  - id: 1
+    command: switch
+    base:
+      group: 1
+  - id: 2
+    command: thermostatMode
+    base:
+      group: 1
+  - id: 16
+    command: thermostatHeatingSetpoint
+    base:
+      group: 1
+      rate: 100
+  - id: 101
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 100
+  - id: 104
+    command: thermostatOperatingState
+    base:
+      group: 1
+  - id: 24
+    command: temperatureMeasurement
+    base:
+      group: 2
+      rate: 100
+  - id: 122
+    command: powerMeter
+    base:
+      group: 3
+  - id: 123
+    command: energyMeter
+    base:
+      group: 3
+      rate: 100
