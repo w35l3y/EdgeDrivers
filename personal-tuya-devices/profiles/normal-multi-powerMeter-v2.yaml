@@ -65,7 +65,7 @@ preferences:
     definition:
       options:
         _: Auto
-        _TZE204_81yrt3lo: _TZE204_81yrt3lo (107,112,113,101)
+        _TZE204_81yrt3lo: _TZE204_81yrt3lo (107,112,113,101/109,112,114,105)
   - name: dpPowerMeterMain01
     title: DP for Power Meter A
     description: Only if you want to override the default DataPoint
