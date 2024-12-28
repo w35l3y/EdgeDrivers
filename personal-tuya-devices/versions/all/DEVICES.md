@@ -43,7 +43,6 @@
 | TS0601  | \_TZE200_zl1kmjqx     | LCD T+H Sensor           | normal-temphumibatt-v1   |   1,   2,   4                                              |
 | TS0601  | \_TZE200_znbl8dj5     | LCD T+H Sensor           | normal-temphumibatt-v1   |   1,   2,   4                                              |
 | TS0601  | \_TZE200_ztc6ggyl     | Presence Sensor          | normal-presenceSensor-v1 |   1,   2,   3,   4, 101, 102, 104                          |
-| TS0601  | \_TZE204_81yrt3lo     | Power Meter              | normal-multi-powerMeter-v2 | 101, 105, 107, 109, 112, 113, 114      |
 | TS0601  | \_TZE204_ac0fhfiq     | Power Meter              | normal-powerMeter-v1     |   6,   1                                                   |
 | TS0601  | \_TZE204_aoclfnxz     | Thermostat               | normal-thermostat-v4     |   1,  16,  24                                              |
 | TS0601  | \_TZE204_cjbofhxw     | Power Meter              | normal-powerMeter-v1     |  18,  19,  20, 101                                         |
