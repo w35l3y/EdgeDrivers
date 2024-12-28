@@ -17,7 +17,6 @@ require "test.normal-temphumi-v1"
 require "test.normal-temphumibatt-v1"
 require "test.normal-presenceSensor-v1"
 require "test.normal-garageDoor-v1"
-require "test.normal-single-powerMeter-v1"
 require "test.normal-irrigation-v1"
 require "test.normal-irrigation-v2"
 
