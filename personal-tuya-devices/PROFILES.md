@@ -14,6 +14,7 @@
 | normal-momentary-v3        | Momentary > No battery            |
 | normal-multi-dimmer-v2     | 2 dimmers                         |
 | normal-multi-powerMeter-v1 | Power meter > 3 phases            |
+| normal-multi-powerMeter-v2 | Power meter > 2 phases            |
 | normal-multi-switch-v3     | 3 switches                        |
 | normal-multi-switch-v4     | 4 switches                        |
 | normal-multi-switch-v6     | 6 switches                        |
