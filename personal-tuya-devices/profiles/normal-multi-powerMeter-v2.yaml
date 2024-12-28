@@ -43,7 +43,7 @@ preferences:
       options:
         normal_multi_powerMeter_v2: Normal
         normal_multi_powerMeter_v1: 3 phases
-        normal_powerMeter_v1: 1 phase
+        normal_single_powerMeter_v1: 1 phase
         generic_ef00_v1: Generic
       default: normal_multi_powerMeter_v2
   - name: logLevel
