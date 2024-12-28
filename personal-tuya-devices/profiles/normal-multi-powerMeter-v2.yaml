@@ -41,7 +41,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_multi_powerMeter_v2: Normal
+        normal_multi_powerMeter_v2: 2 phases
         normal_multi_powerMeter_v1: 3 phases
         normal_single_powerMeter_v1: 1 phase
         generic_ef00_v1: Generic
@@ -65,7 +65,7 @@ preferences:
     definition:
       options:
         _: Auto
-        _TZE204_81yrt3lo: _TZE204_81yrt3lo (107,112,113,101/109,112,114,105)
+        _TZE204_81yrt3lo: _TZE204_81yrt3lo
   - name: dpPowerMeterMain01
     title: DP for Power Meter A
     description: Only if you want to override the default DataPoint

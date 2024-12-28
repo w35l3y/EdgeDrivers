@@ -30,7 +30,7 @@ preferences:
     preferenceType: enumeration
     definition:
       options:
-        normal_single_powerMeter_v1: Normal
+        normal_single_powerMeter_v1: 1 phase
         normal_multi_powerMeter_v1: 3 phases
         normal_multi_powerMeter_v2: 2 phases
         generic_ef00_v1: Generic
