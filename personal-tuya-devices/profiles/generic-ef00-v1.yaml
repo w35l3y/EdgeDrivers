@@ -41,7 +41,7 @@ preferences:
         normal_irrigation_v1: Irrigation
         # normal_momentary_v1: Momentary
         normal_powerMeter_v1: Power meter with 1 phase
-        normal_dual_powerMeter_v1: Power meter with 2 phases
+        normal_multi_powerMeter_v2: Power meter with 2 phases
         normal_multi_powerMeter_v1: Power meter with 3 phases
         normal_presenceSensor_v2: Presence sensor
         normal_smokeDetector_v1: Smoke Detector

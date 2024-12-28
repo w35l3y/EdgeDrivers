@@ -32,7 +32,7 @@ preferences:
       options:
         normal_powerMeter_v1: Normal
         normal_multi_powerMeter_v1: 3 phases
-        normal_dual_powerMeter_v1: 2 phases
+        normal_multi_powerMeter_v2: 2 phases
         generic_ef00_v1: Generic
       default: normal_powerMeter_v1
   - name: logLevel
