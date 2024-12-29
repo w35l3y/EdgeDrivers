@@ -11,6 +11,6 @@
 | TS0601 | \_TZE200_p0gzbqct | Dimmer       | normal-single-dimmer-v1    |   1,   2,   3                          |
 | TS0601 | \_TZE200_r731zlxk | Multi Switch | normal-multi-switch-v6     |   1,   2,   3,   4,   5,   6           |
 | TS0601 | \_TZE200_ves1ycwx | Power Meter  | normal-multi-powerMeter-v1 |   6,   1,   7,   8                     |
-| TS0601 | \_TZE204_81yrt3lo | Power Meter  | normal-multi-powerMeter-v2 | 101, 105, 107, 109, 112, 113, 114      |
+| TS0601 | \_TZE204_81yrt3lo | Power Meter  | normal-multi-powerMeter-v1 | 101, 105, 107, 109, 112, 113, 114      |
 
 - This is a list of predefined devices, but the driver is NOT limited to those.<br />It should work with any device that expose EF00 cluster.
