@@ -4,7 +4,7 @@
 name: "normal-multi-powerMeter-v2"
 components:
   - id: main
-    label: Power Meter
+    label: Power Meter A
     capabilities:
       - id: energyMeter
         version: 1
@@ -23,8 +23,10 @@ components:
     categories:
       - name: Power Meter
   - id: main02
-    label: Power Meter
+    label: Power Meter B
     capabilities:
+      - id: energyMeter
+        version: 1
       - id: powerMeter
         version: 1
       - id: currentMeasurement
@@ -94,7 +96,7 @@ preferences:
       maximum: 255
       default: 0
   - name: dpEnergyMeterMain01
-    title: DP for Energy Meter
+    title: DP for Energy Meter A
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -122,6 +124,15 @@ preferences:
       default: 0
   - name: dpVoltageMeasuremeMain02
     title: DP for Voltage Measurement B
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpEnergyMeterMain02
+    title: DP for Energy Meter B
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
