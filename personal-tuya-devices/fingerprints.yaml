@@ -129,7 +129,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_bcusnqt8
     model: TS0601
     manufacturer: _TZE200_bcusnqt8
-    deviceProfileName: normal-single-powerMeter-v1
+    deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
   - id: TS0601/_TZE200_cxu0jkjk
     model: TS0601
@@ -189,7 +189,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE200_lsanae15
     model: TS0601
     manufacturer: _TZE200_lsanae15
-    deviceProfileName: normal-single-powerMeter-v1
+    deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
   - id: TS0601/_TZE200_m9skfctm
     model: TS0601
@@ -299,7 +299,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE204_ac0fhfiq
     model: TS0601
     manufacturer: _TZE204_ac0fhfiq
-    deviceProfileName: normal-single-powerMeter-v1
+    deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
   - id: TS0601/_TZE204_aoclfnxz
     model: TS0601
@@ -309,7 +309,7 @@ zigbeeManufacturer:
   - id: TS0601/_TZE204_cjbofhxw
     model: TS0601
     manufacturer: _TZE204_cjbofhxw
-    deviceProfileName: normal-single-powerMeter-v1
+    deviceProfileName: normal-powerMeter-v1
     deviceLabel: Power Meter
   - id: TS0601/_TZE204_ntcy3xu1
     model: TS0601

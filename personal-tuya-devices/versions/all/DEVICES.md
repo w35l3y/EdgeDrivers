@@ -14,7 +14,7 @@
 | TS0601  | \_TZE200_anv5ujhv     | Irrigation               | normal-irrigation-v3     | 102, 108, 110                                              |
 | TS0601  | \_TZE200_aoclfnxz     | Thermostat               | normal-thermostat-v4     |   1,  16,  24                                              |
 | TS0601  | \_TZE200_b6wax7g0     | Thermostat               | normal-thermostat-v5     |   2,   3,   1,  14                                         |
-| TS0601  | \_TZE200_bcusnqt8     | Power Meter              | normal-single-powerMeter-v1     |   6,   1                                                   |
+| TS0601  | \_TZE200_bcusnqt8     | Power Meter              | normal-powerMeter-v1     |   6,   1                                                   |
 | TS0601  | \_TZE200_cxu0jkjk     | Window Shade             | normal-windowShade-v1    |   1,   2,   3,   7                                         |
 | TS0601  | \_TZE200_d0ypnbvn     | Smart Valve              | normal-valve-v1          |   1                                                        |
 | TS0601  | \_TZE200_d0yu2xgi     | Alarm                    | normal-alarm-v2          | 104, 106, 105, 116, 102, 103                               |
@@ -23,7 +23,7 @@
 | TS0601  | \_TZE200_h4cgnbzg     | Thermostat               | normal-thermostat-v4     | 101, 103, 102                                              |
 | TS0601  | \_TZE200_ikvncluo     | Presence Sensor          | normal-presenceSensor-v1 |   1,   2,   3,   4, 101, 102, 104                          |
 | TS0601  | \_TZE200_locansqn     | LCD T+H Sensor           | normal-temphumibatt-v1   |   1,   2,   4                                              |
-| TS0601  | \_TZE200_lsanae15     | Power Meter              | normal-single-powerMeter-v1     |   6,   1                                                   |
+| TS0601  | \_TZE200_lsanae15     | Power Meter              | normal-powerMeter-v1     |   6,   1                                                   |
 | TS0601  | \_TZE200_m9skfctm     | Smoke Detector           | normal-smokeDetector-v1  |   1, 101,  15                                              |
 | TS0601  | \_TZE200_mby4kbtq     | Gas Detector             | normal-gasDetector-v1    |   1,  13,  16                                              |
 | TS0601  | \_TZE200_mudxchsu     | Thermostat               | normal-thermostat-v5     |  16,  24, 115,  35                                         |
@@ -43,9 +43,9 @@
 | TS0601  | \_TZE200_zl1kmjqx     | LCD T+H Sensor           | normal-temphumibatt-v1   |   1,   2,   4                                              |
 | TS0601  | \_TZE200_znbl8dj5     | LCD T+H Sensor           | normal-temphumibatt-v1   |   1,   2,   4                                              |
 | TS0601  | \_TZE200_ztc6ggyl     | Presence Sensor          | normal-presenceSensor-v1 |   1,   2,   3,   4, 101, 102, 104                          |
-| TS0601  | \_TZE204_ac0fhfiq     | Power Meter              | normal-single-powerMeter-v1     |   6,   1                                                   |
+| TS0601  | \_TZE204_ac0fhfiq     | Power Meter              | normal-powerMeter-v1     |   6,   1                                                   |
 | TS0601  | \_TZE204_aoclfnxz     | Thermostat               | normal-thermostat-v4     |   1,  16,  24                                              |
-| TS0601  | \_TZE204_cjbofhxw     | Power Meter              | normal-single-powerMeter-v1     |  18,  19,  20, 101                                         |
+| TS0601  | \_TZE204_cjbofhxw     | Power Meter              | normal-powerMeter-v1     |  18,  19,  20, 101                                         |
 | TS0601  | \_TZE204_ntcy3xu1     | Smoke Detector           | normal-smokeDetector-v1  |   1, 101,  14                                              |
 | TS0601  | \_TZE204_sbyx0lm6     | Presence Sensor          | normal-presenceSensor-v4 |   1,   2,   3,   4, 101, 102, 104, 107, 108, 109, 111, 115 |
 | TS0601  | \_TZE204_sxm7l9xa     | Presence Sensor          | normal-presenceSensor-v1 | 105, 106, 108, 107, 111, 110, 104                          |

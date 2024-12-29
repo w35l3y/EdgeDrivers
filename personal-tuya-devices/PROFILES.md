@@ -18,7 +18,7 @@
 | normal-multi-switch-v3     | 3 switches                        |
 | normal-multi-switch-v4     | 4 switches                        |
 | normal-multi-switch-v6     | 6 switches                        |
-| normal-single-powerMeter-v1| Power meter                       |
+| normal-powerMeter-v1       | Power meter                       |
 | normal-presenceSensor-v1   | Presence sensor > +Illuminance    |
 | normal-presenceSensor-v2   | Presence sensor                   |
 | normal-presenceSensor-v3   | Presence sensor > +Battery        |
