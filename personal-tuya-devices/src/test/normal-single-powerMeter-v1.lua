@@ -9,7 +9,7 @@ local utils = require "test.utils"
 
 local tuya_types = require "st.zigbee.generated.zcl_clusters.TuyaEF00.types"
 
-local profile = t_utils.get_profile_definition("normal-single-pm-v1.yaml")
+local profile = t_utils.get_profile_definition("normal-single-powerMeter-v1.yaml")
 
 test.load_all_caps_from_profile(profile)
 
