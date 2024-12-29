@@ -6,9 +6,9 @@ components:
   - id: main
     label: Power Meter A
     capabilities:
-      - id: energyMeter
-        version: 1
       - id: powerMeter
+        version: 1
+      - id: energyMeter
         version: 1
       - id: currentMeasurement
         version: 1
@@ -25,9 +25,9 @@ components:
   - id: main02
     label: Power Meter B
     capabilities:
-      - id: energyMeter
-        version: 1
       - id: powerMeter
+        version: 1
+      - id: energyMeter
         version: 1
       - id: currentMeasurement
         version: 1
