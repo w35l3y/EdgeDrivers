@@ -4,6 +4,21 @@
 name: "normal-multi-powerMeter-v1"
 components:
   - id: main
+    label: Common
+    capabilities:
+      - id: energyMeter
+        version: 1
+      - id: voltageMeasurement
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.debug
+        version: 1
+    categories:
+      - name: Power Meter
+  - id: main01
     label: Power Meter A
     capabilities:
       - id: powerMeter
@@ -13,12 +28,6 @@ components:
       - id: currentMeasurement
         version: 1
       - id: voltageMeasurement
-        version: 1
-      - id: signalStrength
-        version: 1
-      - id: refresh
-        version: 1
-      - id: valleyboard16460.debug
         version: 1
     categories:
       - name: Power Meter
