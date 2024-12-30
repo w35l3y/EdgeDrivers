@@ -1,6 +1,6 @@
 deviceLabel: Power Meter
 profiles:
-  - normal_multi_powerMeter_v1
+  - normal_powerMeter_v1
 datapoints:
   # https://raw.githubusercontent.com/jeverley/zha-device-handlers/refs/heads/ts0601_energy_meter_devices/zhaquirks/tuya/ts0601_energy_meter.py
   - id: 113
