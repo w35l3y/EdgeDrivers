@@ -1,0 +1,20 @@
+deviceLabel: Thermostat
+profiles:
+  - normal_thermostat_v5
+datapoints:
+  # https://github.com/Koenkk/zigbee-herdsman-converters/blob/ef7ac30befdfa980f139249ea62c8db7a985d9a5/src/devices/tech.ts#L60
+  # https://github.com/Koenkk/zigbee-herdsman-converters/pull/8170/files
+  - id: 4
+    command: thermostatHeatingSetpoint
+    base:
+      group: 1
+      rate: 10
+  - id: 3
+    command: temperatureMeasurement
+    base:
+      group: 1
+      rate: 1000
+  - id: 14
+    command: battery
+    base:
+      group: 1
