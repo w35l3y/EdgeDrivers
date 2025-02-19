@@ -4,9 +4,13 @@
 name: "normal-multi-powerMeter-v1"
 components:
   - id: main
-    label: Common
+    label: Power Meter
     capabilities:
       - id: energyMeter
+        version: 1
+      - id: powerMeter
+        version: 1
+      - id: currentMeasurement
         version: 1
       - id: voltageMeasurement
         version: 1
@@ -80,8 +84,17 @@ preferences:
         info: Info, Warn, Error
         debug: Debug, Info, Warn, Error
       default: error
-  - name: dpEnergyMeterMain01
-    title: DP for Energy Meter A+B+C
+  - name: dpPowerMeterMain01
+    title: DP for Power Meter A+B+C
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpCurrentMeasuremeMain01
+    title: DP for Current Measurement A+B+C
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -98,8 +111,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpPowerMeterMain02
-    title: DP for Power Meter A
+  - name: dpEnergyMeterMain01
+    title: DP for Energy Meter A+B+C
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -107,8 +120,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpEnergyMeterMain02
-    title: DP for Energy Meter A
+  - name: dpPowerMeterMain02
+    title: DP for Power Meter A
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -134,8 +147,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpPowerMeterMain03
-    title: DP for Power Meter B
+  - name: dpEnergyMeterMain02
+    title: DP for Energy Meter A
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -143,8 +156,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpEnergyMeterMain03
-    title: DP for Energy Meter B
+  - name: dpPowerMeterMain03
+    title: DP for Power Meter B
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -170,8 +183,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpPowerMeterMain04
-    title: DP for Power Meter C
+  - name: dpEnergyMeterMain03
+    title: DP for Energy Meter B
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -179,8 +192,8 @@ preferences:
       minimum: 0
       maximum: 255
       default: 0
-  - name: dpEnergyMeterMain04
-    title: DP for Energy Meter C
+  - name: dpPowerMeterMain04
+    title: DP for Power Meter C
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
@@ -199,6 +212,15 @@ preferences:
       default: 0
   - name: dpVoltageMeasuremeMain04
     title: DP for Voltage Measurement C
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+  - name: dpEnergyMeterMain04
+    title: DP for Energy Meter C
     description: Only if you want to override the default DataPoint
     required: true
     preferenceType: integer
