@@ -28,6 +28,11 @@ datapoints:
     base:
       group: 2
       rate: 1000
+  - id: 112
+    command: voltageMeasurement
+    base:
+      group: 2
+      rate: 1000
   - id: 114
     command: currentMeasurement
     base:
@@ -40,6 +45,11 @@ datapoints:
       rate: 1000
   - id: 109
     command: energyMeter
+    base:
+      group: 3
+      rate: 1000
+  - id: 112
+    command: voltageMeasurement
     base:
       group: 3
       rate: 1000
