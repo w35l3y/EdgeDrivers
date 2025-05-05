@@ -16,12 +16,13 @@ local REPORT_BY_DP = {}
 
 local mt = {}
 mt.__cache = {}
-mt.__index = function(self, model)
+
+local load_default_model = function (model, defaultValue)
   if mt.__cache[model] == nil then
     log.info("Model cached", model)
     mt.__cache[model] = {}
     local mt_model = {}
-    mt_model.__cache = {}
+    mt_model.__cache = defaultValue or {}
     mt_model.__index = function (self, manufacturer)
       if mt_model.__cache[manufacturer] == nil then
         log.info("Manufacturer cached", manufacturer)
@@ -39,6 +40,10 @@ mt.__index = function(self, model)
   end
   return mt.__cache[model]
 end
+
+mt.__index = function(self, model)
+  return load_default_model(model, {})
+end
 setmetatable(REPORT_BY_DP, mt)
 
 local function get_default_by_profile (device, warn)
@@ -49,7 +54,7 @@ local function get_default_by_profile (device, warn)
           if warn then
             myutils.log(device, "warn", "Simulating device", model, mfr)
           end
-          device:set_field("expects", mfr)
+          device:set_field("expects", mfr, { persist = true })
           return dp
         end
       end
@@ -58,11 +63,17 @@ local function get_default_by_profile (device, warn)
   device:set_field("expects", nil)
 end
 local function send_command(fn, driver, device, ...)
-  local dp = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+  local mo = device:get_model()
+  local ma = device:get_manufacturer()
+  local dp = REPORT_BY_DP[mo][ma]
   if dp == nil or dp.default then
+    local exp = device:get_field("expects")
+    if exp and not (mt.__cache[mo] and mt.__cache[mo][exp]) then
+      myutils.log(device, "warn", "Force lazy loading manufacturer", exp, not REPORT_BY_DP[mo][exp].default)
+    end
     dp = get_default_by_profile(device, true)
   else
-    device:set_field("expects", device:get_manufacturer())
+    device:set_field("expects", ma)
   end
   if dp then
     fn(dp.datapoints)(driver, device, ...)
@@ -158,20 +169,31 @@ function defaults.can_handle (opts, driver, device, ...)
     return false
   end
   -- log.info(device:get_model(), device:get_manufacturer())
-  local x = REPORT_BY_DP[device:get_model()][device:get_manufacturer()]
+  local mo = device:get_model()
+  local ma = device:get_manufacturer()
+  local x = REPORT_BY_DP[mo][ma]
   if x and x.default == nil then
     -- `default == nil` means a profile was found for the model+mfr
-    device:set_field("expects", device:get_manufacturer())
+    device:set_field("expects", ma)
     return true
+  else
+    --mt.__cache = require "models"
+    local exp = device:get_field("expects")
+    -- forces loading expected model
+    if exp and not (mt.__cache[mo] and mt.__cache[mo][exp]) then
+      myutils.log(device, "info", "Force loading manufacturer", mo, exp, not REPORT_BY_DP[mo][exp].default) -- expected: nil or true
+    else if not mt.__cache[mo] then
+      load_default_model(mo, pcall(require, "models." .. mo) or {})
+      myutils.log(device, "info", "Force loading model", mo, not not mt.__cache[mo]) -- expected: table
+    end
   end
-  mt.__cache = require "models"
   local prf = get_default_by_profile(device, false)
   if prf then
     return true
   elseif device.parent_assigned_child_key then
-    myutils.log(device, "warn", "Similar device not found (child)", device:get_model(), device:get_manufacturer(), device.preferences.profile, device:get_parent_device().preferences.profile)
+    myutils.log(device, "warn", "Similar device not found (child)", mo, ma, device.preferences.profile, device:get_parent_device().preferences.profile)
   elseif device.preferences.profile then
-    myutils.log(device, "warn", "Similar device not found (parent)", device:get_model(), device:get_manufacturer(), device.preferences.profile)
+    myutils.log(device, "warn", "Similar device not found (parent)", mo, ma, device.preferences.profile)
   end
   return false
 end
