@@ -182,7 +182,7 @@ function defaults.can_handle (opts, driver, device, ...)
     -- forces loading expected model
     if exp and not (mt.__cache[mo] and mt.__cache[mo][exp]) then
       myutils.log(device, "info", "Force loading manufacturer", mo, exp, not REPORT_BY_DP[mo][exp].default) -- expected: nil or true
-    else if not mt.__cache[mo] then
+    elseif not mt.__cache[mo] then
       load_default_model(mo, pcall(require, "models." .. mo) or {})
       myutils.log(device, "info", "Force loading model", mo, not not mt.__cache[mo]) -- expected: table
     end
