@@ -1,0 +1,36 @@
+manufacturer: "_TZE204_7gclukjs"
+model: "TS0601"
+profile: "normal-presenceSensor-v1"
+datapoints:
+  - id: 104
+    name: presence
+    type: boolean
+    capability: presenceSensor
+    attribute: presence
+    values:
+      - value: true
+        mappedValue: "present"
+      - value: false
+        mappedValue: "not present"
+
+  - id: 103
+    name: illuminance_lux
+    type: integer
+    capability: illuminanceMeasurement
+    attribute: illuminance
+
+  - id: 2
+    name: move_sensitivity
+    type: integer
+
+  - id: 3
+    name: detection_distance_min
+    type: integer
+
+  - id: 4
+    name: detection_distance_max
+    type: integer
+
+  - id: 105
+    name: presence_timeout
+    type: integer
