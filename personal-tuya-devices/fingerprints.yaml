@@ -291,6 +291,11 @@ zigbeeManufacturer:
     manufacturer: _TZE200_ztc6ggyl
     deviceProfileName: normal-presenceSensor-v1
     deviceLabel: Presence Sensor
+  - id: TS0601/_TZE204_81yrt3lo
+    model: TS0601
+    manufacturer: _TZE204_81yrt3lo
+    deviceProfileName: normal-multi-powerMeter-v1
+    deviceLabel: Power Meter
   - id: TS0601/_TZE204_ac0fhfiq
     model: TS0601
     manufacturer: _TZE204_ac0fhfiq
