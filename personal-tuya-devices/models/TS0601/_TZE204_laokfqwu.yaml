@@ -1,0 +1,49 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v1
+datapoints:
+  # https://github.com/wzwenzhi/Wenzhi-ZigBee2mqtt/blob/main/wenzhi_tuya_M100_240704.js#L20-L53
+  # https://github.com/zigpy/zha-device-handlers/pull/3695/files#diff-54518ccR354-R406
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1
+  - id: 2
+    command: value
+    base:
+      group: 2
+      name: sensitivity
+  - id: 3
+    command: value
+    base:
+      group: 3
+      name: near_detection
+  - id: 4
+    command: value
+    base:
+      group: 4
+      name: far_detection
+  - id: 9
+    command: value
+    base:
+      group: 5
+      name: distance
+  - id: 103
+    command: illuminanceMeasurement
+    base:
+      group: 1
+  - id: 104
+    command: value
+    base:
+      group: 6
+      name: interval_time
+  - id: 105
+    command: value
+    base:
+      group: 7
+      name: detection_delay
+  - id: 106
+    command: value
+    base:
+      group: 8
+      name: fading_time

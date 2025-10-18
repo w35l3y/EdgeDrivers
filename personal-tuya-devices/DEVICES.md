@@ -55,6 +55,7 @@
 | TS0601  | \_TZE204_ac0fhfiq     | Power Meter     | normal-powerMeter-v1       | 6, 1                                               |
 | TS0601  | \_TZE204_aoclfnxz     | Thermostat      | normal-thermostat-v4       | 1, 16, 24                                          |
 | TS0601  | \_TZE204_cjbofhxw     | Power Meter     | normal-powerMeter-v1       | 18, 19, 20, 101                                    |
+| TS0601  | \_TZE204_laokfqwu     | Presence Sensor | normal-presenceSensor-v1   | 1, 2, 3, 4, 9, 103, 104, 105, 106                  |
 | TS0601  | \_TZE204_ntcy3xu1     | Smoke Detector  | normal-smokeDetector-v1    | 1, 101, 14                                         |
 | TS0601  | \_TZE204_sbyx0lm6     | Presence Sensor | normal-presenceSensor-v4   | 1, 2, 3, 4, 101, 102, 104, 107, 108, 109, 111, 115 |
 | TS0601  | \_TZE204_sxm7l9xa     | Presence Sensor | normal-presenceSensor-v1   | 105, 106, 108, 107, 111, 110, 104                  |
