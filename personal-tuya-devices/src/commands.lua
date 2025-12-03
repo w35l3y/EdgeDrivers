@@ -928,6 +928,12 @@ local defaults = {
     to_zigbee = function (self, value) return data_types.Enum8(to_number(value)) end,
     from_zigbee = function (self, value) return to_number(value) end,
   },
+  boolean = {
+    capability = "valleyboard16460.datapointEnum",
+    attribute = "value",
+    to_zigbee = function (self, value) return data_types.Boolean(to_number(value) ~= 0) end,
+    from_zigbee = function (self, value) return to_number(value) end,
+  },
   bitmap = {
     capability = "valleyboard16460.datapointBitmap",
     attribute = "value",

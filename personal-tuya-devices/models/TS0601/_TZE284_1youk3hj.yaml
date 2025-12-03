@@ -1,0 +1,77 @@
+deviceLabel: Presence Sensor
+profiles:
+  - normal_presenceSensor_v6
+datapoints:
+  # writable relay switch
+  - id: 104
+    command: switch
+    base:
+      group: 1
+      name: relay
+      type: boolean
+
+  # read-only status
+  - id: 1
+    command: presenceSensor
+    base:
+      group: 1
+      name: presence
+      type: enum
+  - id: 11
+    command: motionSensor
+    base:
+      group: 1
+      name: motion
+      type: enum
+  - id: 19
+    command: value
+    base:
+      group: 1
+      name: detected_distance
+
+  # writable settings
+  # - id: 101
+  #   command: enum
+  #   base:
+  #     group: 2
+  #     name: relay_control
+  - id: 101
+    command: enum
+    base:
+      group: 2
+      name: relay_control
+  - id: 105
+    command: boolean
+    base:
+      group: 2
+      name: status_indication
+  - id: 12
+    command: value
+    base:
+      group: 2
+      name: presence_hold
+  - id: 103
+    command: value
+    base:
+      group: 2
+      name: duration
+  - id: 16
+    command: value
+    base:
+      group: 2
+      name: presence_sensitivity
+  - id: 15
+    command: value
+    base:
+      group: 2
+      name: motion_sensitivity
+  - id: 13
+    command: value
+    base:
+      group: 2
+      name: motion_range
+  - id: 102
+    command: enum
+    base:
+      group: 2
+      name: light_sensitivity

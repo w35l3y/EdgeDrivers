@@ -31,7 +31,7 @@ preferences:
         normal_presenceSensor_v1: Normal
         normal_presenceSensor_v2: No illuminance
         normal_presenceSensor_v3: +Battery
-        normal_presenceSensor_v4: +Relay
+        normal_presenceSensor_v6: +Relay
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v1
   - name: logLevel

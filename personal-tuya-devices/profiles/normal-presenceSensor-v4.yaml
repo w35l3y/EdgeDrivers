@@ -32,7 +32,7 @@ preferences:
       options:
         normal_presenceSensor_v4: Normal
         normal_presenceSensor_v1: No relay
-        normal_presenceSensor_v2: No illuminance
+        normal_presenceSensor_v6: No illuminance
         normal_presenceSensor_v3: +Battery
         generic_ef00_v1: Generic
       default: normal_presenceSensor_v4
