@@ -1,0 +1,164 @@
+# https://developer.smartthings.com/docs/devices/device-profiles#categories
+# https://openconnectivityfoundation.github.io/devicemodels/docs/index.html
+# https://community.smartthings.com/t/change-icons-in-new-app/184190/25?u=w35l3y
+name: "normal-presenceSensor-v6"
+components:
+  - id: main
+    label: Presence Sensor
+    capabilities:
+      - id: presenceSensor
+        version: 1
+      - id: switch
+        version: 1
+      - id: motionSensor
+        version: 1
+      - id: valleyboard16460.datapointValue
+        version: 1
+      - id: valleyboard16460.settings
+        version: 1
+      - id: signalStrength
+        version: 1
+      - id: refresh
+        version: 1
+      - id: valleyboard16460.debug
+        version: 1
+    categories:
+      - name: PresenceSensor
+preferences:
+  - name: profile
+    title: Profile
+    description: "Choose the profile  "
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        normal_presenceSensor_v6: Normal
+        normal_presenceSensor_v1: No relay
+        normal_presenceSensor_v4: +Illuminance
+        normal_presenceSensor_v3: +Battery
+        generic_ef00_v1: Generic
+      default: normal_presenceSensor_v6
+  - name: logLevel
+    title: Log level
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        error: Error
+        warn: Warn, Error
+        info: Info, Warn, Error
+        debug: Debug, Info, Warn, Error
+      default: error
+  # - name: manufacturer
+  #   title: Manufacturer
+  #   description: Choose the manufacturer
+  #   required: false
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       _: Auto
+  #       _TZE284_1youk3hj: _TZE284_1youk3hj
+  # - name: switchType
+  #   title: Switch Type
+  #   description: Expected type by the device
+  #   required: true
+  #   preferenceType: enumeration
+  #   definition:
+  #     options:
+  #       auto: Default
+  #       bool: Boolean
+  #       enum: Enum
+  #     default: auto
+  - name: prefPresenceSensitivity
+    title: Motionless Sensitivity
+    description: An integer between 0 and 7
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 7
+      default: 7
+  - name: prefMotionSensitivity
+    title: Motion Sensitivity
+    description: An integer between 0 and 7
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 7
+      default: 7
+  - name: prefMotionRange
+    title: Motion Range (cm)
+    description: An integer between 150 and 600
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 150
+      maximum: 600
+      default: 600
+  - name: prefPresenceHold
+    title: Presence Hold (s)
+    description: An integer between 3 and 10
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 3
+      maximum: 10
+      default: 3
+  - name: prefDuration
+    title: Output Duration (s)
+    description: An integer between 10 and 1800
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 10
+      maximum: 1800
+      default: 10
+  - name: prefLightSensitivity
+    title: Light Sensitivity
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: "10 lux"
+        1: "20 lux"
+        2: "50 lux"
+        3: "Off"
+      default: 3
+  - name: prefRelayControl
+    title: Relay Control
+    description: If enabled, relay will follow presence
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        1: "Enabled"
+        0: "Disabled"
+      default: 1
+  - name: prefStatusIndication
+    title: Status Indication
+    description: Indicator will light when human presence is detected
+    required: true
+    preferenceType: enumeration
+    definition:
+      options:
+        0: Off
+        1: On
+      default: 1
+  - name: dpPresenceSensorMain01
+    title: DP for Presence Sensor
+    description: Only if you want to override the default DataPoint
+    required: true
+    preferenceType: integer
+    definition:
+      minimum: 0
+      maximum: 255
+      default: 0
+metadata:
+  deviceType: PresenceSensor
+  ocfDeviceType: x.com.st.d.sensor.presence
+  deviceTypeId: PresenceSensor
+  mnmn: SmartThingsCommunity
+owner:
+  ownerType: USER
+  ownerId: ea35e8c8-3aef-2f72-958b-e3ad10644043
